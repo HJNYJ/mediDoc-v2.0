@@ -1,4 +1,4 @@
-// 질문&답변 Textarea (rf ac)
+// 질문&답변 Textarea
 
 "use client";
 
@@ -7,7 +7,7 @@ import React from "react";
 const AskForm = () => {
   return (
     <>
-      <section>
+      <form>
         <div>
           <h1>실시간 상담</h1>
         </div>
@@ -46,7 +46,7 @@ const AskForm = () => {
           <input type="text" placeholder="#태그는 최대 10개 입니다" />
         </div>
         <button>물어보기</button>
-      </section>
+      </form>
     </>
   );
 };
