@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const ConsultList = () => {
-  // 현재 선택된 탭의 상태를 관리합니다.
+  // 탭 상태 관리
   const [selectedTab, setSelectedTab] = useState("internal");
 
-  // 탭을 변경하는 함수입니다.
+  // 탭변경
   const handleTabChange = (tabName: string) => {
     setSelectedTab(tabName);
   };
