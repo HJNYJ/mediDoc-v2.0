@@ -4,7 +4,7 @@ import React from "react";
 
 export const Navbar = () => {
   return (
-    <nav>
+    <nav className="flex justify-between items-center py-4 px-6 bg-gray-500 text-white">
       <Link href={"/"}>홈</Link>
       <Link href={"/login"}>로그인</Link>
       <Link href={"/mypage"}>마이페이지</Link>

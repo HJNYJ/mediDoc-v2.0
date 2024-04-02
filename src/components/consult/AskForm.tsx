@@ -9,14 +9,14 @@ import HashTags from "./HashTags";
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-
-  // 해시태그 데이터를 저장할 상태
+  const [bodyparts, setBodyparts] = useState("");
+  // 해시태그 데이터 저장할 상태
   const [hashtags, setHashtags] = useState({});
 
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")
-      .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8")
+      .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10")
       .eq("body_section", selectedCategory);
 
     if (error) {
@@ -34,14 +34,18 @@ const AskForm = () => {
         tag5: tags.tag5,
         tag6: tags.tag6,
         tag7: tags.tag7,
-        tag8: tags.tag8
+        tag8: tags.tag8,
+        tag9: tags.tag9,
+        tag10: tags.tag10
       });
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { data, error } = await consultAddForm(title, contents);
+
+    // 데이터 추가
+    const { data, error } = await consultAddForm(title, contents, bodyparts);
     if (error) {
       console.error("askForm 데이터 추가 실패", error);
     } else {
@@ -51,9 +55,9 @@ const AskForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-5">
         <div>
-          <h1>실시간 상담</h1>
+          <h1 className="text-3xl font-bold">실시간 상담</h1>
         </div>
         <div>
           <label>제목</label>
@@ -63,6 +67,7 @@ const AskForm = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
           />
         </div>
         <div>
@@ -73,13 +78,20 @@ const AskForm = () => {
             value={contents}
             onChange={(e) => setContents(e.target.value)}
             required
+            className="w-full h-96 px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500 overflow-auto"
           />
         </div>
-        <p>{contents.length} /500</p>
-        <p>위는 가져온거 아래는 붙인거 둘다 되는 것 </p>
+        <p className="text-gray-500">{contents.length} /500</p>
+
         <div>
-          <label>카테고리</label>
-          <select onChange={(e) => fetchHashtags(e.target.value)}>
+          <label className="block mb-1">카테고리</label>
+          <select
+            onChange={(e) => {
+              fetchHashtags(e.target.value);
+              setBodyparts(e.target.value);
+            }}
+            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
+          >
             <option>증상 과목 선택</option>
             <option value="eyes">눈</option>
             <option value="ears">귀</option>
@@ -89,7 +101,12 @@ const AskForm = () => {
           </select>
           <HashTags hashtags={hashtags} />
         </div>
-        <button type="submit">물어보기</button>
+        <button
+          type="submit"
+          className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+        >
+          물어보기
+        </button>
       </form>
     </>
   );

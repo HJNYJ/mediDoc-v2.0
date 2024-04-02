@@ -19,10 +19,6 @@ export interface ConsultResponse {
   date: string;
 }
 
-export interface ConsultCategoryProps {
-  isSelectedOption: boolean;
-}
-
 export interface HashtagButtonsProps {
   hashtags: { [key: string]: string };
 }
