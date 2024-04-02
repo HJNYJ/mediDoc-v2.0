@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ConsultList = () => {
+const ConsultTabs = () => {
   // 탭 상태 관리
   const [selectedTab, setSelectedTab] = useState("internal");
 
@@ -8,7 +8,6 @@ const ConsultList = () => {
   const handleTabChange = (tabName: string) => {
     setSelectedTab(tabName);
   };
-
   return (
     <section>
       <label>{/* 진료 칩 구역 */}</label>
@@ -34,4 +33,4 @@ const ConsultList = () => {
   );
 };
 
-export default ConsultList;
+export default ConsultTabs;

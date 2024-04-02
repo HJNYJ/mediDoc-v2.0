@@ -1,6 +1,6 @@
 "use client";
 
-// 상담 질문 출력 div
+// 상담 질문 출력 div (ask form -> consult question)
 import React from "react";
 
 const ConsultQuestion = () => {

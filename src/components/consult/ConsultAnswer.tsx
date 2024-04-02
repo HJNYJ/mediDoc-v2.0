@@ -1,17 +1,25 @@
 "use client";
 
-// 상담 답변 출력 div
+// 상담 답변 출력 div (AnswerForm 폼 입력 => consultAnswer에서 출력)
 import React from "react";
 
 const ConsultAnswer = () => {
   return (
     <section>
-      <div>내과 관련 답변</div>
       <div>
-        <label>답변 내용</label>
-        <textarea placeholder="예) 결막염인 것 같아보이네요. 가까운 병원으로 한번 내원해주세요." />
+        {/** 데이터 가져와서 보여주기 */}
+        <p>내과 답변</p>
+        <p>홍길동 의사</p>
+        <div> 물을 많이 드셔야해요. 요즘 미세먼지가 넘 많아영 홍홍홍 </div>
       </div>
-      <button>답변완료</button>
+      <div>
+        <label>⭐ 꼭 확인해주세요. ⭐</label>
+        <ul>
+          <li>자세한 사항은 직접 내원해주세요.</li>
+          <li>병원에 문의 부탁드립니다.</li>
+          <li>병원에 문의 부탁드립니다.</li>
+        </ul>
+      </div>
     </section>
   );
 };
