@@ -5,6 +5,7 @@
 import { consultAddForm, supabase } from "@/api/supabase";
 import React, { useState } from "react";
 import HashTags from "./HashTags";
+import ConsultImages from "./ConsultImages";
 
 const AskForm = () => {
   const [title, setTitle] = useState("");
@@ -12,6 +13,7 @@ const AskForm = () => {
   const [bodyparts, setBodyparts] = useState("");
   // 해시태그 데이터 저장할 상태
   const [hashtags, setHashtags] = useState({});
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
 
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
@@ -50,6 +52,10 @@ const AskForm = () => {
       console.error("askForm 데이터 추가 실패", error);
     } else {
       console.log("AskForm 추가 성공", data);
+
+      // 이미지 URL을 객체에 추가
+      const imageData = { image_url: uploadedFileUrl };
+      console.log("이미지 데이터:", imageData);
     }
   };
 
@@ -78,7 +84,7 @@ const AskForm = () => {
             value={contents}
             onChange={(e) => setContents(e.target.value)}
             required
-            className="w-full h-96 px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500 overflow-auto"
+            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
           />
         </div>
         <p className="text-gray-500">{contents.length} /500</p>
@@ -100,6 +106,15 @@ const AskForm = () => {
             <option value="neck">목</option>
           </select>
           <HashTags hashtags={hashtags} />
+        </div>
+        <div>
+          <label>사진첨부</label>
+          <div>
+            <ConsultImages
+              uploadedFileUrl={uploadedFileUrl}
+              setUploadedFileUrl={setUploadedFileUrl}
+            />
+          </div>
         </div>
         <button
           type="submit"

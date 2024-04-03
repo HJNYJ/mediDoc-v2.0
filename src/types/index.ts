@@ -4,9 +4,9 @@ export interface ConsultRequest {
   consult_content: string;
   user_email: string;
   user_name: string;
-  bodypart: string;
-  Field: string[];
-  date: string;
+  bodyParts: string;
+  consultPhotos: string[];
+  created_at: string;
 }
 
 export interface ConsultResponse {
@@ -16,9 +16,14 @@ export interface ConsultResponse {
   userName: string;
   bodyParts: string;
   consultPhotos: string[];
-  date: string;
+  created_at: string;
 }
 
 export interface HashtagButtonsProps {
   hashtags: { [key: string]: string };
+}
+
+export interface UploadedFileUrlProps {
+  uploadedFileUrl: string[];
+  setUploadedFileUrl: React.Dispatch<React.SetStateAction<string[]>>;
 }
