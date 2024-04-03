@@ -1,9 +1,15 @@
 import React from "react";
 
 import HospitalName from "./HospitalName";
-import Button from "./Button";
 
-const ApplyPageOne = () => {
+const ApplyPageOne = ({
+  setPageCount
+}: {
+  setPageCount: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const handleNextClick = () => {
+    return setPageCount("second");
+  };
   return (
     <>
       <HospitalName />
@@ -20,7 +26,7 @@ const ApplyPageOne = () => {
         휴대전화번호
         <input />
       </div>
-      <Button />
+      <button onClick={handleNextClick}>다음</button>
     </>
   );
 };

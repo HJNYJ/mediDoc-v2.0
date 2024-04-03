@@ -1,16 +1,22 @@
 import React from "react";
 import CourseSelect from "./CourseSelect";
 import CourseSelectItem from "./CourseSelectItem";
-import Button from "./Button";
 
-const ApplyPageThird = () => {
+const ApplyPageThird = ({
+  setPageCount
+}: {
+  setPageCount: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const handleNextClick = () => {
+    return setPageCount("forth");
+  };
   return (
     <>
       <div>
         <CourseSelect />
         <CourseSelectItem />
       </div>
-      <Button />
+      <button onClick={handleNextClick}>다음</button>
     </>
   );
 };

@@ -1,5 +1,4 @@
 // 건강검진 신청 페이지
-"use client";
 
 import ApplyPageFourth from "@/components/apply/ApplyPageFourth";
 import ApplyPageOne from "@/components/apply/ApplyPageOne";
@@ -10,18 +9,21 @@ import React, { useState } from "react";
 const ApplyPage = () => {
   const [pageCount, setPageCount] = useState<string>("first");
 
-  const pageMovement = () => {
-    if (pageCount === "first") {
-      return <ApplyPageOne />;
-    } else if (pageCount === "second") {
-      return <ApplyPageTwo />;
-    } else if (pageCount === "third") {
-      return <ApplyPageThird />;
-    } else {
-      return <ApplyPageFourth />;
-    }
-  };
-  return <>{pageMovement}</>;
+  return (
+    <>
+      {pageCount === "first" ? (
+        <ApplyPageOne setPageCount={setPageCount} />
+      ) : pageCount === "second" ? (
+        <ApplyPageTwo setPageCount={setPageCount} />
+      ) : pageCount === "third" ? (
+        <ApplyPageThird setPageCount={setPageCount} />
+      ) : pageCount === "forth" ? (
+        <ApplyPageFourth />
+      ) : (
+        <div>Error</div>
+      )}
+    </>
+  );
 };
 
 export default ApplyPage;

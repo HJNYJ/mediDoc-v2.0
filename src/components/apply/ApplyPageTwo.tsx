@@ -1,14 +1,20 @@
 import React from "react";
 import TimeSelect from "./TimeSelect";
-import Button from "./Button";
 
-const ApplyPageTwo = () => {
+const ApplyPageTwo = ({
+  setPageCount
+}: {
+  setPageCount: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const handleNextClick = () => {
+    return setPageCount("third");
+  };
   return (
     <div>
       <p>
         <TimeSelect />
       </p>
-      <Button />
+      <button onClick={handleNextClick}>다음</button>
     </div>
   );
 };
