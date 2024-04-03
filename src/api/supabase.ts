@@ -10,51 +10,52 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
-  newBodyParts: string
+  newBodyParts: string,
+  newHashTags: string[],
+  newConsultPhotos: string[]
 ) => {
   const { data, error } = await supabase.from("consult_info").insert([
     {
       consult_title: newTitle,
       consult_content: newContents,
-      bodyparts: newBodyParts
+      bodyparts: newBodyParts,
+      hashtags: newHashTags,
+      consult_photos: newConsultPhotos
     }
   ]);
-  return { data, error };
-};
-
-// 임시로 생성한 사용자 정보
-const tempUserInfo = {
-  uid: 1111,
-  email: "namnam123@gmail.com",
-  user_name: "냠냠박사",
-  user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-  user_metadata: {
-    user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-    email: "namnam123@gmail.com",
-    user_name: "냠냠박사"
+  if (error) {
+    console.error("consultAddForm 데이터 추가 실패", error);
+    return error;
+  } else {
+    console.log("consultAddForm 추가 성공", data);
+    return data;
   }
 };
 
-// 임시로 생성한 사용자 정보를 반환
-export const getCurrentLoginUserInfo = async () => {
-  return tempUserInfo;
-};
-// 임시 생성임
+// // 임시로 생성한 사용자 정보
+// const tempUserInfo = {
+//   uid: 1111,
+//   email: "namnam123@gmail.com",
+//   user_name: "냠냠박사",
+//   user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
+//   user_metadata: {
+//     user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
+//     email: "namnam123@gmail.com",
+//     user_name: "냠냠박사"
+//   }
+// };
+
+// // 임시로 생성한 사용자 정보를 반환
+// export const getCurrentLoginUserInfo = async () => {
+//   return tempUserInfo;
+// };
+// // 임시 생성임
 
 // 유저 정보 가져오기
 export const getUserInform = async () => {
   const { data } = await supabase.auth.getUser();
   return data;
 };
-
-// 현재 로그인 유저 정보 가져오기
-// export const getCurrentLoginUserInfo = async () => {
-//   const {
-//     data: { user: currentLoginUserInfo }
-//   } = await supabase.auth.getUser();
-
-//   return currentLoginUserInfo;
-// };
 
 // 유저 정보 업데이트
 export const updateUserInform = async (name: string, images: string) => {

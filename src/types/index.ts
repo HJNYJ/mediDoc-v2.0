@@ -5,8 +5,9 @@ export interface ConsultRequest {
   user_email: string;
   user_name: string;
   bodyParts: string;
-  consultPhotos: string[];
+  consult_photos: string[];
   created_at: string;
+  hashtags: string[];
 }
 
 export interface ConsultResponse {
@@ -15,7 +16,7 @@ export interface ConsultResponse {
   consultContent: string;
   userName: string;
   bodyParts: string;
-  consultPhotos: string[];
+  consult_photos: string[];
   created_at: string;
 }
 

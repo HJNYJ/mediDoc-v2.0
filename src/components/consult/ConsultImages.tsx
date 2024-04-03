@@ -7,7 +7,6 @@ const ConsultImages = ({
   setUploadedFileUrl
 }: UploadedFileUrlProps) => {
   const [files, setFiles] = useState<File[]>([]);
-
   const [uploadedImages, setUploadedImages] = useState<
     {
       name: string;
@@ -36,22 +35,26 @@ const ConsultImages = ({
     alert("이미지는 최대 5개까지 업로드 가능합니다.");
   }
 
+  // 이미지 업로드 함수
   const handleAddImages = async (file: File) => {
     try {
       const newFileName = `random-${Math.random()}`;
+      // Supabase Storage에 이미지 업로드
       const { data, error } = await supabase.storage
         .from("images")
-        .upload(`products/${newFileName}`, file);
+        .upload(`user_images/${newFileName}`, file);
 
       if (error) {
         console.log("파일이 업로드 되지 않았어요!", error);
         return;
       }
+
+      // 업로드된 이미지의 공개 URL 가져오기
       const res = supabase.storage.from("images").getPublicUrl(data.path, {
         transform: {
-          width: 300,
-          resize: "contain",
-          format: "origin"
+          width: 200,
+          resize: "contain", // 이미지의 주어진 너비에 맞추어 크기 조정
+          format: "origin" // 이미지 포맷 유지
         }
       });
 
@@ -95,8 +98,12 @@ const ConsultImages = ({
 
   // X 버튼 클릭 -> 이미지 삭제
   const handleDeleteImage = (idx: number) => {
+    // uploadedFileUrl state 업데이트
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
-    setFiles(files.filter((_, index) => index !== idx));
+
+    // uploadedImages state 업데이트
+    const updatedImages = uploadedImages.filter((_, index) => index !== idx);
+    setUploadedImages(updatedImages);
   };
 
   return (
@@ -113,7 +120,7 @@ const ConsultImages = ({
             <div key={image.dataUrl}>
               <img src={image.dataUrl} alt={image.name} />
               <div id={image.dataUrl} onClick={handleImageOrder}></div>
-              <div onClick={() => handleDeleteImage(idx)}></div>
+              <button onClick={() => handleDeleteImage(idx)}>삭제</button>
             </div>
           ))}
 

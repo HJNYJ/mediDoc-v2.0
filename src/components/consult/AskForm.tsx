@@ -47,11 +47,18 @@ const AskForm = () => {
     e.preventDefault();
 
     // 데이터 추가
-    const { data, error } = await consultAddForm(title, contents, bodyparts);
-    if (error) {
-      console.error("askForm 데이터 추가 실패", error);
-    } else {
-      console.log("AskForm 추가 성공", data);
+    const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
+    const data = await consultAddForm(
+      title,
+      contents,
+      bodyparts,
+      hashtagsArray,
+      uploadedFileUrl // 이미지 URL 추가
+    );
+
+    console.log(data);
+    if (data) {
+      console.log("AskForm 추가 성공", data!);
 
       // 이미지 URL을 객체에 추가
       const imageData = { image_url: uploadedFileUrl };
