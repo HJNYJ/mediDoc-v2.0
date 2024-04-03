@@ -13,9 +13,18 @@ const ConsultPage = () => {
   };
 
   return (
-    <div>
-      <ConsultTabs />
-      <button onClick={goToAskForm}>🖋🖋🖋작성</button>
+    <div className="flex flex-col justify-between">
+      <div>
+        <ConsultTabs />
+      </div>
+      <div className="flex justify-center mb-24">
+        <button
+          onClick={goToAskForm}
+          className="px-4 py-2 bg-yellow-500 text-white rounded-md"
+        >
+          🖋🖋🖋작성
+        </button>
+      </div>
     </div>
   );
 };
