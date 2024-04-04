@@ -7,7 +7,7 @@ import React from "react";
 import type { reservation } from "@/types/index";
 
 const HospitalName = () => {
-  const { data, isLoadong, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["reservation"],
     queryFn: async () => {
       const response = await supabase
@@ -17,7 +17,11 @@ const HospitalName = () => {
       return data;
     }
   });
-  return <div>병원 이름</div>;
+  // console.log("Data", data);
+  const hospitalData = data?.[0].hospital_name;
+  // 데이터를 꺼내 쓰는 용도
+
+  return <div>{hospitalData}</div>;
 };
 
 export default HospitalName;

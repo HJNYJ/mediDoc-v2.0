@@ -1,5 +1,5 @@
 // 건강검진 신청 페이지
-
+"use client";
 import ApplyPageFourth from "@/components/apply/ApplyPageFourth";
 import ApplyPageOne from "@/components/apply/ApplyPageOne";
 import ApplyPageThird from "@/components/apply/ApplyPageThird";
