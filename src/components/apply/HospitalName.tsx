@@ -10,8 +10,8 @@ const HospitalName = () => {
     queryFn: async () => {
       const response = await supabase
         .from("reservation_info")
-        .select("hospital_name")
-        .eq("hospital_name", "인천 성모애자병원");
+        .select("hospital_name");
+
       const { data } = response;
       return data;
     }
@@ -26,11 +26,6 @@ const HospitalName = () => {
   if (isError) {
     <div>에러 입니다...</div>;
   }
-  return <div>{hospitalData}</div>;
-  // console.log("Data", data);
-  const hospitalData = data?.[0].hospital_name;
-  // 데이터를 꺼내 쓰는 용도
-
   return <div>{hospitalData}</div>;
 };
 

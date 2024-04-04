@@ -10,6 +10,7 @@ const ApplyPageOne = ({
 }) => {
   const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
     useApplyStore();
+
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
