@@ -1,4 +1,4 @@
-export interface reservation {
+export interface application {
   apply_date: string | null;
   apply_time: string | null;
   hospital_id: string | null;
