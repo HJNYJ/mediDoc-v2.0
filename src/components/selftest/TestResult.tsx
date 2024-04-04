@@ -1,15 +1,17 @@
 // 테스트 결과 div
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 
 const TestResult = () => {
-  const { selectedSymptoms, predictedDiseases, setPredictedDiseases } =
-    useSelftestStore();
-
-  // console.log("선택된 질병", selectedSymptoms);
+  const {
+    selectedPart,
+    selectedSymptoms,
+    predictedDiseases,
+    setPredictedDiseases
+  } = useSelftestStore();
 
   useEffect(() => {
     const fetchPredictedDiseases = async () => {
@@ -18,24 +20,23 @@ const TestResult = () => {
           return;
         }
 
-        // 선택된 증상을 symptomN으로 변환
-        const convertedSymptoms = selectedSymptoms.map((ear) => {
-          const number = parseInt(ear.split("-")[1]);
+        // 선택된 증상을 possible_disease 테이블의 column과 대응
+        const convertedSymptoms = selectedSymptoms.map((symptom) => {
+          const number = parseInt(symptom.split("-")[1]);
           return `symptom${number}`;
         });
 
-        console.log("convertedSymptoms", convertedSymptoms);
-
-        // possible_disease_ear 테이블에서 질병 정보 가져오기
+        // possible_disease 테이블에서 선택한 부위에 해당하는 질환 정보 가져오기
         const { data: possibleDiseases, error } = await supabase
-          .from("possible_disease_ear")
-          .select("*");
+          .from("possible_disease")
+          .select("*")
+          .eq("bodyparts", selectedPart);
 
         if (error) throw error;
 
-        // 선택된 증상과 매칭되는 질병 찾기
+        // 선택한 증상과 매칭되는 질환 찾기
         const matchedDiseases = possibleDiseases.filter((disease) => {
-          // possible_disease_ear 테이블의 증상 컬럼과 선택한 증상 비교하여 일치 여부 확인
+          // possible_disease 테이블의 증상 컬럼과 선택한 증상 비교하여 일치 여부 확인
           return convertedSymptoms.every(
             (convertedSymptom) => disease[convertedSymptom]
           );
@@ -59,7 +60,7 @@ const TestResult = () => {
     };
 
     fetchPredictedDiseases();
-  }, [selectedSymptoms]);
+  }, [selectedSymptoms, selectedPart]);
 
   return (
     <>

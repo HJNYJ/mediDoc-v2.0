@@ -1,25 +1,30 @@
 //증상 div
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useRouter } from "next/navigation";
 
 const Symptoms = () => {
-  const { symptoms, setSymptoms, selectedSymptoms, setSelectedSymptoms } =
-    useSelftestStore();
+  const {
+    symptoms,
+    setSymptoms,
+    selectedPart,
+    selectedSymptoms,
+    setSelectedSymptoms
+  } = useSelftestStore();
 
   const router = useRouter();
 
-  // supabase에서 아픈 부위가 귀인 증상들 가져오기
+  // supabase에서 선택한 아픈 부위에 해당하는 증상들 가져오기
   useEffect(() => {
     const fetchSymptoms = async () => {
       try {
         const { data: questions, error } = await supabase
           .from("symptom_questions")
           .select("*")
-          .eq("bodyparts", "귀");
+          .eq("bodyparts", selectedPart);
 
         if (error) throw error;
         setSymptoms(questions);
@@ -27,7 +32,7 @@ const Symptoms = () => {
         console.error(error.message);
       }
     };
-    fetchSymptoms();
+    if (selectedPart) fetchSymptoms();
   }, []);
 
   // 증상을 중복 선택하는 함수
