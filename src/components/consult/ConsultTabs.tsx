@@ -26,7 +26,7 @@ const ConsultTabs: React.FC<TabsProps> = ({ handleCategoryChange }) => {
       <label className="block mb-2 text-lg font-medium text-gray-700">
         {/* 진료 칩 구역 */}
       </label>
-      <div className="flex space-x-4 mb-4">
+      <div className="flex space-x-6 mb-4">
         {["eyes", "ears", "nose", "abdomen", "neck"].map((tab) => (
           <button
             key={tab}

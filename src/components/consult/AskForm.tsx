@@ -44,14 +44,11 @@ const AskForm = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     // 데이터 추가
     const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
     console.log(hashtagsArray);
 
-    // 여기가 우리가 해결해야 할 곳!!
     // 어떻게 선택된 배열만 찾아올 수 있을까????
     console.log("selectedTags => ", selectedTags);
 
@@ -75,7 +72,10 @@ const AskForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-5">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="max-w-lg mx-auto space-y-5"
+      >
         <div>
           <h1 className="text-3xl font-bold">실시간 상담</h1>
         </div>
@@ -135,7 +135,8 @@ const AskForm = () => {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
         >
           물어보기

@@ -10,7 +10,9 @@ interface Consulting {
   consult_id: string;
   user_name: string;
   consult_title: string;
+  consult_content: string;
   bodyparts: string;
+  hashtags: string[];
 }
 
 const ConsultPage = () => {
@@ -22,7 +24,9 @@ const ConsultPage = () => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("consult_info")
-        .select("consult_id, user_name, consult_title, bodyparts"); // Include 'id' in the selected columns
+        .select(
+          "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags"
+        ); // Include 'id' in the selected columns
       if (error) console.error("error", error);
       else setConsults(data as Consulting[]); // Cast the data to Consulting[]
     };
@@ -47,22 +51,46 @@ const ConsultPage = () => {
 
   return (
     <div className="flex flex-col justify-between">
-      <div>
+      <div className="flex justify-between items-center mb-4">
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
-      <div>
+      <div className="border-t border-gray-200">
         {filteredConsults().map((consult) => (
-          <div key={consult.consult_id}>
-            <h2>{consult.user_name}</h2>
-            <p>{consult.consult_title}</p>
+          <div
+            key={consult.consult_id}
+            className="border-b py-4 flex items-center"
+          >
+            <div className="w-[200px]">사진</div>
+            <div>
+              <div className="text-left ml-10">
+                <p className="text-lg text-black-600">
+                  {consult.consult_title}
+                </p>
+                <p className="text-sm text-gray-600 mt-8">
+                  {consult.consult_content}
+                </p>
+                <h2 className="text-lg font-semibold">{consult.user_name}</h2>
+                <div className="mt-3 flex flex-wrap">
+                  {consult?.hashtags?.split(",").map((hashtag: string) => (
+                    <span
+                      key={hashtag}
+                      className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
+                    >
+                      #
+                      {hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
-      <div className="flex justify-center mb-24">
+      <div className="border-t border-gray-200">
         <button
           onClick={goToAskForm}
-          className="px-4 py-2 bg-yellow-500 text-white rounded-md"
+          className="border-b py-4 flex justify-between items-center"
         >
           🖋🖋🖋작성
         </button>
