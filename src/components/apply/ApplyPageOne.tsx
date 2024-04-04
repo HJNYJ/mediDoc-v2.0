@@ -22,9 +22,30 @@ const ApplyPageOne = ({
   const handleNextClick = () => {
     return setPageCount("second");
   };
+
   return (
     <>
       <HospitalName />
+      <article>병원 지도</article>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <div>
+          이름
+          <input onChange={onChangeName} />
+        </div>
+        <div>
+          주민등록번호
+          <input onChange={onChangeIdNumber} /> - <input />
+        </div>
+        <div>
+          휴대전화번호
+          <input onChange={onChangePhoneNumber} />
+        </div>
+        <button onClick={handleNextClick}>다음</button>
+      </form>
       <article>병원 지도</article>
       <form
         onSubmit={(e) => {
