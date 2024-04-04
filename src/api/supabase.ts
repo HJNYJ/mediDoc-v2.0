@@ -32,23 +32,51 @@ export const consultAddForm = async (
   }
 };
 
-// // 임시로 생성한 사용자 정보
-// const tempUserInfo = {
-//   uid: 1111,
-//   email: "namnam123@gmail.com",
-//   user_name: "냠냠박사",
-//   user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-//   user_metadata: {
-//     user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-//     email: "namnam123@gmail.com",
-//     user_name: "냠냠박사"
-//   }
-// };
+export const getStaticProps = async ({
+  params
+}: {
+  params: { tags: string[] };
+}) => {
+  const selectedTags = params.tags; // URL 파라미터에서 선택된 태그 추출
 
-// // 임시로 생성한 사용자 정보를 반환
-// export const getCurrentLoginUserInfo = async () => {
-//   return tempUserInfo;
-// };
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select("hashtags")
+    .eq("body_section", "eyes") // 카테고리 필터링 추가
+    .in("hashtags", selectedTags) // 선택된 태그 필터링 추가
+    .single();
+
+  if (error) {
+    console.error(error);
+    return {
+      props: {}
+    };
+  }
+
+  return {
+    props: {
+      hashtags: data.hashtags
+    }
+  };
+};
+
+// // 임시로 생성한 사용자 정보
+const tempUserInfo = {
+  uid: 1111,
+  email: "namnam123@gmail.com",
+  user_name: "냠냠박사",
+  user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
+  user_metadata: {
+    user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
+    email: "namnam123@gmail.com",
+    user_name: "냠냠박사"
+  }
+};
+
+// 임시로 생성한 사용자 정보를 반환
+export const getCurrentLoginUserInfo = async () => {
+  return tempUserInfo;
+};
 // // 임시 생성임
 
 // 유저 정보 가져오기

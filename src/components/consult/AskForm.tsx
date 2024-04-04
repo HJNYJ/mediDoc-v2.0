@@ -14,6 +14,7 @@ const AskForm = () => {
   // 해시태그 데이터 저장할 상태
   const [hashtags, setHashtags] = useState({});
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
@@ -48,11 +49,17 @@ const AskForm = () => {
 
     // 데이터 추가
     const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
+    console.log(hashtagsArray);
+
+    // 여기가 우리가 해결해야 할 곳!!
+    // 어떻게 선택된 배열만 찾아올 수 있을까????
+    console.log("selectedTags => ", selectedTags);
+
     const data = await consultAddForm(
       title,
       contents,
       bodyparts,
-      hashtagsArray,
+      selectedTags,
       uploadedFileUrl // 이미지 URL 추가
     );
 
@@ -112,7 +119,11 @@ const AskForm = () => {
             <option value="abdomen">배</option>
             <option value="neck">목</option>
           </select>
-          <HashTags hashtags={hashtags} />
+          <HashTags
+            hashtags={hashtags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
         </div>
         <div>
           <label>사진첨부</label>
