@@ -17,7 +17,7 @@ const ApplyPage = () => {
         <ApplyPageTwo setPageCount={setPageCount} />
       ) : pageCount === "third" ? (
         <ApplyPageThird setPageCount={setPageCount} />
-      ) : pageCount === "forth" ? (
+      ) : pageCount === "fourth" ? (
         <ApplyPageFourth />
       ) : (
         <div>Error</div>
