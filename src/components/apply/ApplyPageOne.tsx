@@ -11,6 +11,10 @@ const ApplyPageOne = ({
   const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
     useApplyStore();
 
+  // const {name} = useApplyStore;  : zustand에 저장된 name을 불러온 함수
+  // const {setName} =useApplyStore;  : setName함수를 불러오는 코드
+  // setName : name을 저장할 함수,
+
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -18,7 +22,7 @@ const ApplyPageOne = ({
     setIdNumber(parseFloat(e.target.value));
   };
   const onChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIdNumber(parseFloat(e.target.value));
+    setPhoneNumber(parseFloat(e.target.value));
   };
   const handleNextClick = () => {
     return setPageCount("second");
@@ -35,15 +39,15 @@ const ApplyPageOne = ({
       >
         <div>
           이름
-          <input onChange={onChangeName} />
+          <input onChange={onChangeName} key={name} />
         </div>
         <div>
           주민등록번호
-          <input onChange={onChangeIdNumber} /> - <input />
+          <input onChange={onChangeIdNumber} key={idNumber} /> - <input />
         </div>
         <div>
           휴대전화번호
-          <input onChange={onChangePhoneNumber} />
+          <input onChange={onChangePhoneNumber} key={phoneNumber} />
         </div>
         <button onClick={handleNextClick}>다음</button>
       </form>
