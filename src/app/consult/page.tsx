@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
-import Image from "next/image";
+// import Image from "next/image";
 
 interface Consulting {
   consult_id: string;
@@ -50,13 +50,13 @@ const ConsultPage = () => {
     );
   };
 
-  // const handleImagePreview = (photoURL: string | null) => {
-  //   if (photoURL) {
-  //     setImageSrc(photoURL);
-  //   } else {
-  //     setImageSrc(null); // Clear image preview if no photo
-  //   }
-  // };
+  const handleImagePreview = (photoURL: string | null) => {
+    if (photoURL) {
+      setImageSrc(photoURL);
+    } else {
+      setImageSrc(null); // Clear image preview if no photo
+    }
+  };
 
   const goToAskForm = () => {
     router.push(`/consult/ask`);
