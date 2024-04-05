@@ -63,7 +63,7 @@ const ConsultPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between bg-green">
       <div className="flex justify-between items-center mb-4">
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
