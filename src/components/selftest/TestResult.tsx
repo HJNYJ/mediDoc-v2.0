@@ -1,4 +1,4 @@
-// 테스트 결과 div
+// 테스트 결과 div - 새로고침하면 결과 사라지는 문제 해결해야함.
 "use client";
 
 import React, { useEffect } from "react";
