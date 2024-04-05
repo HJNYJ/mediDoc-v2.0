@@ -6,7 +6,6 @@ export interface ConsultRequest {
   user_name: string;
   bodyParts: string;
   consult_photos: string[];
-  created_at: string;
   hashtags: string[];
 }
 

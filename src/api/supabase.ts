@@ -60,25 +60,6 @@ export const getStaticProps = async ({
   };
 };
 
-// // 임시로 생성한 사용자 정보
-const tempUserInfo = {
-  uid: 1111,
-  email: "namnam123@gmail.com",
-  user_name: "냠냠박사",
-  user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-  user_metadata: {
-    user_images: ["https://ifh.cc/g/WDVwsQ.png", "https://ifh.cc/g/WDVwsQ.png"],
-    email: "namnam123@gmail.com",
-    user_name: "냠냠박사"
-  }
-};
-
-// 임시로 생성한 사용자 정보를 반환
-export const getCurrentLoginUserInfo = async () => {
-  return tempUserInfo;
-};
-// // 임시 생성임
-
 // 유저 정보 가져오기
 export const getUserInform = async () => {
   const { data } = await supabase.auth.getUser();
@@ -95,4 +76,23 @@ export const updateUserInform = async (name: string, images: string) => {
     return alert("업데이트를 다시 시도해주세요!");
   }
   return data;
+};
+
+// consult_id 가져오기
+export const getConsultId = async () => {
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select("consult_id")
+    .single();
+
+  if (error) {
+    console.error("consult_id 가져오기 실패", error);
+    return error;
+  }
+
+  return {
+    props: {
+      consult_id: data?.consult_id
+    }
+  };
 };

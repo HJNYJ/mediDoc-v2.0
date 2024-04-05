@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
+import Image from "next/image";
 
 interface Consulting {
   consult_id: string;
@@ -13,6 +14,7 @@ interface Consulting {
   consult_content: string;
   bodyparts: string;
   hashtags: string[];
+  consult_photos: string[];
 }
 
 const ConsultPage = () => {
@@ -20,12 +22,15 @@ const ConsultPage = () => {
   const [consults, setConsults] = useState<Consulting[]>([]);
   const categoryRef = useRef("all");
 
+  //
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("consult_info")
         .select(
-          "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags"
+          "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags, consult_photos"
         ); // Include 'id' in the selected columns
       if (error) console.error("error", error);
       else setConsults(data as Consulting[]); // Cast the data to Consulting[]
@@ -45,6 +50,14 @@ const ConsultPage = () => {
     );
   };
 
+  const handleImagePreview = (photoURL: string | null) => {
+    if (photoURL) {
+      setImageSrc(photoURL);
+    } else {
+      setImageSrc(null); // Clear image preview if no photo
+    }
+  };
+
   const goToAskForm = () => {
     router.push(`/consult/ask`);
   };
@@ -60,7 +73,17 @@ const ConsultPage = () => {
             key={consult.consult_id}
             className="border-b py-4 flex items-center"
           >
-            <div className="w-[200px]">사진</div>
+            <div>
+              {consult.consult_photos && (
+                <img
+                  src={consult.consult_photos}
+                  alt={`${consult.consult_title} - Image`}
+                  width={200}
+                  height={150}
+                />
+              )}
+              {/* <img src={consult.consult_photos} alt="image" /> */}
+            </div>
             <div>
               <div className="text-left ml-10">
                 <p className="text-lg text-black-600">

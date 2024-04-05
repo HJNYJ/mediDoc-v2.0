@@ -38,28 +38,29 @@ const ConsultImages = ({
   // 이미지 업로드 함수
   const handleAddImages = async (file: File) => {
     try {
-      const newFileName = `random-${Math.random()}`;
+      const newFileName = `${Math.random()}`;
       // Supabase Storage에 이미지 업로드
-      const { data, error } = await supabase.storage
+      const result = await supabase.storage
         .from("images")
         .upload(`user_images/${newFileName}`, file);
 
-      if (error) {
-        console.log("파일이 업로드 되지 않았어요!", error);
-        return;
+      console.log("upload file result => ", result);
+
+      if (result.data) {
+        const url =
+          process.env.NEXT_PUBLIC_SUPABASE_URL +
+          "/storage/v1/object/public/images/" +
+          result.data.path;
+        console.log("url => ", url);
+        setUploadedFileUrl((prev: string[]) => [...prev, url]);
+      } else {
+        console.log("result", result);
       }
 
       // 업로드된 이미지의 공개 URL 가져오기
-      const res = supabase.storage.from("images").getPublicUrl(data.path, {
-        transform: {
-          width: 200,
-          resize: "contain", // 이미지의 주어진 너비에 맞추어 크기 조정
-          format: "origin" // 이미지 포맷 유지
-        }
-      });
-
+      // const response = supabase.storage.from("images").getPublicUrl(file.name);
       // 업로드된 파일 URL 저장
-      setUploadedFileUrl((prev: string[]) => [...prev, res.data.publicUrl]);
+      // setUploadedFileUrl((prev: string[]) => [...prev, res.data.publicUrl]);
 
       // FileReader API 사용하여 이미지 읽고 DataURL 생성
       const reader = new FileReader();
@@ -136,7 +137,22 @@ const ConsultImages = ({
                 multiple
                 hidden
               />
-              +
+              <button className="flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </svg>
+              </button>
             </label>
           )}
         </div>
