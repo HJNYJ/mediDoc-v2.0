@@ -7,6 +7,9 @@ const ApplyPageOne = ({
   setPageCount
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
+  // setName: React.Dispatch<React.SetStateAction<string>>;
+  // setIdNumber: React.Dispatch<React.SetStateAction<number>>;
+  // setPhoneNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
     useApplyStore();
@@ -25,7 +28,7 @@ const ApplyPageOne = ({
     setPhoneNumber(parseFloat(e.target.value));
   };
   const handleNextClick = () => {
-    return setPageCount("second");
+    return setPageCount("two");
   };
 
   return (

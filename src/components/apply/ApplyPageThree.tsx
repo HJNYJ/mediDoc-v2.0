@@ -2,13 +2,13 @@ import React from "react";
 import CourseSelect from "./CourseSelect";
 import CourseSelectItem from "./CourseSelectItem";
 
-const ApplyPageThird = ({
+const ApplyPageThree = ({
   setPageCount
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const handleNextClick = () => {
-    return setPageCount("fourth");
+    return setPageCount("four");
   };
   return (
     <>
@@ -21,4 +21,4 @@ const ApplyPageThird = ({
   );
 };
 
-export default ApplyPageThird;
+export default ApplyPageThree;
