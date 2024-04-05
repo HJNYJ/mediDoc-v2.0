@@ -1,15 +1,29 @@
-export interface application {
-  apply_date: string | null;
-  apply_time: string | null;
-  hospital_id: string | null;
-  hospital_name: string | null;
-  program_detail: string | null;
-  program_id: string | null;
-  program_name: string | null;
-  reservation_id: string;
-  subject_birth_date: string | null;
-  subject_name: string | null;
-  subject_phone_number: string | null;
+export interface ConsultRequest {
+  consult_id: string; // DB 등록 UUID
+  consult_title: string;
+  consult_content: string;
   user_email: string;
-  user_name: string | null;
+  user_name: string;
+  bodyParts: string;
+  consult_photos: string[];
+  hashtags: string[];
+}
+
+export interface ConsultResponse {
+  postId: string;
+  consultTitle: string;
+  consultContent: string;
+  userName: string;
+  bodyParts: string;
+  consult_photos: string[];
+  created_at: string;
+}
+
+export interface HashtagButtonsProps {
+  hashtags: { [key: string]: string };
+}
+
+export interface UploadedFileUrlProps {
+  uploadedFileUrl: string[];
+  setUploadedFileUrl: React.Dispatch<React.SetStateAction<string[]>>;
 }
