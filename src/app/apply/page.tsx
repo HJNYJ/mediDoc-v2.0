@@ -9,22 +9,11 @@ import React, { useState } from "react";
 
 const ApplyPage = () => {
   const [pageCount, setPageCount] = useState<string>("first");
-  const [name, setName] = useState<string>("");
-  const [idNumber, setIdNumber] = useState<number>();
-  const [phoneNumber, setPhoneNumber] = useState<number>();
 
   return (
     <>
       {pageCount === "one" ? (
-        <ApplyPageOne
-          setPageCount={setPageCount}
-          name={name}
-          setName={setName}
-          idNumber={idNumber}
-          setIdNumber={setIdNumber}
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-        />
+        <ApplyPageOne setPageCount={setPageCount} />
       ) : pageCount === "two" ? (
         <ApplyPageTwo setPageCount={setPageCount} />
       ) : pageCount === "three" ? (

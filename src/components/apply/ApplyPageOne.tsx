@@ -7,16 +7,9 @@ const ApplyPageOne = ({
   setPageCount
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
-  // setName: React.Dispatch<React.SetStateAction<string>>;
-  // setIdNumber: React.Dispatch<React.SetStateAction<number>>;
-  // setPhoneNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
     useApplyStore();
-
-  // const {name} = useApplyStore;  : zustand에 저장된 name을 불러온 함수
-  // const {setName} =useApplyStore;  : setName함수를 불러오는 코드
-  // setName : name을 저장할 함수,
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
