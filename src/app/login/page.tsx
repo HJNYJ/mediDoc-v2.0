@@ -1,14 +1,11 @@
 // 로그인 페이지
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { supabase } from "@/api/supabase";
 import React from "react";
 
 const LoginPage = () => {
-  const supabase = createClientComponentClient();
-  const router = useRouter();
-
+  // 카카오 소셜 로그인
   const signInWithKakao = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -17,11 +14,14 @@ const LoginPage = () => {
       });
       if (error) throw error;
     } catch (error) {
-      console.error(error.message);
-      alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      if (error instanceof Error) {
+        console.error(error.message);
+        alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      }
     }
   };
 
+  // 구글 소셜 로그인
   const signInWithGoogle = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -36,17 +36,17 @@ const LoginPage = () => {
       });
       if (error) throw error;
     } catch (error) {
-      console.error(error.message);
-      alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      if (error instanceof Error) {
+        console.error(error.message);
+        alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      }
     }
   };
 
   return (
     <section className="flex flex-col">
       <button onClick={() => signInWithKakao()}>카카오로 계속하기</button>
-      <button>네이버로 계속하기</button>
       <button onClick={() => signInWithGoogle()}>Google로 계속하기</button>
-      <button>Apple로 계속하기</button>
     </section>
   );
 };
