@@ -1,3 +1,4 @@
+import { ConsultInfoType } from "@/types";
 import { createClient } from "@supabase/supabase-js";
 
 // 필요한 부분은 언제든 꺼내 쓸 수 있게
@@ -95,4 +96,14 @@ export const getConsultId = async () => {
       consult_id: data?.consult_id
     }
   };
+};
+
+export const fetchConsults = async () => {
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select(
+      "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags, consult_photos"
+    );
+  if (error) console.error("error", error);
+  return data as ConsultInfoType[];
 };

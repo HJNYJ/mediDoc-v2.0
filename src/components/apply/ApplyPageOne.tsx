@@ -39,7 +39,7 @@ const ApplyPageOne = ({
       >
         <div>
           이름
-          <input onChange={onChangeName} key={name} />
+          <input onChange={onChangeName} value={name} />
         </div>
         <div>
           주민등록번호

@@ -20,8 +20,8 @@ export interface ConsultResponse {
   postId: string;
   consultTitle: string;
   consultContent: string;
-  userName: string;
-  bodyParts: string;
+  user_name: string;
+  bodyparts: string;
   consult_photos: string[];
   created_at: string;
 }
@@ -33,4 +33,17 @@ export interface HashtagButtonsProps {
 export interface UploadedFileUrlProps {
   uploadedFileUrl: string[];
   setUploadedFileUrl: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export interface ConsultInfoType {
+  consult_id: string;
+  user_name: string;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string;
+  hashtags: string[];
+}
+
+export interface TabsProps {
+  handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
 }
