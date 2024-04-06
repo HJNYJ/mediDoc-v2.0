@@ -32,44 +32,36 @@ export const consultAddForm = async (
     return data;
   }
 };
-
-export const uploadPhotosUrl = async (url: string) => {
+//constId 복사해오기
+export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
-  const { data: consultData, error } = await supabase
+  const { data: consultId, error } = await supabase
     .from("consult_info")
-    .select("consult_id");
-  // .select("*");
+    .select("consult_id")
+    .order("consult_id", { ascending: false })
+    .limit(1);
+  if (error) {
+    console.log("getConsultId error => ", error);
+  }
+  return consultId?.[0].consult_id;
+};
+
+// url string 업로드하기
+export const uploadPhotosUrl = async (url: string) => {
+  // consult_id 값 가져오기
+  const consultId = await getConsultId();
+
+  // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
+  const { data, error } = await supabase
+    .from("consult_photos")
+    .insert([{ photos: url, consult_id: consultId }]);
 
   if (error) {
-    console.error("Data fetch error", error);
+    console.error("url 업로드 error.... => ", error);
     return error;
   }
-  const newFileName = `${Math.random()}`;
-  // 이미지 업로드
-  const uploadResult = await supabase.storage
-    .from("images")
-    .upload(`user_images/${newFileName}`, url, {
-      contentType: "image/*"
-    });
-
-  if (uploadResult.error) {
-    console.error("Image upload error:", uploadResult.error);
-    return;
-  }
-  // 조회된 consult_id 값을 consult_photos에 삽입
-  const insertResult = await supabase.from("consult_photos").insert([
-    {
-      consult_id: consultData[0].consult_id,
-      photos: url
-    }
-  ]);
-
-  if (insertResult.error) {
-    console.error("consultId 외래키로 가져오기 에러! => ", insertResult.error);
-    return insertResult.error;
-  }
-
-  return insertResult.data;
+  console.log("uploadPhotosUrl data up => ", data);
+  return data;
 };
 
 export const fetchImages = async () => {

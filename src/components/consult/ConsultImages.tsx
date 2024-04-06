@@ -69,7 +69,7 @@ const ConsultImages = ({
 
       reader.onload = () => {
         const dataUrl = reader.result as string;
-        // 이미지 렌더링
+        //이미지 렌더링
         setUploadedImages((prevFiles) => [
           ...prevFiles,
           {

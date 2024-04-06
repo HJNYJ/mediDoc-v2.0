@@ -16,6 +16,7 @@ const ConsultPage = () => {
     error,
     data: consultsData
   } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
+  console.log("consultsData는? => ", consultsData);
 
   const { data: consultPhotos } = useQuery({
     queryKey: ["consultPhotos"],
@@ -35,6 +36,10 @@ const ConsultPage = () => {
     router.push(`/consult/ask`);
   };
 
+  const goToDetailPage = (consultId: string) => {
+    router.push(`/consult/${consultId}`);
+  };
+
   return (
     <div className="flex flex-col justify-between bg-green">
       <div className="flex justify-between items-center mb-4">
@@ -45,7 +50,8 @@ const ConsultPage = () => {
         {consultsData?.map((consult) => (
           <div
             key={consult.consult_id}
-            className="bg-white rounded-md p-4 mb-4 border border-gray-200"
+            className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
+            onClick={() => goToDetailPage(consult.consult_id)} // 클릭 이벤트 핸들러 추가
           >
             <div className="flex flex-col justify-between">
               {consultPhotos
