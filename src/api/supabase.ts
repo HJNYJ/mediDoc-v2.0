@@ -12,16 +12,16 @@ export const consultAddForm = async (
   newTitle: string,
   newContents: string,
   newBodyParts: string,
-  newHashTags: string[],
-  newConsultPhotos: string[]
+  newHashTags: string[]
+  // newConsultPhotos: string[]
 ) => {
   const { data, error } = await supabase.from("consult_info").insert([
     {
       consult_title: newTitle,
       consult_content: newContents,
       bodyparts: newBodyParts,
-      hashtags: newHashTags,
-      consult_photos: newConsultPhotos
+      hashtags: newHashTags
+      // consult_photos: newConsultPhotos
     }
   ]);
   if (error) {
@@ -33,32 +33,53 @@ export const consultAddForm = async (
   }
 };
 
-export const getStaticProps = async ({
-  params
-}: {
-  params: { tags: string[] };
-}) => {
-  const selectedTags = params.tags; // URL 파라미터에서 선택된 태그 추출
-
-  const { data, error } = await supabase
+export const uploadPhotosUrl = async (url: string) => {
+  // consult_info 테이블에서 consult_id 값을 조회
+  const { data: consultData, error } = await supabase
     .from("consult_info")
-    .select("hashtags")
-    .eq("body_section", "eyes") // 카테고리 필터링 추가
-    .in("hashtags", selectedTags) // 선택된 태그 필터링 추가
-    .single();
+    .select("consult_id");
+  // .select("*");
 
   if (error) {
-    console.error(error);
-    return {
-      props: {}
-    };
+    console.error("Data fetch error", error);
+    return error;
+  }
+  const newFileName = `${Math.random()}`;
+  // 이미지 업로드
+  const uploadResult = await supabase.storage
+    .from("images")
+    .upload(`user_images/${newFileName}`, url, {
+      contentType: "image/*"
+    });
+
+  if (uploadResult.error) {
+    console.error("Image upload error:", uploadResult.error);
+    return;
+  }
+  // 조회된 consult_id 값을 consult_photos에 삽입
+  const insertResult = await supabase.from("consult_photos").insert([
+    {
+      consult_id: consultData[0].consult_id,
+      photos: url
+    }
+  ]);
+
+  if (insertResult.error) {
+    console.error("consultId 외래키로 가져오기 에러! => ", insertResult.error);
+    return insertResult.error;
   }
 
-  return {
-    props: {
-      hashtags: data.hashtags
-    }
-  };
+  return insertResult.data;
+};
+
+export const fetchImages = async () => {
+  const { data, error } = await supabase.from("consult_photos").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+
+  return data;
 };
 
 // 유저 정보 가져오기
@@ -79,30 +100,11 @@ export const updateUserInform = async (name: string, images: string) => {
   return data;
 };
 
-// consult_id 가져오기
-export const getConsultId = async () => {
-  const { data, error } = await supabase
-    .from("consult_info")
-    .select("consult_id")
-    .single();
-
-  if (error) {
-    console.error("consult_id 가져오기 실패", error);
-    return error;
-  }
-
-  return {
-    props: {
-      consult_id: data?.consult_id
-    }
-  };
-};
-
 export const fetchConsults = async () => {
   const { data, error } = await supabase
     .from("consult_info")
     .select(
-      "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags, consult_photos"
+      "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags"
     );
   if (error) console.error("error", error);
   return data as ConsultInfoType[];

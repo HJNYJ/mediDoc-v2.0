@@ -2,18 +2,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
-import { fetchConsults, supabase } from "@/api/supabase";
+import { fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
-import { ConsultInfoType } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 // import Image from "next/image";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [selectedBodyPart, setSelectedBodyPart] = useState<string>("");
 
   const {
     isLoading,
@@ -21,20 +17,18 @@ const ConsultPage = () => {
     data: consultsData
   } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
 
+  const { data: consultPhotos } = useQuery({
+    queryKey: ["consultPhotos"],
+    queryFn: fetchImages
+  });
+  console.log("consultPhotos => ", consultPhotos);
+
   if (isLoading) return <p>Loading consults..!!</p>;
   if (error) return <p>error : {error.message}</p>;
 
-  const handleCategoryChange = (bodypart: string) => {
+  const handleCategoryChange = () => {
     // bodyparts 탭으로 변경
-    setSelectedBodyPart(bodypart);
-  };
-
-  const handleImagePreview = (photoURL: string | null) => {
-    if (photoURL) {
-      setImageSrc(photoURL);
-    } else {
-      setImageSrc(null);
-    }
+    // setSelectedBodyPart(bodypart);
   };
 
   const goToAskForm = () => {
@@ -53,20 +47,35 @@ const ConsultPage = () => {
             key={consult.consult_id}
             className="bg-white rounded-md p-4 mb-4 border border-gray-200"
           >
+            <div className="flex flex-col justify-between">
+              {consultPhotos
+                ?.filter((image) => image.consult_id === consult.consult_id)
+                ?.map((image) => (
+                  <img
+                    key={image.photos_id}
+                    src={image.photos} // 이미지 URL
+                    alt="Uploaded Image"
+                    className="w-full h-48 object-cover mb-2"
+                  />
+                ))}
+            </div>
             <p className="text-lg font-semibold mb-2">
               {consult.consult_title}
             </p>
             <p className="text-gray-700 mb-2">{consult.consult_content}</p>
             <h2 className="text-lg font-semibold">{consult.user_name}</h2>
-            <div border-t border-gray-200>
-              {consult.hashtags.split(",").map((hashtag: string) => (
-                <span
-                  key={hashtag}
-                  className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
-                >
-                  #{hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
-                </span>
-              ))}
+            <div className="border-t border-gray-200">
+              {consult.hashtags
+                .toString()
+                .split(",")
+                .map((hashtag: string) => (
+                  <span
+                    key={hashtag}
+                    className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
+                  >
+                    #{hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
+                  </span>
+                ))}
             </div>
           </div>
         ))}
