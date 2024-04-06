@@ -3,7 +3,7 @@ import Reservation from "./Reservation";
 import VisitorInfo from "./VisitorInfo";
 import { useRouter } from "next/navigation";
 
-const ApplyPageFourth = () => {
+const ApplyPageFour = () => {
   const router = useRouter();
 
   const handleBtnClick = () => {
@@ -20,4 +20,4 @@ const ApplyPageFourth = () => {
   );
 };
 
-export default ApplyPageFourth;
+export default ApplyPageFour;

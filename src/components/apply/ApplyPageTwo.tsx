@@ -7,7 +7,7 @@ const ApplyPageTwo = ({
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const handleNextClick = () => {
-    return setPageCount("third");
+    return setPageCount("three");
   };
   return (
     <div>
