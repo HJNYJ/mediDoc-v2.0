@@ -7,13 +7,17 @@ type State = {
   setIdNumber: (idNumber: number) => void;
   phoneNumber: number;
   setPhoneNumber: (phoneNumber: number) => void;
+  selectedDate: string;
+  setSelectedDate: (selectedDate: string) => void;
 };
 const useApplyStore = create<State>()((set) => ({
-  name: "성예지",
-  setName: () => set((state) => ({ name: state.name })),
-  idNumber: 1,
-  setIdNumber: () => set((state) => ({ idNumber: state.idNumber })),
-  phoneNumber: 1,
-  setPhoneNumber: () => set((state) => ({ phoneNumber: state.phoneNumber }))
+  name: "",
+  setName: (name) => set({ name }),
+  idNumber: 0,
+  setIdNumber: (idNumber) => set({ idNumber }),
+  phoneNumber: 0,
+  setPhoneNumber: (phoneNumber) => set({ phoneNumber }),
+  selectedDate: "",
+  setSelectedDate: (selectedDate) => set({ selectedDate })
 }));
 export default useApplyStore;

@@ -8,7 +8,7 @@ import ApplyPageFour from "@/components/apply/ApplyPageFour";
 import React, { useState } from "react";
 
 const ApplyPage = () => {
-  const [pageCount, setPageCount] = useState<string>("first");
+  const [pageCount, setPageCount] = useState<string>("one");
 
   return (
     <>
