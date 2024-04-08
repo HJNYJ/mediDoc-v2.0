@@ -6,6 +6,14 @@ import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useRouter } from "next/navigation";
 
+interface Symptoms {
+  bodyparts: string | null;
+  departments: string;
+  symptom_id: string;
+  symptoms: string | null;
+  symptoms_abbr: string | null;
+}
+
 const Symptoms = () => {
   const {
     symptoms,
@@ -29,14 +37,14 @@ const Symptoms = () => {
         if (error) throw error;
         setSymptoms(questions);
       } catch (error) {
-        console.error(error.message);
+        if (error instanceof Error) console.error(error.message);
       }
     };
     if (selectedPart) fetchSymptoms();
-  }, []);
+  }, [selectedPart, setSymptoms]);
 
   // 증상을 중복 선택하는 함수
-  const selectSymptomHandler = (symptomId) => {
+  const selectSymptomHandler = (symptomId: string) => {
     const index = selectedSymptoms.indexOf(symptomId);
     if (index === -1) {
       setSelectedSymptoms([...selectedSymptoms, symptomId]);
@@ -47,22 +55,25 @@ const Symptoms = () => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <section className="flex flex-col">
         <h2>아래 증상 중 해당되는 것이 있다면 선택해주세요.</h2>
         <h6>중복 선택이 가능합니다.</h6>
-      </div>
-      {symptoms.map((symptom) => (
-        <div key={symptom.symptom_id}>
-          <label className="flex flex-col">
-            {symptom.symptoms}
-            <input
-              type="checkbox"
-              checked={selectedSymptoms.includes(symptom.symptom_id)}
-              onChange={() => selectSymptomHandler(symptom.symptom_id)}
-            />
-          </label>
-        </div>
-      ))}
+      </section>
+      <section>
+        {symptoms &&
+          symptoms.map((symptom) => (
+            <div key={symptom.symptom_id}>
+              <label className="flex flex-col">
+                {symptom.symptoms}
+                <input
+                  type="checkbox"
+                  checked={selectedSymptoms.includes(symptom.symptom_id)}
+                  onChange={() => selectSymptomHandler(symptom.symptom_id)}
+                />
+              </label>
+            </div>
+          ))}
+      </section>
       <button
         onClick={() => {
           router.push("/selftestresult");

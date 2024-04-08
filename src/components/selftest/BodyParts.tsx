@@ -2,7 +2,15 @@
 import React from "react";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 
-const BodyParts = ({ department, onClickBodyPart }) => {
+interface BodyPartsProps {
+  department: "이비인후과" | "내과" | "외과" | "치과" | "안과";
+  onClickBodyPart: () => void;
+}
+
+const BodyParts: React.FC<BodyPartsProps> = ({
+  department,
+  onClickBodyPart
+}) => {
   const bodyParts = {
     이비인후과: ["귀", "코", "목"],
     내과: ["배", "등/허리", "가슴"],
@@ -12,20 +20,22 @@ const BodyParts = ({ department, onClickBodyPart }) => {
   };
   const { setSelectedPart } = useSelftestStore();
 
-  const onClickBodyPartHandler = (bodypart) => {
+  const onClickBodyPartHandler = (bodypart: string) => {
     setSelectedPart(bodypart);
     onClickBodyPart();
   };
 
   return (
-    <div className="flex flex-col">
-      <h2>어디가 불편하신가요?</h2>
-      {bodyParts[department].map((part, index) => (
-        <button key={index} onClick={() => onClickBodyPartHandler(part)}>
-          {part}
-        </button>
-      ))}
-    </div>
+    <>
+      <section className="flex flex-col">
+        <h2>어디가 불편하신가요?</h2>
+        {bodyParts[department].map((part, index) => (
+          <button key={index} onClick={() => onClickBodyPartHandler(part)}>
+            {part}
+          </button>
+        ))}
+      </section>
+    </>
   );
 };
 
