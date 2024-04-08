@@ -2,10 +2,11 @@
 import ConsultItem from "@/components/consult/ConsultItem";
 import React from "react";
 
-const ConsultDetailPage = ({ params }: { params: { id: string } }) => {
+// const ConsultDetailPage = ({ params }: { params: { id: string } }) => {
+const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   return (
     <div>
-      클릭한 질문 : {params.id}
+      클릭한 질문 : {params.consultId}
       <ConsultItem />
     </div>
   );
