@@ -43,8 +43,11 @@ export const getConsultId = async () => {
   if (error) {
     console.log("getConsultId error => ", error);
   }
-  console.log("consultId?.[0]?.consult_id ???? ", consultId?.[0]?.consult_id);
-  return consultId?.[0]?.consult_id;
+  console.log(
+    "consultId?.[0]?.consult_id ???? ",
+    consultId?.[consultId.length - 1]?.consult_id
+  );
+  return consultId?.[consultId.length - 1]?.consult_id;
 };
 
 // url string 업로드하기
