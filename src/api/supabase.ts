@@ -38,8 +38,8 @@ export const getConsultId = async () => {
   const { data: consultId, error } = await supabase
     .from("consult_info")
     .select("consult_id")
-    .order("consult_id", { ascending: false })
-    .limit(1);
+    .order("consult_id", { ascending: false });
+  // .limit(1);
   if (error) {
     console.log("getConsultId error => ", error);
   }
@@ -104,4 +104,29 @@ export const fetchConsults = async () => {
     );
   if (error) console.error("error", error);
   return data as ConsultInfoType[];
+};
+
+export const getConsultDetail = async (consultId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("consult_info")
+      .select("*")
+      .eq("consult_id", consultId)
+      .single();
+
+    if (error) {
+      console.error("상담 내역 상세 정보 가져오기 실패..", error);
+      throw error;
+    }
+
+    if (!data) {
+      console.log("해당 상담 내역 정보가 존재하지 않음  = > ", consultId);
+      return null;
+    }
+    console.log(data);
+    return data; // 데이터 반환해!
+  } catch (error) {
+    console.error("상담 내역 상세 정보 가져오기 실패ㅠㅡㅠ", error);
+    return null;
+  }
 };
