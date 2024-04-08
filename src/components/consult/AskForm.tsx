@@ -46,11 +46,11 @@ const AskForm = () => {
 
   const handleSubmit = async () => {
     // 데이터 추가
-    const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
-    console.log(hashtagsArray);
+    // const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
+    // console.log(hashtagsArray);
 
     // 어떻게 선택된 배열만 찾아올 수 있을까????
-    console.log("selectedTags => ", selectedTags);
+    // console.log("selectedTags => ", selectedTags);
 
     const data = await consultAddForm(
       title,

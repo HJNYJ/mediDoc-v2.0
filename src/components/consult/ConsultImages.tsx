@@ -59,7 +59,7 @@ const ConsultImages = ({
           console.log("이미지 업로드 데이타! => ", uploadImgUrl);
         }
 
-        setUploadedFileUrl((prev: string[]) => [...prev, url]);
+        // setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("result", result);
       }

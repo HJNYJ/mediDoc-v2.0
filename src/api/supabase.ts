@@ -25,14 +25,14 @@ export const consultAddForm = async (
     }
   ]);
   if (error) {
-    console.error("consultAddForm 데이터 추가 실패", error);
+    console.error("consultAddForm 데이터 추가 실패", error.message);
     return error;
   } else {
     console.log("consultAddForm 추가 성공", data);
     return data;
   }
 };
-//constId 복사해오기
+// //constId 복사해오기
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
   const { data: consultId, error } = await supabase
@@ -43,7 +43,8 @@ export const getConsultId = async () => {
   if (error) {
     console.log("getConsultId error => ", error);
   }
-  return consultId?.[0].consult_id;
+  console.log("consultId?.[0]?.consult_id ???? ", consultId?.[0]?.consult_id);
+  return consultId?.[0]?.consult_id;
 };
 
 // url string 업로드하기
