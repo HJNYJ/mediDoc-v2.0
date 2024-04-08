@@ -7,8 +7,10 @@ type State = {
   setIdNumber: (idNumber: number) => void;
   phoneNumber: number;
   setPhoneNumber: (phoneNumber: number) => void;
-  selectedDate: string;
-  setSelectedDate: (selectedDate: string) => void;
+  selectedDate: Date;
+  setSelectedDate: (selectedDate: Date) => void;
+  selectedTime: string;
+  setSelectedTime: (selectedTime: string) => void;
 };
 const useApplyStore = create<State>()((set) => ({
   name: "",
@@ -17,7 +19,9 @@ const useApplyStore = create<State>()((set) => ({
   setIdNumber: (idNumber) => set({ idNumber }),
   phoneNumber: 0,
   setPhoneNumber: (phoneNumber) => set({ phoneNumber }),
-  selectedDate: "",
-  setSelectedDate: (selectedDate) => set({ selectedDate })
+  selectedDate: new Date(),
+  setSelectedDate: (selectedDate) => set({ selectedDate }),
+  selectedTime: "",
+  setSelectedTime: (selectedTime) => set({ selectedTime })
 }));
 export default useApplyStore;

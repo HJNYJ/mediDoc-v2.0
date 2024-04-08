@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import TimeSelect from "./TimeSelect";
 import Calendar from "./CalendarDay";
@@ -18,14 +20,21 @@ const ApplyPageTwo = ({
   return (
     <div>
       <p>
-        <button onClick={() => handleNextClick("one")}>이전</button>
+        <button className="m-2" onClick={() => handleNextClick("one")}>
+          &lt;
+        </button>
+        <button className="m-4" onClick={handleBtnClick}>
+          X
+        </button>
       </p>
-      <button onClick={handleBtnClick}>X</button>
+
       <p>
         <Calendar />
         <TimeSelect />
       </p>
-      <button onClick={() => handleNextClick("three")}>다음</button>
+      <button className="m-2" onClick={() => handleNextClick("three")}>
+        다음
+      </button>
     </div>
   );
 };

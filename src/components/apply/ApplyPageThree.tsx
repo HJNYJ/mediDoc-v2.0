@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CourseSelect from "./CourseSelect";
 import CourseSelectItem from "./CourseSelectItem";
@@ -17,14 +19,18 @@ const ApplyPageThree = ({
   };
   return (
     <>
-      <button onClick={() => handlePrevOrNextClick("two")}>이전</button>
-      <button onClick={handleBtnClick}>X</button>
+      <button className="m-2" onClick={() => handlePrevOrNextClick("two")}>
+        &lt;
+      </button>
+      <button className="m-2" onClick={handleBtnClick}>
+        X
+      </button>
       <div>
         <CourseSelect />
         <CourseSelectItem />
       </div>
-      <button onClick={() => handlePrevOrNextClick("four")}>
-        다음(예약하기)
+      <button className="m-2" onClick={() => handlePrevOrNextClick("four")}>
+        예약
       </button>
     </>
   );

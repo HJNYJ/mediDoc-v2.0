@@ -1,10 +1,9 @@
+"use client";
+
 import useApplyStore from "@/shared/zustand/applyStore";
 import React, { useState } from "react";
 
-interface CalendarDay {
-  date: Date;
-  isCurrentMonth: boolean;
-}
+import type { CalendarDay } from "../../types/index";
 
 const Calendar: React.FC = () => {
   /** 현재 날짜 */
@@ -14,10 +13,13 @@ const Calendar: React.FC = () => {
   const { selectedDate, setSelectedDate } = useApplyStore();
 
   const handleDateClick = (date: Date) => {
-    // 날짜 포맷 (ex: 2024-4-7)
-    const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    setSelectedDate(formatDate);
+    // 날짜 포맷 (ex: 2024년 4월 7일)
+    setSelectedDate(date);
   };
+  const formatDate = (date: Date) => {
+    return `${date.getFullYear()}년 ${date.getMonth() + 1}월  ${date.getDate()}일`;
+  };
+  const specifiedDate = formatDate(selectedDate);
 
   /** 캘린더 생성 */
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -41,9 +43,10 @@ const Calendar: React.FC = () => {
     const matrix: CalendarDay[][] = [];
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
-
     const firstDay = new Date(year, month, 1).getDay();
+    // 해당 달에 1일이 몇번째인지
     const numDays = new Date(year, month + 1, 0).getDate();
+    // 해당 달에 일이 몇개인지
 
     let date = 1;
     for (let i = 0; i < 6; i++) {
@@ -88,20 +91,22 @@ const Calendar: React.FC = () => {
 
   return (
     <div>
-      <button className="border-2" onClick={handlePrevMonth}>
+      <button className="border-2 m-2" onClick={handlePrevMonth}>
         이전 달
       </button>
-      <span className="border-2">
+      <span className="border-2 m-2">
         {currentMonth.getFullYear()}년 {monthsInYear[currentMonth.getMonth()]}
       </span>
-      <button className="border-2" onClick={handleNextMonth}>
-        다음 달 --- {selectedDate}
+      <button className="border-2 m-2" onClick={handleNextMonth}>
+        다음 달
       </button>
+      {specifiedDate}
       <table>
         <thead>
-          <tr className="border-2">
+          <tr className="border-2 m-2">
             {daysInWeek.map((day) => (
               <th key={day}>{day}</th>
+              // 요일 : 일 월 화 수 목 금 토
             ))}
           </tr>
         </thead>
@@ -124,11 +129,12 @@ const Calendar: React.FC = () => {
                         backgroundColor: cell.isCurrentMonth
                           ? "white"
                           : "lightgray",
-                        cursor: !isPastDate ? "pointer" : "default",
+                        cursor: isPastDate ? "default" : "pointer",
                         color: isPastDate ? "gray" : "black"
                       }}
-                      className="text-black"
+                      // className="text-black m-2"
                     >
+                      {/* <div className={`w-36 h-20 ${isTrue ? '참일때' : '구라일때'}`}></div> */}
                       {cell.date.getDate()}
                     </td>
                   );
