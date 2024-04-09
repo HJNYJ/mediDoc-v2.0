@@ -11,10 +11,6 @@ const ApplyPageOne = ({
   const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
     useApplyStore();
 
-  // const {name} = useApplyStore;  : zustand에 저장된 name을 불러온 함수
-  // const {setName} =useApplyStore;  : setName함수를 불러오는 코드
-  // setName : name을 저장할 함수,
-
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -25,7 +21,7 @@ const ApplyPageOne = ({
     setPhoneNumber(parseFloat(e.target.value));
   };
   const handleNextClick = () => {
-    return setPageCount("second");
+    return setPageCount("two");
   };
 
   return (
