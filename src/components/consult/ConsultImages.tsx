@@ -1,5 +1,5 @@
 import React, { MouseEvent, useState } from "react";
-import { supabase } from "@/api/supabase";
+import { supabase, uploadPhotosUrl } from "@/api/supabase";
 import { UploadedFileUrlProps } from "@/types";
 
 const ConsultImages = ({
@@ -44,7 +44,7 @@ const ConsultImages = ({
         .from("images")
         .upload(`user_images/${newFileName}`, file);
 
-      console.log("upload file result => ", result);
+      console.log("upload file result => ", result.data); // 얘가 뭐뭐가 있는지
 
       if (result.data) {
         const url =
@@ -52,22 +52,28 @@ const ConsultImages = ({
           "/storage/v1/object/public/images/" +
           result.data.path;
         console.log("url => ", url);
+
+        // table 에 이미지 url 업로드
+        const uploadImgUrl = await uploadPhotosUrl(url.toString());
+        if (uploadImgUrl) {
+          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
+        }
+
+        if (uploadImgUrl) {
+          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
+        }
+
         setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("result", result);
       }
-
-      // 업로드된 이미지의 공개 URL 가져오기
-      // const response = supabase.storage.from("images").getPublicUrl(file.name);
-      // 업로드된 파일 URL 저장
-      // setUploadedFileUrl((prev: string[]) => [...prev, res.data.publicUrl]);
 
       // FileReader API 사용하여 이미지 읽고 DataURL 생성
       const reader = new FileReader();
 
       reader.onload = () => {
         const dataUrl = reader.result as string;
-        // 이미지 렌더링
+        //이미지 렌더링
         setUploadedImages((prevFiles) => [
           ...prevFiles,
           {

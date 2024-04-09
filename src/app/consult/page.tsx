@@ -2,112 +2,90 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
-import { supabase } from "@/api/supabase";
+import { fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
+import { useQuery } from "@tanstack/react-query";
 // import Image from "next/image";
 
-interface Consulting {
-  consult_id: string;
-  user_name: string;
-  consult_title: string;
-  consult_content: string;
-  bodyparts: string;
-  hashtags: string[];
-  consult_photos: string[];
-}
-
+// consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  const [consults, setConsults] = useState<Consulting[]>([]);
-  const categoryRef = useRef("all");
 
-  //
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const {
+    isLoading,
+    error,
+    data: consultsData
+  } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
+  console.log("consultsData는? => ", consultsData);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("consult_info")
-        .select(
-          "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags, consult_photos"
-        ); // Include 'id' in the selected columns
-      if (error) console.error("error", error);
-      else setConsults(data as Consulting[]); // Cast the data to Consulting[]
-    };
+  const { data: consultPhotos } = useQuery({
+    queryKey: ["consultPhotos"],
+    queryFn: fetchImages
+  });
+  console.log("consultPhotos => ", consultPhotos);
 
-    fetchData();
-  }, []);
+  if (isLoading) return <p>Loading consults..!!</p>;
+  if (error) return <p>error : {error.message}</p>;
 
-  const handleCategoryChange = (bodyparts: string) => {
-    categoryRef.current = bodyparts;
-  };
-
-  const filteredConsults = (): Consulting[] => {
-    if (categoryRef.current === "all") return consults;
-    return consults.filter(
-      (consult) => consult.bodyparts === categoryRef.current
-    );
-  };
-
-  const handleImagePreview = (photoURL: string | null) => {
-    if (photoURL) {
-      setImageSrc(photoURL);
-    } else {
-      setImageSrc(null); // Clear image preview if no photo
-    }
+  const handleCategoryChange = () => {
+    // bodyparts 탭으로 변경
+    // setSelectedBodyPart(bodypart);
   };
 
   const goToAskForm = () => {
     router.push(`/consult/ask`);
   };
 
+  const goToDetailPage = (consultId: string) => {
+    router.push(`/consult/${consultId}`);
+  };
+
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between bg-green">
       <div className="flex justify-between items-center mb-4">
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
-      <div className="border-t border-gray-200">
-        {filteredConsults().map((consult) => (
+      <div>
+        <p>이건 consultData!</p>
+        {consultsData?.map((consult) => (
           <div
             key={consult.consult_id}
-            className="border-b py-4 flex items-center"
+            className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
+            onClick={() => goToDetailPage(consult.consult_id)} // 클릭 이벤트 핸들러 추가
           >
-            <div>
-              {consult.consult_photos && (
-                <img
-                  src={consult.consult_photos}
-                  alt={`${consult.consult_title} - Image`}
-                  width={200}
-                  height={150}
-                />
-              )}
-              {/* <img src={consult.consult_photos} alt="image" /> */}
+            <div className="flex flex-col justify-between">
+              {consultPhotos
+                ?.filter((image) => image.consult_id === consult.consult_id)
+                ?.map((image) => (
+                  <img
+                    key={image.photos_id}
+                    src={image.photos} // 이미지 URL
+                    alt="Uploaded Image"
+                    className="w-full h-48 object-cover mb-2"
+                  />
+                ))}
             </div>
-            <div>
-              <div className="text-left ml-10">
-                <p className="text-lg text-black-600">
-                  {consult.consult_title}
-                </p>
-                <p className="text-sm text-gray-600 mt-8">
-                  {consult.consult_content}
-                </p>
-                <h2 className="text-lg font-semibold">{consult.user_name}</h2>
-                <div className="mt-3 flex flex-wrap">
-                  {consult?.hashtags?.split(",").map((hashtag: string) => (
-                    <span
-                      key={hashtag}
-                      className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
-                    >
-                      #
-                      {hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <p className="text-lg font-semibold mb-2">
+              {consult.consult_title}
+            </p>
+            <p className="text-gray-700 mb-2">{consult.consult_content}</p>
+            <h2 className="text-lg font-semibold">{consult.user_name}</h2>
+            <div className="border-t border-gray-200">
+              {consult.hashtags
+                .toString()
+                .split(",")
+                .map((hashtag: string) => (
+                  <span
+                    key={hashtag}
+                    className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
+                  >
+                    #{hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
+                  </span>
+                ))}
             </div>
           </div>
         ))}
+        <p>여기까지! consultData!</p>
       </div>
 
       <div className="border-t border-gray-200">
