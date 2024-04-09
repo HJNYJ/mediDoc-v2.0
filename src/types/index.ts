@@ -1,3 +1,10 @@
+export type TabState = {
+  selectedTab: "default" | "image" | "review";
+  selectTab: (tab: "default" | "image" | "review") => void;
+};
+
+export type TabList = Pick<TabState, "selectedTab">;
+
 export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
 }
