@@ -44,7 +44,10 @@ const ConsultItem = () => {
       <hr />
       <div>
         {hospitalData?.map((hospital) => (
-          <li key={hospital.answer_id}>{hospital.answer}</li>
+          <div key={hospital.answer_id}>
+            <h2>{hospital.department} 답변</h2>
+            <div>{hospital.answer}</div>
+          </div>
         ))}
       </div>
     </section>
