@@ -5,7 +5,6 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import useAuthStore from "@/shared/zustand/authStore";
-// import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
@@ -21,7 +20,7 @@ export const Navbar = () => {
         // 세션 정보가 있는지 확인 후. 로그인 상태 설정
         changeLoggedIn(!!data.session);
       } catch (error) {
-        console.error(error.message);
+        if (error instanceof Error) console.error(error.message);
       }
     };
     fetchSession();
@@ -33,7 +32,7 @@ export const Navbar = () => {
       changeLoggedIn(false);
       router.push("/");
     } catch (error) {
-      console.error(error.message);
+      if (error instanceof Error) console.error(error.message);
     }
   };
 
