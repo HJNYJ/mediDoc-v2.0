@@ -1,18 +1,25 @@
 import { create } from "zustand";
 
-interface StoreState {}
+interface State {
+  symptoms: string[];
+  setSymptoms: (symptoms: string[]) => void;
+  selectedPart: string;
+  setSelectedPart: (selectedPart: string) => void;
+  selectedSymptoms: string[];
+  setSelectedSymptoms: (selectedSymptoms: string[]) => void;
+  predictedDiseases: string[];
+  setPredictedDiseases: (disease: string[]) => void;
+}
 
-const useSelftestStore = create<StoreState>()((set) => ({
+const useSelftestStore = create<State>()((set) => ({
   symptoms: [],
-  setSymptoms: (symptoms: string) => set({ symptoms: symptoms }),
+  setSymptoms: (symptoms) => set({ symptoms }),
   selectedPart: "",
-  setSelectedPart: (bodypart: string) => set({ selectedPart: bodypart }),
+  setSelectedPart: (selectedPart) => set({ selectedPart }),
   selectedSymptoms: [],
-  setSelectedSymptoms: (symptoms: string) =>
-    set({ selectedSymptoms: symptoms }),
+  setSelectedSymptoms: (symptoms) => set({ selectedSymptoms: symptoms }),
   predictedDiseases: [],
-  setPredictedDiseases: (diseases: string) =>
-    set({ predictedDiseases: diseases })
+  setPredictedDiseases: (diseases) => set({ predictedDiseases: diseases })
 }));
 
 export default useSelftestStore;
