@@ -46,18 +46,18 @@ const AskForm = () => {
 
   const handleSubmit = async () => {
     // 데이터 추가
-    const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
-    console.log(hashtagsArray);
+    // const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
+    // console.log(hashtagsArray);
 
     // 어떻게 선택된 배열만 찾아올 수 있을까????
-    console.log("selectedTags => ", selectedTags);
+    // console.log("selectedTags => ", selectedTags);
 
     const data = await consultAddForm(
       title,
       contents,
       bodyparts,
-      selectedTags,
-      uploadedFileUrl // 이미지 URL 추가
+      selectedTags // 이미지 URL 추가
+      // uploadedFileUrl
     );
 
     console.log(data);
@@ -65,8 +65,8 @@ const AskForm = () => {
       console.log("AskForm 추가 성공", data!);
 
       // 이미지 URL을 객체에 추가
-      const imageData = { image_url: uploadedFileUrl };
-      console.log("이미지 데이터:", imageData);
+      // const imageData = { image_url: uploadedFileUrl };
+      // console.log("이미지 데이터:", imageData);
     }
   };
 
