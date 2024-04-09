@@ -8,8 +8,8 @@ import ApplyPageFour from "@/components/apply/ApplyPageFour";
 import React, { useState } from "react";
 
 const ApplyPage = () => {
-  const [pageCount, setPageCount] = useState<string>("first");
-
+  const [pageCount, setPageCount] = useState<string>("one");
+  // url 이동 없이 컴포넌트로 이동하는 로직
   return (
     <>
       {pageCount === "one" ? (
