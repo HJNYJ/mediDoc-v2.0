@@ -1,17 +1,28 @@
 import { create } from "zustand";
-import { produce } from "immer";
+import { immer } from "zustand/middleware/immer";
 
-const useAuthStore = create()((set) => ({
+interface State {
   user: {
-    isLoggedIn: false,
-    email: ""
-  },
-  changeLoggedIn: (isSession: boolean) =>
-    set(
-      produce((state) => {
+    isLoggedIn: boolean;
+    email: string;
+  };
+}
+
+interface Action {
+  changeLoggedIn: (isSession: boolean) => void;
+}
+
+const useAuthStore = create<State & Action>()(
+  immer((set) => ({
+    user: {
+      isLoggedIn: false,
+      email: ""
+    },
+    changeLoggedIn: (isSession) =>
+      set((state) => {
         state.user.isLoggedIn = isSession;
       })
-    )
-}));
+  }))
+);
 
 export default useAuthStore;
