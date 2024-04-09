@@ -1,11 +1,8 @@
+import { TabsProps } from "@/types";
 import React, { useState } from "react";
 // 이건 일단 남겨놓음 소희님 탭스가 어떻게 될지 몰라서
 
-interface TabsProps {
-  handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
-}
-
-const ConsultTabs: React.FC<TabsProps> = ({ handleCategoryChange }) => {
+const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   // 탭 상태 관리
   const [selectedTab, setSelectedTab] = useState("eyes"); // 초기 선택 탭 설정
 

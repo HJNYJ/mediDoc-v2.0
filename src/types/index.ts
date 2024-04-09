@@ -1,9 +1,6 @@
-export type TabState = {
-  selectedTab: "default" | "image" | "review";
-  selectTab: (tab: "default" | "image" | "review") => void;
-};
-
-export type TabList = Pick<TabState, "selectedTab">;
+export interface TabsProps {
+  handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
+}
 
 export interface ConsultRequest {
   consult_id: string; // DB 등록 UUID
@@ -12,7 +9,7 @@ export interface ConsultRequest {
   user_email: string;
   user_name: string;
   bodyParts: string;
-  consult_photos: string[];
+  // consult_photos: string[];
   hashtags: string[];
 }
 
@@ -20,9 +17,9 @@ export interface ConsultResponse {
   postId: string;
   consultTitle: string;
   consultContent: string;
-  userName: string;
-  bodyParts: string;
-  consult_photos: string[];
+  user_name: string;
+  bodyparts: string;
+  // consult_photos: string[];
   created_at: string;
 }
 
@@ -37,4 +34,13 @@ export interface UploadedFileUrlProps {
 export interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
+}
+
+export interface ConsultInfoType {
+  consult_id: string;
+  user_name: string;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string;
+  hashtags: string[];
 }
