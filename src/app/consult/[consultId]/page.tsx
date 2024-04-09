@@ -3,7 +3,6 @@
 import { getConsultDetail } from "@/api/supabase";
 import ConsultAnswer from "@/components/consult/ConsultAnswer";
 import ConsultItem from "@/components/consult/ConsultItem";
-// import ConsultItem from "@/components/consult/ConsultItem";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -50,7 +49,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </div>
           </div>
           <ConsultAnswer />
-          {/* <ConsultItem /> */}
+          <ConsultItem />
         </div>
       </div>
     </div>

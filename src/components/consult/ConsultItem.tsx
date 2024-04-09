@@ -1,7 +1,7 @@
 "use client";
 
 // 상담 내역 1개
-import React, { useState } from "react";
+import React from "react";
 import ConsultQuestion from "./ConsultQuestion";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
@@ -21,7 +21,7 @@ const fetchHospitals = async () => {
 };
 
 const ConsultItem = () => {
-  const [hospitals, setHospitals] = useState("");
+  // const [hospitals, setHospitals] = useState("");
 
   const {
     isLoading,
@@ -43,9 +43,9 @@ const ConsultItem = () => {
       {/* <ConsultAnswer /> */}
       <hr />
       <div>
-        {hospitalData?.map((hospital) => (
+        {/* {hospitalData?.map((hospital) => (
           <li key={hospital.answer_id}>{hospital.answer}</li>
-        ))}
+        ))} */}
       </div>
     </section>
   );
