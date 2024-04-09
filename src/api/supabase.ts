@@ -13,26 +13,33 @@ export const consultAddForm = async (
   newContents: string,
   newBodyParts: string,
   newHashTags: string[]
-  // newConsultPhotos: string[]
+  // uploadedFileUrl: string[]
 ) => {
-  const { data, error } = await supabase.from("consult_info").insert([
-    {
-      consult_title: newTitle,
-      consult_content: newContents,
-      bodyparts: newBodyParts,
-      hashtags: newHashTags
-      // consult_photos: newConsultPhotos
-    }
-  ]);
+  const { data, error } = await supabase
+    .from("consult_info")
+    .insert([
+      {
+        consult_title: newTitle,
+        consult_content: newContents,
+        bodyparts: newBodyParts,
+        hashtags: newHashTags
+        // consult_photos: newConsultPhotos
+      }
+    ])
+    .select();
   if (error) {
     console.error("consultAddForm 데이터 추가 실패", error.message);
     return error;
   } else {
     console.log("consultAddForm 추가 성공", data);
+    //consult_id 값이 필요해서 여기서 이미지 업로드 해줘야함
+    // uploadPhotosUrl(uploadedFileUrl);
     return data;
+
+    // await uploadPhotosUrl(uploadedFileUrl[]);
   }
 };
-// //constId 복사해오기
+// //constId 복사해오기 , 잘못된 코드,,,
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
   const { data: consultId, error } = await supabase
@@ -44,7 +51,7 @@ export const getConsultId = async () => {
     console.log("getConsultId error => ", error);
   }
   console.log(
-    "consultId?.[0]?.consult_id ???? ",
+    "consultId?.[consultId.length - 1]?.consult_id ???? ",
     consultId?.[consultId.length - 1]?.consult_id
   );
   return consultId?.[consultId.length - 1]?.consult_id;

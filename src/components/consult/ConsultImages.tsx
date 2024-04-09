@@ -53,18 +53,16 @@ const ConsultImages = ({
           result.data.path;
         console.log("url => ", url);
 
-        setTimeout(async () => {
-          const uploadImgUrl = await uploadPhotosUrl(url.toString());
-          if (uploadImgUrl) {
-            console.log("이미지 업로드 데이타! => ", uploadImgUrl);
-          }
-        }, 2000);
+        const uploadImgUrl = await uploadPhotosUrl(url.toString());
+        if (uploadImgUrl) {
+          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
+        }
 
-        // if (uploadImgUrl) {
-        //   console.log("이미지 업로드 데이타! => ", uploadImgUrl);
-        // }
+        if (uploadImgUrl) {
+          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
+        }
 
-        // setUploadedFileUrl((prev: string[]) => [...prev, url]);
+        setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("result", result);
       }

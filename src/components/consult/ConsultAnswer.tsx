@@ -6,12 +6,12 @@ import React from "react";
 const ConsultAnswer = () => {
   return (
     <section>
-      <div>
+      <form>
         {/** 데이터 가져와서 보여주기 */}
         <p>내과 답변</p>
-        <p>홍길동 의사</p>
+        <p>OOO 의사</p>
         <div> 물을 많이 드셔야해요. 요즘 미세먼지가 넘 많아영 홍홍홍 </div>
-      </div>
+      </form>
       <div>
         <label>⭐ 꼭 확인해주세요. ⭐</label>
         <ul>
