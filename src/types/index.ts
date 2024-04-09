@@ -34,3 +34,7 @@ export interface UploadedFileUrlProps {
   uploadedFileUrl: string[];
   setUploadedFileUrl: React.Dispatch<React.SetStateAction<string[]>>;
 }
+export interface CalendarDay {
+  date: Date;
+  isCurrentMonth: boolean;
+}
