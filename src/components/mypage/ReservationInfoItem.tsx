@@ -6,6 +6,7 @@ const ReservationInfoItem = () => {
     <>
       <h2>예약번호: </h2>
       <h4>검진자명 </h4>
+      <h4>검진자명 </h4>
     </>
   );
 };
