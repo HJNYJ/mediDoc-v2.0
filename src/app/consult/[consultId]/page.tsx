@@ -22,7 +22,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   return (
     <div>
       클릭한 질문 : {params.consultId}
-      <p>제목: {consultDetailData?.consult_title}</p>
+      <p>유저의 상담 제목: {consultDetailData?.consult_title}</p>
       <p>내용: {consultDetailData?.consult_content}</p>
       {/* <ConsultItem /> */}
     </div>
