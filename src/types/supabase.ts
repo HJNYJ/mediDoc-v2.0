@@ -5,10 +5,48 @@ export type Json =
   | null
   | { [key: string]: Json | undefined }
   | Json[];
-
 export type Database = {
   public: {
     Tables: {
+      consult_answer: {
+        Row: {
+          answer: string | null;
+          answer_id: string;
+          consult_id: string | null;
+          department: string | null;
+          hospital_id: string | null;
+        };
+        Insert: {
+          answer?: string | null;
+          answer_id?: string;
+          consult_id?: string | null;
+          department?: string | null;
+          hospital_id?: string | null;
+        };
+        Update: {
+          answer?: string | null;
+          answer_id?: string;
+          consult_id?: string | null;
+          department?: string | null;
+          hospital_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_consult_answer_consult_id_fkey";
+            columns: ["consult_id"];
+            isOneToOne: false;
+            referencedRelation: "consult_info";
+            referencedColumns: ["consult_id"];
+          },
+          {
+            foreignKeyName: "public_consult_answer_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
+      };
       consult_hashtags: {
         Row: {
           consult_id: string;
@@ -70,17 +108,17 @@ export type Database = {
       };
       consult_photos: {
         Row: {
-          consult_id: string;
+          consult_id: string | null;
           photo_id: string;
           photos: string | null;
         };
         Insert: {
-          consult_id?: string;
+          consult_id?: string | null;
           photo_id?: string;
           photos?: string | null;
         };
         Update: {
-          consult_id?: string;
+          consult_id?: string | null;
           photo_id?: string;
           photos?: string | null;
         };
@@ -172,7 +210,6 @@ export type Database = {
           hospital_image: string | null;
           hospital_introduction: string | null;
           hospital_name: string | null;
-          manager_name: string | null;
           start_time: string | null;
         };
         Insert: {
@@ -183,7 +220,6 @@ export type Database = {
           hospital_image?: string | null;
           hospital_introduction?: string | null;
           hospital_name?: string | null;
-          manager_name?: string | null;
           start_time?: string | null;
         };
         Update: {
@@ -194,7 +230,6 @@ export type Database = {
           hospital_image?: string | null;
           hospital_introduction?: string | null;
           hospital_name?: string | null;
-          manager_name?: string | null;
           start_time?: string | null;
         };
         Relationships: [];
@@ -370,7 +405,6 @@ export type Database = {
     };
   };
 };
-
 type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
