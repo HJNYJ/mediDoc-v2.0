@@ -1,4 +1,4 @@
-import { ConsultInfoType } from "@/types";
+import type { ConsultInfoType } from "@/types";
 import { createClient } from "@supabase/supabase-js";
 
 // 필요한 부분은 언제든 꺼내 쓸 수 있게

@@ -1,32 +1,22 @@
 "use client";
 
-import { fetchConsults } from "@/api/supabase";
-import { useQuery } from "@tanstack/react-query";
 // 상담 질문 출력 div (ask form -> consult question)
 import React from "react";
 
 const ConsultQuestion = () => {
-  const {
-    isLoading,
-    error,
-    data: consultsData
-  } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
+  // const {
+  //   isLoading,
+  //   error,
+  //   data: consultsData
+  // } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
 
-  console.log("consultDetailPage => ", consultsData);
-  if (isLoading) return <p>consult detail page Loading..!!</p>;
-  if (error) return <p>error : {error.message}</p>;
+  // console.log("consultDetailPage => ", consultsData);
+  // if (isLoading) return <p>consult detail page Loading..!!</p>;
+  // if (error) return <p>error : {error.message}</p>;
 
   return (
     <section>
-      {/* DB에 있는 title */}
-      <p>
-        {consultsData?.map((detail) => (
-          <div key={detail.consult_id}>
-            <div>{detail.consult_title}</div>
-            <div>{detail.consult_content}</div>
-          </div>
-        ))}
-      </p>
+      <div></div>
       <p>작성자</p>
       <div>질문 내용</div>
       <div>
