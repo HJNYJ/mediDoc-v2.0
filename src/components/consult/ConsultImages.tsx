@@ -44,7 +44,7 @@ const ConsultImages = ({
         .from("images")
         .upload(`user_images/${newFileName}`, file);
 
-      console.log("upload file result => ", result.data);
+      console.log("upload file result => ", result.data); // 얘가 뭐뭐가 있는지
 
       if (result.data) {
         const url =
@@ -53,6 +53,7 @@ const ConsultImages = ({
           result.data.path;
         console.log("url => ", url);
 
+        // table 에 이미지 url 업로드
         const uploadImgUrl = await uploadPhotosUrl(url.toString());
         if (uploadImgUrl) {
           console.log("이미지 업로드 데이타! => ", uploadImgUrl);

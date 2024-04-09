@@ -2,6 +2,7 @@
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
 import { getConsultDetail } from "@/api/supabase";
 import ConsultAnswer from "@/components/consult/ConsultAnswer";
+import ConsultItem from "@/components/consult/ConsultItem";
 // import ConsultItem from "@/components/consult/ConsultItem";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -24,14 +25,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     <div className="bg-gray-100 min-h-screen flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white shadow-md rounded-lg overflow-hidden">
         <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">
-            클릭한 질문 : {params.consultId}
+          <h2 className="text-lg mb-4 items-center flex justify-center">
+            실시간 상담
           </h2>
           <div className="bg-gray-100 rounded-lg p-4 mb-4">
-            <p className="text-lg font-semibold mb-2">
-              유저의 상담 제목: {consultDetailData?.consult_title}
+            <p id="user_answer_title" className="text-xl font-semibold mb-2">
+              {consultDetailData?.consult_title}
             </p>
-            <p className="mb-2">내용: {consultDetailData?.consult_content}</p>
+            <p id="user_content_title" className="mb-2">
+              내용: {consultDetailData?.consult_content}
+            </p>
             <div className="flex flex-wrap">
               {consultDetailData?.hashtags
                 .toString()
@@ -47,6 +50,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </div>
           </div>
           <ConsultAnswer />
+          {/* <ConsultItem /> */}
         </div>
       </div>
     </div>

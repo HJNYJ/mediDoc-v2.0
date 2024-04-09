@@ -31,7 +31,9 @@ export const consultAddForm = async (
     console.error("consultAddForm 데이터 추가 실패", error.message);
     return error;
   } else {
+    //url 업로드
     console.log("consultAddForm 추가 성공", data);
+    //
     //consult_id 값이 필요해서 여기서 이미지 업로드 해줘야함
     // uploadPhotosUrl(uploadedFileUrl);
     return data;
@@ -39,22 +41,19 @@ export const consultAddForm = async (
     // await uploadPhotosUrl(uploadedFileUrl[]);
   }
 };
-// //constId 복사해오기 , 잘못된 코드,,,
+//constId 복사해오기 , 잘못된 코드,,,
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
-  const { data: consultId, error } = await supabase
+  const { data, error } = await supabase
     .from("consult_info")
-    .select("consult_id")
-    .order("consult_id", { ascending: false });
-  // .limit(1);
+    .select('consult_id, consult_photos("consult_id")')
+    .single();
+
   if (error) {
     console.log("getConsultId error => ", error);
   }
-  console.log(
-    "consultId?.[consultId.length - 1]?.consult_id ???? ",
-    consultId?.[consultId.length - 1]?.consult_id
-  );
-  return consultId?.[consultId.length - 1]?.consult_id;
+
+  console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
 };
 
 // url string 업로드하기
@@ -137,3 +136,5 @@ export const getConsultDetail = async (consultId: string) => {
     return null;
   }
 };
+
+// consult detail page - 병원 답변 폼
