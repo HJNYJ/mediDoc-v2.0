@@ -26,7 +26,7 @@ const HospitalName = () => {
   if (isError) {
     <div>에러 입니다...</div>;
   }
-  return <div>{hospitalData}</div>;
+  return <div className="m-2">{hospitalData}</div>;
 };
 
 export default HospitalName;

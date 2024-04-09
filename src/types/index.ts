@@ -31,6 +31,10 @@ export interface UploadedFileUrlProps {
   uploadedFileUrl: string[];
   setUploadedFileUrl: React.Dispatch<React.SetStateAction<string[]>>;
 }
+export interface CalendarDay {
+  date: Date;
+  isCurrentMonth: boolean;
+}
 
 export interface ConsultInfoType {
   consult_id: string;
