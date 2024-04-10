@@ -103,7 +103,7 @@ export const getHospitalId = async () => {
   try {
     const { data, error } = await supabase
       .from("hospital_info")
-      .select("hospital_id");
+      .select(`*, hospital_id(*)`);
 
     if (error) {
       throw error;
@@ -117,45 +117,39 @@ export const getHospitalId = async () => {
   }
 };
 
-// export const insertAnswer = async (department: string, answer: string) => {
-//   try {
-//     const { data: consultIdData } = await supabase
-//       .from("consult_answer")
-//       .select("consult_id")
-//       .single();
-//     const consultId = consultIdData?.consult_id;
-//     // 병원 ID 가져오기
-//     const hospitalIdData = await getHospitalId();
-//     if (!hospitalIdData) {
-//       console.error("병원 ID를 가져올 수 없습니다.");
-//     }
+export const insertAnswer = async () => {
+  try {
+    const { data: consultIdData } = await supabase
+      .from("consult_answer")
+      .select("consult_id");
 
-//     const hospitalId = hospitalIdData?.[0].hospital_id;
-//     console.log("병원 ID ===> ", hospitalId);
+    const consultId = consultIdData;
+    console.log("consultId ===> ", consultId);
+    // 병원 ID 가져오기
+    const hospitalIdData = await getHospitalId();
+    if (!hospitalIdData) {
+      console.error("병원 ID를 가져올 수 없습니다.");
+    }
 
-//     // 답변 삽입
-//     const { data: insertedData, error: insertError } = await supabase
-//       .from("consult_answer")
-//       .insert([
-//         {
-//           department: department,
-//           answer: answer,
-//           consult_id: consultId,
-//           hospital_id: hospitalId
-//         }
-//       ]);
+    const hospitalId = hospitalIdData?.[0].hospital_id;
+    console.log("병원 ID ===> ", hospitalId);
 
-//     if (insertError) {
-//       throw insertError;
-//     }
+    // 답변 삽입
+    const { data: insertedData, error: insertError } = await supabase
+      .from("consult_answer")
+      .insert([]);
 
-//     console.log("답변이 성공적으로 삽입되었습니다.");
-//     return insertedData;
-//   } catch (error) {
-//     console.error("답변 삽입 오류:", error);
-//     return null;
-//   }
-// };
+    if (insertError) {
+      throw insertError;
+    }
+
+    console.log("답변이 성공적으로 삽입되었습니다.");
+    return insertedData;
+  } catch (error) {
+    console.error("답변 삽입 오류:", error);
+    return null;
+  }
+};
 
 export const fetchImages = async () => {
   const { data, error } = await supabase.from("consult_photos").select("*");
