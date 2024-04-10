@@ -5,30 +5,31 @@ export type Json =
   | null
   | { [key: string]: Json | undefined }
   | Json[];
+
 export type Database = {
   public: {
     Tables: {
       consult_answer: {
         Row: {
-          answer: string | null;
+          answer: string;
           answer_id: string;
-          consult_id: string | null;
-          department: string | null;
-          hospital_id: string | null;
+          consult_id: string;
+          department: string;
+          hospital_id: string;
         };
         Insert: {
-          answer?: string | null;
+          answer: string;
           answer_id?: string;
-          consult_id?: string | null;
-          department?: string | null;
-          hospital_id?: string | null;
+          consult_id: string;
+          department: string;
+          hospital_id: string;
         };
         Update: {
-          answer?: string | null;
+          answer?: string;
           answer_id?: string;
-          consult_id?: string | null;
-          department?: string | null;
-          hospital_id?: string | null;
+          consult_id?: string;
+          department?: string;
+          hospital_id?: string;
         };
         Relationships: [
           {
@@ -80,17 +81,19 @@ export type Database = {
           consult_id: string;
           consult_title: string | null;
           created_at: string;
-          hashtags: string | null;
+          hashtags: string[] | null;
+          photos: string | null;
           user_email: string | null;
           user_name: string | null;
         };
         Insert: {
           bodyparts?: string | null;
           consult_content?: string | null;
-          consult_id: string;
+          consult_id?: string;
           consult_title?: string | null;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
+          photos?: string | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -100,7 +103,8 @@ export type Database = {
           consult_id?: string;
           consult_title?: string | null;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
+          photos?: string | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -108,17 +112,17 @@ export type Database = {
       };
       consult_photos: {
         Row: {
-          consult_id: string | null;
+          consult_id: string;
           photo_id: string;
           photos: string;
         };
         Insert: {
-          consult_id?: string | null;
+          consult_id: string;
           photo_id?: string;
           photos: string;
         };
         Update: {
-          consult_id?: string | null;
+          consult_id?: string;
           photo_id?: string;
           photos?: string;
         };
@@ -183,23 +187,31 @@ export type Database = {
           course_id: string;
           course_name: string | null;
           course_price: number | null;
-          hospital_id: string;
+          hospital_id: string | null;
         };
         Insert: {
           course_detail?: string | null;
           course_id?: string;
           course_name?: string | null;
           course_price?: number | null;
-          hospital_id?: string;
+          hospital_id?: string | null;
         };
         Update: {
           course_detail?: string | null;
           course_id?: string;
           course_name?: string | null;
           course_price?: number | null;
-          hospital_id?: string;
+          hospital_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_course_info_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
       };
       hospital_info: {
         Row: {
@@ -207,33 +219,36 @@ export type Database = {
           hospital_address: string;
           hospital_contact: string;
           hospital_id: string;
-          hospital_image: string | null;
-          hospital_introduction: string | null;
-          hospital_name: string | null;
-          manager_name: string | null;
-          start_time: string | null;
+          hospital_image: string;
+          hospital_introduction: string;
+          hospital_latitude: number | null;
+          hospital_longitude: number | null;
+          hospital_name: string;
+          start_time: string;
         };
         Insert: {
           end_time: string;
           hospital_address: string;
           hospital_contact: string;
           hospital_id?: string;
-          hospital_image?: string | null;
-          hospital_introduction?: string | null;
-          hospital_name?: string | null;
-          manager_name?: string | null;
-          start_time?: string | null;
+          hospital_image: string;
+          hospital_introduction: string;
+          hospital_latitude?: number | null;
+          hospital_longitude?: number | null;
+          hospital_name: string;
+          start_time: string;
         };
         Update: {
           end_time?: string;
           hospital_address?: string;
           hospital_contact?: string;
           hospital_id?: string;
-          hospital_image?: string | null;
-          hospital_introduction?: string | null;
-          hospital_name?: string | null;
-          manager_name?: string | null;
-          start_time?: string | null;
+          hospital_image?: string;
+          hospital_introduction?: string;
+          hospital_latitude?: number | null;
+          hospital_longitude?: number | null;
+          hospital_name?: string;
+          start_time?: string;
         };
         Relationships: [];
       };
@@ -295,9 +310,12 @@ export type Database = {
         Row: {
           apply_date: string | null;
           apply_time: string | null;
+          course_id: string | null;
           hospital_id: string | null;
           hospital_name: string | null;
-          program_id: string;
+          program_detail: string | null;
+          program_id: string | null;
+          program_name: string | null;
           reservation_id: string;
           status: string | null;
           subject_birth_date: string | null;
@@ -309,9 +327,12 @@ export type Database = {
         Insert: {
           apply_date?: string | null;
           apply_time?: string | null;
+          course_id?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
-          program_id?: string;
+          program_detail?: string | null;
+          program_id?: string | null;
+          program_name?: string | null;
           reservation_id?: string;
           status?: string | null;
           subject_birth_date?: string | null;
@@ -323,9 +344,12 @@ export type Database = {
         Update: {
           apply_date?: string | null;
           apply_time?: string | null;
+          course_id?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
-          program_id?: string;
+          program_detail?: string | null;
+          program_id?: string | null;
+          program_name?: string | null;
           reservation_id?: string;
           status?: string | null;
           subject_birth_date?: string | null;
@@ -334,7 +358,15 @@ export type Database = {
           user_email?: string;
           user_name?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_reservation_info_course_id_fkey";
+            columns: ["course_id"];
+            isOneToOne: false;
+            referencedRelation: "course_info";
+            referencedColumns: ["course_id"];
+          }
+        ];
       };
       scrapped_list: {
         Row: {
@@ -395,44 +427,36 @@ export type Database = {
       };
       user_info: {
         Row: {
-          provider: string | null;
+          provider: string;
           user_avatar: string | null;
           user_birth_date: string | null;
           user_email: string;
-          user_id: string | null;
+          user_id: string;
           user_name: string;
           user_phone_number: string | null;
           user_type: string | null;
         };
         Insert: {
-          provider?: string | null;
+          provider: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email: string;
-          user_id?: string | null;
+          user_id?: string;
           user_name: string;
           user_phone_number?: string | null;
           user_type?: string | null;
         };
         Update: {
-          provider?: string | null;
+          provider?: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email?: string;
-          user_id?: string | null;
+          user_id?: string;
           user_name?: string;
           user_phone_number?: string | null;
           user_type?: string | null;
         };
-        Relationships: [
-          {
-            foreignKeyName: "public_user_info_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          }
-        ];
+        Relationships: [];
       };
     };
     Views: {
@@ -449,6 +473,7 @@ export type Database = {
     };
   };
 };
+
 type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<

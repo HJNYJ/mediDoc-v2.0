@@ -41,7 +41,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </p>
             <div className="flex flex-wrap">
               {consultDetailData?.hashtags
-                .toString()
+                ?.toString()
                 .split(",")
                 .map((hashtag: string) => (
                   <span

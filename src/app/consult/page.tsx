@@ -53,18 +53,18 @@ const ConsultPage = () => {
             className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
             onClick={() => goToDetailPage(consult.consult_id)} // 클릭 이벤트 핸들러 추가
           >
-            <div className="flex flex-col justify-between">
+            {/* <div className="flex flex-col justify-between">
               {consultPhotos
                 ?.filter((image) => image.consult_id === consult.consult_id)
                 ?.map((image) => (
-                  <img
-                    key={image.photos_id}
-                    src={image.photos} // 이미지 URL
-                    alt="Uploaded Image"
-                    className="w-full h-48 object-cover mb-2"
-                  />
+                  // <img
+                  //   key={image.photos_id}
+                  //   src={image.photos} // 이미지 URL
+                  //   alt="Uploaded Image"
+                  //   className="w-full h-48 object-cover mb-2"
+                  // />
                 ))}
-            </div>
+            </div> */}
             <p className="text-lg font-semibold mb-2">
               {consult.consult_title}
             </p>
@@ -72,7 +72,7 @@ const ConsultPage = () => {
             <h2 className="text-lg font-semibold">{consult.user_name}</h2>
             <div className="border-t border-gray-200">
               {consult.hashtags
-                .toString()
+                ?.toString()
                 .split(",")
                 .map((hashtag: string) => (
                   <span
