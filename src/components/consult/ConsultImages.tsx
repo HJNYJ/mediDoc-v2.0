@@ -44,7 +44,7 @@ const ConsultImages = ({
         .from("images")
         .upload(`user_images/${newFileName}`, file);
 
-      console.log("upload file result => ", result.data); // 얘가 뭐뭐가 있는지
+      console.log("upload file result => ", result.data);
 
       if (result.data) {
         const url =
@@ -53,11 +53,7 @@ const ConsultImages = ({
           result.data.path;
         console.log("url => ", url);
 
-        // table 에 이미지 url 업로드
         const uploadImgUrl = await uploadPhotosUrl(url.toString());
-        if (uploadImgUrl) {
-          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
-        }
 
         if (uploadImgUrl) {
           console.log("이미지 업로드 데이타! => ", uploadImgUrl);
@@ -73,7 +69,7 @@ const ConsultImages = ({
 
       reader.onload = () => {
         const dataUrl = reader.result as string;
-        //이미지 렌더링
+        // 이미지 렌더링
         setUploadedImages((prevFiles) => [
           ...prevFiles,
           {

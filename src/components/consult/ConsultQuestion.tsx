@@ -17,7 +17,6 @@ const ConsultQuestion = () => {
   return (
     <section>
       <div></div>
-
       <hr />
       <div>{/**미완성 or 완성된 답변이 있을 수 있는 곳 */}</div>
     </section>

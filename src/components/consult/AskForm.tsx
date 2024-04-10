@@ -57,7 +57,6 @@ const AskForm = () => {
       contents,
       bodyparts,
       selectedTags // 이미지 URL 추가
-      // uploadedFileUrl
     );
 
     console.log(data);
