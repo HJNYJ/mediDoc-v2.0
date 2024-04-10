@@ -6,7 +6,6 @@ import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 // import ConsultItem from "@/components/consult/ConsultItem";
 import { useQuery } from "@tanstack/react-query";
 
-// const ConsultDetailPage = ({ params }: { params: { id: string } }) => {
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const {
     data: consultDetailData,
@@ -55,12 +54,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           </div>
           {answerDetailData?.answer ? (
             <div>
-              <h2>{answerDetailData?.department} 답변</h2>
+              <h2 className="text-xl font-semibold mb-2">
+                {answerDetailData?.department} 답변
+              </h2>
               <h2>{answerDetailData?.answer}</h2>
             </div>
           ) : (
             <div>
-              <h2>{answerDetailData?.department} 답변!!!</h2>
+              <h2 className="bg-white shadow-md rounded-lg p-4">
+                {answerDetailData?.department}
+              </h2>
               <ConsultAnswerForm />
             </div>
           )}

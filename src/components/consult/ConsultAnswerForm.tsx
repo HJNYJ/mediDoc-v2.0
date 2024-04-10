@@ -1,55 +1,8 @@
 // 병원 관계자만 볼 수 있는 답변 입력 페이지 (제출 예정)
 "use client";
 
-import { supabase } from "@/api/supabase";
+import { getConsultId, getHospitalId, supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
-
-// consult_id를 가져오는 함수
-async function getConsultId() {
-  try {
-    const { data, error } = await supabase
-      .from("consult_info")
-      .select("consult_id");
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("consult_id를 가져오는 중 오류 발생:", error);
-    return null;
-  }
-}
-
-// hospital_id를 가져오는 함수
-async function getHospitalId() {
-  try {
-    const { data, error } = await supabase
-      .from("hospital_info")
-      .select("hospital_id");
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("hospital_id를 가져오는 중 오류 발생:", error);
-    return null;
-  }
-}
-
-export interface ConsultAnswerFormProps {
-  // 병원 ID
-  hospitalId: string;
-  // 상담 ID
-  consultId: string;
-  // 진료과
-  department: string;
-  // 답변
-  answer: string;
-}
 
 const ConsultAnswerForm = () => {
   const [hospitalId, setHospitalId] = useState(""); // 병원 ID
@@ -63,16 +16,8 @@ const ConsultAnswerForm = () => {
       const consultIdData = await getConsultId();
       const hospitalIdData = await getHospitalId();
 
-      if (!consultIdData) {
-        console.error("상담 ID를 가져올 수 없습니다.");
-      }
-
-      if (!hospitalIdData) {
-        console.error("병원 ID를 가져올 수 없습니다.");
-      }
-
-      setConsultId(consultIdData?.[1].consult_id);
-      setHospitalId(hospitalIdData?.[0].hospital_id);
+      setConsultId(consultIdData?.[1]?.consult_id ?? "");
+      setHospitalId(hospitalIdData?.[0].hospital_id ?? "");
     };
 
     fetchConsultId();
@@ -154,3 +99,39 @@ const ConsultAnswerForm = () => {
 };
 
 export default ConsultAnswerForm;
+
+// // consult_id를 가져오는 함수
+// async function getConsultId() {
+//   try {
+//     const { data, error } = await supabase
+//       .from("consult_info")
+//       .select("consult_id");
+
+//     if (error) {
+//       throw error;
+//     }
+
+//     return data;
+//   } catch (error) {
+//     console.error("consult_id를 가져오는 중 오류 발생:", error);
+//     return null;
+//   }
+// }
+
+// // hospital_id를 가져오는 함수
+// async function getHospitalId() {
+//   try {
+//     const { data, error } = await supabase
+//       .from("hospital_info")
+//       .select("hospital_id");
+
+//     if (error) {
+//       throw error;
+//     }
+
+//     return data;
+//   } catch (error) {
+//     console.error("hospital_id를 가져오는 중 오류 발생:", error);
+//     return null;
+//   }
+// }
