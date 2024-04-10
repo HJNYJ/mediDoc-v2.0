@@ -14,18 +14,21 @@ export type Database = {
           answer: string;
           answer_id: string;
           consult_id: string;
+          department: string;
           hospital_id: string;
         };
         Insert: {
           answer: string;
           answer_id?: string;
-          consult_id?: string;
+          consult_id: string;
+          department: string;
           hospital_id: string;
         };
         Update: {
           answer?: string;
           answer_id?: string;
           consult_id?: string;
+          department?: string;
           hospital_id?: string;
         };
         Relationships: [
@@ -78,7 +81,8 @@ export type Database = {
           consult_id: string;
           consult_title: string | null;
           created_at: string;
-          hashtags: string | null;
+          hashtags: string[] | null;
+          photos: string | null;
           user_email: string | null;
           user_name: string | null;
         };
@@ -88,7 +92,8 @@ export type Database = {
           consult_id?: string;
           consult_title?: string | null;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
+          photos?: string | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -98,7 +103,8 @@ export type Database = {
           consult_id?: string;
           consult_title?: string | null;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
+          photos?: string | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -111,7 +117,7 @@ export type Database = {
           photos: string;
         };
         Insert: {
-          consult_id?: string;
+          consult_id: string;
           photo_id?: string;
           photos: string;
         };
@@ -181,23 +187,31 @@ export type Database = {
           course_id: string;
           course_name: string | null;
           course_price: number | null;
-          hospital_id: string;
+          hospital_id: string | null;
         };
         Insert: {
           course_detail?: string | null;
           course_id?: string;
           course_name?: string | null;
           course_price?: number | null;
-          hospital_id?: string;
+          hospital_id?: string | null;
         };
         Update: {
           course_detail?: string | null;
           course_id?: string;
           course_name?: string | null;
           course_price?: number | null;
-          hospital_id?: string;
+          hospital_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_course_info_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
       };
       hospital_info: {
         Row: {
@@ -296,6 +310,7 @@ export type Database = {
         Row: {
           apply_date: string | null;
           apply_time: string | null;
+          course_id: string | null;
           hospital_id: string | null;
           hospital_name: string | null;
           program_id: string;
@@ -310,6 +325,7 @@ export type Database = {
         Insert: {
           apply_date?: string | null;
           apply_time?: string | null;
+          course_id?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
           program_id?: string;
@@ -324,6 +340,7 @@ export type Database = {
         Update: {
           apply_date?: string | null;
           apply_time?: string | null;
+          course_id?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
           program_id?: string;
@@ -335,7 +352,15 @@ export type Database = {
           user_email?: string;
           user_name?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_reservation_info_course_id_fkey";
+            columns: ["course_id"];
+            isOneToOne: false;
+            referencedRelation: "course_info";
+            referencedColumns: ["course_id"];
+          }
+        ];
       };
       scrapped_list: {
         Row: {

@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
-// import { isThereClientSession } from "@/hooks/clientSession";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -39,6 +38,7 @@ export const Navbar = () => {
         }
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
+        if (error instanceof Error) console.error(error.message);
       }
     };
     fetchSession();
@@ -50,6 +50,7 @@ export const Navbar = () => {
       changeLoggedIn(false);
       router.push("/");
     } catch (error) {
+      if (error instanceof Error) console.error(error.message);
       if (error instanceof Error) console.error(error.message);
     }
   };
