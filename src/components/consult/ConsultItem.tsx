@@ -9,8 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchHospitals = async () => {
   const { data: hospitalData, error } = await supabase
-    .from("consult_hospital")
-    .select("answer, department");
+    .from("consult_answer")
+    .select("*");
 
   if (error) {
     console.error("error", error);
@@ -43,9 +43,12 @@ const ConsultItem = () => {
       {/* <ConsultAnswer /> */}
       <hr />
       <div>
-        {/* {hospitalData?.map((hospital) => (
-          <li key={hospital.answer_id}>{hospital.answer}</li>
-        ))} */}
+        {hospitalData?.map((hospital) => (
+          <div key={hospital.answer_id}>
+            <h2>{hospital.department} 답변</h2>
+            <div>{hospital.answer}</div>
+          </div>
+        ))}
       </div>
     </section>
   );

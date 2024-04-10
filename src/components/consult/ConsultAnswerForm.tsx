@@ -1,8 +1,7 @@
 // 병원 관계자만 볼 수 있는 답변 입력 페이지 (제출 예정)
 "use client";
 
-import { supabase } from "@/api/supabase";
-
+// import { insertAnswer } from "@/api/supabase";
 import React, { useState } from "react";
 
 const ConsultAnswerForm = () => {
@@ -23,17 +22,7 @@ const ConsultAnswerForm = () => {
   const handleAnswerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // 수파두파디바 여기에 로직 추가할 예정
-    const { data, error } = await supabase
-      .from("consult_answer")
-      .insert([{ department: department, answer: answer }]);
-
-    if (error) {
-      console.error("consultAnswerForm 데이터 추가 실패", error.message);
-      return error;
-    } else {
-      console.log("consultAnswerForm 추가 성공", data);
-      return data;
-    }
+    // await insertAnswer(department, answer);
   };
 
   return (

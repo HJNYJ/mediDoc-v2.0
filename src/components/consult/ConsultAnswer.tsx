@@ -2,12 +2,12 @@
 
 // 상담 답변 출력 div (AnswerForm 폼 입력 => consultAnswer에서 출력)
 import React from "react";
-import ConsultAnswerForm from "./ConsultAnswerForm";
+// import ConsultAnswerForm from "./ConsultAnswerForm";
 
 const ConsultAnswer = () => {
   return (
     <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <ConsultAnswerForm />
+      {/* <ConsultAnswerForm /> */}
       <div className="p-4 border-b">
         <label className="text-lg font-semibold">⭐ 꼭 확인해주세요. ⭐</label>
         <ul className="list-disc list-inside">
