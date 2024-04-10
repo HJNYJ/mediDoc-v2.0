@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      consult_answer: {
+        Row: {
+          answer: string;
+          answer_id: string;
+          consult_id: string;
+          hospital_id: string;
+        };
+        Insert: {
+          answer: string;
+          answer_id?: string;
+          consult_id?: string;
+          hospital_id: string;
+        };
+        Update: {
+          answer?: string;
+          answer_id?: string;
+          consult_id?: string;
+          hospital_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_consult_answer_consult_id_fkey";
+            columns: ["consult_id"];
+            isOneToOne: false;
+            referencedRelation: "consult_info";
+            referencedColumns: ["consult_id"];
+          },
+          {
+            foreignKeyName: "public_consult_answer_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
+      };
       consult_hashtags: {
         Row: {
           consult_id: string;
@@ -72,17 +108,17 @@ export type Database = {
         Row: {
           consult_id: string;
           photo_id: string;
-          photos: string | null;
+          photos: string;
         };
         Insert: {
           consult_id?: string;
           photo_id?: string;
-          photos?: string | null;
+          photos: string;
         };
         Update: {
           consult_id?: string;
           photo_id?: string;
-          photos?: string | null;
+          photos?: string;
         };
         Relationships: [
           {
@@ -165,37 +201,40 @@ export type Database = {
       };
       hospital_info: {
         Row: {
-          end_time: string | null;
-          hospital_address: string | null;
-          hospital_contact: string | null;
+          end_time: string;
+          hospital_address: string;
+          hospital_contact: string;
           hospital_id: string;
-          hospital_image: string | null;
-          hospital_introduction: string | null;
-          hospital_name: string | null;
-          manager_name: string | null;
-          start_time: string | null;
+          hospital_image: string;
+          hospital_introduction: string;
+          hospital_latitude: number | null;
+          hospital_longitude: number | null;
+          hospital_name: string;
+          start_time: string;
         };
         Insert: {
-          end_time?: string | null;
-          hospital_address?: string | null;
-          hospital_contact?: string | null;
+          end_time: string;
+          hospital_address: string;
+          hospital_contact: string;
           hospital_id?: string;
-          hospital_image?: string | null;
-          hospital_introduction?: string | null;
-          hospital_name?: string | null;
-          manager_name?: string | null;
-          start_time?: string | null;
+          hospital_image: string;
+          hospital_introduction: string;
+          hospital_latitude?: number | null;
+          hospital_longitude?: number | null;
+          hospital_name: string;
+          start_time: string;
         };
         Update: {
-          end_time?: string | null;
-          hospital_address?: string | null;
-          hospital_contact?: string | null;
+          end_time?: string;
+          hospital_address?: string;
+          hospital_contact?: string;
           hospital_id?: string;
-          hospital_image?: string | null;
-          hospital_introduction?: string | null;
-          hospital_name?: string | null;
-          manager_name?: string | null;
-          start_time?: string | null;
+          hospital_image?: string;
+          hospital_introduction?: string;
+          hospital_latitude?: number | null;
+          hospital_longitude?: number | null;
+          hospital_name?: string;
+          start_time?: string;
         };
         Relationships: [];
       };
@@ -259,10 +298,9 @@ export type Database = {
           apply_time: string | null;
           hospital_id: string | null;
           hospital_name: string | null;
-          program_detail: string | null;
-          program_id: string | null;
-          program_name: string | null;
+          program_id: string;
           reservation_id: string;
+          status: string | null;
           subject_birth_date: string | null;
           subject_name: string | null;
           subject_phone_number: string | null;
@@ -274,10 +312,9 @@ export type Database = {
           apply_time?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          program_id?: string;
           reservation_id?: string;
+          status?: string | null;
           subject_birth_date?: string | null;
           subject_name?: string | null;
           subject_phone_number?: string | null;
@@ -289,10 +326,9 @@ export type Database = {
           apply_time?: string | null;
           hospital_id?: string | null;
           hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          program_id?: string;
           reservation_id?: string;
+          status?: string | null;
           subject_birth_date?: string | null;
           subject_name?: string | null;
           subject_phone_number?: string | null;
@@ -300,6 +336,39 @@ export type Database = {
           user_name?: string | null;
         };
         Relationships: [];
+      };
+      scrapped_list: {
+        Row: {
+          hospital_id: string;
+          scrap_id: string;
+          user_id: string;
+        };
+        Insert: {
+          hospital_id?: string;
+          scrap_id?: string;
+          user_id: string;
+        };
+        Update: {
+          hospital_id?: string;
+          scrap_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_scrapped_list_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          },
+          {
+            foreignKeyName: "public_scrapped_list_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "user_info";
+            referencedColumns: ["user_id"];
+          }
+        ];
       };
       symptom_questions: {
         Row: {
@@ -327,33 +396,44 @@ export type Database = {
       };
       user_info: {
         Row: {
-          provider: string | null;
+          provider: string;
           user_avatar: string | null;
           user_birth_date: string | null;
           user_email: string;
+          user_id: string;
           user_name: string;
           user_phone_number: string | null;
           user_type: string | null;
         };
         Insert: {
-          provider?: string | null;
+          provider: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email: string;
+          user_id?: string;
           user_name: string;
           user_phone_number?: string | null;
           user_type?: string | null;
         };
         Update: {
-          provider?: string | null;
+          provider?: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email?: string;
+          user_id?: string;
           user_name?: string;
           user_phone_number?: string | null;
           user_type?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_user_info_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: {
