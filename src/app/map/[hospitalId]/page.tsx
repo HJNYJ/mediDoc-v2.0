@@ -5,11 +5,11 @@ import HospitalMainInfo from "@/components/map/HospitalMainInfo";
 import useDetailTabStore from "@/shared/zustand/detailTabStore";
 import React from "react";
 
-const HospitalDetailPage = () => {
+const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const { selectedTab, selectTab } = useDetailTabStore();
   return (
     <main>
-      <HospitalInfoHeader />
+      <HospitalInfoHeader params={params} />
       <p>--------------------</p>
       <nav>
         <button
