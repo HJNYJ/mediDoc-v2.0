@@ -14,6 +14,7 @@ const ApplyPageTwo = ({
   const handleNextClick = (param: string) => {
     return setPageCount(param);
   };
+
   const handleBtnClick = () => {
     router.push("/home");
   };

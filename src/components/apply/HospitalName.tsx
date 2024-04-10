@@ -16,7 +16,6 @@ const HospitalName = () => {
       return data;
     }
   });
-  // console.log("Data",data);
   const hospitalData = data?.[0].hospital_name;
   // 데이터를 꺼내 쓰는 용도 (배열)
   if (isLoading) {

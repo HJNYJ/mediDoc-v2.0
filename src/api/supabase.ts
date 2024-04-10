@@ -236,3 +236,11 @@ export const updateUserInform = async (name: string, images: string) => {
   }
   return data;
 };
+export const courseNameSelect = async () => {
+  const response = await supabase
+    .from("course_info")
+    .select("*")
+    .order("course_price", { ascending: true });
+  const { data } = response;
+  return data;
+};

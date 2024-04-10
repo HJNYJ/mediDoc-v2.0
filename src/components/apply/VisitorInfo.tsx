@@ -1,16 +1,49 @@
 // 방문자정보 div
-import React from "react";
+
+import { supabase } from "@/api/supabase";
+
+import React, { useEffect, useState } from "react";
 
 const VisitorInfo = () => {
+  const [course, setCourse] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("reservation_info")
+          .select("*");
+        if (error) throw new Error(error.message);
+        setCourse(data);
+        setIsLoading(false);
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+        setIsError(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) return <div>로딩중 입니다.</div>;
+  if (isError) return <div>에러 입니다.</div>;
+
   return (
-    <div className="m-2">
-      <div>예약번호 </div>
-      <div>일정</div>
-      <div>예약자</div>
-      <div>시간</div>
-      <div>연락</div>
-      <div>검사코스</div>
-      <div>검사항목</div>
+    <div>
+      <p className="m-2">예약이 완료되었습니다.</p>
+      {course?.map((card) => (
+        <div key={card.reservation_id} className="m-2">
+          <p>예약번호 : {card.reservation_id?.substring(0, 8)}</p>
+          <p>예약 일시 : {card.apply_date}</p>
+          <p>예약자 : {card.subject_name}</p>
+          <p>시간 : {card.apply_time}</p>
+          <p>연락처 : {card.subject_phone_number} </p>
+          <p>검사코스 : {card.program_name}</p>
+          <p>검사내용 : {card.program_detail}</p>
+        </div>
+      ))}
     </div>
   );
 };

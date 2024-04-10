@@ -183,23 +183,23 @@ export type Database = {
       };
       course_info: {
         Row: {
-          course_detail: string | null;
+          course_detail: string;
           course_id: string;
-          course_name: string | null;
+          course_name: string;
           course_price: number | null;
           hospital_id: string | null;
         };
         Insert: {
-          course_detail?: string | null;
+          course_detail?: string;
           course_id?: string;
-          course_name?: string | null;
+          course_name?: string;
           course_price?: number | null;
           hospital_id?: string | null;
         };
         Update: {
-          course_detail?: string | null;
+          course_detail?: string;
           course_id?: string;
-          course_name?: string | null;
+          course_name?: string;
           course_price?: number | null;
           hospital_id?: string | null;
         };
@@ -308,55 +308,55 @@ export type Database = {
       };
       reservation_info: {
         Row: {
-          apply_date: string | null;
-          apply_time: string | null;
-          course_id: string | null;
-          hospital_id: string | null;
-          hospital_name: string | null;
-          program_detail: string | null;
-          program_id: string | null;
-          program_name: string | null;
+          apply_date: Date;
+          apply_time: string;
+          course_id: string;
+          hospital_id: string;
+          hospital_name: string;
+          program_detail: string;
+          program_id: string;
+          program_name: string;
           reservation_id: string;
-          status: string | null;
-          subject_birth_date: string | null;
-          subject_name: string | null;
-          subject_phone_number: string | null;
+          status: string;
+          subject_birth_date: string;
+          subject_name: string;
+          subject_phone_number: string;
           user_email: string;
-          user_name: string | null;
+          user_name: string;
         };
         Insert: {
-          apply_date?: string | null;
-          apply_time?: string | null;
-          course_id?: string | null;
-          hospital_id?: string | null;
-          hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          apply_date?: Date;
+          apply_time?: string;
+          course_id?: string;
+          hospital_id?: string;
+          hospital_name?: string;
+          program_detail?: string;
+          program_id?: string;
+          program_name?: string;
           reservation_id?: string;
-          status?: string | null;
-          subject_birth_date?: string | null;
-          subject_name?: string | null;
-          subject_phone_number?: string | null;
+          status?: string;
+          subject_birth_date?: string;
+          subject_name?: string;
+          subject_phone_number?: string;
           user_email: string;
-          user_name?: string | null;
+          user_name?: string;
         };
         Update: {
-          apply_date?: string | null;
-          apply_time?: string | null;
-          course_id?: string | null;
-          hospital_id?: string | null;
-          hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          apply_date?: Date;
+          apply_time?: string;
+          course_id?: string;
+          hospital_id?: string;
+          hospital_name?: string;
+          program_detail?: string;
+          program_id?: string;
+          program_name?: string;
           reservation_id?: string;
-          status?: string | null;
-          subject_birth_date?: string | null;
-          subject_name?: string | null;
-          subject_phone_number?: string | null;
+          status?: string;
+          subject_birth_date?: string;
+          subject_name?: string;
+          subject_phone_number?: string;
           user_email?: string;
-          user_name?: string | null;
+          user_name?: string;
         };
         Relationships: [
           {

@@ -1,6 +1,7 @@
 "use client";
 
 import useApplyStore from "@/shared/zustand/applyStore";
+import { getDate } from "@/utils/changeTimeFormat";
 import React from "react";
 
 const TimeSelect = () => {
@@ -19,16 +20,9 @@ const TimeSelect = () => {
   const now = new Date(); // 현재 시간 가져오기
 
   const isSelectedDateBeforeAfterToday = (): "before" | "after" | "today" => {
-    const nowDateObj = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
-    const selectedDateObj = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate()
-    );
+    const nowDateObj = getDate(now);
+
+    const selectedDateObj = getDate(selectedDate);
 
     if (selectedDateObj < nowDateObj) {
       return "before";
@@ -55,12 +49,12 @@ const TimeSelect = () => {
   };
 
   const morningClick = (time: string) => {
-    alert(`${time}시에는 나 울어`);
+    alert(`${time}시에 예약하시겠습니까?`);
     setSelectedTime(time);
   };
 
   const afternoonClick = (time: string) => {
-    alert(`${time}시에는 집에 가고싶엉~`);
+    alert(`${time}시에 예약하시겠습니까?`);
     setSelectedTime(time);
   };
   return (
