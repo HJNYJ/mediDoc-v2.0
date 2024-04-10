@@ -1,10 +1,10 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
-import { getConsultDetail } from "@/api/supabase";
-import ConsultAnswer from "@/components/consult/ConsultAnswer";
-import ConsultItem from "@/components/consult/ConsultItem";
+import { getAnswerDetail, getConsultDetail } from "@/api/supabase";
+import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
+// import ConsultAnswer from "@/components/consult/ConsultAnswer";
+// import ConsultItem from "@/components/consult/ConsultItem";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 
 // const ConsultDetailPage = ({ params }: { params: { id: string } }) => {
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
@@ -15,6 +15,11 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   } = useQuery({
     queryKey: ["consultDetail", params.consultId],
     queryFn: () => getConsultDetail(params.consultId)
+  });
+
+  const { data: answerDetailData } = useQuery({
+    queryKey: ["answerDetail", params.consultId],
+    queryFn: () => getAnswerDetail(params.consultId)
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -36,7 +41,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </p>
             <div className="flex flex-wrap">
               {consultDetailData?.hashtags
-                .toString()
+                ?.toString()
                 .split(",")
                 .map((hashtag: string) => (
                   <span
@@ -48,8 +53,17 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                 ))}
             </div>
           </div>
-          <ConsultAnswer />
-          <ConsultItem />
+          {answerDetailData?.answer ? (
+            <div>
+              <h2>{answerDetailData?.department} 답변</h2>
+              <h2>{answerDetailData?.answer}</h2>
+            </div>
+          ) : (
+            <div>
+              <h2>{answerDetailData?.department} 답변!!!</h2>
+              <ConsultAnswerForm />
+            </div>
+          )}
         </div>
       </div>
     </div>
