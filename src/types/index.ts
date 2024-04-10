@@ -51,3 +51,37 @@ export interface ConsultInfoType {
   bodyparts: string;
   hashtags: string[];
 }
+
+export interface ReservationInfo {
+  apply_date: string | null;
+  apply_time: string | null;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  program_id: string;
+  reservation_id: string;
+  status: string | null;
+  subject_birth_date: string | null;
+  subject_name: string | null;
+  subject_phone_number: string | null;
+  user_email: string;
+  user_name: string | null;
+}
+
+export interface UserInfo {
+  provider: string | null;
+  user_avatar: string | null;
+  user_birth_date: string | null;
+  user_email: string;
+  user_id: string | null;
+  user_name: string;
+  user_phone_number: string | null;
+  user_type: string | null;
+}
+
+export interface ScrappedList {
+  hospital_id: string;
+  hospital_image: string | null;
+  hospital_name: string;
+  scrap_id: string;
+  user_id: string;
+}
