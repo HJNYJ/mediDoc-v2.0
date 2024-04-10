@@ -1,21 +1,24 @@
 // 마이페이지
 "use client";
 
-import { isThereClientSession } from "@/hooks/clientSession";
+import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
+import MyPageTab from "@/components/mypage/MyPageTab";
+import AdminMenu from "@/components/mypage/AdminMenu";
+import AccessDenied from "@/components/mypage/AccessDenied";
+import type { UserInfo } from "@/types";
+import Reservation from "@/components/apply/Reservation";
 
 const MyPage = () => {
-  const [userInfo, setUserInfo] = useState(null);
-  const [currentTab, SetCurrentTab] = useState("예약 정보");
+  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+  const [hospitalName, setHospitalName] = useState<string>("");
 
+  // 유저 정보 불러오기
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserInfo = async () => {
       try {
-        const { supabase, user } = await isThereClientSession();
-        const { data, error } = await supabase
-          .from("user_info")
-          .select("*")
-          .eq("user_email", user?.email || "");
+        const { data, error } = await supabase.from("user_info").select("*");
+
         if (error) throw new Error(error.message);
         setUserInfo(data);
       } catch (error) {
@@ -23,58 +26,35 @@ const MyPage = () => {
       }
     };
 
-    fetchUser();
+    fetchUserInfo();
   }, []);
 
-  const onChangeTabHandler = (tabName: string) => {
-    SetCurrentTab(tabName);
-  };
+  useEffect(() => {
+    if (userInfo.length > 0 && userInfo[0].user_type === "hospital staff") {
+      setHospitalName(userInfo[0].user_name);
+    }
+  }, [userInfo]);
+
+  if (!userInfo.length) {
+    return <p>사용자 정보를 불러오는 중입니다...</p>;
+  }
 
   return (
     <>
       <h3>마이페이지</h3>
       <section>
-        {userInfo ? (
-          <div>
-            <p>{userInfo[0]?.user_name}님, 안녕하세요!</p>
+        {userInfo.map((user) => (
+          <div key={user.user_id}>
+            <p>{user.user_name}님, 안녕하세요!</p>
           </div>
-        ) : (
-          <p>사용자 정보를 불러오는 중입니다...</p>
-        )}
+        ))}
       </section>
       <section>
-        <div>
-          <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
-              currentTab === "예약 정보"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => onChangeTabHandler("예약 정보")}
-          >
-            예약 정보
-          </button>
-          <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
-              currentTab === "스크랩"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => onChangeTabHandler("스크랩")}
-          >
-            스크랩
-          </button>
-          <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
-              currentTab === "내가 한 질문"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => onChangeTabHandler("내가 한 질문")}
-          >
-            내가 한 질문
-          </button>
-        </div>
+        {userInfo[0].user_type === "general user" && <MyPageTab />}
+        {userInfo[0].user_type === "hospital staff" && (
+          <AdminMenu hospitalName={hospitalName} />
+        )}
+        {userInfo[0].user_type === "developer" && <AccessDenied />}
       </section>
     </>
   );
