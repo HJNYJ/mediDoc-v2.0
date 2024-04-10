@@ -13,22 +13,37 @@ export type Database = {
         Row: {
           answer: string;
           answer_id: string;
-          consult_id: string | null;
-          hospital_id: string | null;
+          consult_id: string;
+          hospital_id: string;
         };
         Insert: {
           answer: string;
           answer_id?: string;
-          consult_id?: string | null;
-          hospital_id?: string | null;
+          consult_id?: string;
+          hospital_id: string;
         };
         Update: {
           answer?: string;
           answer_id?: string;
-          consult_id?: string | null;
-          hospital_id?: string | null;
+          consult_id?: string;
+          hospital_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_consult_answer_consult_id_fkey";
+            columns: ["consult_id"];
+            isOneToOne: false;
+            referencedRelation: "consult_info";
+            referencedColumns: ["consult_id"];
+          },
+          {
+            foreignKeyName: "public_consult_answer_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
       };
       consult_hashtags: {
         Row: {
@@ -190,30 +205,33 @@ export type Database = {
           hospital_address: string;
           hospital_contact: string;
           hospital_id: string;
-          hospital_image: string;
-          hospital_introduction: string;
-          hospital_name: string;
-          start_time: string;
+          hospital_image: string | null;
+          hospital_introduction: string | null;
+          hospital_name: string | null;
+          manager_name: string | null;
+          start_time: string | null;
         };
         Insert: {
           end_time: string;
           hospital_address: string;
           hospital_contact: string;
           hospital_id?: string;
-          hospital_image: string;
-          hospital_introduction: string;
-          hospital_name: string;
-          start_time: string;
+          hospital_image?: string | null;
+          hospital_introduction?: string | null;
+          hospital_name?: string | null;
+          manager_name?: string | null;
+          start_time?: string | null;
         };
         Update: {
           end_time?: string;
           hospital_address?: string;
           hospital_contact?: string;
           hospital_id?: string;
-          hospital_image?: string;
-          hospital_introduction?: string;
-          hospital_name?: string;
-          start_time?: string;
+          hospital_image?: string | null;
+          hospital_introduction?: string | null;
+          hospital_name?: string | null;
+          manager_name?: string | null;
+          start_time?: string | null;
         };
         Relationships: [];
       };
@@ -375,31 +393,28 @@ export type Database = {
       };
       user_info: {
         Row: {
-          provider: string | null;
+          provider: string;
           user_avatar: string | null;
           user_birth_date: string | null;
           user_email: string;
-          user_id: string | null;
           user_name: string;
           user_phone_number: string | null;
           user_type: string | null;
         };
         Insert: {
-          provider?: string | null;
+          provider: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email: string;
-          user_id?: string | null;
           user_name: string;
           user_phone_number?: string | null;
           user_type?: string | null;
         };
         Update: {
-          provider?: string | null;
+          provider?: string;
           user_avatar?: string | null;
           user_birth_date?: string | null;
           user_email?: string;
-          user_id?: string | null;
           user_name?: string;
           user_phone_number?: string | null;
           user_type?: string | null;
