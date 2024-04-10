@@ -1,34 +1,47 @@
 // 제휴 병원 간단 정보 div
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
 import { useRouter } from "next/navigation";
+import { getTime, removeTimeSecond } from "@/utils/changeTimeFormat";
+import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 
-const HospitalItem = () => {
+const HospitalItem = ({ hospital }) => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+
+  // 시간 출력 타입 변경
+  const secondRemovedStartTime = removeTimeSecond(hospital.start_time);
+  const secondRemovedEndTime = removeTimeSecond(hospital.end_time);
+
+  // 운영 여부
+  const currentTime = getTime();
+  const isHospitalOpen = checkHospitalOpen(
+    currentTime,
+    secondRemovedStartTime,
+    secondRemovedEndTime
+  );
 
   return (
-    <section onClick={() => router.push("/map/12")}>
+    <section
+      className="flex gap-4 cursor-pointer"
+      onClick={() => router.push(`/map/${hospital.hospital_id}`)}
+    >
       {/* 왼쪽 - 병원 이미지 */}
       <figure>
-        <Image src="" alt="병원 이미지" />
+        <img
+          src={hospital.hospital_image}
+          alt="병원 이미지"
+          width={240}
+          height={240}
+        />
       </figure>
       {/* 오른쪽 - 병원 정보 */}
       <article>
-        <h2>병원이름</h2>
+        <h2>{hospital.hospital_name}</h2>
         {/* 진료 여부 */}
-        {isOpen ? (
-          <span>진료중</span>
-        ) : (
-          // 진료종료 & ~시에 진료시작
-          <div>
-            <span>진료 종료</span> <span>09:00 에 진료시작</span>
-          </div>
-        )}
+        <span>{isHospitalOpen}</span>
         {/* 병원 주소 */}
-        <p>서울시 광진구 중곡동</p>
+        <p>{hospital.hospital_address}</p>
         {/* 평균 별점 & 후기 개수 */}
         <p>(별icon) 5.0 (40개)</p>
       </article>
