@@ -16,9 +16,8 @@ export const consultAddForm = async (
 
   // uploadedFileUrl: string[]
 ) => {
-  const { data, error } = await supabase
-    .from("consult_info")
-    .insert([
+  try {
+    const { data } = await supabase.from("consult_info").insert([
       {
         consult_title: newTitle,
         consult_content: newContents,
@@ -27,22 +26,42 @@ export const consultAddForm = async (
 
         // consult_photos: newConsultPhotos
       }
-    ])
-    .select();
+    ]);
+    return data;
+    // await uploadPhotosUrl();
+  } catch (error) {
+    if (error) {
+      console.error("consultAddForm error", error);
+      return;
+    }
+  }
+
+  // await uploadPhotosUrl();
 
   // await handleAddImages(uploadedFileUrl);
-  if (error) {
-    console.error("consultAddForm error", error);
-    return;
-  }
-  return data;
 };
-//constId 복사해오기 , 잘못된 코드,,,
+//constId 복사해오기 , 모든 아이디 가져옴
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
   const { data, error } = await supabase
     .from("consult_info")
-    .select(`*, consult_photos(consult_id)`);
+    .select(`*, consult_photos(consult_id)`); //필터링.........
+
+  if (error) {
+    console.log("getConsultId error => ", error);
+  } else {
+    console.log("consult_id 가져오기 성공 ===> ", data);
+    return data;
+  }
+
+  console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
+};
+
+export const getInfoId = async () => {
+  // consult_info 테이블에서 consult_id 값을 조회
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select(`*, consult_answer(consult_id)`); //필터링.........
 
   if (error) {
     console.log("getConsultId error => ", error);
@@ -56,25 +75,64 @@ export const getConsultId = async () => {
 
 // url string 업로드하기
 export const uploadPhotosUrl = async (url: string) => {
-  const { data: consultId } = await supabase
-    .from("consult_info")
-    .select(`consult_id, consult_photos(consult_id)`);
-  console.log("consultId", consultId);
+  try {
+    const consultId = await getConsultId();
+    console.log("consultId ===>", consultId); //모든 consultId를 가져옴
 
-  const consultIdString = consultId?.map((item) => item.consult_id).toString();
-  console.log(consultIdString);
-  // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
-  const { data, error } = await supabase
-    .from("consult_photos")
-    .insert([{ photos: url, consult_id: consultIdString }])
-    .single();
+    const consultIdString = consultId?.map((item) => item.consult_id);
 
-  if (error) {
-    console.error("url 업로드 error.... => ", error);
+    console.log("consultIdString", consultIdString?.[0]);
+    // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
+    const { data } = await supabase
+      .from("consult_photos")
+      .insert([{ photos: url, consult_id: consultIdString?.[0] }])
+      .single();
+
+    console.log("uploadPhotosUrl data up => ", data);
+    return data;
+  } catch (error) {
+    console.log("url 업로드 error.... => ", error);
     return error;
   }
-  console.log("uploadPhotosUrl data up => ", data);
+};
+
+export const getHospitalId = async () => {
+  // consult_info 테이블에서 consult_id 값을 조회
+  const { data } = await supabase
+    .from("consult_answer")
+    .select(`*, hospital_info (hospital_id)`); //필터링.........
+
+  console.log("consult_id 가져오기 성공 ===> ", data);
   return data;
+  // 모든 배열을 가져오네
+};
+
+export const insertAnswer = async (department: string, answer: string) => {
+  try {
+    const { data: consertId } = await supabase
+      .from("consult_answer")
+      .select(`*, consult_info(consult_id)`);
+
+    const hospitalId = await getHospitalId();
+    console.log("hospitalId ===>", hospitalId); //모든 hospitalId 가져옴
+
+    const hospitalIdString = hospitalId?.map((item) => item.hospital_id);
+    const consultIdString = consertId?.map((item) => item.consult_id);
+    console.log("hospitalIdString ===>", hospitalIdString);
+
+    const { data } = await supabase.from("consult_answer").insert([
+      {
+        department: department,
+        answer: answer,
+        consult_id: consultIdString,
+        hospital_id: hospitalIdString
+      }
+    ]);
+    return data;
+  } catch (error) {
+    console.error("insertAnswer error", error);
+    return error;
+  }
 };
 
 export const fetchImages = async () => {
@@ -84,24 +142,6 @@ export const fetchImages = async () => {
     return;
   }
 
-  return data;
-};
-
-// 유저 정보 가져오기
-export const getUserInform = async () => {
-  const { data } = await supabase.auth.getUser();
-  return data;
-};
-
-// 유저 정보 업데이트
-export const updateUserInform = async (name: string, images: string) => {
-  const { data, error } = await supabase.auth.updateUser({
-    data: { name, images }
-  });
-  if (error) {
-    console.error("업데이트 에러 => ", error);
-    return alert("업데이트를 다시 시도해주세요!");
-  }
   return data;
 };
 
@@ -157,15 +197,20 @@ export const getAnswerDetail = async (consultId: string) => {
   }
 };
 
-// export const getConsultId = async () => {
-//   const { data, error } = await supabase
-//     .from("consult_info")
-//     .select("consult_id, consult_answer:consult_id(*)");
+// 유저 정보 가져오기
+export const getUserInform = async () => {
+  const { data } = await supabase.auth.getUser();
+  return data;
+};
 
-//   if (error) {
-//     console.error("consult_id 가져오기 실패..", error);
-//     throw error;
-//   }
-//   console.log("consult_id 가져오기 성공 ===> ", data);
-//   return data;
-// };
+// 유저 정보 업데이트
+export const updateUserInform = async (name: string, images: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { name, images }
+  });
+  if (error) {
+    console.error("업데이트 에러 => ", error);
+    return alert("업데이트를 다시 시도해주세요!");
+  }
+  return data;
+};

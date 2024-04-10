@@ -5,7 +5,7 @@
 import { consultAddForm, supabase } from "@/api/supabase";
 import React, { useState } from "react";
 import HashTags from "./HashTags";
-import ConsultImages from "./ConsultImages";
+// import ConsultImages from "./ConsultImages";
 
 const AskForm = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +13,7 @@ const AskForm = () => {
   const [bodyparts, setBodyparts] = useState("");
   // 해시태그 데이터 저장할 상태
   const [hashtags, setHashtags] = useState({});
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
+  // const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const fetchHashtags = async (selectedCategory: string) => {
@@ -56,7 +56,8 @@ const AskForm = () => {
       title,
       contents,
       bodyparts,
-      selectedTags // 이미지 URL 추가
+      selectedTags
+      // 이미지 URL 추가
     );
 
     console.log(data);
@@ -126,12 +127,12 @@ const AskForm = () => {
         </div>
         <div>
           <label>사진첨부</label>
-          <div>
+          {/* <div>
             <ConsultImages
               uploadedFileUrl={uploadedFileUrl}
               setUploadedFileUrl={setUploadedFileUrl}
             />
-          </div>
+          </div> */}
         </div>
         <button
           type="button"
