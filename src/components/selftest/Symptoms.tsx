@@ -33,6 +33,7 @@ const Symptoms = () => {
           .from("symptom_questions")
           .select("*")
           .eq("bodyparts", selectedPart);
+        console.log(questions);
 
         if (error) throw error;
         setSymptoms(questions);

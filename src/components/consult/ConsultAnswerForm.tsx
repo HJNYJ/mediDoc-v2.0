@@ -1,7 +1,7 @@
 // 병원 관계자만 볼 수 있는 답변 입력 페이지 (제출 예정)
 "use client";
 
-import { insertAnswer } from "@/api/supabase";
+// import { insertAnswer } from "@/api/supabase";
 import React, { useState } from "react";
 
 const ConsultAnswerForm = () => {
@@ -22,7 +22,7 @@ const ConsultAnswerForm = () => {
   const handleAnswerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // 수파두파디바 여기에 로직 추가할 예정
-    await insertAnswer(department, answer);
+    // await insertAnswer(department, answer);
   };
 
   return (
