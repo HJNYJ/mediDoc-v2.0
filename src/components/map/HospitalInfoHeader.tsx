@@ -5,6 +5,7 @@ import { removeTimeSecond, getTime } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import Map from "./Map";
 
 const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   const [isTimeToggleOpen, setTimeToggleOpen] = useState(false); // 진료시간 toggle
@@ -23,8 +24,8 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   if (isError) return <p>병원 데이터를 가져오는 동안 에러가 발생했습니다</p>;
 
   // 시간 출력 타입 변경
-  const secondRemovedStartTime = removeTimeSecond(hospitalData.start_time);
-  const secondRemovedEndTime = removeTimeSecond(hospitalData.end_time);
+  const secondRemovedStartTime = removeTimeSecond(hospitalData!.start_time);
+  const secondRemovedEndTime = removeTimeSecond(hospitalData!.end_time);
 
   // 운영 여부
   const currentTime = getTime();
@@ -38,7 +39,11 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
     <>
       {/* 병원 위치(지도) */}
       <section>
-        <div>병원 위치(지도)</div>
+        <Map
+          name={hospitalData!.hospital_name}
+          latitude={hospitalData.hospital_latitude}
+          longitude={hospitalData.hospital_longitude}
+        />
       </section>
       <p>--------------------</p>
       {/* 병원 기본정보 */}
@@ -46,8 +51,8 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
         {/* 이름&주소 & 스크랩 버튼 */}
         <div className="flex">
           <div>
-            <h1>{hospitalData?.hospital_name}</h1>
-            <p>{hospitalData.hospital_address}</p>
+            <h1>{hospitalData!.hospital_name}</h1>
+            <p>{hospitalData!.hospital_address}</p>
           </div>
           <span>(스크랩icon)</span>
         </div>
@@ -92,7 +97,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
         {/* 전화번호 */}
         <div>
           <span>(전화번호icon)</span>{" "}
-          <span>{hospitalData.hospital_contact}</span>
+          <span>{hospitalData!.hospital_contact}</span>
         </div>
         {/* 소개글 */}
         <div>
@@ -109,7 +114,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
           </button>
           <div>
             {isIntroductionToggleOpen && (
-              <span>{hospitalData.hospital_introduction}</span>
+              <span>{hospitalData!.hospital_introduction}</span>
             )}
           </div>
         </div>
