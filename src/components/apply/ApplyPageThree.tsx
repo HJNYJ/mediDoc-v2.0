@@ -13,6 +13,11 @@ const ApplyPageThree = ({
 }) => {
   const router = useRouter();
   const handlePrevOrNextClick = (param: string) => {
+    if (param === "four") {
+      confirm("정말로 예약 하시겠습니까?");
+    } else {
+      param === "two";
+    }
     return setPageCount(param);
   };
   const handleBtnClick = () => {
@@ -63,7 +68,7 @@ const ApplyPageThree = ({
         <CourseSelect />
       </div>
       <button
-        className="m-2"
+        className="m-2 border-2"
         onClick={() => {
           handleReservation();
           handlePrevOrNextClick("four");

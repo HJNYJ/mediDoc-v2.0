@@ -7,17 +7,25 @@ import MyPageTab from "@/components/mypage/MyPageTab";
 import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
 import type { UserInfo } from "@/types";
-import Reservation from "@/components/apply/Reservation";
+// import Reservation from "@/components/apply/Reservation";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
   const [hospitalName, setHospitalName] = useState<string>("");
 
-  // 유저 정보 불러오기
   useEffect(() => {
+    // 유저 정보 불러오기
     const fetchUserInfo = async () => {
       try {
-        const { data, error } = await supabase.from("user_info").select("*");
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+
+        const { data, error } = await supabase
+          .from("user_info")
+          .select("*")
+          .eq("user_id", user?.id);
 
         if (error) throw new Error(error.message);
         setUserInfo(data);
@@ -26,14 +34,54 @@ const MyPage = () => {
       }
     };
 
-    fetchUserInfo();
-  }, []);
+    // 마이페이지에 클릭 했을 때, 유저 정보 넣기
+    const insertUserInfo = async () => {
+      try {
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
 
-  useEffect(() => {
-    if (userInfo.length > 0 && userInfo[0].user_type === "hospital staff") {
-      setHospitalName(userInfo[0].user_name);
-    }
-  }, [userInfo]);
+        // 데이터가 이미 있는지 확인하기
+        const { data: existingData, error: selectError } = await supabase
+          .from("user_info")
+          .select("*")
+          .eq("user_id", user?.id);
+
+        if (selectError) {
+          throw new Error(selectError.message);
+        }
+
+        // 데이터가 존재하지 않을 때만 유저 정보 넣기
+        if (!existingData || existingData.length === 0) {
+          const { error: insertError } = await supabase
+            .from("user_info")
+            .insert([
+              {
+                user_id: user?.id,
+                user_email: user?.email,
+                provider: user?.app_metadata.provider,
+                user_name: user?.user_metadata.full_name,
+                user_type: "general user"
+              }
+            ]);
+          if (insertError) {
+            throw new Error(insertError.message);
+          }
+        }
+      } catch (error) {
+        if (error instanceof Error)
+          console.error("사용자 정보 삽입 오류:", error.message);
+      }
+    };
+
+    const fetchData = async () => {
+      await insertUserInfo();
+      await fetchUserInfo();
+    };
+
+    fetchData();
+  }, []);
 
   if (!userInfo.length) {
     return <p>사용자 정보를 불러오는 중입니다...</p>;

@@ -14,7 +14,7 @@ const CourseSelect = () => {
     queryKey: ["course"],
     queryFn: courseNameSelect
   });
-  const [courseToggle, setCourseToggle] = useState<boolean>(false);
+  // const [courseToggle, setCourseToggle] = useState<boolean>(false);
   const { setSelectedCourseName, setSelectedCourseDetail } = useApplyStore();
 
   const courseName = course?.map((card) => {
@@ -25,13 +25,12 @@ const CourseSelect = () => {
           onClick={() => {
             setSelectedCourseName(card.course_name);
             setSelectedCourseDetail(card.course_detail);
-            setCourseToggle(true);
+            // setCourseToggle(true);
           }}
         >
           <div>{card.course_name}</div>
         </button>
-        <div>금액 : {card.course_price}원</div>
-        <div>내용 : {card.course_detail}</div>
+        {/* {courseToggle ? <div>{card.course_detail}</div> : <div></div>} */}
       </article>
     );
   });

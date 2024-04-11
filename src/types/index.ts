@@ -85,3 +85,18 @@ export interface ScrappedList {
   scrap_id: string;
   user_id: string;
 }
+
+// 리뷰 -----------------
+export type Tab = "starRating" | "latest";
+
+export type Review = {
+  id: number;
+  user_id: string;
+  rating: number;
+  content: string;
+  date: string;
+};
+
+export type ReviewsProps = {
+  selectedTab: "starRating" | "latest";
+};

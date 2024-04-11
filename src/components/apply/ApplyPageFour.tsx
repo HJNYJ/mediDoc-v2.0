@@ -13,13 +13,13 @@ const ApplyPageFour = () => {
   };
   return (
     <>
-      <p>
+      <title>
         <HospitalName />
-      </p>
-      <div>
+      </title>
+      <p>
         <VisitorInfo />
-      </div>
-      <button className="m-2" onClick={handleBtnClick}>
+      </p>
+      <button className="m-2 border-2" onClick={handleBtnClick}>
         확인
       </button>
     </>

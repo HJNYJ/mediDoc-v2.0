@@ -6,38 +6,33 @@ import React, { useState, useEffect } from "react";
 import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
-import { isThereClientSession } from "@/hooks/clientSession";
 
 export const Navbar = () => {
   const router = useRouter();
   const isLoggedIn = useAuthStore((state) => state.user.isLoggedIn);
   const changeLoggedIn = useAuthStore((state) => state.changeLoggedIn);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchSession = async () => {
       try {
         // 세션 정보가 있는지 확인 후. 로그인 상태 설정
-        const { user, session } = await isThereClientSession();
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        console.log("session", session);
+        const user = session?.user;
+
         changeLoggedIn(!!session);
 
-        // user_info 테이블에서 이메일이 같은지 확인
-        const { data, error } = await supabase
-          .from("user_info")
-          .select("user_id")
-          .eq("user_email", user?.email || "");
-        if (error) throw new Error(error.message);
-
-        console.log("data", data);
-
-        if (data && data.length > 0) {
-          setUserId(data[0].user_id);
+        if (user) {
+          setUserId(user.id);
         }
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
       }
     };
-    fetchUser();
+    fetchSession();
   }, [changeLoggedIn]);
 
   const logoutHandler = async () => {

@@ -3,7 +3,7 @@
 import HospitalName from "./HospitalName";
 import useApplyStore from "../../shared/zustand/applyStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const ApplyPageOne = ({
   setPageCount
@@ -20,7 +20,7 @@ const ApplyPageOne = ({
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);
-    setNameValid(value.trim() !== "");
+    setNameValid(value.length >= 2);
   };
   const onChangeIdNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -57,14 +57,16 @@ const ApplyPageOne = ({
           e.preventDefault();
         }}
       >
+        <p className="m-2">정보를 입력해주세요.</p>
         <div className="m-2">
           이름 :
           <input
+            placeholder="홍길동"
             className="text-black m-2"
             onChange={onChangeName}
             value={name}
           />
-          {!nameValid && <p className="text-red-500">이름이 비어있습니다.</p>}
+          {!nameValid && <p className="text-red-500">이름을 기입해주세요.</p>}
         </div>
         <div className="m-2">
           주민등록번호 :
@@ -72,9 +74,10 @@ const ApplyPageOne = ({
             className="text-black m-2"
             onChange={onChangeIdNumber}
             value={idNumber}
+            placeholder="생년월일"
           />
           {!idNumberValid && (
-            <p className="text-red-500">생년월일 6자리를 기입해주세요</p>
+            <p className="text-red-500">생년월일 6자리를 기입해주세요.</p>
           )}
         </div>
         <div className="m-2">
@@ -83,9 +86,10 @@ const ApplyPageOne = ({
             className="text-black m-2"
             onChange={onChangePhoneNumber}
             value={phoneNumber}
+            placeholder="전화번호"
           />
           {!phoneValid && (
-            <p className="text-red-500">전화번호를 기입해주세요</p>
+            <p className="text-red-500">전화번호를 11자리를 기입해주세요.</p>
           )}
         </div>
         <button className="m-2 border-2" onClick={handleNextClick}>

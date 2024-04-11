@@ -5,7 +5,7 @@ import { getDate } from "@/utils/changeTimeFormat";
 import React from "react";
 
 const TimeSelect = () => {
-  const { setSelectedTime, selectedDate } = useApplyStore();
+  const { selectedDate, setSelectedTime } = useApplyStore();
   const morning = ["9:00", "10:00", "11:00", "12:00"];
   const afternoon = [
     "13:00",

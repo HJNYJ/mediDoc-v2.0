@@ -1,20 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import TimeSelect from "./TimeSelect";
 import Calendar from "./CalendarDay";
 import { useRouter } from "next/navigation";
+import useApplyStore from "@/shared/zustand/applyStore";
 
 const ApplyPageTwo = ({
   setPageCount
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const [nextToggle, setNextToggle] = useState<boolean>(false);
+  const { selectedDate } = useApplyStore();
   const router = useRouter();
   const handleNextClick = (param: string) => {
-    return setPageCount(param);
+    if (selectedDate.toString() === "") {
+      alert("시간과 날짜를 모두 입력해주세요.");
+    } else {
+      return setPageCount(param);
+    }
   };
-
+  console.log("시간 초기값", selectedDate);
   const handleBtnClick = () => {
     router.push("/home");
   };

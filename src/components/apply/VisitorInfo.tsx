@@ -35,7 +35,7 @@ const VisitorInfo = () => {
       <p className="m-2">예약이 완료되었습니다.</p>
       {course?.map((card) => (
         <div key={card.reservation_id} className="m-2">
-          <p>예약번호 : {card.reservation_id?.substring(0, 8)}</p>
+          <p>예약번호 : {card.reservation_id?.substring(0, 7)}</p>
           <p>예약 일시 : {card.apply_date}</p>
           <p>예약자 : {card.subject_name}</p>
           <p>시간 : {card.apply_time}</p>
