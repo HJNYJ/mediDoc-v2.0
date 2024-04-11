@@ -18,6 +18,7 @@
 //   // 웹 페이지에서 파일 등록하기
 //   const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const fileList = e.target.files;
+//     console.log("fileList", fileList);
 
 //     if (fileList) {
 //       const filesArray = Array.from(fileList);
@@ -113,7 +114,7 @@
 //     <>
 //       <div>
 //         <h2>
-//           사진
+//           consultAddForm 사진
 //           <p>*</p>
 //           <span>{uploadedFileUrl.length}/5</span>
 //         </h2>
@@ -135,6 +136,7 @@
 //                 type="file"
 //                 id="file"
 //                 name="file"
+//                 // onChange={handleFiles}
 //                 onChange={handleFiles}
 //                 multiple
 //                 hidden
