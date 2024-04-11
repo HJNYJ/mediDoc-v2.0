@@ -2,18 +2,14 @@
 import { supabase } from "@/api/supabase";
 import React, { useState } from "react";
 import ReservationInfoList from "./ReservationInfoList";
-import { ReservationInfo } from "@/types";
-interface AdminMenuProps {
-  hospitalName: string;
-  // data: ReservationInfo[];
-}
+import useMyPageStore from "@/shared/zustand/myPageStore";
 
-const AdminMenu: React.FC<AdminMenuProps> = ({ hospitalName }) => {
+const AdminMenu = () => {
   const [showConsultList, setShowConsultList] = useState(false);
   const [showReservationList, setShowReservationList] = useState(false);
   const [showConsultButton, setShowConsultButton] = useState(true);
   const [showReservationButton, setShowReservationButton] = useState(true);
-  const [reservationData, setReservationData] = useState<ReservationInfo[]>([]);
+  const { hospitalName } = useMyPageStore();
 
   const handleConsultList = async () => {
     try {
@@ -31,18 +27,16 @@ const AdminMenu: React.FC<AdminMenuProps> = ({ hospitalName }) => {
 
   const handleReservationList = async () => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("reservation_info")
         .select("*")
         .eq("hospital_name", hospitalName);
       if (error) throw new Error(error.message);
-      console.log("hospitalName", hospitalName);
-      console.log("data", data);
+
       setShowConsultButton(false);
       setShowReservationButton(false);
       setShowConsultList(false);
       setShowReservationList(true);
-      setReservationData(data);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -56,9 +50,7 @@ const AdminMenu: React.FC<AdminMenuProps> = ({ hospitalName }) => {
       {showReservationButton && (
         <button onClick={handleReservationList}>예약 내역 관리</button>
       )}
-      {showReservationList && (
-        <ReservationInfoList hospitalName={hospitalName} />
-      )}
+      {showReservationList && <ReservationInfoList />}
     </>
   );
 };
