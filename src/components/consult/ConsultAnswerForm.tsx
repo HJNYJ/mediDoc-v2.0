@@ -1,27 +1,25 @@
 // 병원 관계자만 볼 수 있는 답변 입력 페이지 (제출 예정)
 "use client";
 
-import { getConsultId, getHospitalId, supabase } from "@/api/supabase";
-import React, { useEffect, useState } from "react";
+import { supabase } from "@/api/supabase";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
-const ConsultAnswerForm = () => {
-  const [hospitalId, setHospitalId] = useState(""); // 병원 ID
-  const [consultId, setConsultId] = useState(""); // 상담 ID
+const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
+  const router = useRouter();
   const [department, setDepartment] = useState(""); //진료과
   const [answer, setAnswer] = useState(""); //답변
 
-  // 외부에서 hospitalId와 consultId 가져오기
-  useEffect(() => {
-    const fetchConsultId = async () => {
-      const consultIdData = await getConsultId();
-      const hospitalIdData = await getHospitalId();
+  console.log("params ==========> ", params.consultId);
 
-      setConsultId(consultIdData?.[1]?.consult_id ?? "");
-      setHospitalId(hospitalIdData?.[0].hospital_id ?? "");
-    };
-
-    fetchConsultId();
-  }, []);
+  // const {
+  //   // isLoading,
+  //   // isError,
+  //   data: consultData
+  // } = useQuery({
+  //   queryKey: ["consultinfo", params.consultId],
+  //   queryFn: () => getSelectConsultId(params.consultId)
+  // });
 
   // 진료과 선택
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -32,6 +30,11 @@ const ConsultAnswerForm = () => {
     setAnswer(e.target.value);
   };
 
+  // 홈으로 이동
+  const goToAskList = () => {
+    router.push(`/consult`);
+  };
+
   // 답변
   // 데이터 제출
   const handleAnswerSubmit = async (e: React.FormEvent) => {
@@ -40,8 +43,7 @@ const ConsultAnswerForm = () => {
     try {
       const { data, error } = await supabase.from("consult_answer").insert([
         {
-          hospital_id: hospitalId,
-          consult_id: consultId,
+          consult_id: params.consultId,
           department: department,
           answer: answer
         }
@@ -87,6 +89,7 @@ const ConsultAnswerForm = () => {
         <button
           type="submit"
           className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          onClick={goToAskList}
         >
           답변하기
         </button>

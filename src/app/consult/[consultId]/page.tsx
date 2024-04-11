@@ -1,9 +1,6 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
 import { getAnswerDetail, getConsultDetail } from "@/api/supabase";
-import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
-// import ConsultAnswer from "@/components/consult/ConsultAnswer";
-// import ConsultItem from "@/components/consult/ConsultItem";
 import { useQuery } from "@tanstack/react-query";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
@@ -18,8 +15,10 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
   const { data: answerDetailData } = useQuery({
     queryKey: ["answerDetail", params.consultId],
-    queryFn: () => getAnswerDetail(params.consultId)
+    queryFn: () => getAnswerDetail()
   });
+
+  console.log("answerDetailData ===> ", answerDetailData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -52,21 +51,30 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                 ))}
             </div>
           </div>
-          {answerDetailData?.answer ? (
-            <div>
-              <h2 className="text-xl font-semibold mb-2">
-                {answerDetailData?.department} 답변
-              </h2>
-              <h2>{answerDetailData?.answer}</h2>
-            </div>
-          ) : (
-            <div>
-              <h2 className="bg-white shadow-md rounded-lg p-4">
-                {answerDetailData?.department}
-              </h2>
-              <ConsultAnswerForm />
-            </div>
-          )}
+          <div>
+            {answerDetailData?.map((item: string) => (
+              <div key={item}>
+                <div>{item.answer}</div>
+                <div>{item.department}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* {answerDetailData?.answer ? (
+          <div>
+            <h2 className="text-xl font-semibold mb-2">
+              {answerDetailData?.department} 답변
+            </h2>
+            <h2>{answerDetailData?.answer}</h2>
+          </div>
+          {/* ) : ( */}
+          {/* <div>
+            <h2 className="bg-white shadow-md rounded-lg p-4">
+              {answerDetailData?.department}
+            </h2>
+            <ConsultAnswerForm params={params} />
+          </div> */}
+          {/* )} */}
         </div>
       </div>
     </div>
