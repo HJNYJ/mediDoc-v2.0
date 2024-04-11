@@ -4,7 +4,7 @@
 import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 import type { ReservationInfo } from "@/types";
-// import IC_RIGTHBUTTON_URL from "@/components/layout/ic_chevron.right.svg";
+import useMyPageStore from "@/shared/zustand/myPageStore";
 
 const ReservationInfoItem = () => {
   const [reservationInfo, setReservationInfo] = useState<ReservationInfo[]>([]);
@@ -12,23 +12,53 @@ const ReservationInfoItem = () => {
     useState<ReservationInfo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedData, setEditedData] = useState<ReservationInfo | null>(null);
+  const { hospitalName } = useMyPageStore();
 
   // 예약 정보 가져오기
   useEffect(() => {
     const fetchReservationInfo = async () => {
       try {
-        const { data, error } = await supabase
-          .from("reservation_info")
-          .select("*");
-        if (error) throw new Error(error.message);
-        setReservationInfo(data);
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+
+        // 유저 타입 가져오기
+        const { data: userInfo, error: userInfoError } = await supabase
+          .from("user_info")
+          .select("user_type")
+          .eq("user_id", user?.id)
+          .single();
+
+        if (userInfoError) throw new Error(userInfoError.message);
+
+        const userType = userInfo?.user_type;
+
+        if (userType === "general user") {
+          // 일반 유저일 경우
+          const { data, error } = await supabase
+            .from("reservation_info")
+            .select("*")
+            .eq("user_email", user?.email);
+
+          if (error) throw new Error(error.message);
+          setReservationInfo(data);
+        } else if (userType === "hospital staff") {
+          // 병원 관계자일 경우
+          const { data, error } = await supabase
+            .from("reservation_info")
+            .select("*")
+            .eq("hospital_name", hospitalName);
+          if (error) throw new Error(error.message);
+          setReservationInfo(data);
+        }
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
       }
     };
 
     fetchReservationInfo();
-  }, []);
+  }, [hospitalName]);
 
   // 상세보기 버튼 눌렀을 때 모달 보여주는 함수
   const handleDetailButtonClick = (info: ReservationInfo) => {
@@ -72,7 +102,35 @@ const ReservationInfoItem = () => {
                 : info
             )
           );
+        }
+        setIsModalOpen(false);
+        alert("수정이 완료됐습니다.");
+        setEditedData(null);
+        window.location.reload();
+      }
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
+  };
+
+  // 검진 완료된 내역 삭제하는 함수
+  const handleDeleteCompletedList = async () => {
+    try {
+      if (selectedReservation) {
+        const { data, error } = await supabase
+          .from("reservation_info")
+          .delete()
+          .eq("reservation_id", selectedReservation.reservation_id);
+        if (error) throw new Error(error.message);
+        if (data) {
+          setReservationInfo((prev) =>
+            prev.filter(
+              (info) =>
+                info.reservation_id !== selectedReservation.reservation_id
+            )
+          );
           setIsModalOpen(false);
+          alert("예약 정보가 삭제되었습니다.");
           setEditedData(null);
         }
       }
@@ -92,7 +150,6 @@ const ReservationInfoItem = () => {
                 <p className="text-lg font-bold mr-4">
                   예약번호: {info.reservation_id.substring(0, 7)}
                 </p>
-                {/* <img src={IC_RIGTHBUTTON_URL} alt=">" /> */}
                 <button onClick={() => handleDetailButtonClick(info)}>
                   상세보기
                 </button>
@@ -143,7 +200,12 @@ const ReservationInfoItem = () => {
                 </button>
               )}
               {selectedReservation.status === "검진 완료" && (
-                <button className="absolute bottom-4">삭제</button>
+                <button
+                  className="absolute bottom-4"
+                  onClick={handleDeleteCompletedList}
+                >
+                  삭제
+                </button>
               )}
             </section>
           </div>
@@ -155,7 +217,6 @@ const ReservationInfoItem = () => {
           <div className="bg-white rounded-lg p-12 z-10 relative">
             <button onClick={handleModalClose}>X</button>
             <h2>예약 정보 수정</h2>
-
             <div>
               <label htmlFor="subject_name">검진자명:</label>
               <input
@@ -186,7 +247,8 @@ const ReservationInfoItem = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <button onClick={handleChangedReservationSave}>수정 완료</button>
+            <button onClick={handleChangedReservationSave}>수정하기</button>
+            <button onClick={handleModalClose}>취소하기</button>
           </div>
         </div>
       )}
