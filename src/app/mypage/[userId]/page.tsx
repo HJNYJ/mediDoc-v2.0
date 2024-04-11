@@ -7,7 +7,7 @@ import MyPageTab from "@/components/mypage/MyPageTab";
 import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
 import type { UserInfo } from "@/types";
-import Reservation from "@/components/apply/Reservation";
+// import Reservation from "@/components/apply/Reservation";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
