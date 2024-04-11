@@ -89,7 +89,7 @@ export type Database = {
         Insert: {
           bodyparts?: string | null;
           consult_content?: string | null;
-          consult_id?: string;
+          consult_id: string;
           consult_title?: string | null;
           created_at?: string;
           hashtags?: string[] | null;
@@ -431,13 +431,13 @@ export type Database = {
           user_email: string;
           user_id: string;
           user_name: string;
-          user_phone_number: string;
-          user_type: string;
+          user_phone_number: string | null;
+          user_type: string | null;
         };
         Insert: {
           provider: string;
           user_email: string;
-          user_id?: string;
+          user_id: string;
           user_name: string;
           user_phone_number: string;
           user_type: string;

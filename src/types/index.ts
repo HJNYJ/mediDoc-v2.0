@@ -68,14 +68,11 @@ export interface ReservationInfo {
 }
 
 export interface UserInfo {
-  provider: string | null;
-  user_avatar: string | null;
-  user_birth_date: string | null;
+  provider: string;
   user_email: string;
-  user_id: string | null;
+  user_id: string;
   user_name: string;
-  user_phone_number: string | null;
-  user_type: string | null;
+  user_type: string;
 }
 
 export interface ScrappedList {
