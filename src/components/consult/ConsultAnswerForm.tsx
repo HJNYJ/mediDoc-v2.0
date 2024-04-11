@@ -86,19 +86,9 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
         </button>
       </form>
       {/** 값이 어떻게 나오는지 체크해본것 */}
-      {/* {consultId}
-      {hospitalId} */}
+      {/* {hospitalId} */}
     </section>
   );
 };
 
 export default ConsultAnswerForm;
-
-// const {
-//   // isLoading,
-//   // isError,
-//   data: consultData
-// } = useQuery({
-//   queryKey: ["consultinfo", params.consultId],
-//   queryFn: () => getSelectConsultId(params.consultId)
-// });
