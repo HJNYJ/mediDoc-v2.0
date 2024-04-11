@@ -46,7 +46,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
         {/* 이름&주소 & 스크랩 버튼 */}
         <div className="flex">
           <div>
-            <h1>{hospitalData.hospital_name}</h1>
+            <h1>{hospitalData?.hospital_name}</h1>
             <p>{hospitalData.hospital_address}</p>
           </div>
           <span>(스크랩icon)</span>

@@ -3,9 +3,10 @@
 import useApplyStore from "@/shared/zustand/applyStore";
 import React, { useState } from "react";
 
-import type { CalendarDay } from "../../types/index";
+import type { CalendarDay } from "@/types";
+import { getDate } from "@/utils/changeTimeFormat";
 
-const Calendar: React.FC = () => {
+const Calendar = () => {
   /** 현재 날짜 */
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
@@ -16,10 +17,7 @@ const Calendar: React.FC = () => {
     // 날짜 포맷 (ex: 2024년 4월 7일)
     setSelectedDate(date);
   };
-  const formatDate = (date: Date) => {
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월  ${date.getDate()}일`;
-  };
-  const specifiedDate = formatDate(selectedDate);
+  const specifiedDate = getDate(selectedDate);
 
   /** 캘린더 생성 */
   const [currentMonth, setCurrentMonth] = useState(new Date());
