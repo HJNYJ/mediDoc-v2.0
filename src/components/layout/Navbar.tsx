@@ -12,8 +12,10 @@ export const Navbar = () => {
   const isLoggedIn = useAuthStore((state) => state.user.isLoggedIn);
   const changeLoggedIn = useAuthStore((state) => state.changeLoggedIn);
   const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
+    const fetchSession = async () => {
     const fetchSession = async () => {
       try {
         // 세션 정보가 있는지 확인 후. 로그인 상태 설정
@@ -32,6 +34,7 @@ export const Navbar = () => {
         if (error instanceof Error) console.error(error.message);
       }
     };
+    fetchSession();
     fetchSession();
   }, [changeLoggedIn]);
 
