@@ -10,14 +10,14 @@ const Reviews = ({ selectedTab }: ReviewsProps) => {
       user_id: "냠냠박사",
       rating: 3,
       content: "좋아요",
-      date: "2024-04-10"
+      created_at: "2024-04-10"
     },
     {
       id: 2,
       user_id: "쩝쩝박사",
       rating: 4,
       content: "만족합니다",
-      date: "2024-04-09"
+      created_at: "2024-04-09"
     }
   ];
 
@@ -25,7 +25,8 @@ const Reviews = ({ selectedTab }: ReviewsProps) => {
     selectedTab === "starRating"
       ? reviews.sort((a, b) => b.rating - a.rating) // 별점 높은 순
       : reviews.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         ); // 최신순
 
   return (
@@ -36,7 +37,7 @@ const Reviews = ({ selectedTab }: ReviewsProps) => {
           <li key={review.id}>
             <p>{review.content}</p>
             <p>별점: {review.rating}</p>
-            <p>날짜: {review.date}</p>
+            <p>날짜: {review.created_at}</p>
           </li>
         ))}
       </ul>
