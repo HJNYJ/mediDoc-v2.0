@@ -1,6 +1,7 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
 import { getAnswerDetail, getConsultDetail } from "@/api/supabase";
+import ConsultNotice from "@/components/consult/ConsultNotice";
 import { useQuery } from "@tanstack/react-query";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
@@ -59,7 +60,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
               </div>
             ))}
           </div>
-
+          <ConsultNotice />
           {/* {answerDetailData?.answer ? (
           <div>
             <h2 className="text-xl font-semibold mb-2">

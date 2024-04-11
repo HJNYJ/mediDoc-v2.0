@@ -111,32 +111,3 @@ const ConsultPage = () => {
 };
 
 export default ConsultPage;
-
-// const {
-//   isLoading,
-//   error,
-//   data: consultsData
-// } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
-// console.log("consultsData는? => ", consultsData);
-
-// const { data: consultPhotos } = useQuery({
-//   queryKey: ["consultPhotos"],
-//   queryFn: fetchImages
-// });
-// console.log("consultPhotos => ", consultPhotos);
-
-// if (isLoading) return <p>Loading consults..!!</p>;
-// if (error) return <p>error : {error.message}</p>;
-
-// const handleCategoryChange = () => {
-//   // bodyparts 탭으로 변경
-//   // setSelectedBodyPart(bodypart);
-// };
-
-// const goToAskForm = () => {
-//   router.push(`/consult/ask`);
-// };
-
-// const goToDetailPage = (consultId: string) => {
-//   router.push(`/consult/${consultId}`);
-// };
