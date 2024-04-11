@@ -12,15 +12,6 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
 
   console.log("params ==========> ", params.consultId);
 
-  // const {
-  //   // isLoading,
-  //   // isError,
-  //   data: consultData
-  // } = useQuery({
-  //   queryKey: ["consultinfo", params.consultId],
-  //   queryFn: () => getSelectConsultId(params.consultId)
-  // });
-
   // 진료과 선택
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDepartment(e.target.value);
@@ -103,38 +94,11 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
 
 export default ConsultAnswerForm;
 
-// // consult_id를 가져오는 함수
-// async function getConsultId() {
-//   try {
-//     const { data, error } = await supabase
-//       .from("consult_info")
-//       .select("consult_id");
-
-//     if (error) {
-//       throw error;
-//     }
-
-//     return data;
-//   } catch (error) {
-//     console.error("consult_id를 가져오는 중 오류 발생:", error);
-//     return null;
-//   }
-// }
-
-// // hospital_id를 가져오는 함수
-// async function getHospitalId() {
-//   try {
-//     const { data, error } = await supabase
-//       .from("hospital_info")
-//       .select("hospital_id");
-
-//     if (error) {
-//       throw error;
-//     }
-
-//     return data;
-//   } catch (error) {
-//     console.error("hospital_id를 가져오는 중 오류 발생:", error);
-//     return null;
-//   }
-// }
+// const {
+//   // isLoading,
+//   // isError,
+//   data: consultData
+// } = useQuery({
+//   queryKey: ["consultinfo", params.consultId],
+//   queryFn: () => getSelectConsultId(params.consultId)
+// });
