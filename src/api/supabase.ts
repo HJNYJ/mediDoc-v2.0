@@ -288,6 +288,15 @@ export const updateUserInform = async (name: string, images: string) => {
   return data;
 };
 
+export const courseNameSelect = async () => {
+  const response = await supabase
+    .from("course_info")
+    .select("*")
+    .order("course_price", { ascending: true });
+  const { data } = response;
+  return data;
+};
+
 export const getHospitalId = async () => {
   try {
     const { data } = await supabase.from("hospital_info").select("hospital_id");
@@ -297,4 +306,13 @@ export const getHospitalId = async () => {
     console.error("hospital_id를 가져오는 중 오류 발생:", error);
     return null;
   }
+};
+
+export const hospitalName = async () => {
+  const response = await supabase
+    .from("reservation_info")
+    .select("hospital_name");
+
+  const { data } = response;
+  return data;
 };

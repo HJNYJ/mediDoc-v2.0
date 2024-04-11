@@ -26,3 +26,12 @@ export const getTime = () => {
 
   return currentHour + ":" + currentMinute;
 };
+
+// 날짜 가져오기
+export const getDate = (date: Date) => {
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth() + 1;
+  const currentDate = date.getDate();
+
+  return currentYear + "년 " + currentMonth + "월 " + currentDate + "일";
+};
