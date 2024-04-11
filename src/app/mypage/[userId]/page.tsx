@@ -6,12 +6,12 @@ import React, { useEffect, useState } from "react";
 import MyPageTab from "@/components/mypage/MyPageTab";
 import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
+import useMyPageStore from "@/shared/zustand/myPageStore";
 import type { UserInfo } from "@/types";
-// import Reservation from "@/components/apply/Reservation";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
-  const [hospitalName, setHospitalName] = useState<string>("");
+  const { hospitalName, setHospitalName } = useMyPageStore();
 
   useEffect(() => {
     // 유저 정보 불러오기
@@ -28,6 +28,15 @@ const MyPage = () => {
           .eq("user_id", user?.id);
 
         if (error) throw new Error(error.message);
+
+        // user_type이 "hospital staff"이면 user_name을 hospitalName으로 설정
+        if (data && data.length > 0) {
+          const userInfo = data[0];
+          if (userInfo.user_type === "hospital staff") {
+            setHospitalName(userInfo.user_name);
+          }
+        }
+
         setUserInfo(data);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
@@ -81,7 +90,7 @@ const MyPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [setHospitalName]);
 
   if (!userInfo.length) {
     return <p>사용자 정보를 불러오는 중입니다...</p>;

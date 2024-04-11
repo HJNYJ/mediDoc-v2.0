@@ -33,6 +33,7 @@ export const Navbar = () => {
       }
     };
     fetchSession();
+    fetchSession();
   }, [changeLoggedIn]);
 
   const logoutHandler = async () => {
