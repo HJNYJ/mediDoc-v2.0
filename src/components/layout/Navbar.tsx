@@ -32,6 +32,7 @@ export const Navbar = () => {
         if (error instanceof Error) console.error(error.message);
       }
     };
+
     fetchSession();
   }, [changeLoggedIn]);
 

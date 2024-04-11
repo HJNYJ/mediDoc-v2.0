@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Reservation from "./Reservation";
 import { useRouter } from "next/navigation";
 import HospitalName from "./HospitalName";
+import VisitorInfo from "./VisitorInfo";
 
 const ApplyPageFour = () => {
   const router = useRouter();
@@ -13,11 +13,13 @@ const ApplyPageFour = () => {
   };
   return (
     <>
-      <div>
+      <title>
         <HospitalName />
-        <Reservation />
-      </div>
-      <button className="m-2" onClick={handleBtnClick}>
+      </title>
+      <p>
+        <VisitorInfo />
+      </p>
+      <button className="m-2 border-2" onClick={handleBtnClick}>
         확인
       </button>
     </>
