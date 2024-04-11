@@ -1,4 +1,4 @@
-import { TabsProps } from "@/types";
+import type { TabsProps } from "@/types";
 import React, { useState } from "react";
 // 이건 일단 남겨놓음 소희님 탭스가 어떻게 될지 몰라서
 

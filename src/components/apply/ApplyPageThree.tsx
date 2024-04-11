@@ -2,7 +2,8 @@
 
 import React from "react";
 import CourseSelect from "./CourseSelect";
-import CourseSelectItem from "./CourseSelectItem";
+import useApplyStore from "@/shared/zustand/applyStore";
+import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
 
 const ApplyPageThree = ({
@@ -12,11 +13,49 @@ const ApplyPageThree = ({
 }) => {
   const router = useRouter();
   const handlePrevOrNextClick = (param: string) => {
+    if (param === "four") {
+      confirm("정말로 예약 하시겠습니까?");
+    } else {
+      param === "two";
+    }
     return setPageCount(param);
   };
   const handleBtnClick = () => {
     router.push("/home");
   };
+
+  const {
+    name,
+    idNumber,
+    phoneNumber,
+    selectedDate,
+    selectedTime,
+    selectedCourseName,
+    selectedCourseDetail
+  } = useApplyStore();
+
+  const testObj = {
+    subject_name: name,
+    user_email: "nam_sax0531@naver.com",
+    subject_phone_number: phoneNumber,
+    apply_date: selectedDate,
+    apply_time: selectedTime,
+    program_name: selectedCourseName,
+    program_detail: selectedCourseDetail,
+    subject_birth_date: idNumber
+  };
+
+  const handleReservation = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("reservation_info")
+        .insert([testObj])
+        .select();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <button className="m-2" onClick={() => handlePrevOrNextClick("two")}>
@@ -27,10 +66,15 @@ const ApplyPageThree = ({
       </button>
       <div>
         <CourseSelect />
-        <CourseSelectItem />
       </div>
-      <button className="m-2" onClick={() => handlePrevOrNextClick("four")}>
-        예약
+      <button
+        className="m-2 border-2"
+        onClick={() => {
+          handleReservation();
+          handlePrevOrNextClick("four");
+        }}
+      >
+        예약하기
       </button>
     </>
   );
