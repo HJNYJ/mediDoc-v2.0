@@ -47,10 +47,6 @@ export const consultAddForm = async (
       return;
     }
   }
-
-  // await uploadPhotosUrl();
-
-  // await handleAddImages(uploadedFileUrl);
 };
 //constId 복사해오기 , 모든 아이디 가져옴
 export const getConsultId = async () => {
@@ -204,30 +200,6 @@ export const fetchConsultAndAnswerById = async (consultId: string) => {
     // consultData와 answerData를 결합하거나 처리
     console.log("Consult Data:", consultData);
     console.log("Answer Data:", answerData);
-  } catch (error) {
-    console.error("데이터 조회 중 오류 발생:", error);
-  }
-};
-
-export const fetchHospitalAndAnswerById = async (hospitalId: string) => {
-  try {
-    const { data: hospitalData, error: consultError } = await supabase
-      .from("hospital_info")
-      .select("*")
-      .eq("hospital_id", hospitalId);
-
-    if (consultError) throw consultError;
-
-    const { data: answerData, error: answerError } = await supabase
-      .from("consult_answer")
-      .select("*")
-      .eq("hospital_id", hospitalId);
-
-    if (answerError) throw answerError;
-
-    // 필요한 경우, consultData와 answerData를 결합하거나 처리
-    console.log("이거슨 이건 hospitalData :", hospitalData);
-    console.log("요거슨 요건 Answer Data:", answerData);
   } catch (error) {
     console.error("데이터 조회 중 오류 발생:", error);
   }

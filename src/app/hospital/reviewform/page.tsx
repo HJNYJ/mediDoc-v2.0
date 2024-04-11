@@ -26,12 +26,14 @@ const ReviewFormPage = () => {
           />
         </div>
         <div>
+          {/* 사진 input */}
           <label>사진 첨부[선택]</label>
         </div>
         <div>
-          <label>검사받았던 검진을 선택해 주세요</label>
+          {/* 해시태그 칩*/}
+          <label>검사받았던 검진의 해시태그를 선택해주세요</label>
         </div>
-        <button type="submit">리뷰 제출</button>
+        <button type="submit">등록하기</button>
       </form>
     </div>
   );

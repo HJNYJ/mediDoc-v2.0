@@ -15,7 +15,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
   const { data: answerDetailData } = useQuery({
     queryKey: ["answerDetail", params.consultId],
-    queryFn: () => getAnswerDetail()
+    queryFn: getAnswerDetail
   });
 
   console.log("answerDetailData ===> ", answerDetailData);
