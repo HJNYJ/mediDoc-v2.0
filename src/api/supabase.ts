@@ -288,17 +288,6 @@ export const updateUserInform = async (name: string, images: string) => {
   return data;
 };
 
-// export const getSelectConsultId = async () => {
-//   try {
-//     const { data } = await supabase.from("consult_info").select("consult_id");
-
-//     return data;
-//   } catch (error) {
-//     console.error("consult_id를 가져오는 중 오류 발생:", error);
-//     return null;
-//   }
-// };
-
 export const getHospitalId = async () => {
   try {
     const { data } = await supabase.from("hospital_info").select("hospital_id");
