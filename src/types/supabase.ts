@@ -89,7 +89,7 @@ export type Database = {
         Insert: {
           bodyparts?: string | null;
           consult_content?: string | null;
-          consult_id?: string;
+          consult_id: string;
           consult_title?: string | null;
           created_at?: string;
           hashtags?: string[] | null;
@@ -183,23 +183,23 @@ export type Database = {
       };
       course_info: {
         Row: {
-          course_detail: string | null;
+          course_detail: string;
           course_id: string;
-          course_name: string | null;
+          course_name: string;
           course_price: number | null;
           hospital_id: string | null;
         };
         Insert: {
-          course_detail?: string | null;
+          course_detail: string;
           course_id?: string;
-          course_name?: string | null;
+          course_name: string;
           course_price?: number | null;
           hospital_id?: string | null;
         };
         Update: {
-          course_detail?: string | null;
+          course_detail?: string;
           course_id?: string;
-          course_name?: string | null;
+          course_name?: string;
           course_price?: number | null;
           hospital_id?: string | null;
         };
@@ -428,35 +428,34 @@ export type Database = {
       user_info: {
         Row: {
           provider: string;
-          user_avatar: string | null;
-          user_birth_date: string | null;
           user_email: string;
           user_id: string;
           user_name: string;
-          user_phone_number: string | null;
-          user_type: string | null;
+          user_type: string;
         };
         Insert: {
           provider: string;
-          user_avatar?: string | null;
-          user_birth_date?: string | null;
           user_email: string;
-          user_id?: string;
+          user_id: string;
           user_name: string;
-          user_phone_number?: string | null;
-          user_type?: string | null;
+          user_type?: string;
         };
         Update: {
           provider?: string;
-          user_avatar?: string | null;
-          user_birth_date?: string | null;
           user_email?: string;
           user_id?: string;
           user_name?: string;
-          user_phone_number?: string | null;
-          user_type?: string | null;
+          user_type?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_user_info_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: {
