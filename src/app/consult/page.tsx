@@ -4,28 +4,38 @@
 import { useRouter } from "next/navigation";
 import { fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 // import Image from "next/image";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
+  const [consultsData, setConsultsData] = useState([]);
+  const [consultPhotos, setConsultPhotos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const {
-    isLoading,
-    error,
-    data: consultsData
-  } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
-  console.log("consultsData는? => ", consultsData);
+  useEffect(() => {
+    const fetchConsultsData = async () => {
+      setIsLoading(true);
+      const consultsData = await fetchConsults();
+      setConsultsData(consultsData);
+      setIsLoading(false);
+    };
 
-  const { data: consultPhotos } = useQuery({
-    queryKey: ["consultPhotos"],
-    queryFn: fetchImages
-  });
-  console.log("consultPhotos => ", consultPhotos);
+    const fetchConsultPhotos = async () => {
+      setIsLoading(true);
+      const consultPhotos = await fetchImages();
+      setConsultPhotos(consultPhotos);
+      setIsLoading(false);
+    };
+
+    fetchConsultsData();
+    fetchConsultPhotos();
+  }, []);
 
   if (isLoading) return <p>Loading consults..!!</p>;
-  if (error) return <p>error : {error.message}</p>;
+  if (error) return <p>error : {error}</p>;
 
   const handleCategoryChange = () => {
     // bodyparts 탭으로 변경
@@ -53,18 +63,18 @@ const ConsultPage = () => {
             className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
             onClick={() => goToDetailPage(consult.consult_id)} // 클릭 이벤트 핸들러 추가
           >
-            {/* <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between">
               {consultPhotos
-                ?.filter((image) => image.consult_id === consult.consult_id)
+                ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.map((image) => (
-                  // <img
-                  //   key={image.photos_id}
-                  //   src={image.photos} // 이미지 URL
-                  //   alt="Uploaded Image"
-                  //   className="w-full h-48 object-cover mb-2"
-                  // />
+                  <img
+                    key={image.photos_id}
+                    src={image.photos} // 이미지 URL
+                    alt="Uploaded Image"
+                    className="w-[200px] h-48 object-cover mb-2"
+                  />
                 ))}
-            </div> */}
+            </div>
             <p className="text-lg font-semibold mb-2">
               {consult.consult_title}
             </p>
@@ -101,3 +111,32 @@ const ConsultPage = () => {
 };
 
 export default ConsultPage;
+
+// const {
+//   isLoading,
+//   error,
+//   data: consultsData
+// } = useQuery({ queryKey: ["consults"], queryFn: fetchConsults });
+// console.log("consultsData는? => ", consultsData);
+
+// const { data: consultPhotos } = useQuery({
+//   queryKey: ["consultPhotos"],
+//   queryFn: fetchImages
+// });
+// console.log("consultPhotos => ", consultPhotos);
+
+// if (isLoading) return <p>Loading consults..!!</p>;
+// if (error) return <p>error : {error.message}</p>;
+
+// const handleCategoryChange = () => {
+//   // bodyparts 탭으로 변경
+//   // setSelectedBodyPart(bodypart);
+// };
+
+// const goToAskForm = () => {
+//   router.push(`/consult/ask`);
+// };
+
+// const goToDetailPage = (consultId: string) => {
+//   router.push(`/consult/${consultId}`);
+// };

@@ -1,28 +1,53 @@
 // 병원 관계자만 볼 수 있는 답변 입력 페이지 (제출 예정)
 "use client";
 
-// import { insertAnswer } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const ConsultAnswerForm = () => {
+const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
+  const router = useRouter();
   const [department, setDepartment] = useState(""); //진료과
   const [answer, setAnswer] = useState(""); //답변
+
+  console.log("params ==========> ", params.consultId);
 
   // 진료과 선택
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDepartment(e.target.value);
   };
 
-  // 답변
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswer(e.target.value);
   };
 
+  // 홈으로 이동
+  const goToAskList = () => {
+    router.push(`/consult`);
+  };
+
+  // 답변
   // 데이터 제출
   const handleAnswerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 수파두파디바 여기에 로직 추가할 예정
-    // await insertAnswer(department, answer);
+
+    try {
+      const { data, error } = await supabase.from("consult_answer").insert([
+        {
+          consult_id: params.consultId,
+          department: department,
+          answer: answer
+        }
+      ]);
+
+      if (error) {
+        console.log("답변 입력 중 오류 발생:", error.message);
+      }
+
+      console.log("답변 입력 성공:", data);
+    } catch (error) {
+      console.error("답변 입력 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -55,12 +80,25 @@ const ConsultAnswerForm = () => {
         <button
           type="submit"
           className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          onClick={goToAskList}
         >
           답변하기
         </button>
       </form>
+      {/** 값이 어떻게 나오는지 체크해본것 */}
+      {/* {consultId}
+      {hospitalId} */}
     </section>
   );
 };
 
 export default ConsultAnswerForm;
+
+// const {
+//   // isLoading,
+//   // isError,
+//   data: consultData
+// } = useQuery({
+//   queryKey: ["consultinfo", params.consultId],
+//   queryFn: () => getSelectConsultId(params.consultId)
+// });
