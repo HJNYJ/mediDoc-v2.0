@@ -11,7 +11,6 @@ interface User {
 }
 
 const LoginPage = () => {
-  // 카카오 소셜 로그인
   const signInWithKakao = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -25,14 +24,11 @@ const LoginPage = () => {
       } = await supabase.auth.getUser();
       if (user) saveUserInfo(user);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-      }
+      if (error instanceof Error) console.error(error.message);
+      alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
-  // 구글 소셜 로그인
   const signInWithGoogle = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -51,10 +47,8 @@ const LoginPage = () => {
       } = await supabase.auth.getUser();
       if (user) saveUserInfo(user);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-      }
+      if (error instanceof Error) console.error(error.message);
+      alert("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
