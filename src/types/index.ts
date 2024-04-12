@@ -68,11 +68,14 @@ export interface ReservationInfo {
 }
 
 export interface UserInfo {
-  provider: string;
+  provider: string | null;
+  user_avatar: string | null;
+  user_birth_date: string | null;
   user_email: string;
-  user_id: string;
+  user_id: string | null;
   user_name: string;
-  user_type: string;
+  user_phone_number: string | null;
+  user_type: string | null;
 }
 
 export interface ScrappedList {
@@ -91,7 +94,7 @@ export type Review = {
   user_id: string;
   rating: number;
   content: string;
-  date: string;
+  created_at: string;
 };
 
 export type ReviewsProps = {

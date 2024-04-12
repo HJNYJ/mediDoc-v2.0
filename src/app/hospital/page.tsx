@@ -4,7 +4,7 @@ import React from "react";
 const HospitalPage = () => {
   return (
     <>
-      {/* 여기서부턴 리뷰 (form은 일단 넣어놓은것) */}
+      {/* 여기서부턴 리뷰 - 몇가지 안나오는 */}
       <ReviewItem />
     </>
   );
