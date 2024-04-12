@@ -11,6 +11,34 @@ export const supabase = createBrowserClient<Database>(
   supabaseAnonKey
 );
 
+export const fetchUserInfo = async () => {
+  try {
+    const {
+      data: { session }
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+
+    const { data, error } = await supabase
+      .from("user_info")
+      .select("*")
+      .eq("user_id", user?.id);
+
+    if (error) throw new Error(error.message);
+
+    // user_type이 "hospital staff"이면 user_name을 hospitalName으로 설정
+    if (data && data.length > 0) {
+      const userInfo = data[0];
+      if (userInfo.user_type === "hospital staff") {
+        setHospitalName(userInfo.user_name);
+      }
+    }
+
+    setUserInfo(data);
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message);
+  }
+};
+
 // consult page
 export const consultAddForm = async (
   newTitle: string,
@@ -47,11 +75,35 @@ export const consultAddForm = async (
       return;
     }
   }
-
-  // await uploadPhotosUrl();
-
-  // await handleAddImages(uploadedFileUrl);
 };
+
+// review page
+export const reviewAddForm = async (
+  newContents: string,
+  newHashTags: string[],
+  newRating: number
+) => {
+  try {
+    const review_id = uuidv4();
+    await supabase.from("review_info").insert([
+      {
+        review_id,
+        content: newContents,
+        hashtags: newHashTags,
+        rating: newRating
+      }
+    ]);
+
+    console.log("저장했음!!!~", review_id);
+    return review_id;
+  } catch (error) {
+    if (error) {
+      console.error("reviewAddForm error", error);
+      return;
+    }
+  }
+};
+
 //constId 복사해오기 , 모든 아이디 가져옴
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
@@ -69,12 +121,23 @@ export const getConsultId = async () => {
   console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
 };
 
+export const consultUserCheck = async () => {
+  const { data, error } = await supabase.from("consult_info").select("*");
+
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+
+  return data;
+};
+
 export const getInfoId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
   const { data, error } = await supabase
     .from("consult_info")
     .select(`*, consult_answer(consult_id)`)
-    .eq("consult_id", consultId); //필터링.........
+    .eq("consult_id", "consult_id"); //필터링.........
 
   if (error) {
     console.log("getConsultId error => ", error);
@@ -86,7 +149,17 @@ export const getInfoId = async () => {
   console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
 };
 
-// url string 업로드하기
+export const fetchReviewHashtags = async () => {
+  const { data, error } = await supabase.from("review_hashtags").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+
+  return data;
+};
+
+// url string 업로드하기 이거 되는 코드
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {
     // const consultId = await getConsultId();
@@ -98,6 +171,22 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
     const { data } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
+      .single();
+
+    console.log("uploadPhotosUrl data up => ", data);
+    return data;
+  } catch (error) {
+    console.log("url 업로드 error.... => ", error);
+    return error;
+  }
+};
+
+export const uploadReviewPhotosUrl = async (url: string, review_id: string) => {
+  try {
+    // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
+    const { data } = await supabase
+      .from("review_photos")
+      .insert([{ photos: url, review_id: review_id }])
       .single();
 
     console.log("uploadPhotosUrl data up => ", data);
@@ -152,6 +241,16 @@ export const fetchImages = async () => {
   return data;
 };
 
+export const fetchReviewImages = async () => {
+  const { data, error } = await supabase.from("review_photos").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+
+  return data;
+};
+
 export const fetchConsults = async () => {
   const { data, error } = await supabase
     .from("consult_info")
@@ -182,61 +281,13 @@ export const getConsultDetail = async (consultId: string) => {
     return null;
   }
 };
-//특정 consult_id에 대한 정보 필터링
-export const fetchConsultAndAnswerById = async (consultId: string) => {
+
+export const getAnswerDetail = async (consultId: string) => {
   try {
-    // consult_info에서 consult_id가 일치하는 데이터 조회
-    const { data: consultData, error: consultError } = await supabase
-      .from("consult_info")
-      .select("*")
-      .eq("consult_id", consultId);
-
-    if (consultError) throw consultError;
-
-    // answer_info에서 consult_id가 일치하는 데이터 조회
-    const { data: answerData, error: answerError } = await supabase
+    const { data, error } = await supabase
       .from("consult_answer")
       .select("*")
       .eq("consult_id", consultId);
-
-    if (answerError) throw answerError;
-
-    // consultData와 answerData를 결합하거나 처리
-    console.log("Consult Data:", consultData);
-    console.log("Answer Data:", answerData);
-  } catch (error) {
-    console.error("데이터 조회 중 오류 발생:", error);
-  }
-};
-
-export const fetchHospitalAndAnswerById = async (hospitalId: string) => {
-  try {
-    const { data: hospitalData, error: consultError } = await supabase
-      .from("hospital_info")
-      .select("*")
-      .eq("hospital_id", hospitalId);
-
-    if (consultError) throw consultError;
-
-    const { data: answerData, error: answerError } = await supabase
-      .from("consult_answer")
-      .select("*")
-      .eq("hospital_id", hospitalId);
-
-    if (answerError) throw answerError;
-
-    // 필요한 경우, consultData와 answerData를 결합하거나 처리
-    console.log("이거슨 이건 hospitalData :", hospitalData);
-    console.log("요거슨 요건 Answer Data:", answerData);
-  } catch (error) {
-    console.error("데이터 조회 중 오류 발생:", error);
-  }
-};
-
-export const getAnswerDetail = async () => {
-  try {
-    const { data, error } = await supabase.from("consult_answer").select("*");
-    // .eq("consult_id", consultId);
 
     if (error) {
       console.error("답변 가져오기 실패..", error);

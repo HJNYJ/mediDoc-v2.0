@@ -69,7 +69,7 @@ const AskForm = () => {
         .from("images")
         .upload(`user_images/${newFileName}`, file);
 
-      console.log("upload file result => ", result.data);
+      // console.log("upload file result => ", result.data);
 
       if (result.data) {
         const url =
@@ -81,7 +81,7 @@ const AskForm = () => {
         const uploadImgUrl = await uploadPhotosUrl(url.toString(), consultId);
 
         if (uploadImgUrl) {
-          console.log("이미지 업로드 데이타! => ", uploadImgUrl);
+          console.log("이건 askform이구영 => ", uploadImgUrl);
         }
 
         setUploadedFileUrl((prev: string[]) => [...prev, url]);

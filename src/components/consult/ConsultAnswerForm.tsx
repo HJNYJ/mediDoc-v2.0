@@ -4,13 +4,15 @@
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import type { UserInfo } from "@/types";
 
 const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [department, setDepartment] = useState(""); //진료과
   const [answer, setAnswer] = useState(""); //답변
+  const [userInfo, setUserInfo] = useState([]);
 
-  console.log("params ==========> ", params.consultId);
+  // console.log("params ==========> ", params.consultId);
 
   // 진료과 선택
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -86,19 +88,9 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
         </button>
       </form>
       {/** 값이 어떻게 나오는지 체크해본것 */}
-      {/* {consultId}
-      {hospitalId} */}
+      {/* {hospitalId} */}
     </section>
   );
 };
 
 export default ConsultAnswerForm;
-
-// const {
-//   // isLoading,
-//   // isError,
-//   data: consultData
-// } = useQuery({
-//   queryKey: ["consultinfo", params.consultId],
-//   queryFn: () => getSelectConsultId(params.consultId)
-// });
