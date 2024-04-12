@@ -38,7 +38,7 @@ export const getMyConsultData = async () => {
 
 export const getMyConsultAnswerData = async () => {
   try {
-    // 병원 관계자 정보 가져오기
+    // 병원 관계자의 정보 가져오기
     const {
       data: { session }
     } = await supabase.auth.getSession();
