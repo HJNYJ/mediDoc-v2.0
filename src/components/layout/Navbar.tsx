@@ -20,7 +20,7 @@ export const Navbar = () => {
         const {
           data: { session }
         } = await supabase.auth.getSession();
-        console.log("session", session);
+
         const user = session?.user;
 
         changeLoggedIn(!!session);

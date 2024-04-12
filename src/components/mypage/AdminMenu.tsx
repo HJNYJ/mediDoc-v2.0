@@ -3,6 +3,7 @@ import { supabase } from "@/api/supabase";
 import React, { useState } from "react";
 import ReservationInfoList from "./ReservationInfoList";
 import useMyPageStore from "@/shared/zustand/myPageStore";
+import AdminQuestionItem from "./AdminQuestionItem";
 
 const AdminMenu = () => {
   const [showConsultList, setShowConsultList] = useState(false);
@@ -50,6 +51,7 @@ const AdminMenu = () => {
       {showReservationButton && (
         <button onClick={handleReservationList}>예약 내역 관리</button>
       )}
+      {showConsultList && <AdminQuestionItem />}
       {showReservationList && <ReservationInfoList />}
     </>
   );
