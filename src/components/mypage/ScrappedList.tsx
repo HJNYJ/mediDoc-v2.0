@@ -9,15 +9,25 @@ const ScrappedList = () => {
   useEffect(() => {
     const fetchScrappedList = async () => {
       try {
-        const { data, error } = await supabase.from("scrapped_list").select(`
+        // 사용자 정보 가져오기
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+
+        const { data, error } = await supabase
+          .from("scrapped_list")
+          .select(
+            `
           *, 
           hospital_info(*)
-        `);
-        console.log("scrappedData", data);
+        `
+          )
+          .eq("user_id", user?.id);
 
         if (error) throw new Error(error.message);
 
-        setScrappedList(data || []);
+        setScrappedList(data);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
       }
@@ -28,6 +38,7 @@ const ScrappedList = () => {
   return (
     <>
       <h2>스크랩한 병원</h2>
+      {scrappedList.length === 0 && <p>스크랩한 병원이 없습니다.</p>}
       {scrappedList.map((item) => (
         <div key={item.scrap_id}>
           <img
