@@ -1,46 +1,101 @@
 "use client";
 
-import type { Review, ReviewsProps } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/api/supabase";
+import { useState } from "react";
+import Hashtag from "@/utils/hashtag";
 
-const ReviewRecent = ({ selectedTab }: ReviewsProps) => {
-  // 가짜 데이터라고 가정
-  const reviews: Review[] = [
-    {
-      id: 1,
-      user_id: "냠냠박사",
-      rating: 3,
-      content: "좋아요",
-      created_at: "2024-04-10"
+const ReviewRecent = () => {
+  const [selectedTab, setSelectedTab] = useState("rateTop");
+  // 별점 높은 순 데이터 가져오기
+  const {
+    data: reviewRateTopData,
+    isLoading: isLoadingRateTop,
+    isError: isErrorRateTop
+  } = useQuery({
+    queryKey: ["reviewRateTop"],
+    queryFn: async () => {
+      const response = await supabase
+        .from("review_info")
+        .select("*")
+        .order("rating", { ascending: false })
+        .range(0, 3);
+      return response.data;
     },
-    {
-      id: 2,
-      user_id: "쩝쩝박사",
-      rating: 4,
-      content: "만족합니다",
-      created_at: "2024-04-09"
-    }
-  ];
+    enabled: selectedTab === "rateTop" // selectedTab이 'rateTop'일 때만 쿼리를 실행합니다.
+  });
 
-  const filteredReviews =
-    selectedTab === "starRating"
-      ? reviews.sort((a, b) => b.rating - a.rating) // 별점 높은 순
-      : reviews.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        ); // 최신순
+  // 최신순 데이터 가져오기
+  const {
+    data: reviewRecentData,
+    isLoading: isLoadingRecent,
+    isError: isErrorRecent
+  } = useQuery({
+    queryKey: ["reviewRecent"],
+    queryFn: async () => {
+      const response = await supabase
+        .from("review_info")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .range(0, 3);
+      return response.data;
+    },
+    enabled: selectedTab === "recent" // selectedTab이 'recent'일 때만 쿼리를 실행합니다.
+  });
+
+  if (isLoadingRateTop || isLoadingRecent) return <div>로딩 중...</div>;
+  if (isErrorRateTop || isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
     <div>
-      <h3>{selectedTab === "starRating" ? "별점 높은 순" : "최신순"}</h3>
-      <ul>
-        {filteredReviews.map((review) => (
-          <li key={review.id}>
-            <p>{review.content}</p>
-            <p>별점: {review.rating}</p>
-            <p>날짜: {review.created_at}</p>
-          </li>
-        ))}
-      </ul>
+      <button
+        className={selectedTab === "rateTop" ? "activeTab" : ""}
+        onClick={() => setSelectedTab("rateTop")}
+      >
+        별점 높은 순
+      </button>
+      <button
+        className={selectedTab === "recent" ? "activeTab" : ""}
+        onClick={() => setSelectedTab("recent")}
+      >
+        최신순
+      </button>
+
+      {selectedTab === "rateTop" && (
+        <div>
+          {reviewRateTopData?.map((review) => (
+            <div key={review.review_id}>
+              <h3>{review.content}</h3>
+              <p>별점: {review.rating}</p>
+              <div>
+                {review.hashtags
+                  ?.split(",")
+                  .map((hashtag: string) => (
+                    <Hashtag key={hashtag} hashtag={hashtag} />
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <br />
+      {selectedTab === "recent" && (
+        <div>
+          {reviewRecentData?.map((review) => (
+            <div key={review.review_id}>
+              <h3>{review.content}</h3>
+              <p>별점: {review.rating}</p>
+              <div>
+                {review.hashtags
+                  ?.split(",")
+                  .map((hashtag: string) => (
+                    <Hashtag key={hashtag} hashtag={hashtag} />
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
