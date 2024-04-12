@@ -1,48 +1,27 @@
-// 방문자 리뷰 section
 "use client";
+// 방문자 리뷰 section
+
 import useDetailTabStore from "@/shared/zustand/detailTabStore";
-import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
 
 // 병원 상세 페이지에 밑에 있는 방문자 리뷰 리스트들( 3-4개만 보여짐 ) -> 전체보기로 넘어갈 수 있음
 const ReviewList = () => {
   const { selectTab } = useDetailTabStore();
+  const router = useRouter();
+
+  const goToReviewForm = () => {
+    router.push(`/hospital/review`);
+  };
+
   return (
     <section>
       {/* 제목 & 리뷰쓰기 */}
       <div className="flex gap-4">
         <h3>방문자 리뷰</h3>
-        <button>리뷰 쓰기</button>
+        <button onClick={goToReviewForm}>리뷰 쓰기</button>
       </div>
       {/* 리뷰 리스트 */}
-      <article>
-        {/* 작성자 정보 */}
-        <div className="flex gap-4">
-          <figure>
-            <Image src="" alt="프로필 아바타" />
-          </figure>
-          <div>
-            <p>홍**</p>
-            <p>별점 5.0</p>
-          </div>
-        </div>
-        {/* 리뷰 내용 */}
-        <div>
-          <div className="flex gap-4">
-            <Image src="" alt="사진1" />
-            <Image src="" alt="사진2" />
-          </div>
-          <div>내용내용내용내용내용내용내용</div>
-          {/* 해시태그 & 날짜 */}
-          <div className="flex gap-4">
-            <div className="flex gap-4">
-              <button>#해시태그1</button>
-              <button>#해시태그2</button>
-            </div>
-            <span>24.04.01</span>
-          </div>
-        </div>
-      </article>
+
       <button
         onClick={(e) => {
           e.preventDefault();

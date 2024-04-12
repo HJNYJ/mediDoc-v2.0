@@ -4,7 +4,7 @@
 import React from "react";
 // import ConsultAnswerForm from "./ConsultAnswerForm";
 
-const ConsultAnswer = () => {
+const ConsultNotice = () => {
   return (
     <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
       {/* <ConsultAnswerForm /> */}
@@ -20,4 +20,4 @@ const ConsultAnswer = () => {
   );
 };
 
-export default ConsultAnswer;
+export default ConsultNotice;
