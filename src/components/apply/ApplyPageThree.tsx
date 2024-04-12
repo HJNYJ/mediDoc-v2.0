@@ -11,14 +11,15 @@ const ApplyPageThree = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const { isCourseClicked } = useApplyStore();
   const router = useRouter();
+
   const handlePrevOrNextClick = (param: string) => {
-    if (param === "four") {
-      confirm("정말로 예약 하시겠습니까?");
-    } else {
-      param === "two";
+    if (isCourseClicked === false) {
+      alert("코스를 선택해주세요.");
+    } else if (isCourseClicked === true) {
+      return setPageCount(param);
     }
-    return setPageCount(param);
   };
   const handleBtnClick = () => {
     router.push("/home");
@@ -57,7 +58,7 @@ const ApplyPageThree = ({
   };
 
   return (
-    <>
+    <div>
       <button className="m-2" onClick={() => handlePrevOrNextClick("two")}>
         &lt;
       </button>
@@ -68,7 +69,7 @@ const ApplyPageThree = ({
         <CourseSelect />
       </div>
       <button
-        className="m-2 border-2"
+        className="m-4 h-10 border-2 text-center w-60 rounded-lg"
         onClick={() => {
           handleReservation();
           handlePrevOrNextClick("four");
@@ -76,7 +77,7 @@ const ApplyPageThree = ({
       >
         예약하기
       </button>
-    </>
+    </div>
   );
 };
 

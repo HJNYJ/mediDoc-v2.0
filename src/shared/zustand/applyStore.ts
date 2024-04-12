@@ -15,6 +15,12 @@ type State = {
   setSelectedCourseName: (selectedCourseName: string) => void;
   selectedCourseDetail: string;
   setSelectedCourseDetail: (selectedCourseDetail: string) => void;
+  isTimeClicked: boolean;
+  setIsTimeClicked: (nextToggle: boolean) => void;
+  isDateClicked: boolean;
+  setIsDateClicked: (nextDateToggle: boolean) => void;
+  isCourseClicked: boolean;
+  setIsCourseClicked: (isCourseClicked: boolean) => void;
 };
 const useApplyStore = create<State>()((set) => ({
   name: "",
@@ -31,6 +37,12 @@ const useApplyStore = create<State>()((set) => ({
   setSelectedCourseName: (selectedCourseName) => set({ selectedCourseName }),
   selectedCourseDetail: "",
   setSelectedCourseDetail: (selectedCourseDetail) =>
-    set({ selectedCourseDetail })
+    set({ selectedCourseDetail }),
+  isTimeClicked: false,
+  setIsTimeClicked: (isTimeClicked) => set({ isTimeClicked }),
+  isDateClicked: false,
+  setIsDateClicked: (isDateClicked) => set({ isDateClicked }),
+  isCourseClicked: false,
+  setIsCourseClicked: (isCourseClicked) => set({ isCourseClicked })
 }));
 export default useApplyStore;
