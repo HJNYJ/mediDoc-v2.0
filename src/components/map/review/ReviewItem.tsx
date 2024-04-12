@@ -1,13 +1,13 @@
 "use client";
 
 import ReviewHeader from "./ReviewHeader";
-import ReviewImageList from "../defaultTab/ReviewImageList";
+import ReviewList from "../defaultTab/ReviewList";
 
 const ReviewItem = () => {
   return (
     <section>
       <ReviewHeader />
-      <ReviewImageList />
+      <ReviewList />
     </section>
   );
 };
