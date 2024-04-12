@@ -5,7 +5,7 @@ import { getDate } from "@/utils/changeTimeFormat";
 import React from "react";
 
 const TimeSelect = () => {
-  const { selectedDate, setSelectedTime } = useApplyStore();
+  const { selectedDate, setSelectedTime, setIsTimeClicked } = useApplyStore();
   const morning = ["9:00", "10:00", "11:00", "12:00"];
   const afternoon = [
     "13:00",
@@ -51,14 +51,16 @@ const TimeSelect = () => {
   const morningClick = (time: string) => {
     alert(`${time}시에 예약하시겠습니까?`);
     setSelectedTime(time);
+    setIsTimeClicked(true);
   };
 
   const afternoonClick = (time: string) => {
-    alert(`${time}시에 예약하시겠습니까?`);
     setSelectedTime(time);
+    setIsTimeClicked(true);
   };
   return (
     <div>
+      시간선택
       <div className="m-2">오전</div>
       <div>
         {morning.map((time, idx) => {
@@ -66,7 +68,7 @@ const TimeSelect = () => {
             <button
               key={idx}
               onClick={() => morningClick(time)}
-              className={`border-2 m-1 ${isDisabled(time) ? "disabled" : ""}`}
+              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}`}
               disabled={isDisabled(time)}
             >
               {time}
@@ -81,7 +83,7 @@ const TimeSelect = () => {
             <button
               key={idx}
               onClick={() => afternoonClick(time)}
-              className={`border-2 m-1 ${isDisabled(time) ? "disabled" : ""}`}
+              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}`}
               disabled={isDisabled(time)}
             >
               {time}

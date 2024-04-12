@@ -19,7 +19,10 @@ const ApplyPageFour = () => {
       <p>
         <VisitorInfo />
       </p>
-      <button className="m-2 border-2" onClick={handleBtnClick}>
+      <button
+        className="m-4 h-10 border-2 text-center w-60 rounded-lg"
+        onClick={handleBtnClick}
+      >
         확인
       </button>
     </>
