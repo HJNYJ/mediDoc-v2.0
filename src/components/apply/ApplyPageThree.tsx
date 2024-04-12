@@ -11,7 +11,17 @@ const ApplyPageThree = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { isCourseClicked } = useApplyStore();
+  const {
+    name,
+    idNumber,
+    phoneNumber,
+    selectedDate,
+    selectedTime,
+    selectedCourseName,
+    selectedCourseDetail,
+    isCourseClicked
+  } = useApplyStore();
+
   const router = useRouter();
 
   const handlePrevOrNextClick = (param: string) => {
@@ -24,16 +34,6 @@ const ApplyPageThree = ({
   const handleBtnClick = () => {
     router.push("/home");
   };
-
-  const {
-    name,
-    idNumber,
-    phoneNumber,
-    selectedDate,
-    selectedTime,
-    selectedCourseName,
-    selectedCourseDetail
-  } = useApplyStore();
 
   const testObj = {
     subject_name: name,
