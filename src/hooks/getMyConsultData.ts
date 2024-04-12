@@ -63,28 +63,27 @@ export const getMyConsultAnswerData = async () => {
       console.log("consultAnswerData", consultAnswerData);
       if (consultAnswerError) throw new Error(consultAnswerError.message);
 
-      // 병원 관계자가 작성한 답변에 있는 사진 가져오기
+      // 병원 관계자가 작성한 답변에 있는 상담 정보와 사진 가져오기
       for (const answer of consultAnswerData) {
-        const { data: answerPhotos, error: answerPhotosError } = await supabase
-          .from("consult_photos")
-          .select("*, consult_info(*)")
-          .eq("consult_id", answer.consult_id);
+        // 사진 가져오기
+        const { data: consultPhotos, error: consultPhotosError } =
+          await supabase
+            .from("consult_photos")
+            .select("*, consult_info(*)")
+            .eq("consult_id", answer.consult_id);
 
-        if (answerPhotosError) throw new Error(answerPhotosError.message);
+        if (consultPhotosError) throw new Error(consultPhotosError.message);
 
-        // consult_id가 동일한 상담글 가져오기
-        const questionIds = consultAnswerData.map(
-          (answer) => answer.consult_id
-        );
+        // 상담글 가져오기
         const { data: questionInfo, error: questionInfoError } = await supabase
           .from("consult_info")
           .select("*")
-          .eq("consult_id", questionIds);
+          .eq("consult_id", answer.consult_id);
         if (questionInfoError) throw new Error(questionInfoError.message);
         console.log("questionInfo", questionInfo);
 
-        answer.photos = answerPhotos;
-        answer.questionInfo = questionInfo;
+        answer.photos = consultPhotos;
+        answer.questionInfo = questionInfo[0];
       }
 
       return consultAnswerData;

@@ -43,16 +43,16 @@ const AdminQuestionItem = () => {
                   />
                 ))}
               </div>
-              {/* <div className="flex flex-col justify-between flex-1">
+              <div className="flex flex-col justify-between flex-1">
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
-                    {consult.consult_info.consult_title}
+                    {consult.questionInfo.consult_title}
                   </h2>
                   <p className="text-sm text-gray-500 mb-2">
-                    {consult.consult_info.consult_content}
+                    {consult.questionInfo.consult_content}
                   </p>
                 </div>
-              </div> */}
+              </div>
               <p className="text-sm text-gray-500">답변 완료</p>
             </Link>
           ))}
