@@ -13,8 +13,8 @@ const ReviewHeader = () => {
     setSelectedTab(tab);
   };
 
-  const goToReviewForm = () => {
-    router.push(`/hospital/reviewform`);
+  const goToReview = () => {
+    router.push(`/hospital/review`);
   };
 
   return (
@@ -22,7 +22,7 @@ const ReviewHeader = () => {
       <span>
         <h2>방문자 리뷰</h2>
       </span>
-      <button onClick={goToReviewForm}>리뷰 쓰기</button>
+      <button onClick={goToReview}>리뷰 쓰기</button>
       <br />
       <button
         className={selectedTab === "starRating" ? "activeTab" : ""}

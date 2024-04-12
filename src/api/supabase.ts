@@ -48,6 +48,34 @@ export const consultAddForm = async (
     }
   }
 };
+
+// review page
+export const reviewAddForm = async (
+  newContents: string,
+  newHashTags: string[],
+  newRating: number
+) => {
+  try {
+    const review_id = uuidv4();
+    await supabase.from("review_info").insert([
+      {
+        review_id,
+        content: newContents,
+        hashtags: newHashTags,
+        rating: newRating
+      }
+    ]);
+
+    console.log("저장했음!!!~", review_id);
+    return review_id;
+  } catch (error) {
+    if (error) {
+      console.error("reviewAddForm error", error);
+      return;
+    }
+  }
+};
+
 //constId 복사해오기 , 모든 아이디 가져옴
 export const getConsultId = async () => {
   // consult_info 테이블에서 consult_id 값을 조회
@@ -70,7 +98,7 @@ export const getInfoId = async () => {
   const { data, error } = await supabase
     .from("consult_info")
     .select(`*, consult_answer(consult_id)`)
-    .eq("consult_id", consultId); //필터링.........
+    .eq("consult_id", "consult_id"); //필터링.........
 
   if (error) {
     console.log("getConsultId error => ", error);
@@ -82,7 +110,7 @@ export const getInfoId = async () => {
   console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
 };
 
-// url string 업로드하기
+// url string 업로드하기 이거 되는 코드
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {
     // const consultId = await getConsultId();
@@ -94,6 +122,22 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
     const { data } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
+      .single();
+
+    console.log("uploadPhotosUrl data up => ", data);
+    return data;
+  } catch (error) {
+    console.log("url 업로드 error.... => ", error);
+    return error;
+  }
+};
+
+export const uploadReviewPhotosUrl = async (url: string, review_id: string) => {
+  try {
+    // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
+    const { data } = await supabase
+      .from("review_photos")
+      .insert([{ photos: url, review_id: review_id }])
       .single();
 
     console.log("uploadPhotosUrl data up => ", data);

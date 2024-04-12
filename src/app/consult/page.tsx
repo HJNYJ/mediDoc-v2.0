@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
+import Hashtag from "@/utils/hashtag";
 // import Image from "next/image";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
@@ -59,38 +60,33 @@ const ConsultPage = () => {
         <p>이건 consultData!</p>
         {consultsData?.map((consult) => (
           <div
-            key={consult.consult_id}
+            key={consult?.consult_id}
             className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
-            onClick={() => goToDetailPage(consult.consult_id)} // 클릭 이벤트 핸들러 추가
+            onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
           >
             <div className="flex flex-col justify-between">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.map((image) => (
                   <img
-                    key={image.photos_id}
-                    src={image.photos} // 이미지 URL
+                    key={image?.photos_id}
+                    src={image?.photos} // 이미지 URL
                     alt="Uploaded Image"
                     className="w-[200px] h-48 object-cover mb-2"
                   />
                 ))}
             </div>
             <p className="text-lg font-semibold mb-2">
-              {consult.consult_title}
+              {consult?.consult_title}
             </p>
-            <p className="text-gray-700 mb-2">{consult.consult_content}</p>
-            <h2 className="text-lg font-semibold">{consult.user_name}</h2>
+            <p className="text-gray-700 mb-2">{consult?.consult_content}</p>
+            <h2 className="text-lg font-semibold">{consult?.user_name}</h2>
             <div className="border-t border-gray-200">
-              {consult.hashtags
+              {consult?.hashtags
                 ?.toString()
                 .split(",")
                 .map((hashtag: string) => (
-                  <span
-                    key={hashtag}
-                    className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
-                  >
-                    #{hashtag.replace(/[\[\],_\/'"{}%&\*\(\);~\`\|:\?!]/g, "")}
-                  </span>
+                  <Hashtag key={hashtag} hashtag={hashtag} />
                 ))}
             </div>
           </div>
