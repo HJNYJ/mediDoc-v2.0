@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import TimeSelect from "./TimeSelect";
 import Calendar from "./CalendarDay";
 import { useRouter } from "next/navigation";
@@ -11,17 +10,21 @@ const ApplyPageTwo = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [nextToggle, setNextToggle] = useState<boolean>(false);
-  const { selectedDate } = useApplyStore();
+  const { isTimeClicked, isDateClicked } = useApplyStore();
   const router = useRouter();
+
   const handleNextClick = (param: string) => {
-    if (selectedDate.toString() === "") {
-      alert("시간과 날짜를 모두 입력해주세요.");
-    } else {
+    if (isDateClicked === false && isTimeClicked === false) {
+      alert("날짜와 시간 모두 선택해주세요.");
+    } else if (isTimeClicked === false) {
+      alert("시간을 선택 해주세요.");
+    } else if (isDateClicked === false) {
+      alert("날짜를 선택 해주세요.");
+    } else if (isDateClicked === true && isTimeClicked === true) {
       return setPageCount(param);
     }
   };
-  console.log("시간 초기값", selectedDate);
+
   const handleBtnClick = () => {
     router.push("/home");
   };
@@ -40,7 +43,10 @@ const ApplyPageTwo = ({
         <Calendar />
         <TimeSelect />
       </p>
-      <button className="m-2" onClick={() => handleNextClick("three")}>
+      <button
+        className="m-4 h-10 border-2 text-center w-60 rounded-lg"
+        onClick={() => handleNextClick("three")}
+      >
         다음
       </button>
     </div>
