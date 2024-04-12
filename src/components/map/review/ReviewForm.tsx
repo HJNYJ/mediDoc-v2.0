@@ -3,31 +3,18 @@
 import { reviewAddForm, supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const ReviewForm = () => {
-  const [hashtags, setHashtags] = useState({}); // 해시태그 저장
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number>(0); // 별점 관리
   const [img, setImg] = useState<File[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
+  const [hashtags, setHashtags] = useState({}); // 해시태그 저장
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  // const [selectedtags, setSelectedTags] = useState<
-  // | "일반건강검진"
-  // | "특수건강검진"
-  // | "소변검사"
-  // | "구강검진"
-  // | "혈액검사"
-  // | "갑상선검사"
-  // | "대장내시경"
-  // | "간염(ABC)검사"
-  // | "유전자검사"
-  // | "암검사"
-  // | "심전도검사"
-  // | "혈압검사"
-  // >("일반건강검진");
+
   const [uploadedImages, setUploadedImages] = useState<
     {
       name: string;
@@ -35,9 +22,41 @@ const ReviewForm = () => {
       dataUrl: string;
     }[]
   >([]);
-  // debugger;
+
   const reviewId = uuidv4();
   console.log("reviewId!! ==> ", reviewId);
+
+  useEffect(() => {
+    const fetchHashtags = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("review_hashtags")
+          .select(
+            "tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12"
+          );
+        if (error) {
+          console.error("Error fetching hashtags:", error.message);
+        } else {
+          const fetchedHashtags = Object.values(data[0]);
+          setHashtags(fetchedHashtags.filter((tag) => tag)); // 필요한 데이터가 있는지 확인하고 배열로 만듭니다.
+          // const fetchedHashtags = data.map((item: any) => item.hashtag);
+          // setHashtags(fetchedHashtags.filter((tag: string) => tag));
+        }
+      } catch (error) {
+        console.error("Error fetching hashtags:", error);
+      }
+    };
+
+    fetchHashtags();
+  }, []);
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTags((prevTags) =>
+      prevTags.includes(tag)
+        ? prevTags.filter((t) => t !== tag)
+        : [...prevTags, tag]
+    );
+  };
 
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("리뷰 이미지 테스트");
@@ -133,38 +152,6 @@ const ReviewForm = () => {
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== index);
     setUploadedImages(updatedImages);
-  };
-
-  const fetchHashtags = async (selectedhashtag: string) => {
-    const { data, error } = await supabase
-      .from("review_hashtags")
-      .select(
-        "tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12"
-      )
-      .eq("selectedtags", selectedhashtag);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    if (data.length > 0) {
-      const tags = data[0];
-      setHashtags({
-        tag1: tags.tag1,
-        tag10: tags.tag10,
-        tag11: tags.tag11,
-        tag12: tags.tag12,
-        tag2: tags.tag2,
-        tag3: tags.tag3,
-        tag4: tags.tag4,
-        tag5: tags.tag5,
-        tag6: tags.tag6,
-        tag7: tags.tag7,
-        tag8: tags.tag8,
-        tag9: tags.tag9
-      });
-    }
   };
 
   const handleSubmit = async () => {
@@ -267,14 +254,7 @@ const ReviewForm = () => {
           <label>리뷰하실 때 해시태그를 선택해주세요</label>
           <div>
             <label className="block mb-1">해시태그</label>
-            <select
-              onChange={(e) => {
-                fetchHashtags(e.target.value);
-              }}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
-            >
-              <option value="hashtags">hashtags</option>
-            </select>
+
             <ReviewTags
               hashtags={hashtags}
               selectedTags={selectedTags}

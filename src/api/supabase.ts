@@ -110,6 +110,16 @@ export const getInfoId = async () => {
   console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
 };
 
+export const fetchReviewHashtags = async () => {
+  const { data, error } = await supabase.from("review_hashtags").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+
+  return data;
+};
+
 // url string 업로드하기 이거 되는 코드
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {

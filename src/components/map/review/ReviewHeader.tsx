@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Reviews from "./Reviews";
+
 import type { Tab } from "@/types";
 import { useRouter } from "next/navigation";
+import ReviewRecent from "./ReviewRecent";
 
 const ReviewHeader = () => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const ReviewHeader = () => {
       >
         최신순
       </button>
-      <Reviews selectedTab={selectedTab} />
+      <ReviewRecent selectedTab={selectedTab} />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import type { Review, ReviewsProps } from "@/types";
 
-const Reviews = ({ selectedTab }: ReviewsProps) => {
+const ReviewRecent = ({ selectedTab }: ReviewsProps) => {
   // 가짜 데이터라고 가정
   const reviews: Review[] = [
     {
@@ -45,4 +45,4 @@ const Reviews = ({ selectedTab }: ReviewsProps) => {
   );
 };
 
-export default Reviews;
+export default ReviewRecent;

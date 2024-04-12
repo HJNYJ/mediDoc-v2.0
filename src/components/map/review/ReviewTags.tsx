@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 
-const ReviewTags = ({
+const HashTags = ({
   hashtags,
   selectedTags,
   setSelectedTags
@@ -13,14 +13,17 @@ const ReviewTags = ({
 }) => {
   const handleClick = async (tag: string) => {
     console.log(`${tag} 클릭됨!!!!!`);
-
+    // setSelectedTag(tag); // 선택된 해시태그 상태 업데이트하기!!
     const isSelected = selectedTags.includes(tag);
 
     if (isSelected) {
+      // 이미 포함되어있으니 제거하는 로직
       setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else if (selectedTags.length < 3) {
+      // 선택된 것이 7개 미만이어서 추가가 가능함 -> 추가
       setSelectedTags([...selectedTags, tag]);
     } else {
+      // 7개보다 크거나 같아서 더 이상 추가가 어려워서 생기는 오류!
       alert("최대 3개의 해시태그만 선택 가능합니다.");
     }
   };
@@ -35,7 +38,7 @@ const ReviewTags = ({
           onClick={() => handleClick(value)}
           className={`py-2 px-4 rounded-md focus:outline-none ${
             selectedTags.includes(value)
-              ? "bg-pink-500 text-white"
+              ? "bg-blue-500 text-white"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
@@ -46,4 +49,4 @@ const ReviewTags = ({
   );
 };
 
-export default ReviewTags;
+export default HashTags;
