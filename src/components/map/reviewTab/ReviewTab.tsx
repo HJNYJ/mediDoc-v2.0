@@ -8,7 +8,7 @@ const ReviewTab = () => {
   const router = useRouter();
 
   const goToReviewForm = () => {
-    router.push(`/hospital/reviewform`);
+    router.push(`/hospital/review`);
   };
   return (
     <main>
