@@ -288,7 +288,6 @@ export const getAnswerDetail = async (consultId: string) => {
       .from("consult_answer")
       .select("*")
       .eq("consult_id", consultId);
-    // .eq("consult_id", consultId);
 
     if (error) {
       console.error("답변 가져오기 실패..", error);

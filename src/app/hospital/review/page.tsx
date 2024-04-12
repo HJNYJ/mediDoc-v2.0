@@ -6,7 +6,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 const ReviewPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <div>

@@ -50,13 +50,13 @@ const ReviewForm = () => {
     fetchHashtags();
   }, []);
 
-  const handleTagClick = (tag: string) => {
-    setSelectedTags((prevTags) =>
-      prevTags.includes(tag)
-        ? prevTags.filter((t) => t !== tag)
-        : [...prevTags, tag]
-    );
-  };
+  // const handleTagClick = (tag: string) => {
+  //   setSelectedTags((prevTags) =>
+  //     prevTags.includes(tag)
+  //       ? prevTags.filter((t) => t !== tag)
+  //       : [...prevTags, tag]
+  //   );
+  // };
 
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("리뷰 이미지 테스트");
