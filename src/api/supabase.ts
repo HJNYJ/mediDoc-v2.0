@@ -282,9 +282,12 @@ export const getConsultDetail = async (consultId: string) => {
   }
 };
 
-export const getAnswerDetail = async () => {
+export const getAnswerDetail = async (consultId: string) => {
   try {
-    const { data, error } = await supabase.from("consult_answer").select("*");
+    const { data, error } = await supabase
+      .from("consult_answer")
+      .select("*")
+      .eq("consult_id", consultId);
     // .eq("consult_id", consultId);
 
     if (error) {

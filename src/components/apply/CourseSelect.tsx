@@ -3,7 +3,6 @@
 import { courseNameSelect } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
 import useApplyStore from "@/shared/zustand/applyStore";
-import React, { useState } from "react";
 
 const CourseSelect = () => {
   const {
@@ -14,22 +13,33 @@ const CourseSelect = () => {
     queryKey: ["course"],
     queryFn: courseNameSelect
   });
-  // const [courseToggle, setCourseToggle] = useState<boolean>(false);
-  const { setSelectedCourseName, setSelectedCourseDetail } = useApplyStore();
+
+  const { setSelectedCourseName, setSelectedCourseDetail, setIsCourseClicked } =
+    useApplyStore();
 
   const courseName = course?.map((card) => {
     return (
       <article key={card.course_id}>
-        <button
-          className="m-2 border-2 w-24"
+        <div
+          className="m-4 h-10 border-2 text-center w-60 rounded-lg justify-start flex items-center"
           onClick={() => {
             setSelectedCourseName(card.course_name);
             setSelectedCourseDetail(card.course_detail);
-            // setCourseToggle(true);
+            setIsCourseClicked(true);
           }}
         >
-          <div>{card.course_name}</div>
-        </button>
+          <div className="cursor-pointer">
+            <input
+              type="radio"
+              name="card.course_id"
+              id={card.course_name}
+              className="m-2"
+            />
+            <label htmlFor={card.course_name} className="cursor-pointer">
+              {card.course_name}
+            </label>
+          </div>
+        </div>
         {/* {courseToggle ? <div>{card.course_detail}</div> : <div></div>} */}
       </article>
     );

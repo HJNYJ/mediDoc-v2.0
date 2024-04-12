@@ -141,6 +141,7 @@ const ReservationInfoItem = () => {
 
   return (
     <>
+      {reservationInfo.length === 0 && <p>예약된 내역이 없습니다.</p>}
       {reservationInfo &&
         reservationInfo.map((info) => (
           <div key={info.reservation_id}>

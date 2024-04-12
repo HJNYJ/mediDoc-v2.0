@@ -5,7 +5,6 @@ import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const {
@@ -19,7 +18,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
   const { data: answerDetailData } = useQuery({
     queryKey: ["answerDetail", params.consultId],
-    queryFn: getAnswerDetail
+    queryFn: () => getAnswerDetail(params.consultId)
   });
 
   console.log("answerDetailData ===> ", answerDetailData);

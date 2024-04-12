@@ -80,8 +80,8 @@ export interface UserInfo {
 
 export interface ScrappedList {
   hospital_id: string;
-  hospital_image: string | null;
-  hospital_name: string;
+  // hospital_image: string | null;
+  // hospital_name: string;
   scrap_id: string;
   user_id: string;
 }
