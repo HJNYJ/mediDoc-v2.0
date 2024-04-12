@@ -10,7 +10,8 @@ const ApplyPageTwo = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { isTimeClicked, isDateClicked } = useApplyStore();
+  const { isTimeClicked, isDateClicked, setName, setIdNumber, setPhoneNumber } =
+    useApplyStore();
   const router = useRouter();
 
   const handleNextClick = (param: string) => {
@@ -22,10 +23,18 @@ const ApplyPageTwo = ({
       alert("날짜를 선택 해주세요.");
     } else if (isDateClicked === true && isTimeClicked === true) {
       return setPageCount(param);
+    } else if (param === "one") {
+      setName("");
+      setIdNumber("");
+      setPhoneNumber("");
+      setPageCount("one");
     }
   };
 
   const handleBtnClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
     router.push("/home");
   };
   return (

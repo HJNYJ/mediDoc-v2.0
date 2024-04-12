@@ -55,6 +55,9 @@ const ApplyPageOne = ({
   };
 
   const handleBtnClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
     router.push("/home");
   };
 

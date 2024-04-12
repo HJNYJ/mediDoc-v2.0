@@ -13,8 +13,11 @@ const ApplyPageThree = ({
 }) => {
   const {
     name,
+    setName,
     idNumber,
+    setIdNumber,
     phoneNumber,
+    setPhoneNumber,
     selectedDate,
     selectedTime,
     selectedCourseName,
@@ -32,6 +35,9 @@ const ApplyPageThree = ({
     }
   };
   const handleBtnClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
     router.push("/home");
   };
 
