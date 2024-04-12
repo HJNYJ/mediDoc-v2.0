@@ -15,21 +15,21 @@ export type Database = {
           answer_id: string;
           consult_id: string;
           department: string;
-          hospital_id: string;
+          user_id: string | null;
         };
         Insert: {
           answer: string;
           answer_id?: string;
           consult_id: string;
           department: string;
-          hospital_id: string;
+          user_id?: string | null;
         };
         Update: {
           answer?: string;
           answer_id?: string;
           consult_id?: string;
           department?: string;
-          hospital_id?: string;
+          user_id?: string | null;
         };
         Relationships: [
           {
@@ -40,11 +40,11 @@ export type Database = {
             referencedColumns: ["consult_id"];
           },
           {
-            foreignKeyName: "public_consult_answer_hospital_id_fkey";
-            columns: ["hospital_id"];
+            foreignKeyName: "public_consult_answer_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "hospital_info";
-            referencedColumns: ["hospital_id"];
+            referencedRelation: "user_info";
+            referencedColumns: ["user_id"];
           }
         ];
       };
@@ -190,9 +190,9 @@ export type Database = {
           hospital_id: string | null;
         };
         Insert: {
-          course_detail?: string;
+          course_detail: string;
           course_id?: string;
-          course_name?: string;
+          course_name: string;
           course_price?: number | null;
           hospital_id?: string | null;
         };
@@ -308,55 +308,55 @@ export type Database = {
       };
       reservation_info: {
         Row: {
-          apply_date: Date;
-          apply_time: string;
-          course_id: string;
-          hospital_id: string;
-          hospital_name: string;
-          program_detail: string;
-          program_id: string;
-          program_name: string;
+          apply_date: string | null;
+          apply_time: string | null;
+          course_id: string | null;
+          hospital_id: string | null;
+          hospital_name: string | null;
+          program_detail: string | null;
+          program_id: string | null;
+          program_name: string | null;
           reservation_id: string;
-          status: string;
-          subject_birth_date: string;
-          subject_name: string;
-          subject_phone_number: string;
+          status: string | null;
+          subject_birth_date: string | null;
+          subject_name: string | null;
+          subject_phone_number: string | null;
           user_email: string;
-          user_name: string;
+          user_name: string | null;
         };
         Insert: {
-          apply_date?: Date;
-          apply_time?: string;
-          course_id?: string;
-          hospital_id?: string;
-          hospital_name?: string;
-          program_detail?: string;
-          program_id?: string;
-          program_name?: string;
+          apply_date?: string | null;
+          apply_time?: string | null;
+          course_id?: string | null;
+          hospital_id?: string | null;
+          hospital_name?: string | null;
+          program_detail?: string | null;
+          program_id?: string | null;
+          program_name?: string | null;
           reservation_id?: string;
-          status?: string;
-          subject_birth_date?: string;
-          subject_name?: string;
-          subject_phone_number?: string;
+          status?: string | null;
+          subject_birth_date?: string | null;
+          subject_name?: string | null;
+          subject_phone_number?: string | null;
           user_email: string;
-          user_name?: string;
+          user_name?: string | null;
         };
         Update: {
-          apply_date?: Date;
-          apply_time?: string;
-          course_id?: string;
-          hospital_id?: string;
-          hospital_name?: string;
-          program_detail?: string;
-          program_id?: string;
-          program_name?: string;
+          apply_date?: string | null;
+          apply_time?: string | null;
+          course_id?: string | null;
+          hospital_id?: string | null;
+          hospital_name?: string | null;
+          program_detail?: string | null;
+          program_id?: string | null;
+          program_name?: string | null;
           reservation_id?: string;
-          status?: string;
-          subject_birth_date?: string;
-          subject_name?: string;
-          subject_phone_number?: string;
+          status?: string | null;
+          subject_birth_date?: string | null;
+          subject_name?: string | null;
+          subject_phone_number?: string | null;
           user_email?: string;
-          user_name?: string;
+          user_name?: string | null;
         };
         Relationships: [
           {
@@ -365,6 +365,104 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "course_info";
             referencedColumns: ["course_id"];
+          }
+        ];
+      };
+      review_hashtags: {
+        Row: {
+          id: string;
+          tag1: string;
+          tag10: string | null;
+          tag11: string | null;
+          tag12: string | null;
+          tag2: string | null;
+          tag3: string | null;
+          tag4: string | null;
+          tag5: string | null;
+          tag6: string | null;
+          tag7: string | null;
+          tag8: string | null;
+          tag9: string | null;
+        };
+        Insert: {
+          id?: string;
+          tag1: string;
+          tag10?: string | null;
+          tag11?: string | null;
+          tag12?: string | null;
+          tag2?: string | null;
+          tag3?: string | null;
+          tag4?: string | null;
+          tag5?: string | null;
+          tag6?: string | null;
+          tag7?: string | null;
+          tag8?: string | null;
+          tag9?: string | null;
+        };
+        Update: {
+          id?: string;
+          tag1?: string;
+          tag10?: string | null;
+          tag11?: string | null;
+          tag12?: string | null;
+          tag2?: string | null;
+          tag3?: string | null;
+          tag4?: string | null;
+          tag5?: string | null;
+          tag6?: string | null;
+          tag7?: string | null;
+          tag8?: string | null;
+          tag9?: string | null;
+        };
+        Relationships: [];
+      };
+      review_info: {
+        Row: {
+          content: string;
+          created_at: string;
+          hashtags: string | null;
+          rating: number;
+          review_id: string;
+        };
+        Insert: {
+          content: string;
+          created_at?: string;
+          hashtags?: string | null;
+          rating: number;
+          review_id?: string;
+        };
+        Update: {
+          content?: string;
+          created_at?: string;
+          hashtags?: string | null;
+          rating?: number;
+          review_id?: string;
+        };
+        Relationships: [];
+      };
+      review_photos: {
+        Row: {
+          photo_id: string;
+          photos: string;
+          review_id: string;
+        };
+        Insert: {
+          photo_id?: string;
+          photos: string;
+          review_id: string;
+        };
+        Update: {
+          photo_id?: string;
+          photos?: string;
+          review_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_review_photos_review_id_fkey";
+            columns: ["review_id"];
+            isOneToOne: false;
+            referencedRelation: "review_info";
+            referencedColumns: ["review_id"];
           }
         ];
       };
