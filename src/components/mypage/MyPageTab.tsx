@@ -12,33 +12,33 @@ const MyPageTab = () => {
   };
   return (
     <>
-      <section>
+      <section className="w-[358px] mx-[16px]">
         <div>
           <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
+            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
               currentTab === "예약 정보"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
+                : "bg-gray-200 text-gray-600"
             }`}
             onClick={() => onChangeTabHandler("예약 정보")}
           >
             예약 정보
           </button>
           <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
+            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
               currentTab === "스크랩"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
+                : "bg-gray-200 text-gray-600"
             }`}
             onClick={() => onChangeTabHandler("스크랩")}
           >
             스크랩
           </button>
           <button
-            className={`px-10 py-3 rounded-lg focus:outline-none text-lg ${
+            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
               currentTab === "내가 한 질문"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
+                : "bg-gray-200 text-gray-600"
             }`}
             onClick={() => onChangeTabHandler("내가 한 질문")}
           >

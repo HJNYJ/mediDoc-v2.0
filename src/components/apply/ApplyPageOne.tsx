@@ -3,7 +3,8 @@
 import HospitalName from "./HospitalName";
 import useApplyStore from "../../shared/zustand/applyStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/api/supabase";
 
 const ApplyPageOne = ({
   setPageCount
@@ -16,6 +17,27 @@ const ApplyPageOne = ({
   const [idNumberValid, setIdNumberValid] = useState<boolean>(false);
   const [phoneValid, setPhoneValid] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+
+        const user = session?.user;
+
+        const { data, error } = await supabase
+          .from("reservation_info")
+          .insert([{ user_email: user?.email, user_name: user?.name }]);
+        if (error) throw new Error();
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
