@@ -52,36 +52,48 @@ const MyQuestionItem = () => {
 
   return (
     <>
-      {myConsults.length === 0 && <p>내가 한 질문이 없습니다.</p>}
-      {myConsults.map((consult) => (
-        <Link
-          key={consult.consult_id}
-          href={`/consult/${consult.consult_id}`}
-          className="flex items-center w-96 m-4"
-        >
-          <div className="relative w-32 h-40 mr-4 overflow-hidden">
-            {consult.photos.map((photo) => (
-              <img
-                key={photo.photo_id}
-                src={photo.photos}
-                alt=""
-                className="w-full h-full object-fit"
-              />
-            ))}
-          </div>
-          <div className="flex flex-col justify-between flex-1">
-            <div>
-              <h2 className="text-2xl font-bold mb-2">
-                {consult.consult_title}
-              </h2>
-              <p className="text-sm text-gray-500 mb-2">
-                {consult.consult_content}
-              </p>
-            </div>
-          </div>
-          <p className="text-sm text-gray-500">{consult.answerStatus}</p>
-        </Link>
-      ))}
+      <section>
+        {myConsults.length === 0 && (
+          <p className="w-[155px] h-[19px] mx-[117.5px] mt-[185px] text-gray-400">
+            내가 한 질문이 없습니다.
+          </p>
+        )}
+      </section>
+      <section className="w-[358px] mx-[16px]">
+        {myConsults.map((consult) => (
+          <Link
+            key={consult.consult_id}
+            href={`/consult/${consult.consult_id}`}
+            className="flex items-center w-96 m-4"
+          >
+            <section className="flex flex-row w-[267px] h-[71px] mr-[34px] overflow-hidden">
+              {consult.photos.map((photo) => (
+                <img
+                  key={photo.photo_id}
+                  src={photo.photos}
+                  alt=""
+                  className="w-[60px] h-[60px] rounded-[10px] my-[5.5px] mr-[12px] object-fit"
+                />
+              ))}
+              <section className="flex flex-col w-[195px] h-[71px]">
+                <p className="w-[195px] h-[21px] mb-[8px] text-[18px] font-semibold ">
+                  {consult.consult_title}
+                </p>
+                <p className="w-[186px] h-[42px] text-[14px] text-gray-500">
+                  {consult.consult_content}
+                </p>
+              </section>
+            </section>
+            <p
+              className={`w-[57px] h-[27px] text-[13px] text-center place-content-center rounded-[4px]
+            ${consult.answerStatus === "답변 대기" ? " text-gray-500 bg-gray-200" : " text-amber-500 bg-amber-100"}
+             `}
+            >
+              {consult.answerStatus}
+            </p>
+          </Link>
+        ))}
+      </section>
     </>
   );
 };
