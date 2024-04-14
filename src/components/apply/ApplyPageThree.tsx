@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
 import CourseSelect from "./CourseSelect";
 import useApplyStore from "@/shared/zustand/applyStore";
 import { supabase } from "@/api/supabase";
@@ -96,6 +95,9 @@ const ApplyPageThree = ({
         .from("reservation_info")
         .insert([testObj])
         .select();
+      if (error) {
+        console.log("에러입니다.", error);
+      }
 
       setReservationInfo(data?.[0]);
       handlePrevOrNextClick("success");
