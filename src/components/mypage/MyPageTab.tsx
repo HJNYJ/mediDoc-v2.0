@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ReservationInfoList from "./ReservationInfoList";
 import ScrappedList from "./ScrappedList";
 import MyQuestionList from "./MyQuestionList";
+import Tab from "../layout/ Tabs";
 
 const MyPageTab = () => {
   const [currentTab, SetCurrentTab] = useState("예약 정보");
@@ -13,37 +14,31 @@ const MyPageTab = () => {
   return (
     <>
       <section className="w-[358px] mx-[16px]">
-        <div>
-          <button
-            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
-              currentTab === "예약 정보"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
+        <div className="flex">
+          <Tab
             onClick={() => onChangeTabHandler("예약 정보")}
+            width={119.3}
+            text="bold-16"
+            active={currentTab === "예약 정보"}
           >
             예약 정보
-          </button>
-          <button
-            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
-              currentTab === "스크랩"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
+          </Tab>
+          <Tab
             onClick={() => onChangeTabHandler("스크랩")}
+            width="[119.3px]"
+            text="bold-16"
+            active={currentTab === "스크랩"}
           >
             스크랩
-          </button>
-          <button
-            className={`rounded-lg focus:outline-none text-[16px] font-bold w-[119.3px] h-[35px] ${
-              currentTab === "내가 한 질문"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
+          </Tab>
+          <Tab
             onClick={() => onChangeTabHandler("내가 한 질문")}
+            width="[119.3px]"
+            text="bold-16"
+            active={currentTab === "내가 한 질문"}
           >
             내가 한 질문
-          </button>
+          </Tab>
         </div>
       </section>
       <section>{currentTab === "예약 정보" && <ReservationInfoList />}</section>
