@@ -15,12 +15,18 @@ type State = {
   setSelectedCourseName: (selectedCourseName: string) => void;
   selectedCourseDetail: string;
   setSelectedCourseDetail: (selectedCourseDetail: string) => void;
+  userEmailData: string;
+  setUserEmailData: (userEmailData: string) => void;
+  userNameData: string;
+  setUserNameData: (userNameData: string) => void;
   isTimeClicked: boolean;
   setIsTimeClicked: (nextToggle: boolean) => void;
   isDateClicked: boolean;
   setIsDateClicked: (nextDateToggle: boolean) => void;
   isCourseClicked: boolean;
   setIsCourseClicked: (isCourseClicked: boolean) => void;
+  reservationInfo: object;
+  setReservationInfo: (reservationInfo: object) => void;
 };
 const useApplyStore = create<State>()((set) => ({
   name: "",
@@ -38,11 +44,17 @@ const useApplyStore = create<State>()((set) => ({
   selectedCourseDetail: "",
   setSelectedCourseDetail: (selectedCourseDetail) =>
     set({ selectedCourseDetail }),
+  userEmailData: "",
+  setUserEmailData: (userEmailData) => set({ userEmailData }),
+  userNameData: "",
+  setUserNameData: (userNameData) => set({ userNameData }),
   isTimeClicked: false,
   setIsTimeClicked: (isTimeClicked) => set({ isTimeClicked }),
   isDateClicked: false,
   setIsDateClicked: (isDateClicked) => set({ isDateClicked }),
   isCourseClicked: false,
-  setIsCourseClicked: (isCourseClicked) => set({ isCourseClicked })
+  setIsCourseClicked: (isCourseClicked) => set({ isCourseClicked }),
+  reservationInfo: {},
+  setReservationInfo: (reservationInfo) => set({ reservationInfo })
 }));
 export default useApplyStore;
