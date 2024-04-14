@@ -4,10 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabase";
 import { useState } from "react";
 import Hashtag from "@/utils/hashtag";
+import { useParams } from "next/navigation";
 
 const ReviewRecent = () => {
+  const { hospitalId } = useParams();
+
   const [selectedTab, setSelectedTab] = useState("rateTop");
   // 별점 높은 순 데이터 가져오기
+
   const {
     data: reviewRateTopData,
     isLoading: isLoadingRateTop,
@@ -17,9 +21,15 @@ const ReviewRecent = () => {
     queryFn: async () => {
       const response = await supabase
         .from("review_info")
-        .select("*")
+        .select(
+          `*,
+        hospital_info (*)`
+        )
+        .eq("hospital_id", hospitalId)
         .order("rating", { ascending: false })
         .range(0, 3);
+
+      console.log("리뷰정보~~~~~~~~::::", response);
       return response.data;
     },
     enabled: selectedTab === "rateTop" // selectedTab이 'rateTop'일 때만 쿼리를 실행합니다.

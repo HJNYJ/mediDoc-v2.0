@@ -49,7 +49,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       <p>--------------------</p>
 
       <HospitalMainInfo selectedTab={selectedTab} />
-      <ReviewList params={params} />
     </main>
   );
 };

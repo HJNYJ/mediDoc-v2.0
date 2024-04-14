@@ -13,15 +13,15 @@ export type Database = {
         Row: {
           answer: string;
           answer_id: string;
-          consult_id: string;
+          consult_id: string | null;
           department: string;
           user_email: string | null;
           user_id: string | null;
         };
         Insert: {
           answer: string;
-          answer_id?: string;
-          consult_id: string;
+          answer_id: string;
+          consult_id?: string | null;
           department: string;
           user_email?: string | null;
           user_id?: string | null;
@@ -29,7 +29,7 @@ export type Database = {
         Update: {
           answer?: string;
           answer_id?: string;
-          consult_id?: string;
+          consult_id?: string | null;
           department?: string;
           user_email?: string | null;
           user_id?: string | null;
@@ -51,65 +51,57 @@ export type Database = {
           }
         ];
       };
-      consult_hashtags: {
+      consult_hashtag: {
         Row: {
           consult_id: string;
+          hashtags: string;
           hashtags_id: string;
-          hastags: string | null;
         };
         Insert: {
           consult_id?: string;
+          hashtags?: string;
           hashtags_id?: string;
-          hastags?: string | null;
         };
         Update: {
           consult_id?: string;
+          hashtags?: string;
           hashtags_id?: string;
-          hastags?: string | null;
         };
-        Relationships: [
-          {
-            foreignKeyName: "public_consult_hashtags_consult_id_fkey";
-            columns: ["consult_id"];
-            isOneToOne: false;
-            referencedRelation: "consult_info";
-            referencedColumns: ["consult_id"];
-          }
-        ];
+        Relationships: [];
       };
       consult_info: {
         Row: {
-          bodyparts: string | null;
-          consult_content: string | null;
+          bodyparts: string;
+          consult_content: string;
           consult_id: string;
-          consult_title: string | null;
+          consult_title: string;
           created_at: string;
-          hashtags: string[] | null;
-          photos: string | null;
-          user_email: string | null;
-          user_name: string | null;
+          hashtags: string;
+          photos: string;
+          user_email: string;
+          user_name: string;
         };
         Insert: {
-          bodyparts?: string | null;
-          consult_content?: string | null;
-          consult_id: string;
-          consult_title?: string | null;
+          bodyparts: string;
+          consult_content: string;
+          consult_id?: string;
+          consult_title: string;
           created_at?: string;
-          hashtags?: string[] | null;
-          photos?: string | null;
-          user_email?: string | null;
-          user_name?: string | null;
+          hashtags?: string;
+          photos?: string;
+          user_email: string;
+          user_name: string;
         };
         Update: {
-          bodyparts?: string | null;
-          consult_content?: string | null;
+          bodyparts?: string;
+          consult_content?: string;
           consult_id?: string;
-          consult_title?: string | null;
+          consult_title?: string;
           created_at?: string;
-          hashtags?: string[] | null;
-          photos?: string | null;
-          user_email?: string | null;
-          user_name?: string | null;
+          hashtags?: string;
+          photos?: string;
+          user_email?: string;
+          user_name?: string;
         };
         Relationships: [];
       };
@@ -143,44 +135,44 @@ export type Database = {
         Row: {
           body_section: string;
           id: string;
-          tag1: string | null;
-          tag10: string | null;
-          tag2: string | null;
-          tag3: string | null;
-          tag4: string | null;
-          tag5: string | null;
-          tag6: string | null;
-          tag7: string | null;
-          tag8: string | null;
-          tag9: string | null;
+          tag1: string;
+          tag10: string;
+          tag2: string;
+          tag3: string;
+          tag4: string;
+          tag5: string;
+          tag6: string;
+          tag7: string;
+          tag8: string;
+          tag9: string;
         };
         Insert: {
           body_section: string;
           id?: string;
-          tag1?: string | null;
-          tag10?: string | null;
-          tag2?: string | null;
-          tag3?: string | null;
-          tag4?: string | null;
-          tag5?: string | null;
-          tag6?: string | null;
-          tag7?: string | null;
-          tag8?: string | null;
-          tag9?: string | null;
+          tag1?: string;
+          tag10: string;
+          tag2: string;
+          tag3: string;
+          tag4?: string;
+          tag5?: string;
+          tag6: string;
+          tag7: string;
+          tag8: string;
+          tag9: string;
         };
         Update: {
           body_section?: string;
           id?: string;
-          tag1?: string | null;
-          tag10?: string | null;
-          tag2?: string | null;
-          tag3?: string | null;
-          tag4?: string | null;
-          tag5?: string | null;
-          tag6?: string | null;
-          tag7?: string | null;
-          tag8?: string | null;
-          tag9?: string | null;
+          tag1?: string;
+          tag10?: string;
+          tag2?: string;
+          tag3?: string;
+          tag4?: string;
+          tag5?: string;
+          tag6?: string;
+          tag7?: string;
+          tag8?: string;
+          tag9?: string;
         };
         Relationships: [];
       };
@@ -189,22 +181,22 @@ export type Database = {
           course_detail: string;
           course_id: string;
           course_name: string;
-          course_price: number | null;
-          hospital_id: string | null;
+          course_price: number;
+          hospital_id: string;
         };
         Insert: {
           course_detail: string;
           course_id?: string;
           course_name: string;
-          course_price?: number | null;
-          hospital_id?: string | null;
+          course_price: number;
+          hospital_id: string;
         };
         Update: {
           course_detail?: string;
           course_id?: string;
           course_name?: string;
-          course_price?: number | null;
-          hospital_id?: string | null;
+          course_price?: number;
+          hospital_id?: string;
         };
         Relationships: [
           {
@@ -224,10 +216,10 @@ export type Database = {
           hospital_id: string;
           hospital_image: string;
           hospital_introduction: string;
-          hospital_latitude: number | null;
-          hospital_longitude: number | null;
+          hospital_latitude: number;
+          hospital_longitude: number;
           hospital_name: string;
-          region_id: number | null;
+          region_id: number;
           start_time: string;
         };
         Insert: {
@@ -237,10 +229,10 @@ export type Database = {
           hospital_id?: string;
           hospital_image: string;
           hospital_introduction: string;
-          hospital_latitude?: number | null;
-          hospital_longitude?: number | null;
+          hospital_latitude: number;
+          hospital_longitude: number;
           hospital_name: string;
-          region_id?: number | null;
+          region_id: number;
           start_time: string;
         };
         Update: {
@@ -250,10 +242,10 @@ export type Database = {
           hospital_id?: string;
           hospital_image?: string;
           hospital_introduction?: string;
-          hospital_latitude?: number | null;
-          hospital_longitude?: number | null;
+          hospital_latitude?: number;
+          hospital_longitude?: number;
           hospital_name?: string;
-          region_id?: number | null;
+          region_id?: number;
           start_time?: string;
         };
         Relationships: [
@@ -271,127 +263,127 @@ export type Database = {
           created_at: string;
           modified_at: string;
           region_id: number;
-          region_name: string | null;
+          region_name: string;
         };
         Insert: {
           created_at?: string;
           modified_at?: string;
-          region_id?: number;
-          region_name?: string | null;
+          region_id: number;
+          region_name: string;
         };
         Update: {
           created_at?: string;
           modified_at?: string;
           region_id?: number;
-          region_name?: string | null;
+          region_name?: string;
         };
         Relationships: [];
       };
       possible_disease: {
         Row: {
-          bodyparts: string | null;
+          bodyparts: string;
           disease_id: string;
           disease_name: string;
-          symptom1: boolean | null;
-          symptom10: boolean | null;
-          symptom11: boolean | null;
-          symptom12: boolean | null;
-          symptom2: boolean | null;
-          symptom3: boolean | null;
-          symptom4: boolean | null;
-          symptom5: boolean | null;
-          symptom6: boolean | null;
-          symptom7: boolean | null;
-          symptom8: boolean | null;
-          symptom9: boolean | null;
+          symptom1: boolean;
+          symptom10: boolean;
+          symptom11: boolean;
+          symptom12: boolean;
+          symptom2: boolean;
+          symptom3: boolean;
+          symptom4: boolean;
+          symptom5: boolean;
+          symptom6: boolean;
+          symptom7: boolean;
+          symptom8: boolean;
+          symptom9: boolean;
         };
         Insert: {
-          bodyparts?: string | null;
+          bodyparts: string;
           disease_id?: string;
           disease_name: string;
-          symptom1?: boolean | null;
-          symptom10?: boolean | null;
-          symptom11?: boolean | null;
-          symptom12?: boolean | null;
-          symptom2?: boolean | null;
-          symptom3?: boolean | null;
-          symptom4?: boolean | null;
-          symptom5?: boolean | null;
-          symptom6?: boolean | null;
-          symptom7?: boolean | null;
-          symptom8?: boolean | null;
-          symptom9?: boolean | null;
+          symptom1?: boolean;
+          symptom10?: boolean;
+          symptom11?: boolean;
+          symptom12?: boolean;
+          symptom2?: boolean;
+          symptom3?: boolean;
+          symptom4?: boolean;
+          symptom5?: boolean;
+          symptom6?: boolean;
+          symptom7?: boolean;
+          symptom8?: boolean;
+          symptom9?: boolean;
         };
         Update: {
-          bodyparts?: string | null;
+          bodyparts?: string;
           disease_id?: string;
           disease_name?: string;
-          symptom1?: boolean | null;
-          symptom10?: boolean | null;
-          symptom11?: boolean | null;
-          symptom12?: boolean | null;
-          symptom2?: boolean | null;
-          symptom3?: boolean | null;
-          symptom4?: boolean | null;
-          symptom5?: boolean | null;
-          symptom6?: boolean | null;
-          symptom7?: boolean | null;
-          symptom8?: boolean | null;
-          symptom9?: boolean | null;
+          symptom1?: boolean;
+          symptom10?: boolean;
+          symptom11?: boolean;
+          symptom12?: boolean;
+          symptom2?: boolean;
+          symptom3?: boolean;
+          symptom4?: boolean;
+          symptom5?: boolean;
+          symptom6?: boolean;
+          symptom7?: boolean;
+          symptom8?: boolean;
+          symptom9?: boolean;
         };
         Relationships: [];
       };
       reservation_info: {
         Row: {
-          apply_date: string | null;
-          apply_time: string | null;
+          apply_date: string;
+          apply_time: string;
           course_id: string | null;
-          hospital_id: string | null;
-          hospital_name: string | null;
-          program_detail: string | null;
-          program_id: string | null;
-          program_name: string | null;
+          hospital_id: string;
+          hospital_name: string;
+          program_detail: string;
+          program_id: string;
+          program_name: string;
           reservation_id: string;
-          status: string | null;
-          subject_birth_date: string | null;
-          subject_name: string | null;
-          subject_phone_number: string | null;
+          status: string;
+          subject_birth_date: string;
+          subject_name: string;
+          subject_phone_number: string;
           user_email: string;
-          user_name: string | null;
+          user_name: string;
         };
         Insert: {
-          apply_date?: string | null;
-          apply_time?: string | null;
+          apply_date: string;
+          apply_time: string;
           course_id?: string | null;
-          hospital_id?: string | null;
-          hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          hospital_id?: string;
+          hospital_name: string;
+          program_detail: string;
+          program_id?: string;
+          program_name: string;
           reservation_id?: string;
-          status?: string | null;
-          subject_birth_date?: string | null;
-          subject_name?: string | null;
-          subject_phone_number?: string | null;
+          status?: string;
+          subject_birth_date: string;
+          subject_name: string;
+          subject_phone_number: string;
           user_email: string;
-          user_name?: string | null;
+          user_name: string;
         };
         Update: {
-          apply_date?: string | null;
-          apply_time?: string | null;
+          apply_date?: string;
+          apply_time?: string;
           course_id?: string | null;
-          hospital_id?: string | null;
-          hospital_name?: string | null;
-          program_detail?: string | null;
-          program_id?: string | null;
-          program_name?: string | null;
+          hospital_id?: string;
+          hospital_name?: string;
+          program_detail?: string;
+          program_id?: string;
+          program_name?: string;
           reservation_id?: string;
-          status?: string | null;
-          subject_birth_date?: string | null;
-          subject_name?: string | null;
-          subject_phone_number?: string | null;
+          status?: string;
+          subject_birth_date?: string;
+          subject_name?: string;
+          subject_phone_number?: string;
           user_email?: string;
-          user_name?: string | null;
+          user_name?: string;
         };
         Relationships: [
           {
@@ -407,47 +399,47 @@ export type Database = {
         Row: {
           id: string;
           tag1: string;
-          tag10: string | null;
-          tag11: string | null;
-          tag12: string | null;
-          tag2: string | null;
-          tag3: string | null;
-          tag4: string | null;
-          tag5: string | null;
-          tag6: string | null;
-          tag7: string | null;
-          tag8: string | null;
-          tag9: string | null;
+          tag10: string;
+          tag11: string;
+          tag12: string;
+          tag2: string;
+          tag3: string;
+          tag4: string;
+          tag5: string;
+          tag6: string;
+          tag7: string;
+          tag8: string;
+          tag9: string;
         };
         Insert: {
           id?: string;
           tag1: string;
-          tag10?: string | null;
-          tag11?: string | null;
-          tag12?: string | null;
-          tag2?: string | null;
-          tag3?: string | null;
-          tag4?: string | null;
-          tag5?: string | null;
-          tag6?: string | null;
-          tag7?: string | null;
-          tag8?: string | null;
-          tag9?: string | null;
+          tag10: string;
+          tag11: string;
+          tag12: string;
+          tag2: string;
+          tag3: string;
+          tag4: string;
+          tag5: string;
+          tag6: string;
+          tag7: string;
+          tag8: string;
+          tag9: string;
         };
         Update: {
           id?: string;
           tag1?: string;
-          tag10?: string | null;
-          tag11?: string | null;
-          tag12?: string | null;
-          tag2?: string | null;
-          tag3?: string | null;
-          tag4?: string | null;
-          tag5?: string | null;
-          tag6?: string | null;
-          tag7?: string | null;
-          tag8?: string | null;
-          tag9?: string | null;
+          tag10?: string;
+          tag11?: string;
+          tag12?: string;
+          tag2?: string;
+          tag3?: string;
+          tag4?: string;
+          tag5?: string;
+          tag6?: string;
+          tag7?: string;
+          tag8?: string;
+          tag9?: string;
         };
         Relationships: [];
       };
@@ -455,25 +447,36 @@ export type Database = {
         Row: {
           content: string;
           created_at: string;
-          hashtags: string | null;
+          hashtags: string;
+          hospital_id: string | null;
           rating: number;
           review_id: string;
         };
         Insert: {
           content: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string;
+          hospital_id?: string | null;
           rating: number;
-          review_id: string;
+          review_id?: string;
         };
         Update: {
           content?: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string;
+          hospital_id?: string | null;
           rating?: number;
           review_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_review_info_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          }
+        ];
       };
       review_photos: {
         Row: {
@@ -536,25 +539,25 @@ export type Database = {
       };
       symptom_questions: {
         Row: {
-          bodyparts: string | null;
+          bodyparts: string;
           departments: string;
           symptom_id: string;
-          symptoms: string | null;
-          symptoms_abbr: string | null;
+          symptoms: string;
+          symptoms_abbr: string;
         };
         Insert: {
-          bodyparts?: string | null;
+          bodyparts: string;
           departments: string;
           symptom_id: string;
-          symptoms?: string | null;
-          symptoms_abbr?: string | null;
+          symptoms: string;
+          symptoms_abbr: string;
         };
         Update: {
-          bodyparts?: string | null;
+          bodyparts?: string;
           departments?: string;
           symptom_id?: string;
-          symptoms?: string | null;
-          symptoms_abbr?: string | null;
+          symptoms?: string;
+          symptoms_abbr?: string;
         };
         Relationships: [];
       };
