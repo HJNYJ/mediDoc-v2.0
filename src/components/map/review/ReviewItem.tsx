@@ -17,7 +17,7 @@ const ReviewItem = () => {
         <h3>방문자 리뷰</h3>
         <button onClick={goToReviewForm}>리뷰 쓰기</button>
       </div>
-      <ImageTab />
+      {/* <ImageTab /> */}
       <ReviewRecent />
     </section>
   );

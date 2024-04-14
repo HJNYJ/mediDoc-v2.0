@@ -28,7 +28,7 @@ const ImageTab = () => {
             key={img?.photo_id}
             src={img?.photos}
             alt={`사진${index + 1}`}
-            className="w-[250px] h-48 object-cover mb-2"
+            className="w-[116.67px] h-[116px] rounded-[10px]"
           />
         ))}
       </section>
