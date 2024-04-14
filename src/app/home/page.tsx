@@ -1,10 +1,14 @@
 // 메인페이지
+
+import FindHospital from "@/components/home/FindHospital";
+import HospitalListView from "@/components/home/HospitalListView";
 import React from "react";
 
 const HomePage = () => {
   return (
     <div>
-      <h2>내가 찾던 솔직한 병원 후기</h2>
+      <HospitalListView />
+      <FindHospital />
     </div>
   );
 };

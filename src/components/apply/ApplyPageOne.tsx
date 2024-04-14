@@ -11,8 +11,17 @@ const ApplyPageOne = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { name, setName, idNumber, setIdNumber, phoneNumber, setPhoneNumber } =
-    useApplyStore();
+  const {
+    name,
+    setName,
+    idNumber,
+    setIdNumber,
+    phoneNumber,
+    setPhoneNumber,
+    setUserNameData,
+    setUserEmailData
+  } = useApplyStore();
+
   const [nameValid, setNameValid] = useState<boolean>(false);
   const [idNumberValid, setIdNumberValid] = useState<boolean>(false);
   const [phoneValid, setPhoneValid] = useState<boolean>(false);
@@ -20,22 +29,13 @@ const ApplyPageOne = ({
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const {
-          data: { session }
-        } = await supabase.auth.getSession();
-
-        const user = session?.user;
-
-        const { data, error } = await supabase
-          .from("reservation_info")
-          .insert([{ user_email: user?.email, user_name: user?.name }]);
-        if (error) throw new Error();
-      } catch (error) {
-        if (error instanceof Error) console.error(error.message);
-      }
+      const {
+        data: { session }
+      } = await supabase.auth.getSession();
+      const user = session?.user;
+      setUserEmailData(user?.email);
+      setUserNameData(user?.user_metadata.name);
     };
-
     fetchUser();
   }, []);
 
@@ -77,6 +77,9 @@ const ApplyPageOne = ({
   };
 
   const handleBtnClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
     router.push("/home");
   };
 
@@ -110,6 +113,7 @@ const ApplyPageOne = ({
             onChange={onChangeIdNumber}
             value={idNumber}
             placeholder="생년월일 6자리"
+            maxLength={6}
           />
           -
           <input
@@ -128,6 +132,7 @@ const ApplyPageOne = ({
             onChange={onChangePhoneNumber}
             value={phoneNumber}
             placeholder="-없이 휴대폰 11자리 번호 입력"
+            maxLength={11}
           />
           {!phoneValid && (
             <p className="text-red-500">전화번호를 11자리를 기입해주세요.</p>
