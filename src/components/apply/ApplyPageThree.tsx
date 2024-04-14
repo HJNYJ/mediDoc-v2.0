@@ -97,7 +97,7 @@ const ApplyPageThree = ({
         .insert([testObj])
         .select();
 
-      setReservationInfo(data[0]);
+      setReservationInfo(data?.[0]);
       handlePrevOrNextClick("success");
     } catch (error) {
       console.log(error);

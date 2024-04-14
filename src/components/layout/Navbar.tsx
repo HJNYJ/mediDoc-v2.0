@@ -57,7 +57,7 @@ export const Navbar = () => {
     <nav className="sticky bottom-0 flex justify-between items-center py-4 px-6 bg-gray-500 text-white">
       <Link href={"/consult"}>실시간 상담</Link>
       <Link href={"/selftest"}>건강테스트</Link>
-      <Link href={"/"}>홈</Link>
+      <Link href={"/home"}>홈</Link>
       <a onClick={handleMyPageClick} className="cursor-pointer">
         마이페이지
       </a>
