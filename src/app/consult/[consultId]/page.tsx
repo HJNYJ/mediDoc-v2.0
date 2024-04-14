@@ -1,12 +1,43 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
-import { getAnswerDetail, getConsultDetail } from "@/api/supabase";
+import { getAnswerDetail, getConsultDetail, supabase } from "@/api/supabase";
 import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
+  const [userType, setUserType] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchConsultInfo = async () => {
+      try {
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+        console.log("user ===> ", user);
+
+        const { data: userData, error: userDataError } = await supabase
+          .from("user_info")
+          .select("user_type")
+          .eq("user_email", user?.email)
+          .single();
+
+        if (userDataError) throw new Error(userDataError.message);
+
+        const userType = userData?.user_type;
+        console.log("userType ===> ", userType);
+        setUserType(userType);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchConsultInfo();
+  }, []);
+
   const {
     data: consultDetailData,
     isLoading,
@@ -54,25 +85,30 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                 ))}
             </div>
           </div>
-          <div></div>
-          <div>
-            {answerDetailData?.map((item: string, index: number) => (
-              <div key={index}>
-                <div>{item.answer}</div>
-                <div>{item.department}</div>
-                {/* 각 답변에 대한 세부 정보 페이지로 이동하는 링크 추가 */}
-              </div>
-            ))}
-            <ConsultAnswerForm params={params} />
-            <div>
-              <h2 className="bg-white shadow-md rounded-lg p-4">
-                {answerDetailData?.department}
-              </h2>
-            </div>
-          </div>
-          <ConsultNotice />
 
-          {/* )} */}
+          <div>
+            {userType === "hospital staff" ? (
+              <div>
+                {answerDetailData?.map((item: string) => (
+                  <div key={item}>
+                    <div>{item?.answer}</div>
+                    <div>{item?.department}</div>
+                  </div>
+                ))}
+                <ConsultAnswerForm params={params} />
+              </div>
+            ) : (
+              <div>
+                {answerDetailData?.map((item: string, index: number) => (
+                  <div key={item}>
+                    <div>{item?.answer}</div>
+                    <div>{item?.department}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <ConsultNotice />
+          </div>
         </div>
       </div>
     </div>
