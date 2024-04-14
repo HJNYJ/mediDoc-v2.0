@@ -3,11 +3,12 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import HospitalName from "./HospitalName";
-import VisitorInfo from "./VisitorInfo";
 import useApplyStore from "@/shared/zustand/applyStore";
+import HospitalReservation from "./GetNewData";
 
 const ApplyPageFour = () => {
   const { setName, setIdNumber, setPhoneNumber } = useApplyStore();
+
   const router = useRouter();
 
   const handleBtnClick = () => {
@@ -16,13 +17,14 @@ const ApplyPageFour = () => {
     setPhoneNumber("");
     router.push("/home");
   };
+
   return (
-    <>
-      <title>
+    <div>
+      <strong>
         <HospitalName />
-      </title>
+      </strong>
       <p>
-        <VisitorInfo />
+        <HospitalReservation />
       </p>
       <button
         className="m-4 h-10 border-2 text-center w-60 rounded-lg"
@@ -30,7 +32,7 @@ const ApplyPageFour = () => {
       >
         확인
       </button>
-    </>
+    </div>
   );
 };
 

@@ -97,3 +97,21 @@ export type Review = {
 export type ReviewsProps = {
   selectedTab: "starRating" | "latest";
 };
+
+export type Row = {
+  apply_date: string;
+  apply_time: string;
+  course_id: string;
+  hospital_id: string;
+  hospital_name: string;
+  program_detail: string;
+  program_id: string;
+  program_name: string;
+  reservation_id: string;
+  status: string;
+  subject_birth_date: string;
+  subject_name: string;
+  subject_phone_number: string;
+  user_email: string;
+  user_name: string;
+};

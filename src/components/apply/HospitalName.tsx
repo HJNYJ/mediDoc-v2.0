@@ -11,6 +11,7 @@ const HospitalName = () => {
   });
   const hospitalData = data?.[0].hospital_name;
   // 데이터를 꺼내 쓰는 용도 (배열)
+
   if (isLoading) {
     <div>로딩 중 입니다...</div>;
   }
