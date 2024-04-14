@@ -36,10 +36,6 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
     fetchUserInfo();
   }, []);
 
-  // console.log("params ==========> ", params.consultId);
-
-  // 답변
-
   // 데이터 제출
   const handleAnswerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,8 +77,8 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   };
 
   return (
-    <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <form className="p-4" onSubmit={handleAnswerSubmit}>
+    <section className="mt-5">
+      <form onSubmit={handleAnswerSubmit}>
         {/** 병원관계자시에*/}
         <div>
           <select
@@ -99,17 +95,20 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
           </select>
           <span className="text-lg font-semibold mb-4 ml-2">답변</span>
         </div>
-        <p className="text-sm mb-4">OOO 병원</p>
+
         <textarea
           maxLength={500}
           value={answer}
           onChange={handleAnswerChange}
           placeholder="답변을 적어주세요."
-          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="w-[358px] h-[290px] justify-center resize-none border border-gray-300 rounded-md"
         />
+        <p className="text-gray-500 text-right regular-13">
+          {answer.length} /500
+        </p>
         <button
           type="submit"
-          className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          className="w-[358px] h-[50px] bg-orange text-white regular-18 py-2 px-4 rounded-lg focus:outline-none mt-14"
           onClick={goToAskList}
         >
           답변하기

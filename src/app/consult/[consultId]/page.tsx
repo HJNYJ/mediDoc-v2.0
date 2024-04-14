@@ -63,28 +63,30 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-lg mb-4 items-center flex justify-center">
-            실시간 상담
-          </h2>
-          <div className="bg-gray-100 rounded-lg p-4 mb-4">
-            <p id="user_answer_title" className="text-xl font-semibold mb-2">
+    <div className="min-h-screen flex w-[390px] h-[964px]">
+      <div className="shadow-[0_1px_3px_-0px_rgba(0,0,0,0.1)]">
+        <div className="bg-white p-6">
+          <h2 className="semibold-18 text-center mb-5">실시간 상담</h2>
+          <div className="w-[390px]">
+            <p id="user_answer_title" className="semibold-24">
               {consultDetailData?.consult_title}
             </p>
-            <p id="user_content_title" className="mb-2">
-              내용: {consultDetailData?.consult_content}
+            <p className="regular-13 text-gray-700 mb-7 mt-2">
+              {consultDetailData?.user_name &&
+                `${consultDetailData.user_name.substring(0, 2)}${"*".repeat(Math.max(0, consultDetailData.user_name.length - 2))}`}
             </p>
-            <div className="flex flex-wrap">
+            <p
+              id="user_content_title"
+              className="medium-14 text-gray-800 w-[330px] mb-5"
+            >
+              {consultDetailData?.consult_content}
+            </p>
+            <div className="flex flex-wrap w-[300px] h-[32px]">
               {consultDetailData?.hashtags
                 ?.toString()
                 .split(",")
                 .map((hashtag: string) => (
-                  <span
-                    key={hashtag}
-                    className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
-                  >
+                  <span key={hashtag} className="text-gray-800 regular-12">
                     <Hashtag key={hashtag} hashtag={hashtag} />
                   </span>
                 ))}
@@ -96,7 +98,9 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
               <div>
                 {answerDetailData?.map((item: string) => (
                   <div key={item}>
-                    <div>{item?.answer}</div>
+                    <div className="flex flex-col bold-18 text-black mt-5">
+                      {item?.answer}
+                    </div>
                     <div>{item?.department}</div>
                   </div>
                 ))}

@@ -6,15 +6,13 @@ import React from "react";
 
 const ConsultNotice = () => {
   return (
-    <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+    <section>
       {/* <ConsultAnswerForm /> */}
-      <div className="p-4 border-b">
-        <label className="text-lg font-semibold">⭐ 꼭 확인해주세요. ⭐</label>
-        <ul className="list-disc list-inside">
-          <li className="mb-2">자세한 사항은 직접 내원해주세요.</li>
-          <li className="mb-2">병원에 문의 부탁드립니다.</li>
-          <li className="mb-2">병원에 문의 부탁드립니다.</li>
-        </ul>
+      <div className="absolute inset-12.5 bg-red-500 flex justify-center items-center">
+        <label
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(../assets/notice.png)" }}
+        ></label>
       </div>
     </section>
   );

@@ -4,8 +4,8 @@ interface HashtagProps {
 
 const Hashtag = ({ hashtag }: HashtagProps) => {
   return (
-    <span className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2">
-      #{hashtag.replace(/[\[\],_\/'"{}%&*();~`|:?!]/g, "")}
+    <span className="bg-gray-100 text-gray-800 rounded-md mr-2 ml-2">
+      {hashtag.replace(/[\[\],_\/'"{}%&*();~`|:?!]/g, "")}
     </span>
   );
 };

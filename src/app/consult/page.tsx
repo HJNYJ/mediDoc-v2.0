@@ -2,11 +2,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { fetchConsults, fetchImages } from "@/api/supabase";
+import { checkConsultAnswer, fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
 import Hashtag from "@/utils/hashtag";
-// import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -35,6 +35,11 @@ const ConsultPage = () => {
     fetchConsultPhotos();
   }, []);
 
+  const { data: checkAnswerData } = useQuery({
+    queryKey: ["answerDetail"],
+    queryFn: checkConsultAnswer
+  });
+
   if (isLoading) return <p>Loading consults..!!</p>;
   if (error) return <p>error : {error}</p>;
 
@@ -52,16 +57,15 @@ const ConsultPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between bg-green">
-      <div className="flex justify-between items-center mb-4">
+    <div className="flex flex-col">
+      <div>
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
-      <div>
-        <p>이건 consultData!</p>
+      <div className="w-[390px] h-[154px]">
         {consultsData?.map((consult) => (
           <div
             key={consult?.consult_id}
-            className="bg-white rounded-md p-4 mb-4 border border-gray-200 cursor-pointer"
+            className="flex p-4 mb-4 border border-gray-200 cursor-pointer"
             onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
           >
             <div className="flex flex-col justify-between">
@@ -72,26 +76,42 @@ const ConsultPage = () => {
                     key={image?.photos_id}
                     src={image?.photos} // 이미지 URL
                     alt="Uploaded Image"
-                    className="w-[200px] h-48 object-cover mb-2"
+                    className="w-[90px] h-[80px] bg-gray-200 rounded-lg"
                   />
                 ))}
             </div>
-            <p className="text-lg font-semibold mb-2">
-              {consult?.consult_title}
-            </p>
-            <p className="text-gray-700 mb-2">{consult?.consult_content}</p>
-            <h2 className="text-lg font-semibold">{consult?.user_name}</h2>
-            <div className="border-t border-gray-200">
-              {consult?.hashtags
-                ?.toString()
-                .split(",")
-                .map((hashtag: string) => (
-                  <Hashtag key={hashtag} hashtag={hashtag} />
-                ))}
+            <div>
+              <p className="semibold-18 text-gray-800">
+                {consult?.consult_title}
+              </p>
+              <p className="text-gray-700 regular-14">
+                {consult?.consult_content}
+              </p>
+              <h2 className="text-lg font-semibold">{consult?.user_name}</h2>
+              <div className="regular-12 w-[174px] h-[30px]">
+                {consult?.hashtags
+                  ?.toString()
+                  .split(",")
+                  .map((hashtag: string) => (
+                    <Hashtag key={hashtag} hashtag={hashtag} />
+                  ))}
+              </div>
+              {/* 답변 완료 여부에 따라 UI 요소 표시 */}
+              {checkAnswerData && checkAnswerData[consult.consult_id] ? (
+                <button className="bg-yellow-300 text-white rounded-md">
+                  답변 완료
+                </button>
+              ) : (
+                <button
+                  className="bg-gray-300 text-gray-600 rounded-md"
+                  disabled
+                >
+                  답변 대기 중
+                </button>
+              )}
             </div>
           </div>
         ))}
-        <p>여기까지! consultData!</p>
       </div>
 
       <div className="border-t border-gray-200">
