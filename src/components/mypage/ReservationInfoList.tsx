@@ -1,5 +1,4 @@
 // 예약정보 div
-"use client";
 
 import ReservationInfoItem from "./ReservationInfoItem";
 

@@ -37,18 +37,27 @@ const ScrappedList = () => {
 
   return (
     <>
-      <h2>스크랩한 병원</h2>
-      {scrappedList.length === 0 && <p>스크랩한 병원이 없습니다.</p>}
-      {scrappedList.map((item) => (
-        <div key={item.scrap_id}>
-          <img
-            className="w-64 h-48 object-cover"
-            src={item.hospital_info.hospital_image}
-            alt={item.hospital_info.hospital_name}
-          ></img>
-          <h2>{item.hospital_info.hospital_name}</h2>
-        </div>
-      ))}
+      <section>
+        {scrappedList.length === 0 && (
+          <p className="w-[169px] h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
+            스크랩한 병원이 없습니다.
+          </p>
+        )}
+      </section>
+      <section className="w-[358px] mx-[16px]">
+        {scrappedList.map((item) => (
+          <div key={item.scrap_id} className="mt-[26px]">
+            <img
+              className="w-[114px] h-[127px] rounded-[10px] object-cover"
+              src={item.hospital_info.hospital_image}
+              alt={item.hospital_info.hospital_name}
+            ></img>
+            <p className="text-[14px] font-medium w-[85px] h-[24px] mt-[8px]">
+              {item.hospital_info.hospital_name}
+            </p>
+          </div>
+        ))}
+      </section>
     </>
   );
 };

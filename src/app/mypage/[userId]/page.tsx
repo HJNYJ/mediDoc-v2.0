@@ -98,11 +98,16 @@ const MyPage = () => {
 
   return (
     <>
-      <h3>마이페이지</h3>
-      <section>
+      <section className="w-[358px] mx-[16px]">
+        <p className="w-[358px] h-[50px] text-[18px] font-semibold place-content-center">
+          마이페이지
+        </p>
         {userInfo.map((user) => (
           <div key={user.user_id}>
-            <p>{user.user_name}님, 안녕하세요!</p>
+            <p className="text-[24px] font-bold px-[16px]">
+              {user.user_name}님, <br />
+              안녕하세요!
+            </p>
           </div>
         ))}
       </section>
