@@ -99,7 +99,7 @@ const ApplyPageThree = ({
         console.log("에러입니다.", error);
       }
 
-      setReservationInfo(data[0]);
+      setReservationInfo(data?.[0]);
       handlePrevOrNextClick("success");
     } catch (error) {
       console.log(error);

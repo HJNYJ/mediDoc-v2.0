@@ -5,6 +5,7 @@ import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 import type { ReservationInfo } from "@/types";
 import useMyPageStore from "@/shared/zustand/myPageStore";
+import Button from "../layout/Buttons";
 
 const ReservationInfoItem = () => {
   const [reservationInfo, setReservationInfo] = useState<ReservationInfo[]>([]);
@@ -182,6 +183,7 @@ const ReservationInfoItem = () => {
             </section>
           </div>
         ))}
+        <Button type="button" size="lg" label="이건 버튼" buttonType="filled" onClick={() => {}} />
       {isModalOpen && selectedReservation && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-50"></div>
