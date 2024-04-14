@@ -166,9 +166,11 @@ const ReviewForm = () => {
 
   return (
     <div className="flex justify-center">
+      <p>리뷰</p>
+      <br />
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="max-w-lg mx-auto space-y-5"
+        className="w-[358px] h-[290px] "
       >
         <ReviewRating
           rating={rating}
@@ -186,13 +188,13 @@ const ReviewForm = () => {
             maxLength={500}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="w-full h-24 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-[358px] h-[290px] p-2 border border-gray-300 rounded-md focus:outline-none focus:border-black-500 resize-none"
           />
-          <p className="text-gray-500">{content.length}/500</p>
+          <p className="text-gray-500 text-right">{content.length}/500</p>
         </div>
         <br />
         <div>
-          <label>리뷰 이미지</label>
+          <label>사진 첨부[선택]</label>
           {uploadedImages.map((file, index) => (
             <div key={file.dataUrl}>
               <img
@@ -217,7 +219,7 @@ const ReviewForm = () => {
           {uploadedFileUrl.length >= 5 ? (
             <></>
           ) : (
-            <label htmlFor="file">
+            <label htmlFor="file" className="flex gap-4">
               <input
                 type="file"
                 id="file"
@@ -225,18 +227,49 @@ const ReviewForm = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setImgHandler(e)
                 }
-                // onChange={handleFiles}
                 multiple
                 hidden
               />
-              <button className="flex">
+              <button className="flex border border-gray-300 p-2 rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.8}
+                  viewBox="0 0 47.5 42.5"
+                  strokeWidth={1.3}
                   stroke="currentColor"
-                  className="w-[120px] h-[120px] text-gray-400 hover:text-gray-700 "
+                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </svg>
+              </button>
+              <button className="flex border border-gray-300 p-2 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 47.5 42.5"
+                  strokeWidth={1.3}
+                  stroke="currentColor"
+                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </svg>
+              </button>
+              <button className="flex border border-gray-300 p-2 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 47.5 42.5"
+                  strokeWidth={1.3}
+                  stroke="currentColor"
+                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
                 >
                   <path
                     strokeLinecap="round"
@@ -253,7 +286,7 @@ const ReviewForm = () => {
           {/* 해시태그 칩*/}
           <label>리뷰하실 때 해시태그를 선택해주세요</label>
           <div>
-            <label className="block mb-1">해시태그</label>
+            <label className="block mb-5">해시태그</label>
 
             <ReviewTags
               hashtags={hashtags}
@@ -262,10 +295,11 @@ const ReviewForm = () => {
             />
           </div>
         </div>
+
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-[200px] bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          className="w-[358px] h-[50px] bg-orange-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400 mt-20"
         >
           등록하기
         </button>

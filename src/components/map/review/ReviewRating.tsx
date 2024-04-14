@@ -12,7 +12,7 @@ const ReviewRating = ({
   const [hoverRating, setHoverRating] = useState<number | null>(null);
 
   return (
-    <div className="flex">
+    <div className="flex w-[208px] h-[40px] ">
       {[...Array(5)].map((star, index) => {
         const currentRating = index + 1;
         return (
@@ -23,20 +23,21 @@ const ReviewRating = ({
               value={currentRating}
               checked={currentRating === rating}
               onChange={() => setRating(currentRating)}
-              className="hidden"
+              className="hidden w-[40px] h-[40px] text-2xl"
             />
             <div
-              className="text-2xl cursor-pointer"
-              onMouseEnter={() => setHoverRating(currentRating)}
+              className="w-[40px] h-[40px] text-3xl text-yellow-400 cursor-pointer"
+              // onMouseEnter={() => setHoverRating(currentRating)}
               onMouseLeave={() => setHoverRating(null)}
               onClick={() => setRating(currentRating)}
             >
-              {currentRating <= (hoverRating || rating) ? "⭐" : "☆"}
+              {currentRating <= (hoverRating || rating) ? "⭐" : "⛤"}
             </div>
           </label>
         );
       })}
-      <p>별점: {rating}점</p>
+
+      <p className="hidden">별점: {rating}점</p>
     </div>
   );
 };
