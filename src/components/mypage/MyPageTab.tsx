@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ReservationInfoList from "./ReservationInfoList";
 import ScrappedList from "./ScrappedList";
 import MyQuestionList from "./MyQuestionList";
-import Tab from "../layout/ Tabs";
+import Tab from "../layout/Tabs";
 
 const MyPageTab = () => {
   const [currentTab, SetCurrentTab] = useState("예약 정보");
