@@ -1,5 +1,3 @@
-"use client";
-
 import ReviewItem from "../review/ReviewItem";
 
 const ReviewList = () => {

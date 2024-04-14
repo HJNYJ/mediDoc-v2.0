@@ -1,7 +1,7 @@
 import ProgramInfo from "./ProgramInfo";
 import Notice from "./Notice";
 import ReviewImageList from "./ReviewImageList";
-import ReviewList from "./ReviewList";
+import ReviewTab from "../reviewTab/ReviewTab";
 
 // "기본 정보" 탭을 눌렀을 때 나오는 div
 const DefaultTab = () => {
@@ -17,7 +17,7 @@ const DefaultTab = () => {
       <ReviewImageList />
       <p>--------------------</p>
       {/* 방문자 후기 */}
-      <ReviewList />
+      <ReviewTab />
     </main>
   );
 };

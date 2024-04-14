@@ -28,15 +28,15 @@ const HashTags = ({
     }
   };
 
-  useEffect(() => {}, [selectedTags]);
+  // useEffect(() => {}, [selectedTags]);
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 w-[390px] h-[112px]">
       {Object.entries(hashtags).map(([key, value]) => (
         <button
           key={key}
           onClick={() => handleClick(value)}
-          className={`py-2 px-4 rounded-md focus:outline-none ${
+          className={`w-[120px] h-[35px] rounded-md focus:outline-none ${
             selectedTags.includes(value)
               ? "bg-blue-500 text-white"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
