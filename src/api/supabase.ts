@@ -11,34 +11,6 @@ export const supabase = createBrowserClient<Database>(
   supabaseAnonKey
 );
 
-export const fetchUserInfo = async () => {
-  try {
-    const {
-      data: { session }
-    } = await supabase.auth.getSession();
-    const user = session?.user;
-
-    const { data, error } = await supabase
-      .from("user_info")
-      .select("*")
-      .eq("user_id", user?.id);
-
-    if (error) throw new Error(error.message);
-
-    // user_type이 "hospital staff"이면 user_name을 hospitalName으로 설정
-    if (data && data.length > 0) {
-      const userInfo = data[0];
-      if (userInfo.user_type === "hospital staff") {
-        setHospitalName(userInfo.user_name);
-      }
-    }
-
-    setUserInfo(data);
-  } catch (error) {
-    if (error instanceof Error) console.error(error.message);
-  }
-};
-
 // consult page
 export const consultAddForm = async (
   newTitle: string,

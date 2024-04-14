@@ -3,16 +3,68 @@
 
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { UserInfo } from "@/types";
 
 const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [department, setDepartment] = useState(""); //진료과
   const [answer, setAnswer] = useState(""); //답변
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null); // 사용자 정보 타입 정의 필요
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const { data: session } = await supabase.auth.getSession();
+        const user = session?.user;
+
+        // 사용자 정보 가져오기
+        const { data: userData, error: userDataError } = await supabase
+          .from("user_info")
+          .select("*")
+          .eq("user_email", user?.email)
+          .single();
+
+        if (userDataError) throw new Error(userDataError.message);
+
+        setUserInfo(userData); // 사용자 정보 설정
+      } catch (error) {
+        console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   // console.log("params ==========> ", params.consultId);
+
+  // 답변
+
+  // 데이터 제출
+  const handleAnswerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const userId = userInfo?.user_id;
+
+      const { data, error } = await supabase.from("consult_answer").insert([
+        {
+          consult_id: params.consultId,
+          department: department,
+          answer: answer,
+          user_id: userId
+        }
+      ]);
+
+      if (error) {
+        console.log("답변 입력 중 오류 발생:", error.message);
+      }
+
+      console.log("답변 입력 성공:", data);
+    } catch (error) {
+      console.error("답변 입력 중 오류 발생:", error);
+    }
+  };
 
   // 진료과 선택
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -26,30 +78,6 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   // 홈으로 이동
   const goToAskList = () => {
     router.push(`/consult`);
-  };
-
-  // 답변
-  // 데이터 제출
-  const handleAnswerSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const { data, error } = await supabase.from("consult_answer").insert([
-        {
-          consult_id: params.consultId,
-          department: department,
-          answer: answer
-        }
-      ]);
-
-      if (error) {
-        console.log("답변 입력 중 오류 발생:", error.message);
-      }
-
-      console.log("답변 입력 성공:", data);
-    } catch (error) {
-      console.error("답변 입력 중 오류 발생:", error);
-    }
   };
 
   return (
