@@ -59,7 +59,7 @@ const SelftestPage = () => {
   };
 
   return (
-    <div className="flex flex-col w-96">
+    <div className="w-[358px] mx-[16px]">
       {showDepartments || showBodyParts || showSymptoms ? (
         <button onClick={goToPreviousPage}>뒤로 가기</button>
       ) : null}

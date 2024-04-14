@@ -28,12 +28,25 @@ const BodyParts: React.FC<BodyPartsProps> = ({
   return (
     <>
       <section className="flex flex-col">
-        <h2>어디가 불편하신가요?</h2>
-        {bodyParts[department].map((part, index) => (
-          <button key={index} onClick={() => onClickBodyPartHandler(part)}>
-            {part}
-          </button>
-        ))}
+        <p className="w-[230px] h-[36px] mt-[54px] text-[26px] font-bold">
+          어디가 불편하신가요?
+        </p>
+        <p className="w-[280px] h-[21px] mt-[20px] text-[18px] text-gray-400 font-medium">
+          지금 불편한 신체 부위를 선택해 주세요.
+        </p>
+      </section>
+      <section>
+        <section className="mt-[17px]">
+          {bodyParts[department].map((part, index) => (
+            <button
+              key={index}
+              className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px] mb-[16px]"
+              onClick={() => onClickBodyPartHandler(part)}
+            >
+              {part}
+            </button>
+          ))}
+        </section>
       </section>
     </>
   );
