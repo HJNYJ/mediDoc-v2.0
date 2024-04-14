@@ -141,27 +141,44 @@ const ReservationInfoItem = () => {
 
   return (
     <>
-      {reservationInfo.length === 0 && <p>예약된 내역이 없습니다.</p>}
+    <section>{reservationInfo.length === 0 && <p className="w-[160px] h-[19px] mx-[110px] mt-[185px] text-[16px]  text-gray-400">예약된 내역이 없습니다.</p>}</section>
+    <section className="w-[358px] mx-[16px]">     
       {reservationInfo &&
         reservationInfo.map((info) => (
-          <div key={info.reservation_id}>
-            <section></section>
-            <section className="border m-8 flex-col">
-              <section className="flex ">
-                <p className="text-lg font-bold mr-4">
+          <div
+            key={info.reservation_id}
+            className="w-[358px] h-[134px] mt-[26px]"
+          >
+            <p className="w-[68px] h-[14px] text-[12px] text-center place-content-center font-light bg-gray-500 text-white rounded mb-[8px]">
+              {info.apply_date?.substring(0, 4)}.
+              {info.apply_date?.substring(5, 7)}.
+              {info.apply_date?.substring(8, 10)}
+            </p>
+            <section className="w-[358px] h-[104px] border rounded-[10px] flex-col">
+              <section className="flex mx-[16px] mt-[20.5px] mb-[12px]">
+                <p className="w-[296px] h-[19px] text-[16px] mr-[10px] font-medium">
                   예약번호: {info.reservation_id.substring(0, 7)}
                 </p>
                 <button onClick={() => handleDetailButtonClick(info)}>
-                  상세보기
+                  >
                 </button>
               </section>
-              <p>검진자명: {info.subject_name} </p>
-              <p>
-                예약일시: {info.apply_date?.substring(0, 4)}년
-                {info.apply_date?.substring(6, 7)}월
-                {info.apply_date?.substring(8, 10)}일
-                {info.apply_time?.substring(0, 5)}
-              </p>
+              <section className="w-[82px] h-[14px] ml-[16px] mr-[8px] mb-[4px] flex">
+                <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                  검진자명
+                </p>
+                <p className="w-[32px] h-[14px] text-[12px]">
+                  {info.subject_name}
+                </p>
+              </section>
+              <section className="w-[169px] h-[32px] ml-[16px]  flex">
+                <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                  예약시간
+                </p>
+                <p className="w-[31px] h-[14px] text-[12px]">
+                  {info.apply_time?.substring(0, 5)}
+                </p>
+              </section>
             </section>
           </div>
         ))}
@@ -253,8 +270,8 @@ const ReservationInfoItem = () => {
           </div>
         </div>
       )}
-    </>
-  );
+    </section>
+    </>);
 };
 
 export default ReservationInfoItem;
