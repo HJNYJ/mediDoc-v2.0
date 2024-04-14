@@ -165,8 +165,7 @@ const ReviewForm = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <p>리뷰</p>
+    <div className="flex justify-center mt-28">
       <br />
       <form
         onSubmit={(e) => e.preventDefault()}
@@ -180,7 +179,9 @@ const ReviewForm = () => {
         />
 
         <div>
-          <label htmlFor="review">리뷰 내용</label>
+          <label htmlFor="review" className="text-gray-500">
+            리뷰 내용
+          </label>
           <textarea
             id="review"
             placeholder="리뷰를 작성해주세요."
