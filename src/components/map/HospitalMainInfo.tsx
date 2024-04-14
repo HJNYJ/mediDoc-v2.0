@@ -8,6 +8,7 @@ import ImageTab from "./imageTab/ImageTab";
 import ReviewTab from "./reviewTab/ReviewTab";
 
 const HospitalMainInfo = ({ selectedTab }: TabList) => {
+  console.log("selectedTab", selectedTab);
   switch (selectedTab) {
     case "default":
       return <DefaultTab />;
