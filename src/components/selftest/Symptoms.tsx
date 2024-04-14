@@ -57,21 +57,28 @@ const Symptoms = () => {
   return (
     <>
       <section className="flex flex-col">
-        <h2>아래 증상 중 해당되는 것이 있다면 선택해주세요.</h2>
-        <h6>중복 선택이 가능합니다.</h6>
+        <p className="w-[320px] h-[36px] mt-[54px] text-[26px] font-bold">
+          해당하는 증상을 선택해 주세요.
+        </p>
+        <p className="w-[240px] h-[21px] mt-[20px] text-[18px] text-gray-400 font-medium">
+          복수 선택이 가능합니다.
+        </p>
       </section>
-      <section>
+      <section className="mt-[17px]">
         {symptoms &&
           symptoms.map((symptom) => (
-            <div key={symptom.symptom_id}>
-              <label className="flex flex-col">
+            <div
+              key={symptom.symptom_id}
+              className="w-[385px] h-[55px] border-2 rounded-[8px] mb-[16px]"
+            >
+              <label className="w-[292px] h-[21px] mr-[4px] text-[18px]  font-semibold">
                 {symptom.symptoms}
-                <input
-                  type="checkbox"
-                  checked={selectedSymptoms.includes(symptom.symptom_id)}
-                  onChange={() => selectSymptomHandler(symptom.symptom_id)}
-                />
               </label>
+              <input
+                type="radio"
+                checked={selectedSymptoms.includes(symptom.symptom_id)}
+                onChange={() => selectSymptomHandler(symptom.symptom_id)}
+              />
             </div>
           ))}
       </section>
