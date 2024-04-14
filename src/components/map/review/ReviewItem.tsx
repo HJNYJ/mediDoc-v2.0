@@ -14,11 +14,11 @@ const ReviewItem = () => {
   return (
     <section>
       <div className="flex gap-4">
-        <h3>방문자 리뷰</h3>
-        <button onClick={goToReviewForm}>리뷰 쓰기</button>
+        {/* <h3>방문자 리뷰</h3>
+        <button onClick={goToReviewForm}>리뷰 쓰기</button> */}
       </div>
       {/* <ImageTab /> */}
-      <ReviewRecent />
+      {/* <ReviewRecent /> */}
     </section>
   );
 };

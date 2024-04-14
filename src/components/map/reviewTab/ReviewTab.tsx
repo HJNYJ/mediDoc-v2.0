@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import ReviewList from "../defaultTab/ReviewList";
+import ReviewRecent from "../review/ReviewRecent";
 
 // 탭으로 들어갔을때 보여지는 방문자 리뷰 (전체) 탭 내용들 (별점/최신순 볼 수 있음)
 const ReviewTab = () => {
@@ -14,17 +15,11 @@ const ReviewTab = () => {
   };
   return (
     <main>
-      {/* 제목 & 리뷰쓰기
       <div className="flex gap-4">
         <h3>방문자 리뷰</h3>
         <button onClick={goToReviewForm}>리뷰 쓰기</button>
       </div>
-      {/* 칩스 */}
-      {/* <div className="flex gap-4">
-        <button>별점 높은 순</button>
-        <button>최신순</button>
-      </div> */}
-      {/* 리뷰 - 무한스크롤 */}
+      <ReviewRecent />
       <section>
         {/* 작성자 정보 */}
         {/* <div className="flex gap-4">

@@ -47,10 +47,15 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     queryFn: () => getConsultDetail(params.consultId)
   });
 
-  const { data: answerDetailData } = useQuery({
+  const { data: answerDetailData, refetch } = useQuery({
+    // Add 'refetch' to destructure the refetch function
     queryKey: ["answerDetail", params.consultId],
     queryFn: () => getAnswerDetail(params.consultId)
   });
+
+  useEffect(() => {
+    refetch();
+  }, [params.consultId]);
 
   console.log("answerDetailData ===> ", answerDetailData);
 
