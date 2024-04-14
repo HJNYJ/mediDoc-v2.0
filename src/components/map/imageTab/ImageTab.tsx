@@ -32,6 +32,14 @@ const ImageTab = () => {
           />
         ))}
       </section>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          selectTab("image");
+        }}
+      >
+        전체보기
+      </button>
     </main>
   );
 };
