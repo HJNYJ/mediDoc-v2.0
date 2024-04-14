@@ -49,7 +49,6 @@ const TimeSelect = () => {
   };
 
   const morningClick = (time: string) => {
-    alert(`${time}시에 예약하시겠습니까?`);
     setSelectedTime(time);
     setIsTimeClicked(true);
   };

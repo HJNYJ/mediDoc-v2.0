@@ -15,6 +15,7 @@ export type Database = {
           answer_id: string;
           consult_id: string;
           department: string;
+          user_email: string | null;
           user_id: string | null;
         };
         Insert: {
@@ -22,6 +23,7 @@ export type Database = {
           answer_id?: string;
           consult_id: string;
           department: string;
+          user_email?: string | null;
           user_id?: string | null;
         };
         Update: {
@@ -29,6 +31,7 @@ export type Database = {
           answer_id?: string;
           consult_id?: string;
           department?: string;
+          user_email?: string | null;
           user_id?: string | null;
         };
         Relationships: [
@@ -224,6 +227,7 @@ export type Database = {
           hospital_latitude: number | null;
           hospital_longitude: number | null;
           hospital_name: string;
+          region_id: number | null;
           start_time: string;
         };
         Insert: {
@@ -236,6 +240,7 @@ export type Database = {
           hospital_latitude?: number | null;
           hospital_longitude?: number | null;
           hospital_name: string;
+          region_id?: number | null;
           start_time: string;
         };
         Update: {
@@ -248,7 +253,37 @@ export type Database = {
           hospital_latitude?: number | null;
           hospital_longitude?: number | null;
           hospital_name?: string;
+          region_id?: number | null;
           start_time?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_hospital_info_region_id_fkey";
+            columns: ["region_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_region";
+            referencedColumns: ["region_id"];
+          }
+        ];
+      };
+      hospital_region: {
+        Row: {
+          created_at: string;
+          modified_at: string;
+          region_id: number;
+          region_name: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          modified_at?: string;
+          region_id?: number;
+          region_name?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          modified_at?: string;
+          region_id?: number;
+          region_name?: string | null;
         };
         Relationships: [];
       };
@@ -429,7 +464,7 @@ export type Database = {
           created_at?: string;
           hashtags?: string | null;
           rating: number;
-          review_id?: string;
+          review_id: string;
         };
         Update: {
           content?: string;

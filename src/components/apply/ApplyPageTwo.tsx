@@ -10,10 +10,12 @@ const ApplyPageTwo = ({
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { isTimeClicked, isDateClicked } = useApplyStore();
+  const { isTimeClicked, isDateClicked, setName, setIdNumber, setPhoneNumber } =
+    useApplyStore();
+
   const router = useRouter();
 
-  const handleNextClick = (param: string) => {
+  const handleNextClick = () => {
     if (isDateClicked === false && isTimeClicked === false) {
       alert("날짜와 시간 모두 선택해주세요.");
     } else if (isTimeClicked === false) {
@@ -21,31 +23,44 @@ const ApplyPageTwo = ({
     } else if (isDateClicked === false) {
       alert("날짜를 선택 해주세요.");
     } else if (isDateClicked === true && isTimeClicked === true) {
-      return setPageCount(param);
+      return setPageCount("three");
     }
+  };
+  const backHandlerClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
+    return setPageCount("one");
   };
 
   const handleBtnClick = () => {
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
     router.push("/home");
   };
   return (
     <div>
       <p>
-        <button className="m-2" onClick={() => handleNextClick("one")}>
+        <button
+          className="m-2"
+          onClick={() => {
+            backHandlerClick();
+          }}
+        >
           &lt;
         </button>
         <button className="m-4" onClick={handleBtnClick}>
           X
         </button>
       </p>
-
       <p>
         <Calendar />
         <TimeSelect />
       </p>
       <button
         className="m-4 h-10 border-2 text-center w-60 rounded-lg"
-        onClick={() => handleNextClick("three")}
+        onClick={() => handleNextClick()}
       >
         다음
       </button>
