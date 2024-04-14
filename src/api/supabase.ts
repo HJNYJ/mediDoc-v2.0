@@ -367,3 +367,15 @@ export const hospitalName = async () => {
   const { data } = response;
   return data;
 };
+
+export const hospitalReservation = async () => {
+  const response = await supabase.from("reservation_info").select("*");
+  const { data } = response;
+  return data;
+};
+
+export const hospitalRegion = async () => {
+  const response = await supabase.from("hospital_region").select("*");
+  const { data } = response;
+  return data;
+};
