@@ -1,3 +1,11 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
 export type Database = {
   public: {
     Tables: {
@@ -12,7 +20,7 @@ export type Database = {
         };
         Insert: {
           answer: string;
-          answer_id: string;
+          answer_id?: string;
           consult_id?: string | null;
           department: string;
           user_email?: string | null;
@@ -63,37 +71,34 @@ export type Database = {
       };
       consult_info: {
         Row: {
-          bodyparts: string;
+          bodyparts: string | null;
           consult_content: string;
           consult_id: string;
           consult_title: string;
           created_at: string;
-          hashtags: string;
-          photos: string;
-          user_email: string;
-          user_name: string;
+          hashtags: string | null;
+          user_email: string | null;
+          user_name: string | null;
         };
         Insert: {
-          bodyparts: string;
+          bodyparts?: string | null;
           consult_content: string;
           consult_id?: string;
           consult_title: string;
           created_at?: string;
-          hashtags?: string;
-          photos?: string;
-          user_email: string;
-          user_name: string;
+          hashtags?: string | null;
+          user_email?: string | null;
+          user_name?: string | null;
         };
         Update: {
-          bodyparts?: string;
+          bodyparts?: string | null;
           consult_content?: string;
           consult_id?: string;
           consult_title?: string;
           created_at?: string;
-          hashtags?: string;
-          photos?: string;
-          user_email?: string;
-          user_name?: string;
+          hashtags?: string | null;
+          user_email?: string | null;
+          user_name?: string | null;
         };
         Relationships: [];
       };
@@ -331,7 +336,7 @@ export type Database = {
           apply_time: string;
           course_id: string | null;
           hospital_id: string;
-          hospital_name: string;
+          hospital_name: string | null;
           program_detail: string;
           program_id: string;
           program_name: string;
@@ -348,7 +353,7 @@ export type Database = {
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name: string;
+          hospital_name?: string | null;
           program_detail: string;
           program_id?: string;
           program_name: string;
@@ -365,7 +370,7 @@ export type Database = {
           apply_time?: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name?: string;
+          hospital_name?: string | null;
           program_detail?: string;
           program_id?: string;
           program_name?: string;
@@ -559,26 +564,31 @@ export type Database = {
           user_email: string;
           user_id: string;
           user_name: string;
-          user_phone_number: string | null;
-          user_type: string | null;
+          user_type: string;
         };
         Insert: {
           provider: string;
           user_email: string;
           user_id: string;
           user_name: string;
-          user_phone_number: string;
-          user_type: string;
+          user_type?: string;
         };
         Update: {
           provider?: string;
           user_email?: string;
           user_id?: string;
           user_name?: string;
-          user_phone_number?: string;
           user_type?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "public_user_info_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: {

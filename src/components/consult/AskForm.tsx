@@ -31,10 +31,25 @@ const AskForm = () => {
 
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("테스트 드드드");
-    console.log(typeof e.target.files); // string x , object
+    // console.log("테스트 드드드");
+    // console.log(typeof e.target.files); // string x , object
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
+    // 이미지를 선택한 후에 바로 이미지를 미리보기
+    fileList.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setUploadedImages((prevFiles) => [
+          ...prevFiles,
+          {
+            name: file.name,
+            type: file.type,
+            dataUrl: reader.result as string
+          }
+        ]);
+      };
+      reader.readAsDataURL(file);
+    });
   };
   // 웹 페이지에서 파일 등록하기
   const handleFiles = async (
@@ -83,28 +98,21 @@ const AskForm = () => {
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
-
-        setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
-        console.log("result", result);
+        console.log("result", result.error.message);
       }
-
-      // FileReader API 사용하여 이미지 읽고 DataURL 생성
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        // 이미지 렌더링
-        setUploadedImages((prevFiles) => [
-          ...prevFiles,
-          {
-            name: file.name,
-            type: file.type,
-            dataUrl
-          }
-        ]);
-      };
-      reader.readAsDataURL(file);
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   setUploadedImages((prevFiles) => [
+      //     ...prevFiles,
+      //     {
+      //       name: file.name,
+      //       type: file.type,
+      //       dataUrl: reader.result as string
+      //     }
+      //   ]);
+      // };
+      // reader.readAsDataURL(file);
     } catch (error) {
       console.error("파일 업로드 중 에러 발생 ㅠㅠ", error);
     }
@@ -292,9 +300,7 @@ const AskForm = () => {
                       type="file"
                       id="file"
                       name="file"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setImgHandler(e)
-                      }
+                      onChange={setImgHandler}
                       // onChange={handleFiles}
                       multiple
                       hidden

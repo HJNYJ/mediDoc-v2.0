@@ -137,12 +137,14 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
     // const consultIdString = consultId?.map((item) => item.consult_id);
     // console.log("consultIdString", consultIdString?.[0]);
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
       .single();
 
-    console.log("uploadPhotosUrl data up => ", data);
+    if (error) {
+      console.error("uploadPhotosUrl error => ", error);
+    }
     return data;
   } catch (error) {
     console.log("url 업로드 error.... => ", error);
