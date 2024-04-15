@@ -240,13 +240,13 @@ const AskForm = () => {
         <p className="text-gray-500">{contents.length} /500</p>
 
         <div>
-          <label className="block mb-1">카테고리</label>
+          <label className="block mb-3">카테고리</label>
           <select
             onChange={(e) => {
               fetchHashtags(e.target.value);
               setBodyparts(e.target.value);
             }}
-            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500 mb-5"
           >
             <option>증상 과목 선택</option>
             <option value="eyes">눈</option>
@@ -327,7 +327,7 @@ const AskForm = () => {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          className="w-full bg-yellow-500 bg-yellow text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
         >
           물어보기
         </button>
