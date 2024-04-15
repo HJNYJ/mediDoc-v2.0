@@ -198,26 +198,20 @@ const AskForm = () => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="mt-1 ml-4">
-      <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px]" />
+      <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px] mb-5" />
       <div>
-        <label className="regular-16 w-[28px] h-[19px] text-gray-800">
-          제목
-        </label>
-        <br />
+        <p className="regular-16 text-gray-800">제목</p>
         <input
           type="text"
           placeholder="예) 이런 증상은 비염인가요?"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
           className="w-[358px] h-[51px] rounded-lg border mt-3 mb-6 text-gray-600"
+          required
         />
       </div>
       <div className="">
-        <label className="regular-16 w-[28px] h-[19px] text-gray-800">
-          질문
-        </label>
-        <br />
+        <p className="regular-16 text-gray-800">질문</p>
         <textarea
           placeholder="예) 코가 간지럽고 자꾸 재채기가 나오는데 비염약을 먹어야할까요?"
           maxLength={500}
