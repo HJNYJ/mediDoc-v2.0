@@ -1,20 +1,15 @@
 "use client";
 
+import { hospitalRegion } from "@/api/supabase";
 import FindHospitalRegionBtn from "./search/FindHospitalRegionBtn";
-import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
 
 const FindHospital = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["hospitalRegion"],
-    queryFn: async () => {
-      const response = await supabase.from("hospital_region").select("*");
-      // region_id, region_name 둘 다 필요해서 *로 바꿈
-      // -> region_id로 hospitalInfo 테이블안에 region_id가 일치하는 병원들만 뽑아내기 위해(읽고 주석 지우셈)
-
-      const { data } = response;
-      return data;
-    }
+    queryFn: hospitalRegion
+    // region_id, region_name 둘 다 필요해서 *로 바꿈
+    // -> region_id로 hospitalInfo 테이블안에 region_id가 일치하는 병원들만 뽑아내기 위해
   });
   if (isLoading) {
     console.log("이즈 로동");
