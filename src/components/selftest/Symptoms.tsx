@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useRouter } from "next/navigation";
+import Button from "../layout/Buttons";
+import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 
 interface Symptoms {
   bodyparts: string | null;
@@ -33,7 +35,6 @@ const Symptoms = () => {
           .from("symptom_questions")
           .select("*")
           .eq("bodyparts", selectedPart);
-        console.log(questions);
 
         if (error) throw error;
         setSymptoms(questions);
@@ -55,12 +56,12 @@ const Symptoms = () => {
   };
 
   return (
-    <>
+    <section className="w-[358px] mx-[16px]">
       <section className="flex flex-col">
-        <p className="w-[320px] h-[36px] mt-[54px] text-[26px] font-bold">
+        <p className="w-[320px] h-[36px] mt-[54px] bold-26">
           해당하는 증상을 선택해 주세요.
         </p>
-        <p className="w-[240px] h-[21px] mt-[20px] text-[18px] text-gray-400 font-medium">
+        <p className="w-[240px] h-[21px] mt-[20px] medium-18 text-gray-400">
           복수 선택이 가능합니다.
         </p>
       </section>
@@ -69,27 +70,45 @@ const Symptoms = () => {
           symptoms.map((symptom) => (
             <div
               key={symptom.symptom_id}
-              className="w-[385px] h-[55px] border-2 rounded-[8px] mb-[16px]"
+              className={`flex items-center justify-between w-[358px] h-[55px] border-2 rounded-[8px] mb-[16px] relative
+              ${selectedSymptoms.includes(symptom.symptom_id) ? "border-orange" : "border-bluegray"}
+              `}
             >
-              <label className="w-[292px] h-[21px] mr-[4px] text-[18px]  font-semibold">
+              <label
+                htmlFor={`checkbox-${symptom.symptom_id}`}
+                className="flex items-center w-[292px] h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+              >
                 {symptom.symptoms}
               </label>
               <input
-                type="radio"
+                type="checkbox"
+                id={`checkbox-${symptom.symptom_id}`}
                 checked={selectedSymptoms.includes(symptom.symptom_id)}
                 onChange={() => selectSymptomHandler(symptom.symptom_id)}
+                className="opacity-0 w-0 h-0"
               />
+              <div className="relative">
+                {selectedSymptoms.includes(symptom.symptom_id) ? (
+                  <CheckedIcon />
+                ) : (
+                  <NotCheckedIcon />
+                )}
+              </div>
             </div>
           ))}
       </section>
-      <button
-        onClick={() => {
-          router.push("/selftestresult");
-        }}
-      >
-        다음
-      </button>
-    </>
+      <section className="">
+        <Button
+          type="button"
+          buttonType="filled"
+          size="base"
+          label="다음"
+          onClick={() => {
+            router.push("/selftestresult");
+          }}
+        ></Button>
+      </section>
+    </section>
   );
 };
 

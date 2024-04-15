@@ -97,8 +97,8 @@ const MyPage = () => {
   }
 
   return (
-    <>
-      <section className="w-[358px] mx-[16px]">
+    <section className="w-[358px] mx-[16px]">
+      <section>
         <p className="w-[358px] h-[50px] semibold-18 place-content-center">
           마이페이지
         </p>
@@ -118,7 +118,7 @@ const MyPage = () => {
         )}
         {userInfo[0].user_type === "developer" && <AccessDenied />}
       </section>
-    </>
+    </section>
   );
 };
 
