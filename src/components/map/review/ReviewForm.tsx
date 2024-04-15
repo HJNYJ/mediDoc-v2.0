@@ -3,8 +3,10 @@
 import { reviewAddForm, supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import review_searchbar from "@/assets/icons/review/review_searchbar.png";
 
 const ReviewForm = () => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
@@ -165,8 +167,8 @@ const ReviewForm = () => {
   };
 
   return (
-    <div className="flex justify-center mt-28">
-      <br />
+    <div className="">
+      <Image src={review_searchbar} alt="리뷰상단바" className="mt-10" />
       <form
         onSubmit={(e) => e.preventDefault()}
         className="w-[358px] h-[290px] "
@@ -179,8 +181,8 @@ const ReviewForm = () => {
         />
 
         <div>
-          <label htmlFor="review" className="text-gray-500">
-            리뷰 내용
+          <label htmlFor="review" className="text-gray-800 regular-14">
+            리뷰
           </label>
           <textarea
             id="review"
