@@ -208,12 +208,11 @@ const AskForm = () => {
 
   return (
     <>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="max-w-lg mx-auto space-y-5"
-      >
+      <form onSubmit={(e) => e.preventDefault()} className="mt-1">
         <div>
-          <h1 className="text-3xl font-bold">실시간 상담</h1>
+          <h1 className="flex flex-row justify-between items-center">
+            실시간 상담
+          </h1>
         </div>
         <div>
           <label>제목</label>
@@ -327,7 +326,7 @@ const AskForm = () => {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-yellow-500 bg-yellow text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          className="w-full bg-yellow-500 bg-orange text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
         >
           물어보기
         </button>

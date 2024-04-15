@@ -7,6 +7,8 @@ import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
 import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import addIcon from "@/assets/icons/consult/add.png";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -57,11 +59,11 @@ const ConsultPage = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div>
+    <div className="relative w-[390px] h-[945px]">
+      <div className="mt-16">
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
-      <div className="w-[390px] h-[154px]">
+      <div className="w-[390px] h-[154px] top-151 absolute">
         {consultsData?.map((consult) => (
           <div
             key={consult?.consult_id}
@@ -76,19 +78,19 @@ const ConsultPage = () => {
                     key={image?.photos_id}
                     src={image?.photos} // 이미지 URL
                     alt="Uploaded Image"
-                    className="w-[90px] h-[80px] bg-gray-200 rounded-lg"
+                    className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
                   />
                 ))}
             </div>
-            <div>
+            <div className="ml-4 w-[262px] h-[113px] overflow-hidden">
               <p className="semibold-18 text-gray-800">
                 {consult?.consult_title}
               </p>
               <p className="text-gray-700 regular-14">
                 {consult?.consult_content}
               </p>
-              <h2 className="text-lg font-semibold">{consult?.user_name}</h2>
-              <div className="regular-12 w-[174px] h-[30px]">
+
+              <div className="regular-12 gap-8 w-[174px] h-[30px]">
                 {consult?.hashtags
                   ?.toString()
                   .split(",")
@@ -98,15 +100,15 @@ const ConsultPage = () => {
               </div>
               {/* 답변 완료 여부에 따라 UI 요소 표시 */}
               {checkAnswerData && checkAnswerData[consult.consult_id] ? (
-                <button className="bg-yellow-300 text-white rounded-md">
+                <button className="bg-yellow text-orange rounded-md w-[57px] h-[27px] medium-13 text-center">
                   답변 완료
                 </button>
               ) : (
                 <button
-                  className="bg-gray-300 text-gray-600 rounded-md"
+                  className="bg-gray-300 text-gray-600 rounded-md w-[57px] h-[27px] medium-13 text-center"
                   disabled
                 >
-                  답변 대기 중
+                  답변 대기
                 </button>
               )}
             </div>
@@ -114,12 +116,9 @@ const ConsultPage = () => {
         ))}
       </div>
 
-      <div className="border-t border-gray-200">
-        <button
-          onClick={goToAskForm}
-          className="border-b py-4 flex justify-between items-center"
-        >
-          🖋🖋🖋작성
+      <div className="relative">
+        <button onClick={goToAskForm} className="fixed bottom-14 right-3">
+          <Image src={addIcon} alt="작성하기" className="w-[80px] h-[80px]" />
         </button>
       </div>
     </div>
