@@ -8,7 +8,7 @@ const ReviewPage = () => {
   // const router = useRouter();
 
   return (
-    <div>
+    <div className="w-[390px] h-[1176px] flex flex-col">
       <ReviewForm />
     </div>
   );
