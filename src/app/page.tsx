@@ -6,6 +6,7 @@ import Page2 from "@/assets/landing/landing2.png";
 import Page3 from "@/assets/landing/landing3.png";
 import Page4 from "@/assets/landing/landing4.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const images = [Page1, Page2, Page3, Page4];
 
@@ -17,7 +18,13 @@ export default function Home() {
   return (
     <main>
       <Image src={images[index]} alt={`Page ${index + 1}`} />
-      <button onClick={handleNext}>다음</button>
+      {index === images.length - 1 ? (
+        <Link href="/home">
+          <a>홈으로 가기</a>
+        </Link>
+      ) : (
+        <button onClick={handleNext}>다음</button>
+      )}
     </main>
   );
 }
