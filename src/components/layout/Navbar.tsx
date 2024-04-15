@@ -63,10 +63,6 @@ export const Navbar = () => {
     }
   };
 
-  if (pathname === "/login") {
-    return null;
-  }
-
   return (
     <section className="w-[390px]">
       <Image
