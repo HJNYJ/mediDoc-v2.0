@@ -5,10 +5,20 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
+import HomeIndicator from "@/assets/icons/HomeIndicator.png";
+import StatusBar from "@/assets/icons/StatusBar.png";
+import ConsultIcon from "@/assets/icons/consultIcon.png";
+import TestIcon from "@/assets/icons/testIcon.png";
+import HomeIcon from "@/assets/icons/homeIcon.png";
+import MypageIcon from "@/assets/icons/mypageIcon.png";
+import LoginIcon from "@/assets/icons/loginIcon.png";
+import LogoutIcon from "@/assets/icons/logoutIcon.png";
 
 export const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const isLoggedIn = useAuthStore((state) => state.user.isLoggedIn);
   const changeLoggedIn = useAuthStore((state) => state.changeLoggedIn);
   const [userId, setUserId] = useState("");
@@ -53,21 +63,45 @@ export const Navbar = () => {
     }
   };
 
+  if (pathname === "/" || pathname === "/login") {
+    return null;
+  }
+
   return (
     <section className="w-[390px]">
-      <nav className="sticky bottom-0 flex justify-between items-center py-4 px-6 bg-gray-500 text-white">
-        <Link href={"/consult"}>실시간 상담</Link>
-        <Link href={"/selftest"}>건강테스트</Link>
-        <Link href={"/home"}>홈</Link>
+      <Image
+        src={StatusBar}
+        alt="Status Bar"
+        className="fixed top-0 left-0 w-[390px] z-50 mb-[44px]"
+      />
+      <nav className="sticky bottom-0 flex justify-between items-center py-4 px-6 mt-[44px] text-black">
+        <Link href={"/consult"}>
+          <Image src={ConsultIcon} alt="Consult Icon" />
+        </Link>
+        <Link href={"/selftest"}>
+          <Image src={TestIcon} alt="Test Icon" />
+        </Link>
+        <Link href={"/home"}>
+          <Image src={HomeIcon} alt="Home Icon" />
+        </Link>
         <a onClick={handleMyPageClick} className="cursor-pointer">
-          마이페이지
+          <Image src={MypageIcon} alt="Mypage Icon" />
         </a>
         {isLoggedIn ? (
-          <button onClick={() => logoutHandler()}>로그아웃</button>
+          <button onClick={() => logoutHandler()}>
+            <Image src={LogoutIcon} alt="Logout Icon" />
+          </button>
         ) : (
-          <Link href={"/login"}>로그인</Link>
+          <Link href={"/login"}>
+            <Image src={LoginIcon} alt="Login Icon" />
+          </Link>
         )}
       </nav>
+      <Image
+        src={HomeIndicator}
+        alt="Home Indicator"
+        className="fixed bottom-0 left-0 w-[390px] z-50"
+      />
     </section>
   );
 };
