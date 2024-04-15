@@ -16,13 +16,13 @@ export const checkConsultAnswer = async (consultId: string) => {
   const { data: consultAnswer, error } = await supabase
     .from("consult_answer")
     .select("answer")
-    .eq("consult_id", consultId)
-    .single();
+    .eq("consult_id", consultId);
 
   if (error) {
     console.error("checkConsultAnswer error => ", error);
   }
-  console.log("getInfoId consultAnswer => ", consultAnswer);
+  console.log("이게 답변의 컨설트 아이디???? => ", consultAnswer);
+  return consultAnswer;
 };
 
 // consult page

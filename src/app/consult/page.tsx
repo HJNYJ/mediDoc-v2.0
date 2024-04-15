@@ -9,6 +9,9 @@ import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import addIcon from "@/assets/icons/consult/add.png";
+import searchbar from "@/assets/icons/consult/searchbar.png";
+import answer_complete from "@/assets/icons/consult/answer_complete.png";
+import answer_wait from "@/assets/icons/consult/answer_wait.png";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -59,8 +62,9 @@ const ConsultPage = () => {
   };
 
   return (
-    <div className="relative w-[390px] h-[945px]">
-      <div className="mt-16">
+    <div className="mt-1 w-[390px] h-[945px]">
+      <div className="mt-10 mb-5">
+        <Image src={searchbar} alt="상단바" className="mb-4" />
         <ConsultTabs handleCategoryChange={handleCategoryChange} />
       </div>
       <div className="w-[390px] h-[154px] top-151 absolute">
@@ -86,11 +90,11 @@ const ConsultPage = () => {
               <p className="semibold-18 text-gray-800">
                 {consult?.consult_title}
               </p>
-              <p className="text-gray-700 regular-14">
+              <p className="text-gray-700 regular-14 mb-2">
                 {consult?.consult_content}
               </p>
 
-              <div className="regular-12 gap-8 w-[174px] h-[30px]">
+              <div className="mb-2">
                 {consult?.hashtags
                   ?.toString()
                   .split(",")
@@ -98,18 +102,11 @@ const ConsultPage = () => {
                     <Hashtag key={hashtag} hashtag={hashtag} />
                   ))}
               </div>
-              {/* 답변 완료 여부에 따라 UI 요소 표시 */}
+
               {checkAnswerData && checkAnswerData[consult.consult_id] ? (
-                <button className="bg-yellow text-orange rounded-md w-[57px] h-[27px] medium-13 text-center">
-                  답변 완료
-                </button>
+                <Image src={answer_complete} alt="답변 완료" />
               ) : (
-                <button
-                  className="bg-gray-300 text-gray-600 rounded-md w-[57px] h-[27px] medium-13 text-center"
-                  disabled
-                >
-                  답변 대기
-                </button>
+                <Image src={answer_wait} alt="답변 대기" />
               )}
             </div>
           </div>

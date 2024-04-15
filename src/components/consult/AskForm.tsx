@@ -197,7 +197,7 @@ const AskForm = () => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="mt-1 ml-4">
+    <form onSubmit={(e) => e.preventDefault()} className="mt-1">
       <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px] mb-5" />
       <div>
         <p className="regular-16 text-gray-800">제목</p>

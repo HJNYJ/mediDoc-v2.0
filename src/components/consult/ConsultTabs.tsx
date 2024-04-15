@@ -2,29 +2,28 @@ import type { TabsProps } from "@/types";
 import React, { useEffect, useState } from "react";
 import RoundTabs from "../layout/RoundTabs";
 import { supabase } from "@/api/supabase";
+import { useQuery } from "@tanstack/react-query";
 
 const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   // 탭 상태 관리
-  const [currentTab, setCurrentTab] = useState("eyes|ears|nose|abdomen|waist");
+  const [currentTab, setCurrentTab] = useState("eyes|ears|nose|neck|waist");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // currentTab이 변경될 때마다 해당 부분을 포함하는 데이터를 supabase에서 가져오는 함수 호출
     fetchPosts();
   }, [currentTab]);
 
   const fetchPosts = async () => {
-    // supabase에서 데이터를 가져오는 쿼리 실행
     const { data, error } = await supabase
       .from("consult_info")
       .select("*")
-      .like("bodyparts", `%${currentTab}%`); // bodysection에 currentTab을 포함하는 데이터만 선택
+      .eq("bodyparts", currentTab);
 
     if (error) {
       console.error("Error fetching posts:", error);
-    } else {
-      setPosts(data || []);
     }
+    console.log("current Tab data ==> ??? ", data);
+    return setPosts(data || []);
   };
 
   const onChangeTabHandler = (tabName: string) => {
@@ -55,7 +54,7 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
             width={119.3}
           />
           <RoundTabs
-            label="복통"
+            label="목 통증"
             onClick={() => onChangeTabHandler("abdomen")}
             active={currentTab === "abdomen"}
             width={119.3}
@@ -67,6 +66,7 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
             width={119.3}
           />
         </div>
+        <div>{/** 데이터 잘 렌더링됨 */}</div>
       </section>
     </>
   );

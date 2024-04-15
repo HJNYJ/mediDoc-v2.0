@@ -93,7 +93,7 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
             <option value="안과">안과</option>
             <option value="이비인후과">이비인후과</option>
           </select>
-          <span className="text-lg font-semibold mb-4 ml-2">답변</span>
+          <span className="text-lg font-semibold mb-4">답변</span>
         </div>
 
         <textarea
