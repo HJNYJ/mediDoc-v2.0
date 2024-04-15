@@ -559,31 +559,26 @@ export type Database = {
           user_email: string;
           user_id: string;
           user_name: string;
-          user_type: string;
+          user_phone_number: string | null;
+          user_type: string | null;
         };
         Insert: {
           provider: string;
           user_email: string;
           user_id: string;
           user_name: string;
-          user_type?: string;
+          user_phone_number: string;
+          user_type: string;
         };
         Update: {
           provider?: string;
           user_email?: string;
           user_id?: string;
           user_name?: string;
+          user_phone_number?: string;
           user_type?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: "public_user_info_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          }
-        ];
+        Relationships: [];
       };
     };
     Views: {
