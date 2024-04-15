@@ -19,9 +19,7 @@ export default function Home() {
     <main>
       <Image src={images[index]} alt={`Page ${index + 1}`} />
       {index === images.length - 1 ? (
-        <Link href="/home">
-          <a>홈으로 가기</a>
-        </Link>
+        <Link href="/home">홈으로 가기</Link>
       ) : (
         <button onClick={handleNext}>다음</button>
       )}
