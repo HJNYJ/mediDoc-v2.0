@@ -1,62 +1,72 @@
 // 진료과 div
-import React from "react";
+import React, { useState } from "react";
+import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 
 interface DepartmentsProps {
-  onClickDepartment: (department: string) => void;
+  onSelectDepartment: (department: string) => void;
 }
 
-const Departments: React.FC<DepartmentsProps> = ({ onClickDepartment }) => {
+const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
+    null
+  );
+
+  const handleDepartmentSelect = (department: string) => {
+    if (selectedDepartment === department) {
+      setSelectedDepartment(null);
+      onSelectDepartment(null);
+    } else {
+      setSelectedDepartment(department);
+      onSelectDepartment(department);
+    }
+  };
+
   return (
-    <>
+    <section className="w-[358px] mx-[16px]">
       <section>
-        <p className="w-[192px] h-[36px] mt-[54px] text-[26px] font-bold">
+        <p className="w-[192px] h-[36px] mt-[54px] bold-26">
           과를 선택해주세요
         </p>
-        <p className="w-[240px] h-[21px] mt-[20px] text-[18px] text-gray-400 font-medium">
+        <p className="w-[240px] h-[21px] mt-[20px] medium-18 text-gray-400">
           진단받고 싶은 과를 선택해주세요.
         </p>
       </section>
       <section>
         <section className="flex flex-col mt-[17px]">
-          <button
-            className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px] mb-[16px]"
-            onClick={() => onClickDepartment("이비인후과")}
-          >
-            이비인후과
-          </button>
-          <button
-            className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px] mb-[16px]"
-            onClick={() => onClickDepartment("내과")}
-          >
-            내과
-          </button>
-          <button
-            className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px] mb-[16px]"
-            onClick={() => onClickDepartment("외과")}
-          >
-            외과
-          </button>
-          <button
-            className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px] mb-[16px]"
-            onClick={() => onClickDepartment("치과")}
-          >
-            치과
-          </button>
-          <button
-            className="w-[385px] h-[55px] text-[18px] font-semibold border-2 rounded-[8px]"
-            onClick={() => onClickDepartment("안과")}
-          >
-            안과
-          </button>
+          {["이비인후과", "내과", "외과", "치과", "안과"].map(
+            (department, index) => (
+              <div
+                key={index}
+                className={`flex items-center w-[358px] h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedDepartment === department ? "border-orange" : "border-bluegray"}`}
+                onClick={() => handleDepartmentSelect(department)}
+              >
+                <label
+                  htmlFor={`checkbox-${index}`}
+                  className="flex items-center w-[292px] h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+                >
+                  {department}
+                </label>
+                <input
+                  type="checkbox"
+                  id={`checkbox-${index}`}
+                  checked={selectedDepartment === department}
+                  onChange={() => handleDepartmentSelect(department)}
+                  className="opacity-0 w-0 h-0"
+                />
+
+                <div className="relative">
+                  {selectedDepartment === department ? (
+                    <CheckedIcon />
+                  ) : (
+                    <NotCheckedIcon />
+                  )}
+                </div>
+              </div>
+            )
+          )}
         </section>
       </section>
-      <section>
-        <h4>불편하신 증상을 바탕으로 자가진단을 하는 검사입니다.</h4>
-        <h4>
-          * 연관 있는 질환을 알려드리며 자세한 사항은 전문의와 상담하세요.
-        </h4>
-      </section>
-    </>
+    </section>
   );
 };
 

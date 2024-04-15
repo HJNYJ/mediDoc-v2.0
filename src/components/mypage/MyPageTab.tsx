@@ -17,7 +17,6 @@ const MyPageTab = () => {
         <div className="flex">
           <Tab
             onClick={() => onChangeTabHandler("예약 정보")}
-            width={119.3}
             text="bold-16"
             active={currentTab === "예약 정보"}
           >
@@ -25,7 +24,6 @@ const MyPageTab = () => {
           </Tab>
           <Tab
             onClick={() => onChangeTabHandler("스크랩")}
-            width="[119.3px]"
             text="bold-16"
             active={currentTab === "스크랩"}
           >
@@ -33,7 +31,6 @@ const MyPageTab = () => {
           </Tab>
           <Tab
             onClick={() => onChangeTabHandler("내가 한 질문")}
-            width="[119.3px]"
             text="bold-16"
             active={currentTab === "내가 한 질문"}
           >

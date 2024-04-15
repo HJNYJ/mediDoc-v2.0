@@ -6,6 +6,9 @@ import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import ear_disease from "@/assets/icons/selftest/ear_disease.jpeg";
+import Button from "../layout/Buttons";
 
 const TestResult = () => {
   const { selectedPart, selectedSymptoms, setPredictedDiseases } =
@@ -77,22 +80,44 @@ const TestResult = () => {
     selectedPart
   ]);
 
-  const goToMapPage = () => {
-    router.push("/map");
-  };
+  // const goToMapPage = () => {
+  //   router.push("/map");
+  // };
 
   return (
     <>
-      <button>뒤로 가기</button>
       <section>
-        <h2>의심되는 질병은?</h2>
-        <ul>
+        <Image
+          src={ear_disease}
+          alt="이미지"
+          className="w-[420px] h-[390px]  object-cover
+          "
+        />
+      </section>
+      <section className="flex flex-col w-[358px] mx-[16px]">
+        <p className="w-[358px] bold-26 text-center">
           {predictedDiseases?.map((disease, index) => (
-            <li key={index}>{disease}</li>
+            <div key={index}>{disease}</div>
           ))}
-        </ul>
-        <h4>자세한 사항은 의사와 상담하세요.</h4>
-        <button onClick={goToMapPage}>병원 보러가기</button>
+        </p>
+        <section className="w-[358px] mx-[16px] mt-[8px]">
+          <p className="regular-16 text-center text-gray-600">
+            불편하신 증상을 바탕으로 자가진단을 하는 검사입니다.
+          </p>
+          <p className="mt-[8px] mb-[230px]">
+            * 연관 있는 질환을 알려드리며 자세한 사항은
+            <br />
+            <strong>전문의와 상담하세요.</strong>
+          </p>
+        </section>
+        {/* <button onClick={goToMapPage}>병원 보러가기</button> */}
+        <Button
+          type="button"
+          buttonType="filled"
+          label="닫기"
+          size="base"
+          onClick={() => router.push("/home")}
+        />
       </section>
     </>
   );
