@@ -1,36 +1,55 @@
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
+import Male_checked from "@/assets/icons/selftest/Male_checked.png";
+import Male_not_checked from "@/assets/icons/selftest/Male_not_checked.png";
+import Female_checked from "@/assets/icons/selftest/Female_checked.png";
+import Female_not_checked from "@/assets/icons/selftest/Female_not_checked.png";
 
 interface GendersProps {
-  onClickGender: (gender: string) => void;
+  onSelect: () => void;
 }
 
-const Genders: React.FC<GendersProps> = ({ onClickGender }) => {
+const Genders: React.FC<GendersProps> = ({ onSelect }) => {
+  const [selectedGender, setSelectedGender] = useState<"male" | "female">(
+    "male"
+  );
+
+  const handleGenderSelect = (gender: "male" | "female") => {
+    setSelectedGender(gender);
+  };
+
   return (
-    <section className="w-[358px]">
-      <Link href="/">
-        <button>뒤로 가기</button>
-      </Link>
+    <section className="w-[358px] mx-[16px]">
       <section>
-        <p className="w-[200px] h-[36px] mt-[54px] text-[26px] font-bold">
+        <p className="w-[200px] h-[36px] mt-[54px] bold-26">
           성별을 알려주세요.
         </p>
-        <p className="w-[310px] h-[21px] mt-[20px] text-[18px] text-gray-400 font-medium">
+        <p className="w-[310px] h-[21px] mt-[20px] medium-18 text-gray-400">
           성별에 따라 진료 결과가 달라질 수 있어요.
         </p>
       </section>
-      <section className="mt-[38px] ">
+      <section className="mt-[38px] mb-[362px]">
         <button
-          className="w-[168px] h-[185px] border-2 mr-[22px] rounded-[10px]"
-          onClick={() => onClickGender("여성")}
+          className="w-[168px] h-[185px] mr-[22px] rounded-[10px] bold-16"
+          onClick={() => handleGenderSelect("female")}
+          onSelect={onSelect}
         >
-          여성
+          <Image
+            src={
+              selectedGender === "female" ? Female_checked : Female_not_checked
+            }
+            alt="Female"
+          />
         </button>
         <button
-          className="w-[168px] h-[185px] border-2 rounded-[10px]"
-          onClick={() => onClickGender("남성")}
+          className="w-[168px] h-[185px] rounded-[10px] bold-16"
+          onClick={() => handleGenderSelect("male")}
+          onSelect={onSelect}
         >
-          남성
+          <Image
+            src={selectedGender === "male" ? Male_checked : Male_not_checked}
+            alt="Male"
+          />
         </button>
       </section>
     </section>
