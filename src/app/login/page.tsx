@@ -2,7 +2,12 @@
 "use client";
 
 import { supabase } from "@/api/supabase";
+import kakaologin from "@/assets/icons/kakaologin.png";
+import googlelogin from "@/assets/icons/googlelogin.png";
+import Image from "next/image";
 import React from "react";
+import HomeIndicator from "@/assets/icons/HomeIndicator.png";
+import StatusBar from "@/assets/icons/StatusBar.png";
 
 const LoginPage = () => {
   const signInWithKakao = async () => {
@@ -40,10 +45,26 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="flex flex-col">
-      <button onClick={() => signInWithKakao()}>카카오로 계속하기</button>
-      <button onClick={() => signInWithGoogle()}>Google로 계속하기</button>
-    </section>
+    <>
+      <Image
+        src={StatusBar}
+        alt="Status Bar"
+        className="fixed top-0 left-0 w-[390px] z-50 mb-[44px]"
+      />
+      <section className="w-[358px] mx-[16px] mt-[616px]">
+        <button onClick={() => signInWithKakao()}>
+          <Image
+            src={kakaologin}
+            alt="카카오로 계속하기"
+            className="mb-[8px]"
+          />
+        </button>
+        <button onClick={() => signInWithGoogle()}>
+          <Image src={googlelogin} alt="구글로 계속하기" className="" />
+        </button>
+      </section>
+      <Image src={HomeIndicator} alt="Home Indicator" />
+    </>
   );
 };
 
