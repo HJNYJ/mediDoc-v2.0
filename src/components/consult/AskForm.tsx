@@ -1,13 +1,9 @@
-// 질문&답변 Textarea
-
 "use client";
-
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
 // import ConsultImages from "./ConsultImages";
 import { v4 as uuidv4 } from "uuid";
-
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -17,9 +13,7 @@ const AskForm = () => {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [img, setImg] = useState<File[]>([]);
-
   /** 이미지 컴포넌트에서 사용하는 state 및 함수 시작 */
-
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<
     {
@@ -28,7 +22,6 @@ const AskForm = () => {
       dataUrl: string;
     }[]
   >([]);
-
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("테스트 드드드");
@@ -43,23 +36,19 @@ const AskForm = () => {
   ) => {
     // const fileList = e.target.files;
     const fileList = img;
-
     if (fileList) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-
       filesArray.forEach((file) => {
         handleAddImages(file, consultId);
       });
     }
   };
-
   // 업로드된 파일이 5개가 초과되면 그 뒤에 들어오는 파일은 없앰
   if (uploadedFileUrl.length > 5 && files.length > 5) {
     uploadedFileUrl.pop() && files.pop();
     alert("이미지는 최대 5개까지 업로드 가능합니다.");
   }
-
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
     try {
@@ -68,30 +57,23 @@ const AskForm = () => {
       const result = await supabase.storage
         .from("images")
         .upload(`user_images/${newFileName}`, file);
-
       // console.log("upload file result => ", result.data);
-
       if (result.data) {
         const url =
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
         console.log("url => ", url);
-
         const uploadImgUrl = await uploadPhotosUrl(url.toString(), consultId);
-
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
-
         setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("result", result);
       }
-
       // FileReader API 사용하여 이미지 읽고 DataURL 생성
       const reader = new FileReader();
-
       reader.onload = () => {
         const dataUrl = reader.result as string;
         // 이미지 렌더링
@@ -109,11 +91,9 @@ const AskForm = () => {
       console.error("파일 업로드 중 에러 발생 ㅠㅠ", error);
     }
   };
-
   // 이미지 클릭 -> 순서 맨 앞으로
   const handleImageOrder = (e: MouseEvent<HTMLElement>) => {
     const url = e.currentTarget.id;
-
     // 클릭된 아이템 인덱스 번호
     const clickedItem = uploadedFileUrl.indexOf(url);
     // 클릭 된 아이템을 제외한 배열
@@ -123,34 +103,25 @@ const AskForm = () => {
     // 클릭 된 아이템을 맨 앞으로 해서 state를 변경
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
-
   // X 버튼 클릭 -> 이미지 삭제
   const handleDeleteImage = (idx: number) => {
     // uploadedFileUrl state 업데이트
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
-
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
   };
-
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
-
   const consultId = uuidv4();
   // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-
   // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-
   // consultInfo 테이블, consult_image 테이블에 동일한 consultId
-
   console.log(consultId);
-
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")
       .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10")
       .eq("body_section", selectedCategory);
-
     if (error) {
       console.error(error);
       return;
@@ -172,7 +143,6 @@ const AskForm = () => {
       });
     }
   };
-
   /**
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
@@ -180,10 +150,8 @@ const AskForm = () => {
     // 데이터 추가
     // const hashtagsArray: string[] = Object.values(hashtags); // Hashtags 객체에서 문자열 배열 추출
     // console.log(hashtagsArray);
-
     // 어떻게 선택된 배열만 찾아올 수 있을까????
     // console.log("selectedTags => ", selectedTags);
-
     const data = await consultAddForm(
       title,
       contents,
@@ -192,20 +160,16 @@ const AskForm = () => {
       // consultId: uuid
       // 이미지 URL 추가
     );
-
     // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-
     console.log(data);
     handleFiles(data); // data >> consultId
     if (data) {
       console.log("AskForm 추가 성공", data!);
-
       // 이미지 URL을 객체에 추가
       // const imageData = { image_url: uploadedFileUrl };
       // console.log("이미지 데이터:", imageData);
     }
   };
-
   return (
     <>
       <form
@@ -238,7 +202,6 @@ const AskForm = () => {
           />
         </div>
         <p className="text-gray-500">{contents.length} /500</p>
-
         <div>
           <label className="block mb-1">카테고리</label>
           <select
@@ -275,7 +238,6 @@ const AskForm = () => {
                 <p>*</p>
                 <span>{uploadedFileUrl.length}/5</span>
               </h2>
-
               <div>
                 {uploadedImages.map((image, idx: number) => (
                   <div key={image.dataUrl}>
@@ -284,7 +246,6 @@ const AskForm = () => {
                     <button onClick={() => handleDeleteImage(idx)}>삭제</button>
                   </div>
                 ))}
-
                 {uploadedFileUrl.length >= 5 ? (
                   <></>
                 ) : (
@@ -320,14 +281,13 @@ const AskForm = () => {
                 )}
               </div>
             </div>
-
             {/* 이미지 컴포넌트 끝 */}
           </div>
         </div>
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
+          className="w-full bg-yellow-500 bg-yellow text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400"
         >
           물어보기
         </button>
@@ -335,5 +295,4 @@ const AskForm = () => {
     </>
   );
 };
-
 export default AskForm;
