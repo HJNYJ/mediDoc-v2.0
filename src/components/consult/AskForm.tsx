@@ -240,7 +240,7 @@ const AskForm = () => {
           }}
           className="bg-bluegray w-[358px] h-[55px] rounded-xl border border-gray-300 mb-7 pl-5 semibold-16 text-gray-800"
         >
-          <option>부위 선택</option>
+          <option className="semibold-16">부위 선택</option>
           <option value="eyes">눈</option>
           <option value="ears">귀</option>
           <option value="nose">코</option>
