@@ -4,6 +4,9 @@ import TimeSelect from "./TimeSelect";
 import Calendar from "./CalendarDay";
 import { useRouter } from "next/navigation";
 import useApplyStore from "@/shared/zustand/applyStore";
+import Button from "../layout/Buttons";
+import YellowBarMg from "../layout/YellowBarMg";
+import GrayBar from "../layout/GrayBar";
 
 const ApplyPageTwo = ({
   setPageCount
@@ -40,8 +43,9 @@ const ApplyPageTwo = ({
     router.push("/home");
   };
   return (
-    <div>
-      <p>
+    <div className="w-[358px] mx-[16px]">
+      {/* mt 임시 탬 */}
+      <p className="mt-10">
         <button
           className="m-2"
           onClick={() => {
@@ -53,17 +57,25 @@ const ApplyPageTwo = ({
         <button className="m-4" onClick={handleBtnClick}>
           X
         </button>
+        <div className="flex">
+          <YellowBarMg />
+          <YellowBarMg />
+          <GrayBar />
+        </div>
       </p>
-      <p>
+      <p className="mb-40">
         <Calendar />
         <TimeSelect />
       </p>
-      <button
-        className="m-4 h-10 border-2 text-center w-60 rounded-lg"
+      <Button
+        type="button"
+        buttonType="filled"
+        size="base"
+        label="다음"
         onClick={() => handleNextClick()}
       >
         다음
-      </button>
+      </Button>
     </div>
   );
 };

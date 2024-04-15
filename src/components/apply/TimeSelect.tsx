@@ -5,10 +5,10 @@ import { getDate } from "@/utils/changeTimeFormat";
 import React from "react";
 
 const TimeSelect = () => {
-  const { selectedDate, setSelectedTime, setIsTimeClicked } = useApplyStore();
+  const { selectedDate, setSelectedTime, setIsTimeClicked, selectedTime } =
+    useApplyStore();
   const morning = ["9:00", "10:00", "11:00", "12:00"];
   const afternoon = [
-    "13:00",
     "14:00",
     "15:00",
     "16:00",
@@ -58,16 +58,17 @@ const TimeSelect = () => {
     setIsTimeClicked(true);
   };
   return (
-    <div>
+    <div className="px-4">
       시간선택
-      <div className="m-2">오전</div>
+      <div className="my-3">오전</div>
       <div>
         {morning.map((time, idx) => {
           return (
             <button
               key={idx}
               onClick={() => morningClick(time)}
-              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}`}
+              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}
+               ${selectedTime === time ? "bg-yellow text-orange border-orange border-2 font-bold" : ""}`}
               disabled={isDisabled(time)}
             >
               {time}
@@ -75,14 +76,15 @@ const TimeSelect = () => {
           );
         })}
       </div>
-      <div className="m-2">오후</div>
-      <div>
+      <div className="my-3">오후</div>
+      <div className="flex flex-wrap w-[380px]">
         {afternoon.map((time, idx) => {
           return (
             <button
               key={idx}
               onClick={() => afternoonClick(time)}
-              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}`}
+              className={`border m-1 w-14 h-8 rounded-lg shadow-[0_1px_5px_-0px_rgba(0,0,0,0.3)] ${isDisabled(time) ? "disabled" : ""}
+               ${selectedTime === time ? "bg-yellow text-orange border-orange border-2 font-bold" : ""}`}
               disabled={isDisabled(time)}
             >
               {time}

@@ -1,11 +1,13 @@
 "use client";
 
 import useApplyStore from "@/shared/zustand/applyStore";
-import React, { useState } from "react";
+import downtoggle from "@/assets/upanddown/down_toggle.png";
+import uptoggle from "@/assets/upanddown/up_toggle.png";
+import { getDate } from "@/utils/changeTimeFormat";
+import { useState } from "react";
+import Image from "next/image";
 
 import type { CalendarDay } from "@/types";
-import { getDate } from "@/utils/changeTimeFormat";
-
 const Calendar = () => {
   /** 현재 날짜 */
   const currentDate = new Date();
@@ -20,6 +22,8 @@ const Calendar = () => {
   };
   const specifiedDate = getDate(selectedDate);
 
+  const [calendarToggle, setCalendarToggle] = useState<number>(1);
+  const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
   /** 캘린더 생성 */
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const daysInWeek = ["일", "월", "화", "수", "목", "금", "토"];
@@ -48,7 +52,7 @@ const Calendar = () => {
     // 해당 달에 일이 몇개인지
 
     let date = 1;
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < calendarToggle; i++) {
       matrix[i] = [];
       for (let j = 0; j < 7; j++) {
         if (i === 0 && j < firstDay) {
@@ -85,32 +89,47 @@ const Calendar = () => {
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
     );
   };
-
+  const toggleCalendarHandler = () => {
+    if (isOpenToggle === false) {
+      setIsOpenToggle(true);
+    } else {
+      setIsOpenToggle(false);
+    }
+    isOpenToggle ? setCalendarToggle(6) : setCalendarToggle(1);
+  };
   const matrix = generateMatrix();
 
   return (
-    <div>
-      <button className="m-2" onClick={handlePrevMonth}>
-        &lt;
-      </button>
-      <span className="m-2">
-        {currentMonth.getFullYear()}. {monthsInYear[currentMonth.getMonth()]}
-      </span>
-      <button className="m-2" onClick={handleNextMonth}>
-        &gt;
-      </button>
-      {specifiedDate}
-      <div className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)] text-center mb-[80px]">
-        <table>
+    <div className="w-[430px]">
+      <div className="text-center">
+        <button className="m-2" onClick={handlePrevMonth}>
+          &lt;
+        </button>
+        <span className="m-2">
+          {currentMonth.getFullYear()}. {monthsInYear[currentMonth.getMonth()]}
+        </span>
+        <button className="m-2" onClick={handleNextMonth}>
+          &gt;
+        </button>
+        {specifiedDate}
+      </div>
+
+      <div
+        className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)]
+       text-center mb-20"
+      >
+        <table className="mx-auto px-5">
           <thead>
             <tr className="m-2">
               {daysInWeek.map((day) => (
-                <th key={day}>{day}</th>
+                <th key={day} className="w-[52px]">
+                  {day}
+                </th>
                 // 요일 : 일 월 화 수 목 금 토
               ))}
             </tr>
           </thead>
-          <tbody className="h-20">
+          <tbody className={isOpenToggle ? "h-3" : "h-20"}>
             {matrix.map((row, rowIndex) => {
               return (
                 <tr key={rowIndex}>
@@ -144,7 +163,13 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
-        <button>토글 버튼</button>
+        <button onClick={() => toggleCalendarHandler()}>
+          {isOpenToggle ? (
+            <Image src={downtoggle} alt="" />
+          ) : (
+            <Image src={uptoggle} alt="" />
+          )}
+        </button>
       </div>
     </div>
   );

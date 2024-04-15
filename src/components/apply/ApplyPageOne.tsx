@@ -5,6 +5,11 @@ import useApplyStore from "../../shared/zustand/applyStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
+import Button from "../layout/Buttons";
+import Progress from "../layout/ProgressOne";
+import YellowBarMg from "../layout/YellowBarMg";
+import GrayBarMg from "../layout/GrayBarMg";
+import GrayBar from "../layout/GrayBar";
 
 const ApplyPageOne = ({
   setPageCount
@@ -84,12 +89,18 @@ const ApplyPageOne = ({
   };
 
   return (
-    <>
-      <button className="m-2" onClick={handleBtnClick}>
+    <div className="w-[358px] mx-[16px]">
+      {/* mt 임시 탬 */}
+      <button className="mt-10" onClick={handleBtnClick}>
         X
       </button>
+      <div className="flex">
+        <YellowBarMg />
+        <GrayBarMg />
+        <GrayBar />
+      </div>
       <HospitalName />
-      <article className="m-2">병원 지도</article>
+      <article className="m-2">병원 사진</article>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -100,7 +111,7 @@ const ApplyPageOne = ({
           <p>*이름</p>
           <input
             placeholder="홍길동"
-            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2"
+            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangeName}
             value={name}
           />
@@ -109,7 +120,7 @@ const ApplyPageOne = ({
         <div className="m-2">
           <p>*주민등록번호</p>
           <input
-            className="text-black m-2 w-32 h-10 rounded-lg px-1 border-2"
+            className="text-black m-2 w-32 h-10 rounded-lg px-1 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangeIdNumber}
             value={idNumber}
             placeholder="생년월일 6자리"
@@ -118,17 +129,17 @@ const ApplyPageOne = ({
           -
           <input
             maxLength={1}
-            className="text-black m-2 w-6 h-10 text-center rounded-lg px-1 border-2"
+            className="text-black m-2 w-6 h-10 text-center rounded-lg px-1 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
           * * * * * *
           {!idNumberValid && (
             <p className="text-red-500">생년월일 6자리를 기입해주세요.</p>
           )}
         </div>
-        <div className="m-2">
+        <div className="m-2 mb-4">
           <p>*휴대폰 번호</p>
           <input
-            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2"
+            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangePhoneNumber}
             value={phoneNumber}
             placeholder="-없이 휴대폰 11자리 번호 입력"
@@ -138,14 +149,17 @@ const ApplyPageOne = ({
             <p className="text-red-500">전화번호를 11자리를 기입해주세요.</p>
           )}
         </div>
-        <button
-          className="m-4 h-10 border-2 text-center w-60 rounded-lg"
+        <Button
+          type="submit"
+          buttonType="filled"
+          size="base"
+          label="다음"
           onClick={handleNextClick}
         >
-          다음
-        </button>
+          .
+        </Button>
       </form>
-    </>
+    </div>
   );
 };
 export default ApplyPageOne;
