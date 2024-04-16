@@ -1,6 +1,7 @@
 // 병원 상세페이지
 "use client";
 import { supabase } from "@/api/supabase";
+import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
 import HospitalMainInfo from "@/components/map/HospitalMainInfo";
 import ReviewList from "@/components/map/defaultTab/ReviewList";
@@ -12,7 +13,8 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const { selectedTab, selectTab } = useDetailTabStore();
 
   return (
-    <main>
+    <main className="w-[390px] h-[2398px]">
+      <TopNavbar />
       <HospitalInfoHeader params={params} />
       <p>--------------------</p>
       <nav className="w-[390px]">

@@ -4,13 +4,11 @@ interface ButtonProps {
   type?: "submit" | "button";
   buttonType?: "filled" | "hollow";
   size?: "base" | "lg";
-  text?: string;
-  height?: string;
-  label?: string;
+  label?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   classes?: string;
   clicked?: boolean;
-  children: any;
+  children?: React.ReactNode;
 }
 
 const Button = ({
@@ -18,7 +16,8 @@ const Button = ({
   buttonType,
   size = "base",
   label,
-  onClick
+  onClick,
+  children
 }: ButtonProps) => {
   const height = size === "lg" ? "h-[105px]" : "h-[50px]";
   const borderRadius = size === "lg" ? "rounded-[15px]" : "rounded-[8px]";
@@ -30,13 +29,13 @@ const Button = ({
   return (
     <button
       type={type || "button"}
-      className={`flex flex-row justify-center items-center focus:outline-none w-[358px] mx-[16px]
+      className={`flex flex-col justify-center items-center focus:outline-none w-[358px]
       ${height} ${borderRadius} text-${textColor} ${bgColor} border-${borderColor} ${borderStyle}
-      
       `}
       onClick={onClick}
     >
       {label}
+      {children}
     </button>
   );
 };
