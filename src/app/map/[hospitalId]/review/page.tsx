@@ -3,16 +3,14 @@
 
 import ReviewForm from "@/components/map/review/ReviewForm";
 import React from "react";
-import { useRouter } from "next/navigation";
 
-const ReviewPage = () => {
+const ReviewPage = ({ hospitalId }: { hospitalId: string }) => {
   // const router = useRouter();
 
-  return (
-    <div>
-      <ReviewForm />
-    </div>
-  );
+  return;
+  <div className="w-[390px] h-[1176px] flex flex-col">
+    <ReviewForm hospitalId={hospitalId} />
+  </div>;
 };
 
 export default ReviewPage;

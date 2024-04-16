@@ -54,7 +54,7 @@ const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
                   className="opacity-0 w-0 h-0"
                 />
 
-                <div className="relative">
+                <div>
                   {selectedDepartment === department ? (
                     <CheckedIcon />
                   ) : (

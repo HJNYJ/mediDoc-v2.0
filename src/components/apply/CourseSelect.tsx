@@ -4,6 +4,12 @@ import { courseNameSelect } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
 import useApplyStore from "@/shared/zustand/applyStore";
 import { useState } from "react";
+import {
+  CourseCheckedIcon,
+  CourseNotCheckedIcon,
+  TreatmentCourse,
+  TreatmentNotCourse
+} from "../layout/CheckIcons";
 
 const CourseSelect = () => {
   const {
@@ -37,24 +43,46 @@ const CourseSelect = () => {
             setSelectedCourseDetail(card.course_detail);
           }}
         >
-          <div className="cursor-pointer">
+          <div className="cursor-pointer w-full">
             <input
               type="radio"
               name="card.course_id"
               id={card.course_name}
-              className="m-2"
+              className="hidden"
               onChange={(e) =>
                 checkCourseHandler(e.target.checked, e.target.id)
               }
             />
-            <label htmlFor={card.course_name} className="cursor-pointer">
-              {card.course_name}
-            </label>
             <div>
               {card.course_name === checkedCourse.get(true) ? (
-                <div>{card.course_detail}</div>
+                <>
+                  <label htmlFor={card.course_name} className="cursor-pointer">
+                    <div className="flex justify-between">
+                      <div className="flex">
+                        <TreatmentCourse />
+                        {card.course_name}
+                      </div>
+
+                      <CourseCheckedIcon />
+                    </div>
+                  </label>
+                  <p>{card.course_detail}</p>
+                </>
               ) : (
-                ""
+                <>
+                  <label
+                    htmlFor={card.course_name}
+                    className="cursor-pointer block"
+                  >
+                    <div className="flex justify-between">
+                      <div className="flex">
+                        <TreatmentNotCourse />
+                        {card.course_name}
+                      </div>
+                      <CourseNotCheckedIcon />
+                    </div>
+                  </label>
+                </>
               )}
             </div>
           </div>

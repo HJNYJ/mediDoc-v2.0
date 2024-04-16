@@ -3,10 +3,15 @@
 import { reviewAddForm, supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import review_searchbar from "@/assets/icons/review/review_searchbar.png";
+import camera from "@/assets/icons/consult/camera.png";
+import imageBox from "@/assets/icons/consult/imageBox.png";
+import review_okBtn from "@/assets/icons/review/review_okBtn.png";
 
-const ReviewForm = () => {
+const ReviewForm = (hospitalId: { hospitalId: string }) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number>(0); // 별점 관리
   const [img, setImg] = useState<File[]>([]);
@@ -50,18 +55,24 @@ const ReviewForm = () => {
     fetchHashtags();
   }, []);
 
-  // const handleTagClick = (tag: string) => {
-  //   setSelectedTags((prevTags) =>
-  //     prevTags.includes(tag)
-  //       ? prevTags.filter((t) => t !== tag)
-  //       : [...prevTags, tag]
-  //   );
-  // };
-
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("리뷰 이미지 테스트");
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
+
+    fileList.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setUploadedImages((prevFiles) => [
+          ...prevFiles,
+          {
+            name: file.name,
+            type: file.type,
+            dataUrl: reader.result as string
+          }
+        ]);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleFiles = async (reviewId: string) => {
@@ -77,9 +88,9 @@ const ReviewForm = () => {
     }
   };
 
-  if (uploadedFileUrl.length > 5 && files.length > 5) {
+  if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
-    alert("이미지는 최대 5개 입니다.");
+    alert("이미지는 최대 3개 입니다.");
   }
 
   const handleAddImages = async (file: File, reviewId: string) => {
@@ -90,8 +101,6 @@ const ReviewForm = () => {
         .from("images")
         .upload(`review_images/${newFileName}`, file);
 
-      console.log("review file result! => ", result.data);
-
       if (result.data) {
         const url =
           process.env.NEXT_PUBLIC_SUPABASE_URL +
@@ -101,33 +110,18 @@ const ReviewForm = () => {
 
         const uploadImgUrl = await uploadReviewPhotosUrl(
           url.toString(),
-          reviewId
+          reviewId,
+          hospitalId
         );
 
         if (uploadImgUrl) {
           console.log("리뷰 이미지 업로드! => ", uploadImgUrl);
         }
 
-        setUploadedFileUrl((prev: string[]) => [...prev, url]);
+        // setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("review result => ", result);
       }
-
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        // 이미지 렌더링
-        setUploadedImages((prevFiles) => [
-          ...prevFiles,
-          {
-            name: file.name,
-            type: file.type,
-            dataUrl
-          }
-        ]);
-      };
-      reader.readAsDataURL(file);
     } catch (error) {
       console.log("리뷰 이미지 오류가 났습니다:", error);
     }
@@ -165,23 +159,25 @@ const ReviewForm = () => {
   };
 
   return (
-    <div className="flex justify-center mt-28">
-      <br />
+    <div className="flex flex-col justify-center items-center">
+      <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" />
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-[358px] h-[290px] "
+        className="w-[358px] h-[290px]"
       >
-        <ReviewRating
-          rating={rating}
-          setRating={(rating: SetStateAction<number | null>) =>
-            setRating(rating)
-          }
-        />
-
+        <div className="flex align-center justify-center mb-5 mt-5">
+          {/** OO 병원 방문은 어땠나요 ? 들어갈 부분 */}
+          {/**  */}
+          {/**  */}
+          <ReviewRating
+            rating={rating}
+            setRating={(rating: SetStateAction<number | null>) =>
+              setRating(rating)
+            }
+          />
+        </div>
         <div>
-          <label htmlFor="review" className="text-gray-500">
-            리뷰 내용
-          </label>
+          <p className="text-gray-800 regular-14 mb-2">리뷰</p>
           <textarea
             id="review"
             placeholder="리뷰를 작성해주세요."
@@ -189,120 +185,74 @@ const ReviewForm = () => {
             maxLength={500}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="w-[358px] h-[290px] p-2 border border-gray-300 rounded-md focus:outline-none focus:border-black-500 resize-none"
+            className="w-[358px] h-[290px] p-2 border border-gray-300 rounded-md focus:outline-none regular-16 resize-none"
           />
-          <p className="text-gray-500 text-right">{content.length}/500</p>
+          <p className="text-gray-500 text-right regular-13 mb-4">
+            {content.length}/500
+          </p>
         </div>
-        <br />
         <div>
-          <label>사진 첨부[선택]</label>
-          {uploadedImages.map((file, index) => (
-            <div key={file.dataUrl}>
+          <p className="regular-14 text-gray-800 mb-2">사진 첨부[선택]</p>
+          {uploadedImages.map((image, idx: number) => (
+            <div key={image.dataUrl}>
+              {/**이미지 렌더링 */}
               <img
-                src={file.dataUrl}
-                alt={file.name}
-                className="w-24 h-24 object-cover"
+                src={image.dataUrl}
+                alt={image.name}
+                className="w-[100px] h-[100px] flex"
               />
-              <div
-                id={file.dataUrl}
-                onClick={() => handleImageOrder(index)}
-                className="text-blue-500"
-              ></div>
-              <button
-                id={file.dataUrl}
-                onClick={() => deleteImgHandle(index)}
-                className="text-red-500"
-              >
-                삭제
-              </button>
+              {/* <img src={image.dataUrl} alt={image.name} /> */}
+              <div id={image.dataUrl} onClick={handleImageOrder}></div>
+              <button onClick={() => deleteImgHandle(idx)}>삭제</button>
             </div>
           ))}
-          {uploadedFileUrl.length >= 5 ? (
+          {uploadedFileUrl.length >= 3 ? (
             <></>
           ) : (
-            <label htmlFor="file" className="flex gap-4">
+            <label htmlFor="file" className="flex">
               <input
                 type="file"
                 id="file"
                 name="file"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setImgHandler(e)
-                }
+                onChange={setImgHandler}
+                // onChange={handleFiles}
                 multiple
                 hidden
               />
-              <button className="flex border border-gray-300 p-2 rounded-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 47.5 42.5"
-                  strokeWidth={1.3}
-                  stroke="currentColor"
-                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                  />
-                </svg>
-              </button>
-              <button className="flex border border-gray-300 p-2 rounded-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 47.5 42.5"
-                  strokeWidth={1.3}
-                  stroke="currentColor"
-                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                  />
-                </svg>
-              </button>
-              <button className="flex border border-gray-300 p-2 rounded-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 47.5 42.5"
-                  strokeWidth={1.3}
-                  stroke="currentColor"
-                  className="w-[100px] h-[100px] text-gray-400 hover:text-gray-700 flex "
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                  />
-                </svg>
-              </button>
+              <Image
+                src={camera}
+                alt="카메라"
+                className="w-[100px] h-[100px] mr-2"
+              />
+              <Image
+                src={imageBox}
+                alt="사진2"
+                className="w-[100px] h-[100px] mr-2"
+              />
+              <Image
+                src={imageBox}
+                alt="사진3"
+                className="w-[100px] h-[100px] mr-2"
+              />
             </label>
           )}
         </div>
-
         <div>
           {/* 해시태그 칩*/}
-          <label>리뷰하실 때 해시태그를 선택해주세요</label>
-          <div>
-            <label className="block mb-5">해시태그</label>
-
-            <ReviewTags
-              hashtags={hashtags}
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
-          </div>
+          <p className="regular-16 mt-5 mb-3">해시태그</p>
+          <ReviewTags
+            hashtags={hashtags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
         </div>
 
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="w-[358px] h-[50px] bg-orange-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-700 hover:bg-red-400 mt-20"
-        >
-          등록하기
+        <button type="button" onClick={handleSubmit} className="mt-8">
+          <Image
+            src={review_okBtn}
+            className="w-[358px] h-[50px] mt-10"
+            alt="등록하기"
+          />
         </button>
       </form>
     </div>

@@ -22,9 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          {children}
-          <Navbar />
-          <ReactQueryDevtools />
+          <div className="max-w-mobile mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+            {children}
+            <Navbar />
+            <ReactQueryDevtools />
+          </div>
         </Providers>
       </body>
     </html>
