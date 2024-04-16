@@ -1,7 +1,4 @@
-// 질문&답변 Textarea
-
 "use client";
-
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
@@ -14,7 +11,6 @@ import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
-
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -24,9 +20,7 @@ const AskForm = () => {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [img, setImg] = useState<File[]>([]);
-
   /** 이미지 컴포넌트에서 사용하는 state 및 함수 시작 */
-
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<
     {
@@ -35,7 +29,6 @@ const AskForm = () => {
       dataUrl: string;
     }[]
   >([]);
-
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(typeof e.target.files); // string x , object
@@ -64,23 +57,19 @@ const AskForm = () => {
   ) => {
     // const fileList = e.target.files;
     const fileList = img;
-
     if (fileList) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-
       filesArray.forEach((file) => {
         handleAddImages(file, consultId);
       });
     }
   };
-
   // 업로드된 파일이 3개가 초과되면 그 뒤에 들어오는 파일은 없앰
   if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
     alert("이미지는 최대 3개까지 업로드 가능합니다.");
   }
-
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
     try {
@@ -96,9 +85,7 @@ const AskForm = () => {
           "/storage/v1/object/public/images/" +
           result.data.path;
         console.log("url => ", url);
-
         const uploadImgUrl = await uploadPhotosUrl(url.toString(), consultId);
-
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
@@ -109,11 +96,9 @@ const AskForm = () => {
       console.error("파일 업로드 중 에러 발생 ㅠㅠ", error);
     }
   };
-
   // 이미지 클릭 -> 순서 맨 앞으로
   const handleImageOrder = (e: MouseEvent<HTMLElement>) => {
     const url = e.currentTarget.id;
-
     // 클릭된 아이템 인덱스 번호
     const clickedItem = uploadedFileUrl.indexOf(url);
     // 클릭 된 아이템을 제외한 배열
@@ -123,34 +108,25 @@ const AskForm = () => {
     // 클릭 된 아이템을 맨 앞으로 해서 state를 변경
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
-
   // X 버튼 클릭 -> 이미지 삭제
   const handleDeleteImage = (idx: number) => {
     // uploadedFileUrl state 업데이트
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
-
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
   };
-
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
-
   const consultId = uuidv4();
   // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-
   // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-
   // consultInfo 테이블, consult_image 테이블에 동일한 consultId
-
   console.log(consultId);
-
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")
       .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10")
       .eq("body_section", selectedCategory);
-
     if (error) {
       console.error(error);
       return;
@@ -172,7 +148,6 @@ const AskForm = () => {
       });
     }
   };
-
   /**
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
@@ -185,16 +160,13 @@ const AskForm = () => {
       // consultId: uuid
       // 이미지 URL 추가
     );
-
     // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-
     console.log(data);
     handleFiles(data); // data >> consultId
     if (data) {
       console.log("AskForm 추가 성공", data!);
     }
   };
-
   return (
     <>
       <TopNavbar title="실시간 상담" />
@@ -334,5 +306,4 @@ const AskForm = () => {
     </>
   );
 };
-
 export default AskForm;

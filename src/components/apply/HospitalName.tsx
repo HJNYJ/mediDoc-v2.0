@@ -19,7 +19,7 @@ const HospitalName = () => {
   if (isError) {
     <div>에러 입니다...</div>;
   }
-  return <div className="m-2">{hospitalData}</div>;
+  return <span>{hospitalData}</span>;
 };
 
 export default HospitalName;

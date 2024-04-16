@@ -4,6 +4,9 @@ import CourseSelect from "./CourseSelect";
 import useApplyStore from "@/shared/zustand/applyStore";
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
+import Button from "../layout/Buttons";
+import YellowBarMg from "../layout/YellowBarMg";
+import YellowBar from "../layout/YellowBar";
 
 const ApplyPageThree = ({
   setPageCount
@@ -108,24 +111,33 @@ const ApplyPageThree = ({
   };
 
   return (
-    <div>
+    // mt 임시 탬
+    <div className="mt-10 w-[358px] mx-[16px]">
       <button className="m-2" onClick={() => backHandlerClick()}>
         &lt;
       </button>
       <button className="m-2" onClick={handleBtnClick}>
         X
       </button>
+      <div className="flex">
+        <YellowBarMg />
+        <YellowBarMg />
+        <YellowBar />
+      </div>
       <div>
         <CourseSelect />
       </div>
-      <button
-        className="m-4 h-10 border-2 text-center w-60 rounded-lg"
+      <Button
+        type="button"
+        buttonType="filled"
+        size="base"
+        label="예약하기"
         onClick={() => {
           handleReservation();
         }}
       >
         예약하기
-      </button>
+      </Button>
     </div>
   );
 };
