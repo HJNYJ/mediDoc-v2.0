@@ -3,7 +3,6 @@
 
 import ReviewForm from "@/components/map/review/ReviewForm";
 import React from "react";
-import { useRouter } from "next/navigation";
 
 const ReviewPage = () => {
   // const router = useRouter();

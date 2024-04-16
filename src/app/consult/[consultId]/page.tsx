@@ -5,7 +5,9 @@ import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import searchbar from "@/assets/icons/consult/searchbar.png";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const [userType, setUserType] = useState<string | null>(null);
@@ -63,57 +65,71 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-lg mb-4 items-center flex justify-center">
-            실시간 상담
-          </h2>
-          <div className="bg-gray-100 rounded-lg p-4 mb-4">
-            <p id="user_answer_title" className="text-xl font-semibold mb-2">
-              {consultDetailData?.consult_title}
-            </p>
-            <p id="user_content_title" className="mb-2">
-              내용: {consultDetailData?.consult_content}
-            </p>
-            <div className="flex flex-wrap">
-              {consultDetailData?.hashtags
-                ?.toString()
-                .split(",")
-                .map((hashtag: string) => (
-                  <span
-                    key={hashtag}
-                    className="inline-block bg-blue-100 text-blue-600 rounded-full px-2 py-1 mr-2"
-                  >
-                    <Hashtag key={hashtag} hashtag={hashtag} />
-                  </span>
-                ))}
-            </div>
+    <div className="relative w-[390px]">
+      <div className="mt-10">
+        <Image src={searchbar} />
+      </div>
+      <div className="p-6">
+        <div className="w-[390px]">
+          <p id="user_answer_title" className="semibold-24">
+            {consultDetailData?.consult_title}
+          </p>
+          <p className="regular-13 text-gray-700 mb-7 mt-2">
+            {consultDetailData?.user_name &&
+              `${consultDetailData.user_name.substring(0, 2)}${"*".repeat(Math.max(0, consultDetailData.user_name.length - 2))}`}
+          </p>
+          <p
+            id="user_content_title"
+            className="medium-14 text-gray-800 w-[330px] mb-5"
+          >
+            {consultDetailData?.consult_content}
+          </p>
+          <div className="flex flex-wrap w-[300px] h-[32px]">
+            {consultDetailData?.hashtags
+              ?.toString()
+              .split(",")
+              .map((hashtag: string) => (
+                <span key={hashtag}>
+                  <Hashtag key={hashtag} hashtag={hashtag} />
+                </span>
+              ))}
           </div>
+        </div>
+        <div className="mt-10 mb-10 bg-gray-300 h-3"></div>
 
-          <div>
-            {userType === "hospital staff" ? (
-              <div>
-                {answerDetailData?.map((item: string) => (
-                  <div key={item}>
-                    <div>{item?.answer}</div>
-                    <div>{item?.department}</div>
+        <div className="mt-5">
+          {userType === "hospital staff" ? (
+            <div>
+              {answerDetailData?.map((item: string) => (
+                <div key={item} className="text-gray-800 w-[358px] mb-10">
+                  <div className="bold-18 mb-5 text-black">
+                    {item?.department} 답변
                   </div>
-                ))}
-                <ConsultAnswerForm params={params} />
-              </div>
-            ) : (
-              <div>
-                {answerDetailData?.map((item: string, index: number) => (
-                  <div key={item}>
-                    <div>{item?.answer}</div>
-                    <div>{item?.department}</div>
+                  <div>
+                    <p className="rounded-full w-4 bg-blue-500"></p>
+                    <p>{item?.hospital_name}</p>
                   </div>
-                ))}
-              </div>
-            )}
-            <ConsultNotice />
-          </div>
+                  <div className="regular-14 w-[358px] h-[264px]">
+                    {item?.answer}
+                  </div>
+                </div>
+              ))}
+              <ConsultAnswerForm params={params} />
+            </div>
+          ) : (
+            <div>
+              {answerDetailData?.map((item: string, index: number) => (
+                <div key={item}>
+                  <div className="bold-18 w-[358px] h-[264px] text-black">
+                    {item?.department} 답변
+                  </div>
+                  <div className="regular-14">{item?.answer}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="mt-10 bg-gray-200 h-0.5 "></div>
+          <ConsultNotice />
         </div>
       </div>
     </div>

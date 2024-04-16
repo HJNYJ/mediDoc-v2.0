@@ -36,10 +36,10 @@ const HashTags = ({
         <button
           key={key}
           onClick={() => handleClick(value)}
-          className={`py-2 px-4 rounded-md focus:outline-none ${
+          className={`py-2 px-4 rounded-xl focus:outline-none ${
             selectedTags.includes(value)
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-orange text-white"
+              : "text-gray-800 border border-gray-300"
           }`}
         >
           {value}

@@ -1,45 +1,75 @@
-import { supabase } from "@/api/supabase";
 import type { TabsProps } from "@/types";
 import React, { useEffect, useState } from "react";
-// 이건 일단 남겨놓음 소희님 탭스가 어떻게 될지 몰라서
+import RoundTabs from "../layout/RoundTabs";
+import { supabase } from "@/api/supabase";
+import { useQuery } from "@tanstack/react-query";
 
 const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   // 탭 상태 관리
-  // const [bodyparts, setBodyparts] = useState([]); // bodyparts 상태
-  // const [selectedTab, setSelectedTab] = useState(""); // 선택된 탭 상태
-  // // bodyparts 가져오기
-  // useEffect(() => {
-  //   async function fetchBodyparts() {
-  //     try {
-  //       const { data: bodypartsData, error } = await supabase
-  //         .from("consult_info")
-  //         .select("bodyparts");
-  //       if (error) {
-  //         throw error;
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching bodyparts:", error);
-  //     }
-  //   }
-  //   fetchBodyparts();
-  // }, []);
-  // const handleTabChange = (bodypart) => {
-  //   setSelectedTab(bodypart); // 선택된 탭 업데이트
-  //   handleCategoryChange(bodypart);
-  // };
-  // return (
-  //   <section className="max-w-md mx-auto mt-8">
-  //     {bodyparts.map((bodypart) => (
-  //       <button
-  //         key={bodypart}
-  //         className={selectedTab === bodypart ? "activeTab" : ""}
-  //         onClick={() => handleTabChange(bodypart)}
-  //       >
-  //         {bodypart}
-  //       </button>
-  //     ))}
-  //   </section>
-  // );
+  const [currentTab, setCurrentTab] = useState("eyes|ears|nose|neck|waist");
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [currentTab]);
+
+  const fetchPosts = async () => {
+    const { data, error } = await supabase
+      .from("consult_info")
+      .select("*")
+      .eq("bodyparts", currentTab);
+
+    if (error) {
+      console.error("Error fetching posts:", error);
+    }
+    console.log("current Tab data ==> ??? ", data);
+    return setPosts(data || []);
+  };
+
+  const onChangeTabHandler = (tabName: string) => {
+    setCurrentTab(tabName);
+    handleCategoryChange(tabName);
+  };
+
+  return (
+    <>
+      <section className="w-[321px] h-[32px] mx-[16px]">
+        <div className="flex">
+          <RoundTabs
+            label="눈 통증"
+            onClick={() => onChangeTabHandler("eyes")}
+            active={currentTab === "eyes"}
+            width={120.3}
+          />
+          <RoundTabs
+            label="귀 통증"
+            onClick={() => onChangeTabHandler("ears")}
+            active={currentTab === "ears"}
+            width={119.3}
+          />
+          <RoundTabs
+            label="코 통증"
+            onClick={() => onChangeTabHandler("nose")}
+            active={currentTab === "nose"}
+            width={119.3}
+          />
+          <RoundTabs
+            label="목 통증"
+            onClick={() => onChangeTabHandler("abdomen")}
+            active={currentTab === "abdomen"}
+            width={119.3}
+          />
+          <RoundTabs
+            label="허리 통증"
+            onClick={() => onChangeTabHandler("waist")}
+            active={currentTab === "waist"}
+            width={119.3}
+          />
+        </div>
+        <div>{/** 데이터 잘 렌더링됨 */}</div>
+      </section>
+    </>
+  );
 };
 
 export default ConsultTabs;
