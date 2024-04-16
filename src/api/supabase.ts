@@ -366,10 +366,11 @@ export const getHospitalId = async () => {
   }
 };
 
-export const hospitalName = async () => {
+export const hospitalName = async (hospitalId: string) => {
   const response = await supabase
-    .from("reservation_info")
-    .select("hospital_name");
+    .from("hospital_info")
+    .select("hospital_name")
+    .eq("hospital_id", hospitalId);
 
   const { data } = response;
   return data;
