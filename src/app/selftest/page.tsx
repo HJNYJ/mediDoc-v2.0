@@ -12,7 +12,7 @@ import progress_step1 from "@/assets/icons/selftest/progress_step1.png";
 import progress_step2 from "@/assets/icons/selftest/progress_step2.png";
 import progress_step3 from "@/assets/icons/selftest/progress_step3.png";
 import progress_step4 from "@/assets/icons/selftest/progress_step4.png";
-import xmark from "@/assets/icons/selftest/xmark.png";
+import xmark from "@/assets/icons/xmark.png";
 import previousmark from "@/assets/icons/selftest/previousmark.png";
 import { useRouter } from "next/navigation";
 
