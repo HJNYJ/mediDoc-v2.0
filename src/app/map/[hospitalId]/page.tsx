@@ -1,6 +1,5 @@
 // 병원 상세페이지
 "use client";
-import { supabase } from "@/api/supabase";
 import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
 import HospitalMainInfo from "@/components/map/HospitalMainInfo";
@@ -36,8 +35,8 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           }}
         >
           사진
-        </button>{" "}
-        |{" "}
+        </button>
+        |
         <button
           className="bg-amber-100 mx-4"
           onClick={(e) => {

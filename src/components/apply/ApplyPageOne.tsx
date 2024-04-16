@@ -11,9 +11,11 @@ import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
 
 const ApplyPageOne = ({
-  setPageCount
+  setPageCount,
+  hospitalId
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
+  hospitalId: string;
 }) => {
   const {
     name,
@@ -98,7 +100,7 @@ const ApplyPageOne = ({
         <GrayBarMg />
         <GrayBar />
       </div>
-      <HospitalName />
+      <HospitalName hospitalId={hospitalId} />
       <article className="m-2">병원 사진</article>
       <form
         onSubmit={(e) => {
