@@ -8,15 +8,18 @@ import Image from "next/image";
 import React from "react";
 import HomeIndicator from "@/assets/icons/HomeIndicator.png";
 import StatusBar from "@/assets/icons/StatusBar.png";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const router = useRouter();
   const signInWithKakao = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "kakao",
-        options: { redirectTo: "http://localhost:3000/" }
+        options: { redirectTo: "http://localhost:3000/home" }
       });
       if (error) throw error;
+      router.push("/home");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -30,7 +33,7 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "http://localhost:3000/",
+          redirectTo: "http://localhost:3000/home",
           queryParams: {
             access_type: "offline",
             prompt: "consent"

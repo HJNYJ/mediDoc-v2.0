@@ -7,6 +7,8 @@ import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useRouter } from "next/navigation";
 import Button from "../layout/Buttons";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
+import YellowBar from "../layout/YellowBar";
+import YellowBarMg from "../layout/YellowBarMg";
 
 interface Symptoms {
   bodyparts: string | null;
@@ -55,13 +57,27 @@ const Symptoms = () => {
     }
   };
 
+  const checkSelectedSymptoms = () => {
+    if (selectedSymptoms.length > 0) {
+      router.push("/selftestresult");
+    } else {
+      alert("증상을 선택해주세요.");
+    }
+  };
+
   return (
-    <section className="w-[358px] mx-[16px]">
+    <section className="w-full py-[15px]">
+      <div className="flex mb-[30px]">
+        <YellowBarMg />
+        <YellowBarMg />
+        <YellowBarMg />
+        <YellowBar />
+      </div>
       <section className="flex flex-col">
-        <p className="w-[320px] h-[36px] mt-[54px] bold-26">
+        <p className="w-full h-[36px] mt-[54px] mb-8 bold-26">
           해당하는 증상을 선택해 주세요.
         </p>
-        <p className="w-[240px] h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
           복수 선택이 가능합니다.
         </p>
       </section>
@@ -103,9 +119,7 @@ const Symptoms = () => {
           buttonType="filled"
           size="base"
           label="다음"
-          onClick={() => {
-            router.push("/selftestresult");
-          }}
+          onClick={checkSelectedSymptoms}
         ></Button>
       </section>
     </section>

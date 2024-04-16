@@ -7,8 +7,8 @@ import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-import StatusBar from "@/assets/icons/StatusBar.png";
+// import HomeIndicator from "@/assets/icons/HomeIndicator.png";
+// import StatusBar from "@/assets/icons/StatusBar.png";
 import ConsultIcon from "@/assets/icons/consultIcon.png";
 import TestIcon from "@/assets/icons/testIcon.png";
 import HomeIcon from "@/assets/icons/homeIcon.png";
@@ -49,7 +49,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("/");
+      router.push("/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
