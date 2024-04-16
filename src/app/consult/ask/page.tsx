@@ -5,7 +5,7 @@ import React from "react";
 
 const AskPage = () => {
   return (
-    <div className="relative w-390 h-1115 bg-white mt-14">
+    <div className="relative w-390 h-1115 bg-white">
       <AskForm />
     </div>
   );

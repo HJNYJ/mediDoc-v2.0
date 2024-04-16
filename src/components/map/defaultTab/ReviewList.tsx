@@ -1,9 +1,15 @@
 import ReviewItem from "../review/ReviewItem";
 
-const ReviewList = () => {
+// interface ReviewListProps {
+//   reviewDetailData: any;
+// }
+
+const ReviewList = ({ reviewDetailData }: { reviewDetailData: any }) => {
+  console.log("reviewDetailData ===> ", reviewDetailData);
   return (
     <section>
       <ReviewItem />
+      {reviewDetailData}
     </section>
   );
 };
