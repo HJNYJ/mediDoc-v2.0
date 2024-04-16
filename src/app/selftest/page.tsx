@@ -22,8 +22,7 @@ const SelftestPage = () => {
     selectedGender,
     selectedDepartment,
     setSelectedDepartment,
-    selectedPart,
-    selectedSymptoms
+    selectedPart
   } = useSelftestStore();
   const [step, setStep] = useState<number>(0);
   const router = useRouter();
