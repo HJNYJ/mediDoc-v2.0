@@ -12,7 +12,7 @@ const ReviewRating = ({
   const [hoverRating, setHoverRating] = useState<number | null>(null);
 
   return (
-    <div className="flex w-[208px] h-[40px] ">
+    <div className="flex w-[208px] h-[40px]">
       {[...Array(5)].map((star, index) => {
         const currentRating = index + 1;
         return (
@@ -21,17 +21,17 @@ const ReviewRating = ({
               type="radio"
               name="rating"
               value={currentRating}
-              checked={currentRating === rating}
+              checked={currentRating === (rating || 1)}
               onChange={() => setRating(currentRating)}
               className="hidden w-[40px] h-[40px] text-3xl"
             />
             <div
-              className="flex justify-center items-center w-[40px] h-[40px] text-3xl text-yellow-400 cursor-pointer"
+              className="flex justify-center items-center w-[40px] h-[40px] text-3xl cursor-pointer "
               // onMouseEnter={() => setHoverRating(currentRating)}
               onMouseLeave={() => setHoverRating(null)}
               onClick={() => setRating(currentRating)}
             >
-              {currentRating <= (hoverRating || rating) ? "⭐" : "⛤"}
+              {currentRating <= (hoverRating || rating) ? "⭐" : "⚝"}
             </div>
           </label>
         );

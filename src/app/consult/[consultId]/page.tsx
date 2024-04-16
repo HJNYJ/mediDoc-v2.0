@@ -67,7 +67,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   return (
     <div className="relative w-[390px]">
       <div className="mt-10">
-        <Image src={searchbar} />
+        <Image src={searchbar} alt="상단바" />
       </div>
       <div className="p-6">
         <div className="w-[390px]">
