@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import Button from "../layout/Buttons";
 import YellowBarMg from "../layout/YellowBarMg";
 import YellowBar from "../layout/YellowBar";
+import PagebackBtn from "../layout/PageBackBtn";
+import PageCancel from "../layout/PageCancel";
 
 const ApplyPageThree = ({
   setPageCount
@@ -22,11 +24,14 @@ const ApplyPageThree = ({
     selectedDate,
     selectedTime,
     userNameData,
+    hospitalName,
     userEmailData,
     setPhoneNumber,
     isCourseClicked,
+    setSelectedTime,
     setIsTimeClicked,
     setIsDateClicked,
+
     selectedCourseName,
     selectedCourseDetail,
     setReservationInfo
@@ -45,7 +50,11 @@ const ApplyPageThree = ({
   const backHandlerClick = () => {
     setIsTimeClicked(false);
     setIsDateClicked(false);
-    return setPageCount("two");
+    setName("");
+    setIdNumber("");
+    setPhoneNumber("");
+    setSelectedTime("");
+    return setPageCount("one");
   };
 
   const handleBtnClick = () => {
@@ -64,33 +73,9 @@ const ApplyPageThree = ({
     subject_birth_date: idNumber,
     program_name: selectedCourseName,
     subject_phone_number: phoneNumber,
-    program_detail: selectedCourseDetail
+    program_detail: selectedCourseDetail,
+    hospital_name: hospitalName
   };
-
-  /**
-   * useMutation을 이용한 데이터 처리 사용 방법
-   * 1. service 폴더에 적절한 supabase의 insert/update/delete를 다루는 함수를 만든다.
-   * 2. hooks/useMutation 폴더에 적절한 use~~~~~Mutation 함수를 만든다.
-   * 3. 적용하려고 하는 컴포넌트를 client components로 바꾼다 -> "use client";
-   * 4. const { mutate: 바꿔줄이름 } = useMetPeopleMutation(); => mutation을 호출한다.2번에서 만든 mutation.
-   * 5. 실제 click이 일어나서 데이터를 넣어야 하는 곳에 mutate 함수를 실행한다.
-   * 6. 실행이 완료되면(onSuccess), 갱신해야하는 useQuery로 가져온 데이터를 invalidate 처리한다.
-   */
-
-  // A데이터 = 쿼리를 이용해서 데이터를 불러올거 아님
-  // A데이터가 필요한 B쿼리 = (ex:A=유저, 유저아이디를 기반으로 어떤 테이블 데이터를 가지고 올때, 내가 예약한 정보라던지)
-  // A데이터를 불러오기 전에 B쿼리가 실행이 돼버려서 A가없이 B가 실행됨 <<<<<<막기위해서 쓰는 옵션이 있어요
-  // useEffect 거의쓸일없음
-  // A데이터가 들어와야 얘가 실행되게 해주는 옵션 enabled
-
-  // export const useGetUserPostQuery = (userId: string) => {
-  //   const { data } = useQuery({
-  //     queryKey: [USER_POST_QUERY_KEY],
-  //     queryFn: () => fetchUserPost(userId),
-  //     enabled: !!userId
-  //   });
-  //   return data;
-  // };
 
   const handleReservation = async () => {
     try {
@@ -112,32 +97,34 @@ const ApplyPageThree = ({
 
   return (
     // mt 임시 탬
-    <div className="mt-10 w-[358px] mx-[16px]">
-      <button className="m-2" onClick={() => backHandlerClick()}>
-        &lt;
-      </button>
-      <button className="m-2" onClick={handleBtnClick}>
-        X
-      </button>
-      <div className="flex">
+    <div>
+      <div className="flex w-full py-[15px]">
+        <button className="mr-auto" onClick={() => backHandlerClick()}>
+          <PagebackBtn />
+        </button>
+        <button className="ml-auto" onClick={handleBtnClick}>
+          <PageCancel />
+        </button>
+      </div>
+      <div className="flex mb-[30px]">
         <YellowBarMg />
         <YellowBarMg />
         <YellowBar />
       </div>
-      <div>
+      <div className="mb-96">
         <CourseSelect />
       </div>
-      <Button
-        type="button"
-        buttonType="filled"
-        size="base"
-        label="예약하기"
-        onClick={() => {
-          handleReservation();
-        }}
-      >
-        예약하기
-      </Button>
+      <div className="mt-auto mb-4">
+        <Button
+          type="button"
+          buttonType="filled"
+          size="base"
+          label="예약하기"
+          onClick={() => {
+            handleReservation();
+          }}
+        />
+      </div>
     </div>
   );
 };

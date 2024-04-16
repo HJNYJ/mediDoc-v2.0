@@ -271,10 +271,23 @@ export const courseNameSelect = async () => {
   return data;
 };
 
-export const hospitalName = async () => {
+
+export const getHospitalId = async () => {
+  try {
+    const { data } = await supabase.from("hospital_info").select("hospital_id");
+
+    return data;
+  } catch (error) {
+    console.error("hospital_id를 가져오는 중 오류 발생:", error);
+    return null;
+  }
+};
+
+export const hospitalName = async (hospitalId: string) => {
   const response = await supabase
-    .from("reservation_info")
-    .select("hospital_name");
+    .from("hospital_info")
+    .select("hospital_name")
+    .eq("hospital_id", hospitalId);
 
   const { data } = response;
   return data;

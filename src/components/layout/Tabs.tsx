@@ -9,7 +9,7 @@ interface TabProps {
   classes?: string;
   clicked?: boolean;
   active?: boolean;
-  children: any;
+  children?: any;
 }
 
 const Tab = ({ type, label, text, onClick, active, children }: TabProps) => {

@@ -9,11 +9,16 @@ import Button from "../layout/Buttons";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
+import PageCancel from "../layout/PageCancel";
+import warning from "@/assets/icons/modal/warning.png";
+import Image from "next/image";
 
 const ApplyPageOne = ({
-  setPageCount
+  setPageCount,
+  hospitalId
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
+  hospitalId: string;
 }) => {
   const {
     name,
@@ -88,38 +93,49 @@ const ApplyPageOne = ({
   };
 
   return (
-    <div className="w-[358px] mx-[16px]">
-      {/* mt 임시 탬 */}
-      <button className="mt-10" onClick={handleBtnClick}>
-        X
-      </button>
-      <div className="flex">
+    <div>
+      <div className="flex w-full py-[15px]">
+        <button className="ml-auto" onClick={handleBtnClick}>
+          <PageCancel />
+        </button>
+      </div>
+      <div className="flex mb-[30px]">
         <YellowBarMg />
         <GrayBarMg />
         <GrayBar />
       </div>
-      <HospitalName />
-      <article className="m-2">병원 사진</article>
+      <HospitalName hospitalId={hospitalId} />
+      <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
+        병원 사진
+      </article>
       <form
+        className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {
           e.preventDefault();
         }}
       >
-        <p className="m-2">정보를 입력해주세요.</p>
-        <div className="m-2">
-          <p>*이름</p>
+        <p className="mb-7 font-bold text-xl text-black">
+          정보를 입력해주세요.
+        </p>
+        <div className="mb-7">
+          <p className="mb-3 text-[13px]">*이름</p>
           <input
             placeholder="홍길동"
-            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black mb-2 w-full px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangeName}
             value={name}
           />
-          {!nameValid && <p className="text-red-500">이름을 기입해주세요.</p>}
+          {!nameValid && (
+            <p className="text-[#F95F5F] text-[13px] flex">
+              <Image src={warning} alt="" />
+              이름을 기입해주세요.
+            </p>
+          )}
         </div>
-        <div className="m-2">
-          <p>*주민등록번호</p>
+        <div className="mb-7">
+          <p className="mb-3 text-[13px]">*주민등록번호</p>
           <input
-            className="text-black m-2 w-32 h-10 rounded-lg px-1 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black w-[45%] mb-2 px-4 py-[14px] mr-[10px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangeIdNumber}
             value={idNumber}
             placeholder="생년월일 6자리"
@@ -128,35 +144,41 @@ const ApplyPageOne = ({
           -
           <input
             maxLength={1}
-            className="text-black m-2 w-6 h-10 text-center rounded-lg px-1 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black ml-[10px] px-4 py-[14px] w-[45px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
-          * * * * * *
+          &nbsp; &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;*
           {!idNumberValid && (
-            <p className="text-red-500">생년월일 6자리를 기입해주세요.</p>
+            <p className="text-[#F95F5F] text-[13px] flex">
+              <Image src={warning} alt="" />
+              생년월일 6자리를 기입해주세요.
+            </p>
           )}
         </div>
-        <div className="m-2 mb-4">
-          <p>*휴대폰 번호</p>
+        <div className="mb-7">
+          <p className="mb-3 text-[13px]">*휴대폰 번호</p>
           <input
-            className="text-black m-2 h-10 rounded-lg px-1 w-60 border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black w-full mb-2 px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
             onChange={onChangePhoneNumber}
             value={phoneNumber}
             placeholder="-없이 휴대폰 11자리 번호 입력"
             maxLength={11}
           />
           {!phoneValid && (
-            <p className="text-red-500">전화번호를 11자리를 기입해주세요.</p>
+            <p className="text-[#F95F5F] text-[13px] flex">
+              <Image src={warning} alt="" />
+              전화번호를 11자리를 기입해주세요.
+            </p>
           )}
         </div>
-        <Button
-          type="submit"
-          buttonType="filled"
-          size="base"
-          label="다음"
-          onClick={handleNextClick}
-        >
-          .
-        </Button>
+        <div className="mt-auto">
+          <Button
+            type="submit"
+            buttonType="filled"
+            size="base"
+            label="다음"
+            onClick={handleNextClick}
+          />
+        </div>
       </form>
     </div>
   );

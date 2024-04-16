@@ -27,6 +27,8 @@ type State = {
   setIsCourseClicked: (isCourseClicked: boolean) => void;
   reservationInfo: object;
   setReservationInfo: (reservationInfo: object) => void;
+  hospitalName: string;
+  setHospitalName: (hospitalName: string) => void;
 };
 const useApplyStore = create<State>()((set) => ({
   name: "",
@@ -55,6 +57,8 @@ const useApplyStore = create<State>()((set) => ({
   isCourseClicked: false,
   setIsCourseClicked: (isCourseClicked) => set({ isCourseClicked }),
   reservationInfo: {},
-  setReservationInfo: (reservationInfo) => set({ reservationInfo })
+  setReservationInfo: (reservationInfo) => set({ reservationInfo }),
+  hospitalName: "",
+  setHospitalName: (hospitalName) => set({ hospitalName })
 }));
 export default useApplyStore;

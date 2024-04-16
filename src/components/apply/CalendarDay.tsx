@@ -15,7 +15,10 @@ const Calendar = () => {
   /** 선택된 날짜 */
   const { selectedDate, setSelectedDate, setIsDateClicked } = useApplyStore();
 
-  const handleDateClick = (date: Date) => {
+  const [selectedOneDate, setSelectedOneDate] = useState();
+
+  const handleDateClick = (date: Date, cellDate) => {
+    setSelectedOneDate(cellDate);
     // 날짜 포맷 (ex: 2024년 4월 7일)
     setIsDateClicked(true);
     setSelectedDate(date);
@@ -100,7 +103,7 @@ const Calendar = () => {
   const matrix = generateMatrix();
 
   return (
-    <div className="w-[430px]">
+    <div className="">
       <div className="text-center">
         <button className="m-2" onClick={handlePrevMonth}>
           &lt;
@@ -140,18 +143,15 @@ const Calendar = () => {
                       <td
                         onClick={
                           !isPastDate
-                            ? () => handleDateClick(cell.date)
+                            ? () => handleDateClick(cell.date, cellDate)
                             : undefined
                         }
                         key={cellIndex}
                         style={{
-                          // backgroundColor: cell.isCurrentMonth
-                          //   ? "white"
-                          //   : "lightgray",
                           cursor: isPastDate ? "default" : "pointer",
                           color: isPastDate ? "gray" : "black"
                         }}
-                        className="text-black m-4 px-4 text-center "
+                        className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
                         {/* <div className={`w-36 h-20 ${isTrue ? '참일때' : '구라일때'}`}></div> */}
                         {cell.date.getDate()}

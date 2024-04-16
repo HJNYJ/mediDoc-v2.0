@@ -5,6 +5,7 @@ import {
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";
+import Tab from "@/components/layout/Tabs";
 import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
 import Notice from "@/components/map/defaultTab/Notice";
@@ -49,8 +50,23 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     <main className="w-[390px] h-[2398px]">
       <TopNavbar />
       <HospitalInfoHeader params={params} />
-      <nav className="w-[390px]">
-        <button
+      <nav className="w-[390px] flex mt-[26px] border-t-4">
+        <Tab
+          label="기본정보"
+          active={selectedTab === "default"}
+          onClick={() => handleTabClick("default")}
+        />
+        <Tab
+          label="사진"
+          active={selectedTab === "image"}
+          onClick={() => handleTabClick("image")}
+        />
+        <Tab
+          label="리뷰"
+          active={selectedTab === "review"}
+          onClick={() => handleTabClick("review")}
+        />
+        {/* <button
           className={`bg-sky-500 mx-4 ${selectedTab === "default" ? "bg-sky-500" : "bg-gray-200"}`}
           onClick={() => handleTabClick("default")}
         >
@@ -62,12 +78,13 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
         >
           사진
         </button>
+        |
         <button
           className={`bg-amber-100 mx-4 ${selectedTab === "review" ? "bg-amber-100" : "bg-gray-200"}`}
           onClick={() => handleTabClick("review")}
         >
           리뷰
-        </button>
+        </button> */}
       </nav>
 
       {selectedTab === "default" && (

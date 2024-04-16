@@ -7,8 +7,8 @@ import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-import StatusBar from "@/assets/icons/StatusBar.png";
+// import HomeIndicator from "@/assets/icons/HomeIndicator.png";
+// import StatusBar from "@/assets/icons/StatusBar.png";
 import ConsultIcon from "@/assets/icons/consultIcon.png";
 import TestIcon from "@/assets/icons/testIcon.png";
 import HomeIcon from "@/assets/icons/homeIcon.png";
@@ -49,7 +49,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("/");
+      router.push("/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -67,13 +67,13 @@ export const Navbar = () => {
     return null;
   }
   return (
-    <section className="w-[390px] h-[68px]">
-      <Image
+    <section className="total_margin h-[68px]">
+      {/* <Image
         src={StatusBar}
         alt="Status Bar"
         className="fixed top-0 w-[390px] z-50 mb-[44px]"
-      />
-      <nav className="fixed bottom-0 flex justify-between items-center w-[390px] h-[68px] mx-[16px] mb-[34px] z-1000">
+      /> */}
+      <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
         <Link href={"/consult"}>
           <Image src={ConsultIcon} alt="Consult Icon" />
         </Link>
@@ -96,11 +96,13 @@ export const Navbar = () => {
           </Link>
         )}
       </nav>
-      <Image
-        src={HomeIndicator}
-        alt="Home Indicator"
-        className="fixed bottom-0 w-[390px] z-50"
-      />
+      {/* <div className="w-full">
+        <Image
+          src={HomeIndicator}
+          alt="Home Indicator"
+          className="fixed bottom-0 w-full z-50"
+        />
+      </div> */}
     </section>
   );
 };

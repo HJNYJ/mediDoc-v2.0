@@ -15,6 +15,8 @@ export type Database = {
           answer_id: string;
           consult_id: string | null;
           department: string;
+          hospital_id: string | null;
+          hospital_name: string | null;
           user_email: string | null;
           user_id: string | null;
         };
@@ -23,6 +25,8 @@ export type Database = {
           answer_id?: string;
           consult_id?: string | null;
           department: string;
+          hospital_id?: string | null;
+          hospital_name?: string | null;
           user_email?: string | null;
           user_id?: string | null;
         };
@@ -31,6 +35,8 @@ export type Database = {
           answer_id?: string;
           consult_id?: string | null;
           department?: string;
+          hospital_id?: string | null;
+          hospital_name?: string | null;
           user_email?: string | null;
           user_id?: string | null;
         };
@@ -41,6 +47,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "consult_info";
             referencedColumns: ["consult_id"];
+          },
+          {
+            foreignKeyName: "public_consult_answer_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
           },
           {
             foreignKeyName: "public_consult_answer_user_id_fkey";
@@ -336,7 +349,7 @@ export type Database = {
           apply_time: string;
           course_id: string | null;
           hospital_id: string;
-          hospital_name: string | null;
+          hospital_name: string;
           program_detail: string;
           program_id: string;
           program_name: string;
@@ -353,7 +366,7 @@ export type Database = {
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name?: string | null;
+          hospital_name?: string;
           program_detail: string;
           program_id?: string;
           program_name: string;
@@ -370,7 +383,7 @@ export type Database = {
           apply_time?: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name?: string | null;
+          hospital_name?: string;
           program_detail?: string;
           program_id?: string;
           program_name?: string;
@@ -477,21 +490,31 @@ export type Database = {
       };
       review_photos: {
         Row: {
+          hospital_id: string | null;
           photo_id: string;
           photos: string;
           review_id: string;
         };
         Insert: {
+          hospital_id?: string | null;
           photo_id?: string;
           photos: string;
           review_id: string;
         };
         Update: {
+          hospital_id?: string | null;
           photo_id?: string;
           photos?: string;
           review_id?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: "public_review_photos_hospital_id_fkey";
+            columns: ["hospital_id"];
+            isOneToOne: false;
+            referencedRelation: "hospital_info";
+            referencedColumns: ["hospital_id"];
+          },
           {
             foreignKeyName: "public_review_photos_review_id_fkey";
             columns: ["review_id"];

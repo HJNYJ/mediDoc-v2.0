@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'pretendard' !important;
 }
 
 /* :root {
@@ -41,3 +44,25 @@
   background-color: pink;
 }
 
+.total_margin{
+  width: calc(100% - 32px);
+}
+
+.selectDate{
+  color: white !important;
+  position: relative;
+  z-index: 1;
+}
+
+.selectDate::after{
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: orange;
+  border-radius: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}

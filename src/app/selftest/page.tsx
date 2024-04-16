@@ -8,18 +8,20 @@ import BodyParts from "@/components/selftest/BodyParts";
 import Symptoms from "@/components/selftest/Symptoms";
 import Button from "@/components/layout/Buttons";
 import Image from "next/image";
-import progress_step1 from "@/assets/icons/selftest/progress_step1.png";
-import progress_step2 from "@/assets/icons/selftest/progress_step2.png";
-import progress_step3 from "@/assets/icons/selftest/progress_step3.png";
-import progress_step4 from "@/assets/icons/selftest/progress_step4.png";
 import xmark from "@/assets/icons/xmark.png";
 import previousmark from "@/assets/icons/selftest/previousmark.png";
 import { useRouter } from "next/navigation";
+import useSelftestStore from "@/shared/zustand/selftestStore";
+import PagebackBtn from "@/components/layout/PageBackBtn";
+import PageCancel from "@/components/layout/PageCancel";
 
 const SelftestPage = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState<
-    "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  >("이비인후과");
+  const {
+    selectedGender,
+    selectedDepartment,
+    setSelectedDepartment,
+    selectedPart
+  } = useSelftestStore();
   const [step, setStep] = useState<number>(0);
   const router = useRouter();
 
@@ -32,7 +34,13 @@ const SelftestPage = () => {
 
   // 다음 단계로 이동
   const goToNextPage = () => {
-    setStep(step + 1);
+    if (step === 0 && selectedGender) {
+      setStep(step + 1);
+    } else if (step === 1 && selectedDepartment) {
+      setStep(step + 1);
+    } else if (step === 2 && selectedPart) {
+      setStep(step + 1);
+    }
   };
 
   // 홈페이지로 이동
@@ -41,34 +49,17 @@ const SelftestPage = () => {
   };
 
   return (
-    <div className="w-[358px] mx-[16px]">
+    <div>
       <div className="flex flex-row justify-between w-[358px] mt-[44px]">
         <button onClick={goToPreviousPage}>
-          <Image
-            src={previousmark}
-            alt="<"
-            className="w-[24px] h-[24px] bluegray"
-          />
+          <PagebackBtn />
         </button>
         <button onClick={goToHomePage}>
-          <Image src={xmark} alt="x" className="w-[20px] h-[20px]" />
+          <PageCancel />
         </button>
       </div>
-      <div className="flex justify-center cursor-pointer">
-        <Image
-          src={
-            step === 0
-              ? progress_step1
-              : step === 1
-                ? progress_step2
-                : step === 2
-                  ? progress_step3
-                  : progress_step4
-          }
-          alt={`Step ${step + 1}`}
-          className="mt-[50px]"
-        />
-      </div>
+
+      <div className="flex justify-center cursor-pointer"></div>
       {/* 각 단계에 따라 컴포넌트 렌더링 */}
       {step === 0 && <Genders onSelect={goToNextPage} />}
       {step === 1 && <Departments onSelectDepartment={setSelectedDepartment} />}
@@ -83,9 +74,7 @@ const SelftestPage = () => {
           size="base"
           label="다음"
           onClick={goToNextPage}
-        >
-          다음
-        </Button>
+        />
       )}
     </div>
   );
