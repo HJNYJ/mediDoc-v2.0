@@ -112,7 +112,7 @@ const ApplyPageThree = ({
 
   return (
     // mt 임시 탬
-    <div className="mt-10 w-[358px] mx-[16px]">
+    <div>
       <button className="m-2" onClick={() => backHandlerClick()}>
         &lt;
       </button>
@@ -135,9 +135,7 @@ const ApplyPageThree = ({
         onClick={() => {
           handleReservation();
         }}
-      >
-        예약하기
-      </Button>
+      />
     </div>
   );
 };
