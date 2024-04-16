@@ -55,6 +55,14 @@ const Symptoms = () => {
     }
   };
 
+  const checkSelectedSymptoms = () => {
+    if (selectedSymptoms.length > 0) {
+      router.push("/selftestresult");
+    } else {
+      alert("증상을 선택해주세요.");
+    }
+  };
+
   return (
     <section className="w-[358px] mx-[16px]">
       <section className="flex flex-col">
@@ -103,9 +111,7 @@ const Symptoms = () => {
           buttonType="filled"
           size="base"
           label="다음"
-          onClick={() => {
-            router.push("/selftestresult");
-          }}
+          onClick={checkSelectedSymptoms}
         ></Button>
       </section>
     </section>
