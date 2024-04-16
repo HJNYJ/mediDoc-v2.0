@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import HospitalName from "./HospitalName";
 import useApplyStore from "@/shared/zustand/applyStore";
 import HospitalReservation from "./GetNewData";
 import Button from "../layout/Buttons";

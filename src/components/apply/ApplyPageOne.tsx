@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import Button from "../layout/Buttons";
-import Progress from "../layout/ProgressOne";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
