@@ -4,7 +4,7 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import 서울 from "@/assets/icons/main/서울.png";
+import 서울 from "@/assets/icons/main/서울.png";
 import 경기 from "@/assets/icons/main/경기.png";
 import 인천 from "@/assets/icons/main/인천.png";
 import 강원 from "@/assets/icons/main/강원.png";

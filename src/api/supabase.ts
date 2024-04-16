@@ -152,12 +152,16 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   }
 };
 
-export const uploadReviewPhotosUrl = async (url: string, review_id: string) => {
+export const uploadReviewPhotosUrl = async (
+  url: string,
+  review_id: string,
+  hospital_id: string
+) => {
   try {
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data } = await supabase
       .from("review_photos")
-      .insert([{ photos: url, review_id: review_id }])
+      .insert([{ photos: url, review_id: review_id, hospital_id: hospital_id }])
       .single();
 
     console.log("uploadPhotosUrl data up => ", data);
@@ -268,6 +272,58 @@ export const getAnswerDetail = async (consultId: string) => {
     return data;
   } catch (error) {
     console.error("답변 가져오기 실패...", error);
+    return null;
+  }
+};
+
+export const getReviewDetail = async (hospitalId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("review_info")
+      .select("*")
+      .eq("hospital_id", hospitalId);
+
+    if (error) {
+      console.error("error", error);
+    }
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return null;
+  }
+};
+
+export const getHospitalInfo = async (hospitalId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("hospital_info")
+      .select("*")
+      .eq("hospital_id", hospitalId)
+      .single();
+
+    if (error) {
+      console.error("error", error);
+    }
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return null;
+  }
+};
+
+export const getHospitalImages = async (hospitalId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("hospital_info")
+      .select("hospital_images")
+      .eq("hospital_id", hospitalId);
+
+    if (error) {
+      console.error("error", error);
+    }
+    return data;
+  } catch (error) {
+    console.error("error", error);
     return null;
   }
 };

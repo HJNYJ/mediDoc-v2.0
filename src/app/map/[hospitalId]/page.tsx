@@ -1,55 +1,89 @@
-// 병원 상세페이지
 "use client";
+
+import {
+  getHospitalImages,
+  getHospitalInfo,
+  getReviewDetail
+} from "@/api/supabase";
 import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
-import HospitalMainInfo from "@/components/map/HospitalMainInfo";
-import ReviewList from "@/components/map/defaultTab/ReviewList";
-import useDetailTabStore from "@/shared/zustand/detailTabStore";
-
-import React from "react";
+import Notice from "@/components/map/defaultTab/Notice";
+import ProgramInfo from "@/components/map/defaultTab/ProgramInfo";
+import ReviewImageList from "@/components/map/defaultTab/ReviewImageList";
+import ReviewItem from "@/components/map/review/ReviewItem";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
-  const { selectedTab, selectTab } = useDetailTabStore();
+  console.log("params ===> ", params.hospitalId);
+  const [selectedTab, setSelectedTab] = useState("default");
+  const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
+    queryKey: ["reviewDetail", params.hospitalId],
+    queryFn: () => getReviewDetail(params.hospitalId)
+  });
+  const { data: hospitalInfo, refetch: refetchHospitalInfo } = useQuery({
+    queryKey: ["hospitalInfo", params.hospitalId],
+    queryFn: () => getHospitalInfo(params.hospitalId)
+  });
+  const { data: hospitalImages, refetch: refetchHospitalImages } = useQuery({
+    queryKey: ["hospitalImages", params.hospitalId],
+    queryFn: () => getHospitalImages(params.hospitalId)
+  });
+
+  const handleTabClick = (tab: string) => {
+    setSelectedTab(tab);
+    switch (tab) {
+      case "default":
+        refetchHospitalInfo();
+        break;
+      case "image":
+        refetchHospitalImages();
+        break;
+      case "review":
+        refetchReviews();
+        break;
+    }
+  };
 
   return (
     <main className="w-[390px] h-[2398px]">
       <TopNavbar />
       <HospitalInfoHeader params={params} />
-      <p>--------------------</p>
       <nav className="w-[390px]">
         <button
-          className="bg-sky-500 mx-4"
-          onClick={(e) => {
-            e.preventDefault();
-            selectTab("default");
-          }}
+          className={`bg-sky-500 mx-4 ${selectedTab === "default" ? "bg-sky-500" : "bg-gray-200"}`}
+          onClick={() => handleTabClick("default")}
         >
           기본정보
-        </button>{" "}
-        |{" "}
+        </button>
         <button
-          className="bg-red-100 mx-4"
-          onClick={(e) => {
-            e.preventDefault();
-            selectTab("image");
-          }}
+          className={`bg-red-100 mx-4 ${selectedTab === "image" ? "bg-red-100" : "bg-gray-200"}`}
+          onClick={() => handleTabClick("image")}
         >
           사진
         </button>
         |
         <button
-          className="bg-amber-100 mx-4"
-          onClick={(e) => {
-            e.preventDefault();
-            selectTab("review");
-          }}
+          className={`bg-amber-100 mx-4 ${selectedTab === "review" ? "bg-amber-100" : "bg-gray-200"}`}
+          onClick={() => handleTabClick("review")}
         >
           리뷰
         </button>
       </nav>
-      <p>--------------------</p>
 
-      <HospitalMainInfo selectedTab={selectedTab} />
+      {selectedTab === "default" && (
+        <>
+          <ProgramInfo />
+          <span>--------------</span>
+          <Notice />
+        </>
+      )}
+      {selectedTab === "image" && <ReviewImageList />}
+      {selectedTab === "review" && (
+        <>
+          <ReviewItem hospitalId={params.hospitalId} />
+        </>
+      )}
     </main>
   );
 };
