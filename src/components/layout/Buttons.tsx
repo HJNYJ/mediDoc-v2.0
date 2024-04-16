@@ -29,7 +29,7 @@ const Button = ({
   return (
     <button
       type={type || "button"}
-      className={`flex flex-col justify-center items-center focus:outline-none w-[358px]
+      className={`flex flex-col justify-center items-center focus:outline-none w-full 
       ${height} ${borderRadius} text-${textColor} ${bgColor} border-${borderColor} ${borderStyle}
       `}
       onClick={onClick}
