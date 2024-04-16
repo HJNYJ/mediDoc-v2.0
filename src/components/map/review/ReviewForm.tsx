@@ -11,7 +11,7 @@ import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import review_okBtn from "@/assets/icons/review/review_okBtn.png";
 
-const ReviewForm = () => {
+const ReviewForm = (hospitalId: { hospitalId: string }) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number>(0); // 별점 관리
   const [img, setImg] = useState<File[]>([]);
@@ -110,7 +110,8 @@ const ReviewForm = () => {
 
         const uploadImgUrl = await uploadReviewPhotosUrl(
           url.toString(),
-          reviewId
+          reviewId,
+          hospitalId
         );
 
         if (uploadImgUrl) {

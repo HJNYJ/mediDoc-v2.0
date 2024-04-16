@@ -1,7 +1,7 @@
 "use client";
 
 import useApplyStore from "@/shared/zustand/applyStore";
-import regionCheck from "@/assets/check.png";
+import regionCheck from "@/assets/icons/check.png";
 import Image from "next/image";
 import HospitalName from "./HospitalName";
 
