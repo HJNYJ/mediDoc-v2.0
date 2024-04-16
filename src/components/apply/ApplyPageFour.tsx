@@ -19,7 +19,7 @@ const ApplyPageFour = () => {
   };
 
   return (
-    <div className="mt-10 w-[358px] mx-[16px]">
+    <div>
       <p>
         <HospitalReservation />
       </p>
@@ -29,9 +29,7 @@ const ApplyPageFour = () => {
         size="base"
         label="확인"
         onClick={handleBtnClick}
-      >
-        확인
-      </Button>
+      />
     </div>
   );
 };
