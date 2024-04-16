@@ -144,7 +144,7 @@ const ApplyPageOne = ({
           -
           <input
             maxLength={1}
-            className="text-black ml-[10px] px-4 py-[14px] w-[40px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black ml-[10px] px-4 py-[14px] w-[45px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
           &nbsp; &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;*
           {!idNumberValid && (

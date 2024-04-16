@@ -1,6 +1,9 @@
 // 진료과 div
 import React from "react";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
+import YellowBarMg from "../layout/YellowBarMg";
+import GrayBarMg from "../layout/GrayBarMg";
+import GrayBar from "../layout/GrayBar";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 
 interface DepartmentsProps {
@@ -25,12 +28,16 @@ const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
   };
 
   return (
-    <section className="w-[358px] mx-[16px]">
+    <section className="w-full py-[15px]">
+      <div className="flex mb-[30px]">
+        <YellowBarMg />
+        <YellowBarMg />
+        <GrayBarMg />
+        <GrayBar />
+      </div>
       <section>
-        <p className="w-[192px] h-[36px] mt-[54px] bold-26">
-          과를 선택해주세요
-        </p>
-        <p className="w-[240px] h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[36px] mt-[54px] bold-26">과를 선택해주세요</p>
+        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
           진단받고 싶은 과를 선택해주세요.
         </p>
       </section>

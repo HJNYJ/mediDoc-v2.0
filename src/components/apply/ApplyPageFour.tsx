@@ -20,16 +20,18 @@ const ApplyPageFour = () => {
 
   return (
     <div>
-      <p>
+      <p className="mb-4">
         <HospitalReservation />
       </p>
-      <Button
-        type="button"
-        buttonType="filled"
-        size="base"
-        label="확인"
-        onClick={handleBtnClick}
-      />
+      <div className="mb-4">
+        <Button
+          type="button"
+          buttonType="filled"
+          size="base"
+          label="확인"
+          onClick={handleBtnClick}
+        />
+      </div>
     </div>
   );
 };

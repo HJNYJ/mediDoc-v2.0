@@ -349,7 +349,7 @@ export type Database = {
           apply_time: string;
           course_id: string | null;
           hospital_id: string;
-          hospital_name: string | null;
+          hospital_name: string;
           program_detail: string;
           program_id: string;
           program_name: string;
@@ -366,7 +366,7 @@ export type Database = {
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name?: string | null;
+          hospital_name?: string;
           program_detail: string;
           program_id?: string;
           program_name: string;
@@ -383,7 +383,7 @@ export type Database = {
           apply_time?: string;
           course_id?: string | null;
           hospital_id?: string;
-          hospital_name?: string | null;
+          hospital_name?: string;
           program_detail?: string;
           program_id?: string;
           program_name?: string;

@@ -36,7 +36,7 @@ const CourseSelect = () => {
     return (
       <article key={card.course_id}>
         <div
-          className="m-4 border-2 w-60 rounded-lg justify-start flex items-center"
+          className="mb-2 px-4 py-[14px] border-2 w-full rounded-lg justify-start flex items-center"
           onClick={() => {
             setIsCourseClicked(true);
             setSelectedCourseName(card.course_name);
@@ -56,8 +56,8 @@ const CourseSelect = () => {
             <div>
               {card.course_name === checkedCourse.get(true) ? (
                 <>
-                  <label htmlFor={card.course_name} className="cursor-pointer">
-                    <div className="flex justify-between">
+                  <label htmlFor={card.course_name} className="cursor-pointer ">
+                    <div className="flex justify-between mb-4 bold-14">
                       <div className="flex">
                         <TreatmentCourse />
                         {card.course_name}
@@ -66,7 +66,7 @@ const CourseSelect = () => {
                       <CourseCheckedIcon />
                     </div>
                   </label>
-                  <p>{card.course_detail}</p>
+                  <p className="break-keep regular-14 ">{card.course_detail}</p>
                 </>
               ) : (
                 <>
@@ -74,7 +74,7 @@ const CourseSelect = () => {
                     htmlFor={card.course_name}
                     className="cursor-pointer block"
                   >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between bold-14">
                       <div className="flex">
                         <TreatmentNotCourse />
                         {card.course_name}

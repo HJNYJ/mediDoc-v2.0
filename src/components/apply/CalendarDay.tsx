@@ -151,7 +151,7 @@ const Calendar = () => {
                           cursor: isPastDate ? "default" : "pointer",
                           color: isPastDate ? "gray" : "black"
                         }}
-                        className={`text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "bg-orange rounded-full text-white" : ""}`}
+                        className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
                         {/* <div className={`w-36 h-20 ${isTrue ? '참일때' : '구라일때'}`}></div> */}
                         {cell.date.getDate()}

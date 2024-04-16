@@ -5,6 +5,9 @@ import Male_not_checked from "@/assets/icons/selftest/Male_not_checked.png";
 import Female_checked from "@/assets/icons/selftest/Female_checked.png";
 import Female_not_checked from "@/assets/icons/selftest/Female_not_checked.png";
 import useSelftestStore from "@/shared/zustand/selftestStore";
+import YellowBarMg from "../layout/YellowBarMg";
+import GrayBarMg from "../layout/GrayBarMg";
+import GrayBar from "../layout/GrayBar";
 
 interface GendersProps {
   onSelect: () => void;
@@ -18,7 +21,13 @@ const Genders: React.FC<GendersProps> = ({ onSelect }) => {
   };
 
   return (
-    <section className="w-[358px] mx-[16px]">
+    <section className="w-full py-[15px]">
+      <div className="flex mb-[30px]">
+        <YellowBarMg />
+        <GrayBarMg />
+        <GrayBarMg />
+        <GrayBar />
+      </div>
       <section>
         <p className="w-[200px] h-[36px] mt-[54px] bold-26">
           성별을 알려주세요.

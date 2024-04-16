@@ -106,14 +106,14 @@ export const CourseNotCheckedIcon = () => {
 export const TreatmentNotCourse = () => {
   return (
     <div className="w-[24px] h-[24px] flex justify-center items-center">
-      <span className="block w-[18px] h-[18px] border-solid border-2 border-[#EFF0F3] rounded-full"></span>
+      <span className="block w-[18px] mr-2 h-[18px] border-solid border-2 border-[#EFF0F3] rounded-full"></span>
     </div>
   );
 };
 export const TreatmentCourse = () => {
   return (
     <div className="w-[24px] h-[24px] flex justify-center items-center">
-      <span className="flex justify-center items-center w-[18px] h-[18px] border-solid border-2 border-[#FF9A00] rounded-full">
+      <span className="flex justify-center mr-2 items-center w-[18px] h-[18px] border-solid border-2 border-[#FF9A00] rounded-full">
         <span className="block w-[10px] h-[10px] bg-[#FF9A00] rounded-full "></span>
       </span>
     </div>
