@@ -49,7 +49,7 @@ const SelftestPage = () => {
   };
 
   return (
-    <div className="w-[358px] mx-[16px]">
+    <div>
       <div className="flex flex-row justify-between w-[358px] mt-[44px]">
         <button onClick={goToPreviousPage}>
           <PagebackBtn />
@@ -74,7 +74,6 @@ const SelftestPage = () => {
           size="base"
           label="다음"
           onClick={goToNextPage}
-        />
         />
       )}
     </div>
