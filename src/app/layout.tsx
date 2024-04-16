@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 // import SupabaseProvider from "./supabaseProvider";
 import Providers from "./providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import MobileScreen from "@/components/layout/MobileScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="max-w-mobile mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+          {/* <div className="max-w-mobile mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"> */}
+          <main className="max-w-[430px] mx-[16px] total_margin">
             {children}
             <Navbar />
-            <ReactQueryDevtools />
-          </div>
+            {/* <ReactQueryDevtools /> */}
+          </main>
+          {/* </div> */}
         </Providers>
       </body>
     </html>

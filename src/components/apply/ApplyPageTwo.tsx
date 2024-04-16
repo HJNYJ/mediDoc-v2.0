@@ -43,7 +43,7 @@ const ApplyPageTwo = ({
     router.push("/home");
   };
   return (
-    <div className="w-[358px] mx-[16px]">
+    <div>
       {/* mt 임시 탬 */}
       <p className="mt-10">
         <button
@@ -73,9 +73,7 @@ const ApplyPageTwo = ({
         size="base"
         label="다음"
         onClick={() => handleNextClick()}
-      >
-        다음
-      </Button>
+      />
     </div>
   );
 };

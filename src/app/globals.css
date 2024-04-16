@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'pretendard';
 }
 
 /* :root {
@@ -41,3 +44,6 @@
   background-color: pink;
 }
 
+.total_margin{
+  width: calc(100% - 32px);
+}
