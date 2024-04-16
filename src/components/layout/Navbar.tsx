@@ -63,14 +63,17 @@ export const Navbar = () => {
     }
   };
 
+  if (pathname === "/" || pathname === "/login") {
+    return null;
+  }
   return (
-    <section className="w-[390px]">
+    <section className="w-[390px] h-[68px]">
       <Image
         src={StatusBar}
         alt="Status Bar"
-        className="fixed top-0 left-0 w-[390px] z-50 mb-[44px]"
+        className="fixed top-0 w-[390px] z-50 mb-[44px]"
       />
-      <nav className="sticky bottom-0 flex justify-between items-center py-4 px-6 mt-[44px] text-black">
+      <nav className="fixed bottom-0 flex justify-between items-center w-[390px] h-[68px] mx-[16px] mb-[34px] z-1000">
         <Link href={"/consult"}>
           <Image src={ConsultIcon} alt="Consult Icon" />
         </Link>
@@ -96,7 +99,7 @@ export const Navbar = () => {
       <Image
         src={HomeIndicator}
         alt="Home Indicator"
-        className="fixed bottom-0 left-0 w-[390px] z-50"
+        className="fixed bottom-0 w-[390px] z-50"
       />
     </section>
   );
