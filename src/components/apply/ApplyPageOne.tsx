@@ -14,9 +14,11 @@ import warning from "@/assets/icons/modal/warning.png";
 import Image from "next/image";
 
 const ApplyPageOne = ({
-  setPageCount
+  setPageCount,
+  hospitalId
 }: {
   setPageCount: React.Dispatch<React.SetStateAction<string>>;
+  hospitalId: string;
 }) => {
   const {
     name,
@@ -102,10 +104,8 @@ const ApplyPageOne = ({
         <GrayBarMg />
         <GrayBar />
       </div>
-      <HospitalName />
-      <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
-        병원 사진
-      </article>
+      <HospitalName hospitalId={hospitalId} />
+      <article className="m-2">병원 사진</article>
       <form
         className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {

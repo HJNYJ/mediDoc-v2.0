@@ -4,16 +4,28 @@ import { fetchHospitalData } from "@/hooks/getHospitalData";
 import { removeTimeSecond, getTime } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map from "./Map";
 import Image from "next/image";
 import scrapIcon from "@/assets/icons/bookmark.png";
+import scrappedIcon from "@/assets/icons/bookmark_checked.png";
 import timeIcon from "@/assets/icons/date.png";
 import phoneIcon from "@/assets/icons/phone.png";
+import Button from "../layout/Buttons";
+import { useRouter } from "next/navigation";
+import {
+  addScrappedList,
+  removeScrappedList
+} from "@/utils/changeScrappedList";
+import { getUserId } from "@/utils/getUserId";
+import useScrapStore from "@/shared/zustand/scrapStore";
+import { supabase } from "@/api/supabase";
 
 const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
+  const router = useRouter();
   const [isTimeToggleOpen, setTimeToggleOpen] = useState(false); // 진료시간 toggle
   const [isIntroductionToggleOpen, setIntroductionToggleOpen] = useState(false); // 소개글 toggle
+  const { isScrapped, setIsScrapped } = useScrapStore();
   // 병원 데이터 가져오기
   const {
     isLoading,
@@ -23,6 +35,30 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
     queryKey: ["hospitalInfo", params.hospitalId],
     queryFn: () => fetchHospitalData(params.hospitalId)
   });
+
+  useEffect(() => {
+    const fetchScrappedStatus = async () => {
+      const hospitalId = params.hospitalId;
+      const userId = await getUserId();
+
+      try {
+        const { data: scrappedData, error } = await supabase
+          .from("scrapped_list")
+          .select("*")
+          .eq("hospital_id", hospitalId)
+          .eq("user_id", userId);
+        if (error) {
+          throw error;
+        }
+
+        setIsScrapped(scrappedData.length > 0);
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+      }
+    };
+
+    fetchScrappedStatus();
+  }, [params.hospitalId, setIsScrapped]);
 
   if (isLoading) return <p>병원 데이터를 가져오는 중입니다.</p>;
   if (isError) return <p>병원 데이터를 가져오는 동안 에러가 발생했습니다</p>;
@@ -38,6 +74,35 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
     secondRemovedStartTime,
     secondRemovedEndTime
   );
+  const handleScrapClick = async () => {
+    const hospitalId = params.hospitalId;
+    const userId = await getUserId();
+
+    if (!userId) {
+      console.error("유저 ID를 가져오지 못 했습니다.");
+      return;
+    }
+
+    if (isScrapped) {
+      setIsScrapped(!isScrapped);
+      removeScrappedList(hospitalId, userId);
+      alert("스크랩이 해제되었습니다.");
+    } else {
+      setIsScrapped(!isScrapped);
+      addScrappedList(hospitalId, userId);
+      alert("스크랩되었습니다.");
+    }
+  };
+
+  const scrapIconSrc = isScrapped ? scrappedIcon : scrapIcon;
+
+  const goToApplyPage = () => {
+    if (params?.hospitalId) {
+      router.push(`/apply/${params.hospitalId}`);
+    } else {
+      console.error("병원 ID가 유효하지 않습니다.");
+    }
+  };
 
   return (
     <main className="">
@@ -63,9 +128,10 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
               </p>
             </div>
             <Image
-              src={scrapIcon}
+              src={scrapIconSrc}
               alt="scrap Icon"
               className="w-[24px] h-[24px]"
+              onClick={handleScrapClick}
             />
           </div>
           {/* 진료시간 */}
@@ -143,7 +209,12 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
             </div>
           </div>
         </section>
-        <button>예약하기</button>
+        <Button
+          type="button"
+          buttonType="hollow"
+          label="예약하기"
+          onClick={goToApplyPage}
+        />
       </section>
     </main>
   );

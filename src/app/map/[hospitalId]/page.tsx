@@ -62,6 +62,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
         >
           사진
         </button>
+        |
         <button
           className={`bg-amber-100 mx-4 ${selectedTab === "review" ? "bg-amber-100" : "bg-gray-200"}`}
           onClick={() => handleTabClick("review")}
