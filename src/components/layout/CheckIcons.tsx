@@ -1,3 +1,4 @@
+import exp from "constants";
 import React from "react";
 
 export const CheckedIcon = () => {
@@ -48,5 +49,73 @@ export const NotCheckedIcon = () => {
         fill-opacity="0.1"
       />
     </svg>
+  );
+};
+
+export const CourseCheckedIcon = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+        fill="#EFF0F3"
+      />
+      <path
+        d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+        fill="black"
+        fill-opacity="0.1"
+      />
+      <path
+        d="M11.8299 11.7518L9.2722 14.3095C9.13533 14.448 8.96426 14.5172 8.75897 14.5172C8.55369 14.5172 8.3767 14.448 8.228 14.3095C8.07286 14.1608 7.9969 13.9826 8.0001 13.7749C8.00331 13.5672 8.07928 13.389 8.228 13.2403L11.1972 10.2711C11.378 10.0903 11.5889 9.99995 11.8299 9.99995C12.0709 9.99995 12.2818 10.0903 12.4626 10.2711L15.4472 13.2557C15.5959 13.4044 15.6693 13.5801 15.6674 13.7826C15.6655 13.9852 15.5869 14.1608 15.4318 14.3095C15.2831 14.448 15.1075 14.5182 14.9049 14.5201C14.7023 14.522 14.5267 14.4486 14.378 14.2999L11.8299 11.7518Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+export const CourseNotCheckedIcon = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+        fill="#EFF0F3"
+      />
+      <path
+        d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+        fill="black"
+        fill-opacity="0.1"
+      />
+      <path
+        d="M11.8299 12.7683L9.2722 10.2106C9.13533 10.0721 8.96426 10.0029 8.75897 10.0029C8.55369 10.0029 8.3767 10.0721 8.228 10.2106C8.07286 10.3593 7.9969 10.5375 8.0001 10.7452C8.00331 10.9529 8.07928 11.1311 8.228 11.2798L11.1972 14.249C11.378 14.4298 11.5889 14.5202 11.8299 14.5202C12.0709 14.5202 12.2818 14.4298 12.4626 14.249L15.4472 11.2644C15.5959 11.1157 15.6693 10.9401 15.6674 10.7375C15.6655 10.5349 15.5869 10.3593 15.4318 10.2106C15.2831 10.0721 15.1075 10.002 14.9049 10C14.7023 9.9981 14.5267 10.0715 14.378 10.2202L11.8299 12.7683Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+
+export const TreatmentNotCourse = () => {
+  return (
+    <div className="w-[24px] h-[24px] flex justify-center items-center">
+      <span className="block w-[18px] h-[18px] border-solid border-2 border-[#EFF0F3] rounded-full"></span>
+    </div>
+  );
+};
+export const TreatmentCourse = () => {
+  return (
+    <div className="w-[24px] h-[24px] flex justify-center items-center">
+      <span className="flex justify-center items-center w-[18px] h-[18px] border-solid border-2 border-[#FF9A00] rounded-full">
+        <span className="block w-[10px] h-[10px] bg-[#FF9A00] rounded-full "></span>
+      </span>
+    </div>
   );
 };

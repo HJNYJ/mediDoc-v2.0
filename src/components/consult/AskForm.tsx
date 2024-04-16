@@ -1,7 +1,4 @@
-// 질문&답변 Textarea
-
 "use client";
-
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
@@ -12,7 +9,6 @@ import okBtn from "@/assets/icons/consult/okBtn.png";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
-
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -22,9 +18,7 @@ const AskForm = () => {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [img, setImg] = useState<File[]>([]);
-
   /** 이미지 컴포넌트에서 사용하는 state 및 함수 시작 */
-
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<
     {
@@ -33,10 +27,8 @@ const AskForm = () => {
       dataUrl: string;
     }[]
   >([]);
-
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log("테스트 드드드");
     // console.log(typeof e.target.files); // string x , object
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
@@ -63,23 +55,19 @@ const AskForm = () => {
   ) => {
     // const fileList = e.target.files;
     const fileList = img;
-
     if (fileList) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-
       filesArray.forEach((file) => {
         handleAddImages(file, consultId);
       });
     }
   };
-
   // 업로드된 파일이 3개가 초과되면 그 뒤에 들어오는 파일은 없앰
   if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
     alert("이미지는 최대 3개까지 업로드 가능합니다.");
   }
-
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
     try {
@@ -88,18 +76,13 @@ const AskForm = () => {
       const result = await supabase.storage
         .from("images")
         .upload(`user_images/${newFileName}`, file);
-
-      // console.log("upload file result => ", result.data);
-
       if (result.data) {
         const url =
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
         console.log("url => ", url);
-
         const uploadImgUrl = await uploadPhotosUrl(url.toString(), consultId);
-
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
@@ -110,11 +93,9 @@ const AskForm = () => {
       console.error("파일 업로드 중 에러 발생 ㅠㅠ", error);
     }
   };
-
   // 이미지 클릭 -> 순서 맨 앞으로
   const handleImageOrder = (e: MouseEvent<HTMLElement>) => {
     const url = e.currentTarget.id;
-
     // 클릭된 아이템 인덱스 번호
     const clickedItem = uploadedFileUrl.indexOf(url);
     // 클릭 된 아이템을 제외한 배열
@@ -124,34 +105,25 @@ const AskForm = () => {
     // 클릭 된 아이템을 맨 앞으로 해서 state를 변경
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
-
   // X 버튼 클릭 -> 이미지 삭제
   const handleDeleteImage = (idx: number) => {
     // uploadedFileUrl state 업데이트
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
-
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
   };
-
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
-
   const consultId = uuidv4();
   // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-
   // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-
   // consultInfo 테이블, consult_image 테이블에 동일한 consultId
-
   console.log(consultId);
-
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")
       .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10")
       .eq("body_section", selectedCategory);
-
     if (error) {
       console.error(error);
       return;
@@ -173,7 +145,6 @@ const AskForm = () => {
       });
     }
   };
-
   /**
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
@@ -186,137 +157,131 @@ const AskForm = () => {
       // consultId: uuid
       // 이미지 URL 추가
     );
-
     // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-
     console.log(data);
     handleFiles(data); // data >> consultId
     if (data) {
       console.log("AskForm 추가 성공", data!);
     }
   };
-
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="mt-1">
+    <div className="flex flex-col justify-center items-center">
       <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px] mb-5" />
-      <div>
-        <p className="regular-16 text-gray-800">제목</p>
-        <input
-          type="text"
-          placeholder="예) 이런 증상은 비염인가요?"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-[358px] h-[51px] rounded-lg border mt-3 mb-6 text-gray-600"
-          required
-        />
-      </div>
-      <div className="">
-        <p className="regular-16 text-gray-800">질문</p>
-        <textarea
-          placeholder="예) 코가 간지럽고 자꾸 재채기가 나오는데 비염약을 먹어야할까요?"
-          maxLength={500}
-          value={contents}
-          onChange={(e) => setContents(e.target.value)}
-          required
-          className="w-[358px] h-[290px] border rounded-lg mt-3 text-gray-800"
-        />
-      </div>
-      <p className="text-gray-500 text-right regular-13 mb-6 mr-5">
-        {contents.length} /500
-      </p>
-
-      <div className="mb-5">
-        <label className="block mb-3 regular-14 text-gray-800">카테고리</label>
-        <select
-          onChange={(e) => {
-            fetchHashtags(e.target.value);
-            setBodyparts(e.target.value);
-          }}
-          className="bg-bluegray w-[358px] h-[55px] rounded-xl border border-gray-300 mb-7 pl-5 semibold-16 text-gray-800"
-        >
-          <option className="semibold-16">부위 선택</option>
-          <option value="eyes">눈</option>
-          <option value="ears">귀</option>
-          <option value="nose">코</option>
-          <option value="abdomen">배</option>
-          <option value="neck">목</option>
-        </select>
-        <p className="regular-14 text-gray-800 ml-2 mb-3">증상</p>
-        <HashTags
-          hashtags={hashtags}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-      </div>
-
-      <div>
-        {/* 이미지 컴포넌트 시작 */}
+      <form onSubmit={(e) => e.preventDefault()} className="mt-1">
         <div>
-          <p className="regular-14 text-gray-800 ml-2 mb-3">
-            사진
-            {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
-          </p>
-
-          <div>
-            {uploadedImages.map((image, idx: number) => (
-              <div key={image.dataUrl}>
-                {/**이미지 렌더링 */}
-                <img
-                  src={image.dataUrl}
-                  alt={image.name}
-                  className="w-[100px] h-[100px]"
-                />
-                {/* <img src={image.dataUrl} alt={image.name} /> */}
-                <div id={image.dataUrl} onClick={handleImageOrder}></div>
-                <button onClick={() => handleDeleteImage(idx)}>삭제</button>
-              </div>
-            ))}
-
-            {uploadedFileUrl.length >= 3 ? (
-              <></>
-            ) : (
-              <label htmlFor="file" className="flex">
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  onChange={setImgHandler}
-                  // onChange={handleFiles}
-                  multiple
-                  hidden
-                />
-                <Image
-                  src={camera}
-                  alt="카메라"
-                  className="w-[100px] h-[100px] mr-2"
-                />
-                <Image
-                  src={imageBox}
-                  alt="사진2"
-                  className="w-[100px] h-[100px] mr-2"
-                />
-                <Image
-                  src={imageBox}
-                  alt="사진3"
-                  className="w-[100px] h-[100px] mr-2"
-                />
-              </label>
-            )}
-          </div>
-
-          {/* 이미지 컴포넌트 끝 */}
+          <p className="regular-16 text-gray-800">제목</p>
+          <input
+            type="text"
+            placeholder="예) 이런 증상은 비염인가요?"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-[358px] h-[51px] rounded-lg border mt-3 mb-6 text-gray-600"
+            required
+          />
         </div>
-      </div>
-
-      <button type="button" onClick={handleSubmit}>
-        <Image
-          src={okBtn}
-          className="w-[358px] h-[50px] mt-16"
-          alt="물어보기"
-        />
-      </button>
-    </form>
+        <div className="">
+          <p className="regular-16 text-gray-800">질문</p>
+          <textarea
+            placeholder="예) 코가 간지럽고 자꾸 재채기가 나오는데 비염약을 먹어야할까요?"
+            maxLength={500}
+            value={contents}
+            onChange={(e) => setContents(e.target.value)}
+            required
+            className="w-[358px] h-[290px] border rounded-lg mt-3 text-gray-800"
+          />
+        </div>
+        <p className="text-gray-500 text-right regular-13 mb-6 mr-5">
+          {contents.length} /500
+        </p>
+        <div className="mb-5">
+          <label className="block mb-3 regular-14 text-gray-800">
+            카테고리
+          </label>
+          <select
+            onChange={(e) => {
+              fetchHashtags(e.target.value);
+              setBodyparts(e.target.value);
+            }}
+            className="bg-bluegray w-[358px] h-[55px] rounded-xl border border-gray-300 mb-7 pl-5 semibold-16 text-gray-800"
+          >
+            <option className="semibold-16">부위 선택</option>
+            <option value="eyes">눈</option>
+            <option value="ears">귀</option>
+            <option value="nose">코</option>
+            <option value="abdomen">배</option>
+            <option value="neck">목</option>
+          </select>
+          <p className="regular-14 text-gray-800 ml-2 mb-3">증상</p>
+          <HashTags
+            hashtags={hashtags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        </div>
+        <div>
+          {/* 이미지 컴포넌트 시작 */}
+          <div>
+            <p className="regular-14 text-gray-800 ml-2 mb-3">
+              사진
+              {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
+            </p>
+            <div>
+              {uploadedImages.map((image, idx: number) => (
+                <div key={image.dataUrl}>
+                  {/**이미지 렌더링 */}
+                  <img
+                    src={image.dataUrl}
+                    alt={image.name}
+                    className="w-[100px] h-[100px]"
+                  />
+                  {/* <img src={image.dataUrl} alt={image.name} /> */}
+                  <div id={image.dataUrl} onClick={handleImageOrder}></div>
+                  <button onClick={() => handleDeleteImage(idx)}>삭제</button>
+                </div>
+              ))}
+              {uploadedFileUrl.length >= 3 ? (
+                <></>
+              ) : (
+                <label htmlFor="file" className="flex">
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    onChange={setImgHandler}
+                    // onChange={handleFiles}
+                    multiple
+                    hidden
+                  />
+                  <Image
+                    src={camera}
+                    alt="카메라"
+                    className="w-[100px] h-[100px] mr-2"
+                  />
+                  <Image
+                    src={imageBox}
+                    alt="사진2"
+                    className="w-[100px] h-[100px] mr-2"
+                  />
+                  <Image
+                    src={imageBox}
+                    alt="사진3"
+                    className="w-[100px] h-[100px] mr-2"
+                  />
+                </label>
+              )}
+            </div>
+            {/* 이미지 컴포넌트 끝 */}
+          </div>
+        </div>
+        <button type="button" onClick={handleSubmit}>
+          <Image
+            src={okBtn}
+            className="w-[358px] h-[50px] mt-16"
+            alt="물어보기"
+          />
+        </button>
+      </form>
+    </div>
   );
 };
-
 export default AskForm;
