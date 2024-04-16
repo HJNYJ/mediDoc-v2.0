@@ -8,6 +8,7 @@ import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import type { UserInfo } from "@/types";
+import TopNavbar from "@/components/layout/TopNavbar";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
@@ -99,12 +100,10 @@ const MyPage = () => {
   return (
     <section className="w-[358px] mx-[16px]">
       <section>
-        <p className="w-[358px] h-[50px] semibold-18 place-content-center">
-          마이페이지
-        </p>
+        <TopNavbar title="마이페이지" />
         {userInfo.map((user) => (
           <div key={user.user_id}>
-            <p className="bold-24">
+            <p className="text-[24px] font-bold px-[16px]">
               {user.user_name}님, <br />
               안녕하세요!
             </p>
