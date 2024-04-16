@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Male_checked from "@/assets/icons/selftest/Male_checked.png";
 import Male_not_checked from "@/assets/icons/selftest/Male_not_checked.png";
 import Female_checked from "@/assets/icons/selftest/Female_checked.png";
 import Female_not_checked from "@/assets/icons/selftest/Female_not_checked.png";
+import useSelftestStore from "@/shared/zustand/selftestStore";
 
 interface GendersProps {
   onSelect: () => void;
 }
 
 const Genders: React.FC<GendersProps> = ({ onSelect }) => {
-  const [selectedGender, setSelectedGender] = useState<"male" | "female">(
-    "male"
-  );
+  const { selectedGender, setSelectedGender } = useSelftestStore();
 
   const handleGenderSelect = (gender: "male" | "female") => {
     setSelectedGender(gender);

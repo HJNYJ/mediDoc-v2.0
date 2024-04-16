@@ -105,7 +105,9 @@ const ApplyPageOne = ({
         <GrayBar />
       </div>
       <HospitalName hospitalId={hospitalId} />
-      <article className="m-2">병원 사진</article>
+      <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
+        병원 사진
+      </article>
       <form
         className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {
