@@ -11,6 +11,20 @@ export const supabase = createBrowserClient<Database>(
   supabaseAnonKey
 );
 
+//consult id를 가진 답변이 있는지 확인
+export const checkConsultAnswer = async (consultId: string) => {
+  const { data: consultAnswer, error } = await supabase
+    .from("consult_answer")
+    .select("answer")
+    .eq("consult_id", consultId);
+
+  if (error) {
+    console.error("checkConsultAnswer error => ", error);
+  }
+  console.log("이게 답변의 컨설트 아이디???? => ", consultAnswer);
+  return consultAnswer;
+};
+
 // consult page
 export const consultAddForm = async (
   newTitle: string,
@@ -104,23 +118,6 @@ export const consultUserCheck = async () => {
   return data;
 };
 
-export const getInfoId = async () => {
-  // consult_info 테이블에서 consult_id 값을 조회
-  const { data, error } = await supabase
-    .from("consult_info")
-    .select(`*, consult_answer(consult_id)`)
-    .eq("consult_id", "consult_id"); //필터링.........
-
-  if (error) {
-    console.log("getConsultId error => ", error);
-  } else {
-    console.log("consult_id 가져오기 성공 ===> ", data);
-    return data;
-  }
-
-  console.log("이거 외래키 가져올 수 있나,,, => ", data); // 모든 배열을 가져오네
-};
-
 export const fetchReviewHashtags = async () => {
   const { data, error } = await supabase.from("review_hashtags").select("*");
   if (error) {
@@ -140,12 +137,14 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
     // const consultIdString = consultId?.map((item) => item.consult_id);
     // console.log("consultIdString", consultIdString?.[0]);
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
       .single();
 
-    console.log("uploadPhotosUrl data up => ", data);
+    if (error) {
+      console.error("uploadPhotosUrl error => ", error);
+    }
     return data;
   } catch (error) {
     console.log("url 업로드 error.... => ", error);
@@ -270,26 +269,6 @@ export const getAnswerDetail = async (consultId: string) => {
   } catch (error) {
     console.error("답변 가져오기 실패...", error);
     return null;
-  }
-};
-
-export const getSelectConsultId = async () => {
-  try {
-    const { data, error } = await supabase
-      .from("consult_answer")
-      .select(
-        `
-      consult_id,
-      consult_info:consult_id 
-    `
-      )
-      .eq("consult_info.consult_id", "consult_answer.consult_id");
-
-    if (error) throw new Error();
-    console.log("조회된 데이터:", data);
-    return data;
-  } catch (error) {
-    console.error("consult_id를 가져오는 중 오류 발생:", error);
   }
 };
 

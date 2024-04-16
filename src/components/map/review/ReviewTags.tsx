@@ -38,7 +38,7 @@ const HashTags = ({
           onClick={() => handleClick(value)}
           className={`w-[120px] h-[35px] rounded-md focus:outline-none ${
             selectedTags.includes(value)
-              ? "bg-blue-500 text-white"
+              ? "bg-orange-500 text-white"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
