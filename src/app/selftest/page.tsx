@@ -11,13 +11,17 @@ import Image from "next/image";
 import xmark from "@/assets/icons/xmark.png";
 import previousmark from "@/assets/icons/selftest/previousmark.png";
 import { useRouter } from "next/navigation";
+import useSelftestStore from "@/shared/zustand/selftestStore";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import PageCancel from "@/components/layout/PageCancel";
 
 const SelftestPage = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState<
-    "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  >("이비인후과");
+  const {
+    selectedGender,
+    selectedDepartment,
+    setSelectedDepartment,
+    selectedPart
+  } = useSelftestStore();
   const [step, setStep] = useState<number>(0);
   const router = useRouter();
 
@@ -30,7 +34,13 @@ const SelftestPage = () => {
 
   // 다음 단계로 이동
   const goToNextPage = () => {
-    setStep(step + 1);
+    if (step === 0 && selectedGender) {
+      setStep(step + 1);
+    } else if (step === 1 && selectedDepartment) {
+      setStep(step + 1);
+    } else if (step === 2 && selectedPart) {
+      setStep(step + 1);
+    }
   };
 
   // 홈페이지로 이동
@@ -64,6 +74,7 @@ const SelftestPage = () => {
           size="base"
           label="다음"
           onClick={goToNextPage}
+        />
         />
       )}
     </div>

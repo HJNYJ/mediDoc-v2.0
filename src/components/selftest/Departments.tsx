@@ -1,23 +1,26 @@
 // 진료과 div
-import React, { useState } from "react";
+import React from "react";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
+import useSelftestStore from "@/shared/zustand/selftestStore";
 
 interface DepartmentsProps {
-  onSelectDepartment: (department: string) => void;
+  onSelectDepartment: (
+    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
+  ) => void;
 }
 
 const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
-    null
-  );
+  const { selectedDepartment, setSelectedDepartment } = useSelftestStore();
 
-  const handleDepartmentSelect = (department: string) => {
+  const handleDepartmentSelect = (
+    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
+  ) => {
     if (selectedDepartment === department) {
-      setSelectedDepartment(null);
-      onSelectDepartment(null);
+      setSelectedDepartment(department);
+      onSelectDepartment(department);
     } else {
       setSelectedDepartment(department);
       onSelectDepartment(department);

@@ -57,6 +57,14 @@ const Symptoms = () => {
     }
   };
 
+  const checkSelectedSymptoms = () => {
+    if (selectedSymptoms.length > 0) {
+      router.push("/selftestresult");
+    } else {
+      alert("증상을 선택해주세요.");
+    }
+  };
+
   return (
     <section className="w-full py-[15px]">
       <div className="flex mb-[30px]">
@@ -111,9 +119,7 @@ const Symptoms = () => {
           buttonType="filled"
           size="base"
           label="다음"
-          onClick={() => {
-            router.push("/selftestresult");
-          }}
+          onClick={checkSelectedSymptoms}
         ></Button>
       </section>
     </section>
