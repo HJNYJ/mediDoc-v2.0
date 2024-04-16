@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
+import YellowBarMg from "../layout/YellowBarMg";
+import GrayBar from "../layout/GrayBar";
 interface BodyPartsProps {
   department: "이비인후과" | "내과" | "외과" | "치과" | "안과";
   onSelect: () => void;
@@ -24,12 +26,18 @@ const BodyParts: React.FC<BodyPartsProps> = ({ department, onSelect }) => {
   };
 
   return (
-    <section className="w-[358px] mx-[16px]">
+    <section className="w-full py-[15px]">
+      <div className="flex mb-[30px]">
+        <YellowBarMg />
+        <YellowBarMg />
+        <YellowBarMg />
+        <GrayBar />
+      </div>
       <section className="flex flex-col">
-        <p className="w-[230px] h-[36px] mt-[54px] bold-26">
+        <p className="w-full h-[36px] mt-[54px] bold-26">
           어디가 불편하신가요?
         </p>
-        <p className="w-[280px] h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
           지금 불편한 신체 부위를 선택해 주세요.
         </p>
       </section>

@@ -105,7 +105,9 @@ const ApplyPageOne = ({
         <GrayBar />
       </div>
       <HospitalName hospitalId={hospitalId} />
-      <article className="m-2">병원 사진</article>
+      <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
+        병원 사진
+      </article>
       <form
         className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {
@@ -142,7 +144,7 @@ const ApplyPageOne = ({
           -
           <input
             maxLength={1}
-            className="text-black ml-[10px] px-4 py-[14px] w-[40px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black ml-[10px] px-4 py-[14px] w-[45px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
           &nbsp; &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;*
           {!idNumberValid && (

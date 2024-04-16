@@ -15,10 +15,10 @@ const HospitalListView = () => {
         onClick={() => router.push("/map")}
         label={
           <>
-            <span className="regular-14 w-[200px] h-[17px] absolute left-[34px] top-[27px]">
+            <span className="regular-14 w-full h-[17px] absolute top-[27px]">
               지금 나의 건강상태를 확인하세요.
             </span>
-            <span className="bold-22 w-[200px] h-[26px] absolute left-[34px] top-[52px]">
+            <span className="bold-22 w-full h-[26px] absolute top-[52px]">
               병원 리스트 보러가기
             </span>
           </>
