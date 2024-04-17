@@ -4,7 +4,7 @@ import { fetchHospitalData } from "@/hooks/getHospitalData";
 import { removeTimeSecond, getTime } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Map from "./Map";
 import Image from "next/image";
 import scrapIcon from "@/assets/icons/bookmark.png";
