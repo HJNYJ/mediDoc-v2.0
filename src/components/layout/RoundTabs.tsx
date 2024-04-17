@@ -15,7 +15,7 @@ interface TabsPropsType {
 const RoundTabs = ({ label, onClick, active }: TabsPropsType) => {
   return (
     <button
-      className={`focus:outline-none rounded-3xl flex px-2 px-2 mr-2 ${active ? "bg-orange text-white w-[58px] h-[32px] justify-center items-center regular-13" : "border border-gray-300 regular-13 text-gray-800 w-[58px] h-[32px] justify-center items-center"}`}
+      className={`focus:outline-none rounded-3xl flex mr-2 ${active ? "bg-orange text-white w-[58px] h-[32px] justify-center items-center regular-13" : "border border-gray-300 regular-13 text-gray-800 w-[58px] h-[32px] justify-center items-center"}`}
       onClick={onClick}
     >
       <div className="whitespace-nowrap">{label}</div>
