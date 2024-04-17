@@ -60,17 +60,19 @@ const HomeConsultItem = () => {
   // if (isErrorRecent || isErrorImgRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div className="w-[360px]">
+    <div className="w-[358px] h-[71px]">
       {consultRecentData?.slice(0, 3).map((consult, index) => (
-        <div key={index} className="flex justify-center">
-          <div className="flex flex-col">
-            <div className="semibold-18">{consult?.consult_title}</div>
-            <div className="medium-14 text-gray-700">
+        <div key={index} className="flex mb-[24px]">
+          <Image className="w-[60px] h-[60px] rounded-[10px] mr-[12px]" />
+          <div className="flex flex-col mr-[18px]">
+            <span className="w-[195px] h-[21px] semibold-18 mb-[8px]">
+              {consult?.consult_title}
+            </span>
+            <span className="w-[211px] medium-14 text-gray-700">
               {consult?.consult_content}
-            </div>
+            </span>
           </div>
-
-          <div>
+          <div className="place-content-center">
             {consult?.consult_answer && consult?.consult_answer?.length >= 1 ? (
               <Image
                 src={answer_complete}
