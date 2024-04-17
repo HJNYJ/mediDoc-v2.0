@@ -9,11 +9,10 @@ import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import addIcon from "@/assets/icons/consult/add.png";
-import searchbar from "@/assets/icons/consult/searchbar.png";
-import answer_complete from "@/assets/icons/consult/answer_complete.png";
-import answer_wait from "@/assets/icons/consult/answer_wait.png";
-import PageCancel from "@/components/layout/PageCancel";
+
 import PagebackBtn from "@/components/layout/PageBackBtn";
+import AnswerComplete from "@/components/layout/AnswerComplete";
+import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -108,9 +107,9 @@ const ConsultPage = () => {
                   ))}
               </div>
               {consult.consult_answer.length ? (
-                <Image src={answer_complete} alt="답변 완료" />
+                <AnswerComplete />
               ) : (
-                <Image src={answer_wait} alt="답변 대기" />
+                <AnswerWaiting />
               )}
             </div>
           </div>
