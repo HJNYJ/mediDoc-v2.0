@@ -20,7 +20,7 @@ const ReviewList = ({
   }
 
   return (
-    <section className="mt-5">
+    <section className="mt-10">
       <div className="flex gap-4 flex justify-between w-[390px]">
         <h3 className="bold-18">방문자 리뷰</h3>
         {/* <button onClick={goToReviewForm}>리뷰 쓰기</button> */}

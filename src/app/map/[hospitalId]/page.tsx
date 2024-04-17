@@ -80,25 +80,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           active={selectedTab === "review"}
           onClick={() => handleTabClick("review")}
         />
-        {/* <button
-          className={`bg-sky-500 mx-4 ${selectedTab === "default" ? "bg-sky-500" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("default")}
-        >
-          기본정보
-        </button>
-        <button
-          className={`bg-red-100 mx-4 ${selectedTab === "image" ? "bg-red-100" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("image")}
-        >
-          사진
-        </button>
-        |
-        <button
-          className={`bg-amber-100 mx-4 ${selectedTab === "review" ? "bg-amber-100" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("review")}
-        >
-          리뷰
-        </button> */}
       </nav>
 
       {selectedTab === "default" && (
@@ -106,7 +87,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           <ProgramInfo />
           {/* <span>--------------</span> */}
           <Notice />
-          {/* <ReviewImageList /> */}
           <h3 className="bold-18 mb-3">방문자 사진</h3>
           <article className="inline-grid grid-cols-3 gap-2">
             {reviewPhotos
@@ -127,7 +107,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                 e.preventDefault();
                 setSelectedTab("image");
               }}
-              className="border border-gray-300 text-gray-800 w-[358px] h-[50px] rounded-lg"
+              className="border border-gray-300 text-gray-800 w-[358px] h-[50px] mt-3 rounded-lg"
             >
               전체보기
             </button>

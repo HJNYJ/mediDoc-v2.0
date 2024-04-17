@@ -5,7 +5,7 @@ import React from "react";
 
 const Notice = () => {
   return (
-    <section className="border-t border-b border-gray-100 my-3 py-2">
+    <section className="border-t border-b border-gray-100 my-5 py-2">
       <div className="flex w-[91px] mb-3">
         <Image src={notice_btn} alt="주의사항" />
         <h2 className="ml-1 bold-18">유의사항</h2>
