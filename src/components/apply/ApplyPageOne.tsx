@@ -12,6 +12,7 @@ import GrayBar from "../layout/GrayBar";
 import PageCancel from "../layout/PageCancel";
 import warning from "@/assets/icons/modal/warning.png";
 import Image from "next/image";
+import HospitalImage from "./HospitalImage";
 
 const ApplyPageOne = ({
   setPageCount,
@@ -106,7 +107,7 @@ const ApplyPageOne = ({
       </div>
       <HospitalName hospitalId={hospitalId} />
       <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
-        병원 사진
+        <HospitalImage hospitalId={hospitalId} />
       </article>
       <form
         className="flex flex-col min-h-[55vh]"

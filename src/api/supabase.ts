@@ -28,6 +28,7 @@ export const checkConsultAnswer = async (consultId: string) => {
 };
 
 // consult page OOO
+// consult page OOO
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
@@ -126,6 +127,9 @@ export const uploadReviewPhotosUrl = async (
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("review_photos")
+      .insert([
+        { photos: url, review_id: review_id, hospital_id: hospital_id }
+      ]);
       .insert([
         { photos: url, review_id: review_id, hospital_id: hospital_id }
       ]);
@@ -308,6 +312,16 @@ export const hospitalReservation = async () => {
 
 export const hospitalRegion = async () => {
   const response = await supabase.from("hospital_region").select("*");
+  const { data } = response;
+  return data;
+};
+
+export const hospitalImage = async (hospitalId: string) => {
+  const response = await supabase
+    .from("hospital_info")
+    .select("hospital_image")
+    .eq("hospital_id", hospitalId);
+
   const { data } = response;
   return data;
 };
