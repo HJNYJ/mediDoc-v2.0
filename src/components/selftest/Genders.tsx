@@ -22,23 +22,20 @@ const Genders: React.FC<GendersProps> = ({ onSelect }) => {
 
   return (
     <section className="w-full py-[15px]">
-      <div className="flex mb-[30px]">
+      <div className="flex mb-[40px]">
         <YellowBarMg />
         <GrayBarMg />
         <GrayBarMg />
         <GrayBar />
       </div>
       <section>
-        <p className="w-[200px] h-[36px] mt-[54px] bold-26">
-          성별을 알려주세요.
-        </p>
-        <p className="w-[310px] h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[36px] mb-[20px] bold-26">성별을 알려주세요.</p>
+        <p className="w-full h-[21px] mb-[60px] medium-18 text-gray-400">
           성별에 따라 진료 결과가 달라질 수 있어요.
         </p>
       </section>
-      <section className="mt-[38px] mb-[362px]">
+      <section className="flex justify-between mb-[362px] h-[185px]">
         <button
-          className="w-[168px] h-[185px] mr-[22px] rounded-[10px] bold-16"
           onClick={() => handleGenderSelect("female")}
           onSelect={onSelect}
         >
@@ -49,11 +46,7 @@ const Genders: React.FC<GendersProps> = ({ onSelect }) => {
             alt="Female"
           />
         </button>
-        <button
-          className="w-[168px] h-[185px] rounded-[10px] bold-16"
-          onClick={() => handleGenderSelect("male")}
-          onSelect={onSelect}
-        >
+        <button onClick={() => handleGenderSelect("male")} onSelect={onSelect}>
           <Image
             src={selectedGender === "male" ? Male_checked : Male_not_checked}
             alt="Male"

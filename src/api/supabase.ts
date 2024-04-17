@@ -14,18 +14,18 @@ export const supabase = createBrowserClient<Database>(
 
 // O
 //consult id를 가진 답변이 있는지 확인
-export const checkConsultAnswer = async (consultId: string) => {
-  const { data: consultAnswer, error } = await supabase
-    .from("consult_answer")
-    .select("answer")
-    .eq("consult_id", consultId);
+// export const checkConsultAnswer = async (consultId: string) => {
+//   const { data: consultAnswer, error } = await supabase
+//     .from("consult_answer")
+//     .select("answer")
+//     .eq("consult_id", consultId);
 
-  if (error) {
-    console.error("checkConsultAnswer error => ", error);
-  }
-  console.log("이게 답변의 컨설트 아이디???? => ", consultAnswer);
-  return consultAnswer;
-};
+//   if (error) {
+//     console.error("checkConsultAnswer error => ", error);
+//   }
+//   console.log("이게 답변의 컨설트 아이디???? => ", consultAnswer);
+//   return consultAnswer;
+// };
 
 // consult page OOO
 // consult page OOO
@@ -81,7 +81,7 @@ export const consultAddForm = async (
 //         rating: newRating,
 //         hospital_id: newHospitalId
 //       }
-//     ]); 
+//     ]);
 
 //     console.log("저장했음!!!~", review_id);
 //     return review_id;
@@ -127,9 +127,7 @@ export const uploadReviewPhotosUrl = async (
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("review_photos")
-      .insert([
-        { photos: url, review_id: review_id, hospital_id: hospital_id }
-      ]);
+      .insert([{ photos: url, review_id, hospital_id }]);
 
     if (error) {
       console.log("url 업로드 error.... => ", error);
@@ -152,7 +150,7 @@ export const fetchImages = async () => {
   return data;
 };
 
-//OOO
+//OOO fetchImages가 fetchReviewImages로 바뀜
 export const fetchReviewImages = async () => {
   const { data, error } = await supabase.from("review_photos").select("*");
   if (error) {
@@ -165,11 +163,16 @@ export const fetchReviewImages = async () => {
 
 // OOO
 export const fetchConsults = async () => {
-  const { data, error } = await supabase
-    .from("consult_info")
-    .select(
-      "consult_id, user_name, consult_title, consult_content, bodyparts, hashtags"
-    );
+  const { data, error } = await supabase.from("consult_info").select(
+    `consult_id, 
+      user_name, 
+      consult_title, 
+      consult_content,
+      bodyparts, 
+      hashtags,
+      consult_answer(*)
+      `
+  );
   if (error) console.error("error", error);
   return data;
 };

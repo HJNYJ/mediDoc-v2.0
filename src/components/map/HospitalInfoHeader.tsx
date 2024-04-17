@@ -9,8 +9,6 @@ import Map from "./Map";
 import Image from "next/image";
 import scrapIcon from "@/assets/icons/bookmark.png";
 import scrappedIcon from "@/assets/icons/bookmark_checked.png";
-import timeIcon from "@/assets/icons/date.png";
-import phoneIcon from "@/assets/icons/phone.png";
 import Button from "../layout/Buttons";
 import { useRouter } from "next/navigation";
 import {
@@ -19,12 +17,13 @@ import {
 } from "@/utils/changeScrappedList";
 import { getUserInfo } from "@/utils/getUserInfo";
 import useScrapStore from "@/shared/zustand/scrapStore";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 
 const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   const router = useRouter();
-  const [isTimeToggleOpen, setTimeToggleOpen] = useState(false); // 진료시간 toggle
-  const [isIntroductionToggleOpen, setIntroductionToggleOpen] = useState(false); // 소개글 toggle
+  // const [isTimeToggleOpen, setTimeToggleOpen] = useState(false); // 진료시간 toggle
+  // const [isIntroductionToggleOpen, setIntroductionToggleOpen] = useState(false); // 소개글 toggle
   const { isScrapped, setIsScrapped } = useScrapStore();
   // 병원 데이터 가져오기
   const {
@@ -118,7 +117,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
       </section>
       <section className="w-[358px] mx-[16px] mt-[24px]">
         {/* 병원 기본정보 */}
-        <section>
+        <section className="my-3">
           {/* 이름&주소 & 스크랩 버튼 */}
           <div className="flex w-[358px] h-[64px] border-b-2">
             <div>
@@ -137,18 +136,18 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
             />
           </div>
           {/* 진료시간 */}
-          <div className="w-[390px] h-[90px] mt-[20px]">
-            {/* 시간에 따라 운영 여부 다르게 출력 */}
-            <section className="flex flex-row align-middle w-[230px] h-[24px]">
-              <Image
+          {/* <div className="w-[390px] h-[90px] mt-[20px]"> */}
+          {/* 시간에 따라 운영 여부 다르게 출력 */}
+          {/* <section className="flex flex-row align-middle w-[230px] h-[24px]"> */}
+          {/* <Image
                 src={timeIcon}
                 alt="진료 시간"
                 className="w-[24px] h-[24px]"
               />
               <span className="regular-14 ml-[4px] w-[160px] h-[24px] ">
                 {isHospitalOpen}
-              </span>
-              <button
+              </span> */}
+          {/* <button
                 onClick={(e) => {
                   e.preventDefault();
                   isTimeToggleOpen
@@ -157,60 +156,77 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
                 }}
               >
                 {isTimeToggleOpen ? "^" : "V"}
-              </button>
-              {/* 요일에 따라 요일&시간 다르게 출력 */}
-            </section>
-            <div>
-              {isTimeToggleOpen && (
-                <div>
-                  <p>
-                    월요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                  </p>
-                  <p>
-                    화요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                  </p>
-                  <p>
-                    수요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                  </p>
-                  <p>
-                    목요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                  </p>
-                  <p>
-                    금요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-          {/* 전화번호 */}
-          <div className="flex flex-row">
-            <Image
-              src={phoneIcon}
-              alt="전화번호"
-              className="w-[24px] h-[24px]"
-            />
-            <span>{hospitalData!.hospital_contact}</span>
-          </div>
-          {/* 소개글 */}
+              </button> */}
+          {/* 요일에 따라 요일&시간 다르게 출력 */}
+          {/* </section> */}
           <div>
-            <span>소개글</span>{" "}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                isIntroductionToggleOpen
-                  ? setIntroductionToggleOpen(false)
-                  : setIntroductionToggleOpen(true);
-              }}
-            >
-              {isIntroductionToggleOpen ? "^" : "V"}
-            </button>
-            <div>
-              {isIntroductionToggleOpen && (
-                <span>{hospitalData!.hospital_introduction}</span>
-              )}
-            </div>
+            {/* <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  isTimeToggleOpen
+                    ? setTimeToggleOpen(false)
+                    : setTimeToggleOpen(true);
+                }}
+              >
+                {isTimeToggleOpen ? "^" : "V"}
+              </button> */}
+            {/* <div> */}
+            {/* {isTimeToggleOpen && ( */}
+            <Accordion>
+              <AccordionItem
+                key="all"
+                aria-label="5"
+                title="🕑 진료 시간"
+                className="text-center my-3"
+              >
+                <p>
+                  월요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+                </p>
+                <p>
+                  화요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+                </p>
+                <p>
+                  수요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+                </p>
+                <p>
+                  목요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+                </p>
+                <p>
+                  금요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+                </p>
+              </AccordionItem>
+            </Accordion>
+            {/* )} */}
+            {/* </div> */}
           </div>
+          {/* </div> */}
+          {/* 전화번호 */}
+          <div>
+            <Accordion>
+              <AccordionItem
+                key="all"
+                aria-label="2"
+                title="📞전화번호"
+                className="text-center my-3"
+              >
+                <span>{hospitalData!.hospital_contact}</span>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* 소개글 */}
+          <Accordion>
+            <AccordionItem
+              key="all"
+              aria-label="1"
+              title="소개글"
+              className="text-center my-3"
+            >
+              <span>{hospitalData!.hospital_introduction}</span>
+            </AccordionItem>
+          </Accordion>
         </section>
+
         <Button
           type="button"
           buttonType="hollow"

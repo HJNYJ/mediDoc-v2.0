@@ -85,41 +85,42 @@ const TestResult = () => {
   // };
 
   return (
-    <>
-      <section>
+    <section>
+      <div>
         <Image
           src={ear_disease}
           alt="이미지"
-          className="w-[420px] h-[390px]  object-cover
+          className="w-full h-[390px] overflow-hidden mb-6
           "
         />
-      </section>
-      <section className="flex flex-col w-[358px] mx-[16px]">
-        <p className="w-[358px] bold-26 text-center">
+      </div>
+      <section className="flex flex-col w-full min-h-[50vh]">
+        <p className="flex flex-col text-center w-full bold-26 mb-3">
           {predictedDiseases?.map((disease, index) => (
             <div key={index}>{disease}</div>
           ))}
         </p>
-        <section className="w-[358px] mx-[16px] mt-[8px]">
-          <p className="regular-16 text-center text-gray-600">
+        <section className="w-full">
+          <p className=" regular-16 text-center text-gray-800 mb-5">
             불편하신 증상을 바탕으로 자가진단을 하는 검사입니다.
-          </p>
-          <p className="mt-[8px] mb-[230px]">
-            * 연관 있는 질환을 알려드리며 자세한 사항은
-            <br />
-            <strong>전문의와 상담하세요.</strong>
           </p>
         </section>
         {/* <button onClick={goToMapPage}>병원 보러가기</button> */}
-        <Button
-          type="button"
-          buttonType="filled"
-          label="닫기"
-          size="base"
-          onClick={() => router.push("/home")}
-        />
+        <div className="mt-auto">
+          <p className="w-full text-amber-700 regular-14 mb-2">
+            * 연관있는 질환을 알려드리며 자세한 사항은 전문의와 상담하세요.
+            <hr />
+          </p>
+          <Button
+            type="button"
+            buttonType="filled"
+            label="닫기"
+            size="base"
+            onClick={() => router.push("/home")}
+          />
+        </div>
       </section>
-    </>
+    </section>
   );
 };
 
