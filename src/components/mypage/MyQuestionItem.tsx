@@ -71,7 +71,7 @@ const MyQuestionItem = () => {
     <>
       <section>
         {myConsults.length === 0 && (
-          <p className="w-[155px] h-[19px] mx-[117.5px] mt-[185px] text-gray-400">
+          <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px]  text-gray-400">
             내가 한 질문이 없습니다.
           </p>
         )}

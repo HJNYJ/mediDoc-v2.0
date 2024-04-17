@@ -157,6 +157,19 @@ export const fetchReviewImages = async () => {
   return data;
 };
 
+export const fetchHospitalReviewImages = async (hospitalId: string) => {
+  const { data, error } = await supabase
+    .from("review_photos")
+    .select("*")
+    .eq("hospital_id", hospitalId);
+
+  if (error) {
+    throw new Error(error.message);
+    return;
+  }
+  return data;
+};
+
 // OOO
 export const fetchConsults = async () => {
   const { data, error } = await supabase.from("consult_info").select(
