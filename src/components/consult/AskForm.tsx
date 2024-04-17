@@ -1,6 +1,6 @@
 "use client";
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
 // import ConsultImages from "./ConsultImages";
 import { v4 as uuidv4 } from "uuid";
@@ -13,7 +13,6 @@ import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
 import { useRouter } from "next/navigation";
-
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -33,7 +32,12 @@ const AskForm = () => {
     }[]
   >([]);
   const router = useRouter();
-
+  /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
+  const consultId = uuidv4();
+  // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
+  // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
+  // consultInfo 테이블, consult_image 테이블에 동일한 consultId
+  console.log(consultId);
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(typeof e.target.files); // string x , object
@@ -83,14 +87,17 @@ const AskForm = () => {
       const result = await supabase.storage
         .from("images")
         .upload(`user_images/${newFileName}`, file);
-
       if (result.data) {
         const url =
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
-        console.log("url => ", url);
-        const uploadImgUrl = await uploadPhotosUrl(url.toString(), consultId);
+        // console.log("url ?????????? => ", url); // 사진 잘 나오고있음, url이 잘 나오고 있음
+        const uploadImgUrl = await uploadPhotosUrl(
+          url.toString(),
+          consultId.consultId
+        ); // consultId === null
+        // console.log("uploadImgUrl ==>? ?????", uploadImgUrl);
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
@@ -121,12 +128,6 @@ const AskForm = () => {
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
   };
-  /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
-  const consultId = uuidv4();
-  // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-  // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-  // consultInfo 테이블, consult_image 테이블에 동일한 consultId
-  console.log(consultId);
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")
@@ -185,7 +186,6 @@ const AskForm = () => {
       <div className="mt-5">
         {/* <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px] mb-5" /> */}
         <div className=""></div>
-
         <form onSubmit={(e) => e.preventDefault()} className="mt-1">
           <div>
             <p className="regular-16 text-gray-800">제목</p>
@@ -212,7 +212,6 @@ const AskForm = () => {
           <p className="text-gray-500 text-right regular-13 mb-6 mr-5">
             {contents.length} /500
           </p>
-
           <div className="mb-5">
             <label className="block mb-3 regular-14 text-gray-800">
               카테고리
@@ -238,7 +237,6 @@ const AskForm = () => {
               setSelectedTags={setSelectedTags}
             />
           </div>
-
           <div>
             {/* 이미지 컴포넌트 시작 */}
             <div>
@@ -246,7 +244,6 @@ const AskForm = () => {
                 사진
                 {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
               </p>
-
               <div>
                 {uploadedImages.map((image, idx: number) => (
                   <div key={image.dataUrl}>
@@ -261,7 +258,6 @@ const AskForm = () => {
                     <button onClick={() => handleDeleteImage(idx)}>삭제</button>
                   </div>
                 ))}
-
                 {uploadedFileUrl.length >= 3 ? (
                   <></>
                 ) : (
@@ -293,11 +289,9 @@ const AskForm = () => {
                   </label>
                 )}
               </div>
-
               {/* 이미지 컴포넌트 끝 */}
             </div>
           </div>
-
           <div className="mt-10">
             <Button
               type="button"
@@ -307,7 +301,6 @@ const AskForm = () => {
               label="물어보기"
             />
           </div>
-
           {/* <Image
             src={okBtn}
             className="w-[358px] h-[50px] mt-16"
