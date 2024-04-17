@@ -98,7 +98,7 @@ const MyPage = () => {
   }
 
   return (
-    <section className="w-[358px] mx-[16px]">
+    <section>
       <section>
         <TopNavbar title="마이페이지" />
         {userInfo.map((user) => (

@@ -26,7 +26,7 @@ export const checkConsultAnswer = async (consultId: string) => {
   return consultAnswer;
 };
 
-// consult page OOO 
+// consult page OOO
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
@@ -69,7 +69,7 @@ export const reviewAddForm = async (
   newContents: string,
   newHashTags: string[],
   newRating: number,
-  newHospitalId: string,
+  newHospitalId: string
 ) => {
   try {
     const review_id = uuidv4();
@@ -127,23 +127,23 @@ export const uploadReviewPhotosUrl = async (
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("review_photos")
-      .insert([{ photos: url, review_id: review_id, hospital_id: hospital_id }])
-      
+      .insert([
+        { photos: url, review_id: review_id, hospital_id: hospital_id }
+      ]);
 
-      if (error) {
-        console.log("url 업로드 error.... => ", error);
-        return { error };
-      }
-  
-      console.log("uploadPhotosUrl data up => ", data);
-      return { data };
-    } catch (error) {
+    if (error) {
       console.log("url 업로드 error.... => ", error);
-     
+      return { error };
     }
-  };
 
-  //OOO
+    console.log("uploadPhotosUrl data up => ", data);
+    return { data };
+  } catch (error) {
+    console.log("url 업로드 error.... => ", error);
+  }
+};
+
+//OOO
 export const fetchReviewImages = async () => {
   const { data, error } = await supabase.from("review_photos").select("*");
   if (error) {
@@ -271,7 +271,6 @@ export const courseNameSelect = async () => {
   return data;
 };
 
-
 export const getHospitalId = async () => {
   try {
     const { data } = await supabase.from("hospital_info").select("hospital_id");
@@ -301,6 +300,16 @@ export const hospitalReservation = async () => {
 
 export const hospitalRegion = async () => {
   const response = await supabase.from("hospital_region").select("*");
+  const { data } = response;
+  return data;
+};
+
+export const hospitalImage = async (hospitalId: string) => {
+  const response = await supabase
+    .from("hospital_info")
+    .select("hospital_image")
+    .eq("hospital_id", hospitalId);
+
   const { data } = response;
   return data;
 };

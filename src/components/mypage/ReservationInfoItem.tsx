@@ -157,19 +157,16 @@ const ReservationInfoItem = () => {
           </p>
         )}
       </section>
-      <section className="w-[358px] mx-[16px]">
+      <section className="mx-[16px]">
         {reservationInfo &&
           reservationInfo.map((info) => (
-            <div
-              key={info.reservation_id}
-              className="w-[358px] h-[134px] mt-[26px]"
-            >
+            <div key={info.reservation_id} className="h-[134px] mt-[26px]">
               <p className="w-[68px] h-[14px] text-[12px] text-center place-content-center font-light bg-gray-500 text-white rounded mb-[8px]">
                 {info.apply_date?.substring(0, 4)}.
                 {info.apply_date?.substring(5, 7)}.
                 {info.apply_date?.substring(8, 10)}
               </p>
-              <section className="w-[358px] h-[104px] border rounded-[10px] flex-col">
+              <section className="h-[104px] border rounded-[10px] flex-col">
                 <section className="flex mx-[16px] mt-[20.5px] mb-[12px]">
                   <p className="w-[296px] h-[19px] text-[16px] mr-[10px] font-medium">
                     예약번호: {info.reservation_id.substring(0, 7)}
@@ -182,26 +179,26 @@ const ReservationInfoItem = () => {
                     />
                   </button>
                 </section>
-                <section className="w-[82px] h-[14px] ml-[16px] mr-[8px] mb-[4px] flex">
-                  <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                <section className="w-[120px] h-[14px] ml-[16px] mb-[4px] flex">
+                  <p className="w-[48px] h-[14px] mr-[8px] text-[12px] font-medium">
                     검진자명
                   </p>
-                  <p className="w-[32px] h-[14px] text-[12px]">
+                  <p className="w-[60px] h-[14px] text-[12px] regular-12">
                     {info.subject_name}
                   </p>
                 </section>
                 <section className="w-[169px] h-[32px] ml-[16px]  flex">
-                  <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                  <p className="w-[48px] h-[14px] mr-[8px] text-[12px] font-medium">
                     예약시간
                   </p>
-                  <p className="w-[31px] h-[14px] text-[12px]">
+                  <p className="w-[60px] h-[14px] text-[12px] regular-12">
                     {info.apply_time?.substring(0, 5)}
                   </p>
                 </section>
               </section>
             </div>
           ))}
-        <section className="w-[358px] h-[393px]">
+        <section className="h-[393px]">
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
