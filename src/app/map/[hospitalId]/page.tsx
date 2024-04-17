@@ -11,6 +11,7 @@ import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
 import Notice from "@/components/map/defaultTab/Notice";
 import ProgramInfo from "@/components/map/defaultTab/ProgramInfo";
 import ReviewImageList from "@/components/map/defaultTab/ReviewImageList";
+import ReviewList from "@/components/map/defaultTab/ReviewList";
 import ReviewItem from "@/components/map/review/ReviewItem";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -93,7 +94,8 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           {/* <span>--------------</span> */}
           <Notice />
           <ReviewImageList />
-          <ReviewItem hospitalId={params.hospitalId} />
+          {/* <ReviewItem hospitalId={params.hospitalId} /> */}
+          <ReviewList reviewDetailData={undefined} />
         </>
       )}
       {selectedTab === "image" && <ReviewImageList />}
