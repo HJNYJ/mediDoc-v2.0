@@ -96,7 +96,6 @@ const ApplyPageThree = ({
   };
 
   return (
-    // mt 임시 탬
     <div>
       <div className="flex w-full py-[15px]">
         <button className="mr-auto" onClick={() => backHandlerClick()}>
