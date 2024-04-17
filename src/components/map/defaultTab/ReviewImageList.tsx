@@ -20,8 +20,8 @@ const ReviewImageList = () => {
   if (isError) return <p>Error!</p>;
 
   return (
-    <section>
-      <h3>방문자 사진</h3>
+    <section className="mt-5">
+      <h3 className="bold-18 mb-3">방문자 사진</h3>
       <article className="inline-grid grid-cols-3 gap-2">
         {reviewPhotos?.map((img, index) => (
           <img
@@ -32,12 +32,13 @@ const ReviewImageList = () => {
           />
         ))}
       </article>
-      <div>
+      <div className="mt-3 flex flex-col align-items justify-center">
         <button
           onClick={(e) => {
             e.preventDefault();
             selectTab("image");
           }}
+          className="border border-gray-300 text-gray-800 w-[358px] h-[50px] rounded-lg"
         >
           전체보기
         </button>
