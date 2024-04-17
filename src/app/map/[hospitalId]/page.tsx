@@ -1,11 +1,12 @@
 "use client";
 
 import {
-  fetchReviewImages,
+  fetchHospitalReviewImages,
   getHospitalImages,
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";
+import Button from "@/components/layout/Buttons";
 import Tab from "@/components/layout/Tabs";
 import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
@@ -18,7 +19,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
-  // console.log("params ===> ", params.hospitalId);
   const [selectedTab, setSelectedTab] = useState("default");
   const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
     queryKey: ["reviewDetailList", params.hospitalId],
@@ -54,7 +54,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     isError
   } = useQuery({
     queryKey: ["reviewFetchPhotos"],
-    queryFn: fetchReviewImages
+    queryFn: () => fetchHospitalReviewImages(params.hospitalId)
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -100,17 +100,17 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                 />
               ))}
           </article>
-
           <div className="mt-3 flex flex-col align-items">
-            <button
+            <Button
+              type="button"
+              buttonType="hollow"
+              size="base"
+              label="전체보기"
               onClick={(e) => {
                 e.preventDefault();
                 setSelectedTab("image");
               }}
-              className="border border-gray-300 text-gray-800 w-[358px] h-[50px] mt-3 rounded-lg"
-            >
-              전체보기
-            </button>
+            />
           </div>
 
           {/* <ReviewItem hospitalId={params.hospitalId} /> */}

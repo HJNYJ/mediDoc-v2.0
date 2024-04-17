@@ -153,7 +153,7 @@ const ReservationInfoItem = () => {
     <>
       <section>
         {reservationInfo.length === 0 && (
-          <p className="w-full h-[19px] mx-[110px] mt-[185px] text-[16px]  text-gray-400">
+          <p className="w-full h-[19px] mx-[110px] mt-[185px] text-[16px] text-gray-400">
             예약된 내역이 없습니다.
           </p>
         )}
