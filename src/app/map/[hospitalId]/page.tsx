@@ -95,7 +95,10 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           <Notice />
           <ReviewImageList />
           {/* <ReviewItem hospitalId={params.hospitalId} /> */}
-          <ReviewList reviewDetailData={undefined} />
+          <ReviewList
+            reviewDetailData={reviewDetailData}
+            hospitalId={params.hospitalId}
+          />
         </>
       )}
       {selectedTab === "image" && <ReviewImageList />}
