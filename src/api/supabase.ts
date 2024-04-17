@@ -81,7 +81,7 @@ export const consultAddForm = async (
 //         rating: newRating,
 //         hospital_id: newHospitalId
 //       }
-//     ]); 보연님네네
+//     ]); 
 
 //     console.log("저장했음!!!~", review_id);
 //     return review_id;
