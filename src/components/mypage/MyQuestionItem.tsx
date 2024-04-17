@@ -14,7 +14,7 @@ const MyQuestionItem = () => {
       try {
         // 내가 한 질문을 가져오기
         const consults = await getMyConsultData();
-        console.log("내가 한 질문", consults);
+        // console.log("내가 한 질문", consults);
 
         // 각 질문의 답변 상태를 확인하기
         for (const consult of consults) {
@@ -22,7 +22,7 @@ const MyQuestionItem = () => {
           consult.answerStatus = consultAnswer;
         }
 
-        console.log("답변 consults????", consults);
+        // console.log("답변 consults????", consults);
         setMyConsults(consults || []);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
