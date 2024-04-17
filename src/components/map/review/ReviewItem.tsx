@@ -2,13 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import ReviewRecent from "./ReviewRecent";
-import ReviewForm from "./ReviewForm";
+// import ReviewForm from "./ReviewForm";
 
 const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
+  console.log("reviewItem hospitalId", hospitalId);
 
   const goToReviewForm = (hospitalId: string) => {
-    console.log("hospitalId", hospitalId);
+    console.log("go to review form hospitalId", hospitalId);
     router.push(`/map/${hospitalId}/review`);
   };
 

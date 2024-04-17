@@ -1,6 +1,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 import type { Database } from "@/types/supabase";
 import { v4 as uuidv4 } from "uuid";
+import { getUserInfo } from "@/utils/getUserInfo";
 
 // 필요한 부분은 언제든 꺼내 쓸 수 있게
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -27,35 +28,34 @@ export const supabase = createBrowserClient<Database>(
 // };
 
 // consult page OOO
+// consult page OOO
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
   newBodyParts: string,
-  newHashTags: string[]
-  // newUID: string // uuid
-
-  // uploadedFileUrl: string[]
+  newHashTags: string[],
+  userName: string,
+  userEmail: string
 ) => {
   try {
-    // 실시간 상담 정보 저장 , 저장한 UUID 를 돌려주고,
-
-    const consult_id = uuidv4();
+    const consultId = uuidv4();
+    const userData = await getUserInfo();
+    const userId = userData?.userId;
+    const userEmail = userData?.userEmail;
     await supabase.from("consult_info").insert([
       {
-        consult_id,
+        consult_id: consultId,
         consult_title: newTitle,
         consult_content: newContents,
         bodyparts: newBodyParts,
-        hashtags: newHashTags
-
-        // consult_photos: newConsultPhotos
+        hashtags: newHashTags,
+        user_name: userName,
+        user_email: userEmail
       }
     ]);
 
-    console.log("저장했음!!!~", consult_id);
-    // await uploadPhotosUrl();
-    return consult_id;
-    //
+    console.log("저장했음!!!~", userId);
+    return { consultId, userId, userEmail };
   } catch (error) {
     if (error) {
       console.error("consultAddForm error", error);
@@ -64,7 +64,7 @@ export const consultAddForm = async (
   }
 };
 
-// review page OOO => 현재 안 쓰고 있음.
+// review page OOO
 // export const reviewAddForm = async (
 //   newContents: string,
 //   newHashTags: string[],
@@ -88,7 +88,7 @@ export const consultAddForm = async (
 //   } catch (error) {
 //     if (error) {
 //       console.error("reviewAddForm error", error);
-//       return;
+//       return null;
 //     }
 //   }
 // };
@@ -139,6 +139,15 @@ export const uploadReviewPhotosUrl = async (
   } catch (error) {
     console.log("url 업로드 error.... => ", error);
   }
+};
+
+export const fetchImages = async () => {
+  const { data, error } = await supabase.from("consult_photos").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+  return data;
 };
 
 //OOO fetchImages가 fetchReviewImages로 바뀜
