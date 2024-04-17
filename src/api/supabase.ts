@@ -96,12 +96,8 @@ export const consultAddForm = async (
 // url string 업로드하기 이거 되는 코드 OOO
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {
-    // const consultId = await getConsultId();
     console.log("consult_id ===>", consult_id); //모든 consultId를 가져옴
 
-    // const consultIdString = consultId?.map((item) => item.consult_id);
-    // console.log("consultIdString", consultIdString?.[0]);
-    // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
