@@ -153,12 +153,12 @@ const ReservationInfoItem = () => {
     <>
       <section>
         {reservationInfo.length === 0 && (
-          <p className="w-[160px] h-[19px] mx-[110px] mt-[185px] text-[16px]  text-gray-400">
+          <p className="w-full h-[19px] mx-[110px] mt-[185px] text-[16px]  text-gray-400">
             예약된 내역이 없습니다.
           </p>
         )}
       </section>
-      <section className="mx-[16px]">
+      <section>
         {reservationInfo &&
           reservationInfo.map((info) => (
             <div key={info.reservation_id} className="h-[134px] mt-[26px]">
@@ -168,8 +168,8 @@ const ReservationInfoItem = () => {
                 {info.apply_date?.substring(8, 10)}
               </p>
               <section className="h-[104px] border rounded-[10px] flex-col">
-                <section className="flex mx-[16px] mt-[20.5px] mb-[12px]">
-                  <p className="w-[296px] h-[19px] text-[16px] mr-[10px] font-medium">
+                <section className="flex m-4 mb-[12px] justify-between">
+                  <p className="w-[296px] h-[19px] text-[16px] font-medium">
                     예약번호: {info.reservation_id.substring(0, 7)}
                   </p>
                   <button onClick={() => handleDetailButtonClick(info)}>
@@ -185,7 +185,7 @@ const ReservationInfoItem = () => {
                     검진자명
                   </p>
                   <p className="w-[60px] h-[14px] text-[12px] regular-12">
-                    {info.subject_name}
+                    {info.subject_name} 님
                   </p>
                 </section>
                 <section className="w-[169px] h-[32px] ml-[16px]  flex">
@@ -263,7 +263,7 @@ const ReservationInfoItem = () => {
                     <span className="w-[66px] mr-[50px] tracking-[-1px]">
                       검진자명
                     </span>
-                    <span>{selectedReservation.subject_name}</span>
+                    <span>{selectedReservation.subject_name} 님</span>
                   </div>
                   <hr className="border-solid border-gray border-1 mb-3" />
                   <div className="flex flex-row mb-3 items-center">

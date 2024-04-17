@@ -67,32 +67,32 @@ const Symptoms = () => {
 
   return (
     <section className="w-full py-[15px]">
-      <div className="flex mb-[30px]">
+      <div className="flex mb-10">
         <YellowBarMg />
         <YellowBarMg />
         <YellowBarMg />
         <YellowBar />
       </div>
       <section className="flex flex-col">
-        <p className="w-full h-[36px] mt-[54px] mb-8 bold-26">
+        <p className="w-full h-[36px] mb-8 bold-26">
           해당하는 증상을 선택해 주세요.
         </p>
-        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[21px] mb-7 medium-18 text-gray-400">
           복수 선택이 가능합니다.
         </p>
       </section>
-      <section className="mt-[17px]">
+      <section>
         {symptoms &&
           symptoms.map((symptom) => (
             <div
               key={symptom.symptom_id}
-              className={`flex items-center justify-between w-[358px] h-[55px] border-2 rounded-[8px] mb-[16px] relative
+              className={`flex items-center justify-between w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative
               ${selectedSymptoms.includes(symptom.symptom_id) ? "border-orange" : "border-bluegray"}
               `}
             >
               <label
                 htmlFor={`checkbox-${symptom.symptom_id}`}
-                className="flex items-center w-[292px] h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+                className="flex items-center h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
               >
                 {symptom.symptoms}
               </label>

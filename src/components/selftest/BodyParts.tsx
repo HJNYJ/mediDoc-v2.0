@@ -33,25 +33,23 @@ const BodyParts: React.FC<BodyPartsProps> = ({ department, onSelect }) => {
         <YellowBarMg />
         <GrayBar />
       </div>
-      <section className="flex flex-col">
-        <p className="w-full h-[36px] mt-[54px] bold-26">
-          어디가 불편하신가요?
-        </p>
-        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
+      <section className="flex flex-col mb-[54px]">
+        <p className="w-full h-[36px] mb-5 bold-26">어디가 불편하신가요?</p>
+        <p className="w-full h-[21px] medium-18 text-gray-400">
           지금 불편한 신체 부위를 선택해 주세요.
         </p>
       </section>
       <section>
-        <section className="mt-[17px]">
+        <section>
           {bodyParts[department].map((part, index) => (
             <div
               key={index}
-              className={`flex items-center w-[358px] h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedBodyPart === part ? "border-orange" : "border-bluegray"}`}
+              className={`flex items-center w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedBodyPart === part ? "border-orange" : "border-bluegray"}`}
               onClick={() => onSelectBodyPart(part)}
             >
               <label
                 htmlFor={`checkbox-${index}`}
-                className="flex items-center w-[292px] h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+                className="flex items-center w-full h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
               >
                 {part}
               </label>
