@@ -1,7 +1,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 import type { Database } from "@/types/supabase";
 import { v4 as uuidv4 } from "uuid";
-import { getUserIdwithEmail } from "@/utils/getUserIdWithEmail";
+import { getUserInfo } from "@/utils/getUserInfo";
 
 // 필요한 부분은 언제든 꺼내 쓸 수 있게
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -34,12 +34,12 @@ export const consultAddForm = async (
   newContents: string,
   newBodyParts: string,
   newHashTags: string[],
-  userId: string,
+  userName: string,
   userEmail: string
 ) => {
   try {
     const consultId = uuidv4();
-    const userData = await getUserIdwithEmail();
+    const userData = await getUserInfo();
     const userId = userData?.userId;
     const userEmail = userData?.userEmail;
     await supabase.from("consult_info").insert([
@@ -49,7 +49,7 @@ export const consultAddForm = async (
         consult_content: newContents,
         bodyparts: newBodyParts,
         hashtags: newHashTags,
-        user_id: userId,
+        user_name: userName,
         user_email: userEmail
       }
     ]);
@@ -127,9 +127,6 @@ export const uploadReviewPhotosUrl = async (
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("review_photos")
-      .insert([
-        { photos: url, review_id: review_id, hospital_id: hospital_id }
-      ]);
       .insert([
         { photos: url, review_id: review_id, hospital_id: hospital_id }
       ]);

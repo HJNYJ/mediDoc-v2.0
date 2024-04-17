@@ -16,7 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
-  console.log("params ===> ", params.hospitalId);
+  // console.log("params ===> ", params.hospitalId);
   const [selectedTab, setSelectedTab] = useState("default");
   const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
     queryKey: ["reviewDetail", params.hospitalId],

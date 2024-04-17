@@ -6,12 +6,13 @@ import HashTags from "./HashTags";
 import { v4 as uuidv4 } from "uuid";
 // import searchbar from "@/assets/icons/consult/searchbar.png";
 // import okBtn from "@/assets/icons/consult/okBtn.png";
-import { getUserIdwithEmail } from "@/utils/getUserIdWithEmail";
+import { getUserInfo } from "@/utils/getUserInfo";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
+import { useRouter } from "next/navigation";
 
 const AskForm = () => {
   const [title, setTitle] = useState("");
@@ -31,15 +32,7 @@ const AskForm = () => {
       dataUrl: string;
     }[]
   >([]);
-
-  // useEffect(() => {
-  //   const fetchUserInfo = async () => {
-  //     const userData = await getUserIdwithEmail();
-  //     setUserId(userData?.userId);
-  //     setUserEmail(userData?.userEmail);
-  //   };
-  //   fetchUserInfo();
-  // }, []);
+  const router = useRouter();
 
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,15 +157,15 @@ const AskForm = () => {
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
   const handleSubmit = async () => {
-    const userData = await getUserIdwithEmail();
-    const userId = userData?.userId;
+    const userData = await getUserInfo();
+    const userName = userData?.userName;
     const userEmail = userData?.userEmail;
     const data = await consultAddForm(
       title,
       contents,
       bodyparts,
       selectedTags,
-      userId,
+      userName,
       userEmail
       // consultId: uuid
       // 이미지 URL 추가
@@ -182,6 +175,8 @@ const AskForm = () => {
     handleFiles(data); // data >> consultId
     if (data) {
       console.log("AskForm 추가 성공", data!);
+      alert("글 작성이 완료됐습니다.");
+      router.push("/consult");
     }
   };
   return (

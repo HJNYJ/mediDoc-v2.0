@@ -17,7 +17,7 @@ import {
   addScrappedList,
   removeScrappedList
 } from "@/utils/changeScrappedList";
-import { getUserIdwithEmail } from "@/utils/getUserIdWithEmail";
+import { getUserInfo } from "@/utils/getUserInfo";
 import useScrapStore from "@/shared/zustand/scrapStore";
 import { supabase } from "@/api/supabase";
 
@@ -39,7 +39,8 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   useEffect(() => {
     const fetchScrappedStatus = async () => {
       const hospitalId = params.hospitalId;
-      const userId = await getUserIdwithEmail();
+      const userData = await getUserInfo();
+      const userId = userData?.userId;
 
       try {
         const { data: scrappedData, error } = await supabase
@@ -76,7 +77,8 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   );
   const handleScrapClick = async () => {
     const hospitalId = params.hospitalId;
-    const userId = await getUserIdwithEmail();
+    const userInfo = await getUserInfo();
+    const userId = userInfo?.userId;
 
     if (!userId) {
       console.error("유저 ID를 가져오지 못 했습니다.");
