@@ -6,6 +6,8 @@ import HospitalListView from "@/components/home/HospitalListView";
 import React from "react";
 import MainPageReview from "@/components/home/MainPageReview";
 import SelfTestWidget from "@/components/home/SelfTestWidget";
+import HomeConsultList from "@/components/home/consult/HomeConsultList";
+import HomeConsultItem from "@/components/home/consult/HomeConsultItem";
 
 const HomePage = () => {
   return (
@@ -13,6 +15,8 @@ const HomePage = () => {
       <HospitalListView />
       <FindHospital />
       <MainPageReview />
+      <HomeConsultList />
+      <HomeConsultItem />
       <SelfTestWidget />
     </div>
   );

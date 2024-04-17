@@ -29,12 +29,14 @@ const AskForm = () => {
     }[]
   >([]);
   const router = useRouter();
+
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
   const consultId = uuidv4();
   // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
   // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
   // consultInfo 테이블, consult_image 테이블에 동일한 consultId
   console.log(consultId);
+
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(typeof e.target.files); // string x , object
@@ -94,7 +96,7 @@ const AskForm = () => {
           url.toString(),
           consultId.consultId
         ); // consultId === null
-        // console.log("uploadImgUrl ==>? ?????", uploadImgUrl);
+
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
         }
@@ -125,6 +127,7 @@ const AskForm = () => {
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
   };
+
   const fetchHashtags = async (selectedCategory: string) => {
     const { data, error } = await supabase
       .from("consult_test")

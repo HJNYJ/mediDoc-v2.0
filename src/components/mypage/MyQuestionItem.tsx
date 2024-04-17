@@ -10,19 +10,19 @@ const MyQuestionItem = () => {
   const [myConsults, setMyConsults] = useState([]);
 
   useEffect(() => {
-    // 일반 유저일 경우
     const fetchMyConsults = async () => {
       try {
         // 내가 한 질문을 가져오기
         const consults = await getMyConsultData();
+        // console.log("내가 한 질문", consults);
 
         // 각 질문의 답변 상태를 확인하기
         for (const consult of consults) {
           const consultAnswer = await checkConsultAnswer(consult.consult_id);
-          consult.answerStatus = consultAnswer ? "답변 완료" : "답변 대기";
+          consult.answerStatus = consultAnswer;
         }
 
-        console.log("consults", consults);
+        // console.log("답변 consults????", consults);
         setMyConsults(consults || []);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
@@ -32,21 +32,38 @@ const MyQuestionItem = () => {
     fetchMyConsults();
   }, []);
 
-  // 각 질문의 답변 상태를 확인하는 함수
-  const checkConsultAnswer = async (consultId) => {
+  const checkConsultAnswer = async (consultId: string) => {
     try {
-      const { data, error } = await supabase
-        .from("consult_answer")
-        .select("*")
+      const { data: checkConsultAnswer, error } = await supabase
+        .from("consult_info")
+        .select(
+          `consult_id, 
+           user_name, 
+           consult_title, 
+           consult_content,
+           bodyparts, 
+           hashtags,
+           consult_answer(*)
+          `
+        )
         .eq("consult_id", consultId);
+
       if (error) throw new Error(error.message);
-      if (data) {
-        return true;
+
+      if (checkConsultAnswer && checkConsultAnswer.length > 0) {
+        // 답변이 있는 경우
+        if (checkConsultAnswer[0].consult_answer.length > 0) {
+          return "답변 완료";
+        } else {
+          // 답변이 없는 경우
+          return "답변 대기 중";
+        }
       } else {
-        return false;
+        return "답변 정보 없음";
       }
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
+      return "오류 발생";
     }
   };
 

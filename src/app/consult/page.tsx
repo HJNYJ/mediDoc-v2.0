@@ -2,11 +2,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { checkConsultAnswer, fetchConsults, fetchImages } from "@/api/supabase";
+import { fetchConsults, fetchImages } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
 import Hashtag from "@/utils/hashtag";
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import addIcon from "@/assets/icons/consult/add.png";
 
@@ -18,7 +17,7 @@ import AnswerWaiting from "@/components/layout/AnswerWaiting";
 const ConsultPage = () => {
   const router = useRouter();
   const [consultsData, setConsultsData] = useState([]);
-  console.log("consultsData ---------> ", consultsData);
+  console.log("consultsData ---------> ????", consultsData);
   const [consultPhotos, setConsultPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +26,7 @@ const ConsultPage = () => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
       const consultsData = await fetchConsults();
-      console.log("데이터 확인임~~~", consultsData);
+      // console.log("데이터 확인임~~~", consultsData);
       setConsultsData(consultsData);
       setIsLoading(false);
     };
@@ -106,7 +105,8 @@ const ConsultPage = () => {
                     <Hashtag key={hashtag} hashtag={hashtag} />
                   ))}
               </div>
-              {consult.consult_answer.length ? (
+              {consult?.consult_answer &&
+              consult?.consult_answer?.length > 0 ? (
                 <AnswerComplete />
               ) : (
                 <AnswerWaiting />
