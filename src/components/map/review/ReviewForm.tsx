@@ -1,25 +1,23 @@
-"use client";
-
-import { reviewAddForm, supabase, uploadReviewPhotosUrl } from "@/api/supabase";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
+import { supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import review_searchbar from "@/assets/icons/review/review_searchbar.png";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
-import review_okBtn from "@/assets/icons/review/review_okBtn.png";
+// import review_okBtn from "@/assets/icons/review/review_okBtn.png";
+import Button from "@/components/layout/Buttons";
 
-const ReviewForm = (hospitalId: { hospitalId: string }) => {
+interface ReviewFormProps {
+  hospitalId: string;
+}
+
+const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number>(0); // 별점 관리
   const [img, setImg] = useState<File[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
-  const [hashtags, setHashtags] = useState({}); // 해시태그 저장
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
   const [uploadedImages, setUploadedImages] = useState<
     {
       name: string;
@@ -27,9 +25,10 @@ const ReviewForm = (hospitalId: { hospitalId: string }) => {
       dataUrl: string;
     }[]
   >([]);
-
-  const reviewId = uuidv4();
-  console.log("reviewId!! ==> ", reviewId);
+  const [files, setFiles] = useState<File[]>([]);
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
+  const [hashtags, setHashtags] = useState({}); // 해시태그 저장
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchHashtags = async () => {
@@ -149,12 +148,43 @@ const ReviewForm = (hospitalId: { hospitalId: string }) => {
   };
 
   const handleSubmit = async () => {
-    const selectedTagsArray: string[] = Array.from(selectedTags).map(String); // Convert selectedtags to string array
-    const data = await reviewAddForm(content, selectedTagsArray, rating);
-    console.log("이 데이터 잘 들어가졌나.. => ", data);
-    handleFiles(data); // data == reviewId
-    if (data) {
+    try {
+      const reviewId = uuidv4(); // 새로운 리뷰 ID 생성
+      const selectedTagsArray: string[] = Array.from(selectedTags).map(String); // Convert selectedtags to string array
+
+      // Supabase에 리뷰 정보 삽입
+      const data = await supabase.from("review_info").insert([
+        {
+          review_id: reviewId,
+          content: content,
+          rating: rating,
+          hashtags: selectedTagsArray,
+          hospital_id: hospitalId
+        }
+      ]);
+      handleFiles(data);
+
+      // 리뷰 이미지 업로드
+      for (const image of img) {
+        const newFileName = `${uuidv4()}`;
+        const result = await supabase.storage
+          .from("images")
+          .upload(`review_images/${newFileName}`, image);
+
+        if (result.data) {
+          const imageUrl =
+            process.env.NEXT_PUBLIC_SUPABASE_URL +
+            "/storage/v1/object/public/images/" +
+            result.data.path;
+
+          // 리뷰 이미지 URL과 리뷰 ID를 이용하여 데이터베이스에 저장
+          await uploadReviewPhotosUrl(imageUrl, reviewId, hospitalId);
+        }
+      }
+
       alert("리뷰가 등록되었습니다.");
+    } catch (error) {
+      console.error("리뷰 데이터 저장 중 오류 발생:", error);
     }
   };
 
@@ -246,14 +276,22 @@ const ReviewForm = (hospitalId: { hospitalId: string }) => {
             setSelectedTags={setSelectedTags}
           />
         </div>
-
-        <button type="button" onClick={handleSubmit} className="mt-8">
+        <div className="mt-16">
+          <Button
+            type="submit"
+            buttonType="filled"
+            size="base"
+            onClick={handleSubmit}
+            label="등록하기"
+          />
+        </div>
+        {/* <button type="button" onClick={handleSubmit} className="mt-8">
           <Image
             src={review_okBtn}
             className="w-[358px] h-[50px] mt-10"
             alt="등록하기"
           />
-        </button>
+        </button> */}
       </form>
     </div>
   );
