@@ -153,7 +153,6 @@ const Calendar = () => {
                         }}
                         className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
-                        {/* <div className={`w-36 h-20 ${isTrue ? '참일때' : '구라일때'}`}></div> */}
                         {cell.date.getDate()}
                       </td>
                     );
