@@ -37,22 +37,22 @@ const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
       </div>
       <section>
         <p className="w-full h-[36px] mt-[54px] bold-26">과를 선택해주세요</p>
-        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400">
+        <p className="w-full h-[21px] mt-[20px] medium-18 text-gray-400 mb-8">
           진단받고 싶은 과를 선택해주세요.
         </p>
       </section>
       <section>
-        <section className="flex flex-col mt-[17px]">
+        <section className="flex flex-col items-center">
           {["이비인후과", "내과", "외과", "치과", "안과"].map(
             (department, index) => (
               <div
                 key={index}
-                className={`flex items-center w-[358px] h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedDepartment === department ? "border-orange" : "border-bluegray"}`}
+                className={`flex items-center w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedDepartment === department ? "border-orange" : "border-bluegray"}`}
                 onClick={() => handleDepartmentSelect(department)}
               >
                 <label
                   htmlFor={`checkbox-${index}`}
-                  className="flex items-center w-[292px] h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+                  className="flex items-center w-full h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
                 >
                   {department}
                 </label>

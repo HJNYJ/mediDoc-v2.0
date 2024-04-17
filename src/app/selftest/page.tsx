@@ -46,8 +46,8 @@ const SelftestPage = () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-row justify-between w-[358px] mt-[44px]">
+    <div className="flex flex-col min-h-[90vh]">
+      <div className="flex flex-row py-[15px] justify-between w-full">
         <button onClick={goToPreviousPage}>
           <PagebackBtn />
         </button>
@@ -65,13 +65,15 @@ const SelftestPage = () => {
       )}
       {step === 3 && <Symptoms />}
       {step < 3 && (
-        <Button
-          type="button"
-          buttonType="filled"
-          size="base"
-          label="다음"
-          onClick={goToNextPage}
-        />
+        <div className="mb-4 mt-auto">
+          <Button
+            type="button"
+            buttonType="filled"
+            size="base"
+            label="다음"
+            onClick={goToNextPage}
+          />
+        </div>
       )}
     </div>
   );
