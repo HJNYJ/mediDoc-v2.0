@@ -39,7 +39,7 @@ const ScrappedList = () => {
     <>
       <section>
         {scrappedList.length === 0 && (
-          <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px]  text-gray-400">
+          <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
             스크랩한 병원이 없습니다.
           </p>
         )}

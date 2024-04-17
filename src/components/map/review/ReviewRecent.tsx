@@ -5,6 +5,7 @@ import { supabase } from "@/api/supabase";
 import { useState } from "react";
 import Hashtag from "@/utils/hashtag";
 import { useParams } from "next/navigation";
+import RoundTabs from "@/components/layout/RoundTabs";
 
 const ReviewRecent = () => {
   const { hospitalId } = useParams();
@@ -61,55 +62,55 @@ const ReviewRecent = () => {
   if (isErrorRateTop || isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div>
-      <button
-        className={selectedTab === "rateTop" ? "activeTab" : ""}
-        onClick={() => setSelectedTab("rateTop")}
-      >
-        별점 높은 순
-      </button>
-      <button
-        className={selectedTab === "recent" ? "activeTab" : ""}
-        onClick={() => setSelectedTab("recent")}
-      >
-        최신순
-      </button>
-
-      {selectedTab === "rateTop" && (
-        <div>
-          {reviewRateTopData?.map((review) => (
-            <div key={review.review_id}>
-              <h3>{review.content}</h3>
-              <p>별점: {review.rating}</p>
-              <div>
-                {review.hashtags
-                  ?.split(",")
-                  .map((hashtag: string) => (
-                    <Hashtag key={hashtag} hashtag={hashtag} />
-                  ))}
+    <div className="mt-[20px]">
+      <div className="flex mb-[16px]">
+        <RoundTabs
+          label="별점 높은 순"
+          active={selectedTab === "rateTop"}
+          onClick={() => setSelectedTab("rateTop")}
+        />
+        <RoundTabs
+          label="최신 순"
+          active={selectedTab === "recent"}
+          onClick={() => setSelectedTab("recent")}
+        />
+      </div>
+      <section>
+        {selectedTab === "rateTop" && (
+          <div>
+            {reviewRateTopData?.map((review) => (
+              <div key={review.review_id}>
+                <h3>{review.content}</h3>
+                <p>별점: {review.rating}</p>
+                <div>
+                  {review.hashtags
+                    ?.split(",")
+                    .map((hashtag: string) => (
+                      <Hashtag key={hashtag} hashtag={hashtag} />
+                    ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-      <br />
-      {selectedTab === "recent" && (
-        <div>
-          {reviewRecentData?.map((review) => (
-            <div key={review.review_id}>
-              <h3>{review.content}</h3>
-              <p>별점: {review.rating}</p>
-              <div>
-                {review.hashtags
-                  ?.split(",")
-                  .map((hashtag: string) => (
-                    <Hashtag key={hashtag} hashtag={hashtag} />
-                  ))}
+            ))}
+          </div>
+        )}
+        {selectedTab === "recent" && (
+          <div>
+            {reviewRecentData?.map((review) => (
+              <div key={review.review_id}>
+                <h3>{review.content}</h3>
+                <p>별점: {review.rating}</p>
+                <div>
+                  {review.hashtags
+                    ?.split(",")
+                    .map((hashtag: string) => (
+                      <Hashtag key={hashtag} hashtag={hashtag} />
+                    ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 };

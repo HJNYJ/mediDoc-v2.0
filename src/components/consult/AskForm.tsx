@@ -2,10 +2,7 @@
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
-// import ConsultImages from "./ConsultImages";
 import { v4 as uuidv4 } from "uuid";
-// import searchbar from "@/assets/icons/consult/searchbar.png";
-// import okBtn from "@/assets/icons/consult/okBtn.png";
 import { getUserInfo } from "@/utils/getUserInfo";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
