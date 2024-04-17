@@ -17,6 +17,7 @@ import answer_wait from "@/assets/icons/consult/answer_wait.png";
 const ConsultPage = () => {
   const router = useRouter();
   const [consultsData, setConsultsData] = useState([]);
+  console.log("consultsData ---------> ", consultsData);
   const [consultPhotos, setConsultPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,6 +26,7 @@ const ConsultPage = () => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
       const consultsData = await fetchConsults();
+      console.log("데이터 확인임~~~", consultsData);
       setConsultsData(consultsData);
       setIsLoading(false);
     };
@@ -39,11 +41,6 @@ const ConsultPage = () => {
     fetchConsultsData();
     fetchConsultPhotos();
   }, []);
-
-  const { data: checkAnswerData } = useQuery({
-    queryKey: ["answerDetail"],
-    queryFn: checkConsultAnswer
-  });
 
   if (isLoading) return <p>Loading consults..!!</p>;
   if (error) return <p>error : {error}</p>;
@@ -103,7 +100,7 @@ const ConsultPage = () => {
                   ))}
               </div>
 
-              {checkAnswerData && checkAnswerData[consult.consult_id] ? (
+              {consult.consult_answer.length ? (
                 <Image src={answer_complete} alt="답변 완료" />
               ) : (
                 <Image src={answer_wait} alt="답변 대기" />
