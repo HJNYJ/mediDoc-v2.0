@@ -8,7 +8,7 @@ const ProgramInfo = () => {
   const [isVIPToggled, setVIPToggled] = useState(false);
   const [isVVIPToggled, setVVIPToggled] = useState(false);
   return (
-    <section className="w-[390px]">
+    <section className="w-[390px] justify-center">
       {/* 베이직 */}
       <div>
         <div className="flex justify-between w-[358px]">

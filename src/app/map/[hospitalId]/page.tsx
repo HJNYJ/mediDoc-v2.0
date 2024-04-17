@@ -50,7 +50,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     <main className="w-[390px] h-[2398px]">
       <TopNavbar />
       <HospitalInfoHeader params={params} />
-      <nav className="w-[390px] flex mt-[26px] border-t-4">
+      <nav className="w-[390px] flex justify-center py-2 mt-[26px] border-t-4">
         <Tab
           label="기본정보"
           active={selectedTab === "default"}
@@ -90,8 +90,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       {selectedTab === "default" && (
         <>
           <ProgramInfo />
-          <span>--------------</span>
+          {/* <span>--------------</span> */}
           <Notice />
+          <ReviewImageList />
         </>
       )}
       {selectedTab === "image" && <ReviewImageList />}
