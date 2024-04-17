@@ -18,7 +18,7 @@ const TopNavbar = ({ title, goToPreviousPage }: TopNavbarProps) => {
   };
 
   return (
-    <section className="flex flex-row w-[371px] h-[50px] mt-[44px] items-center justify-between z-50">
+    <section className="flex flex-row h-[50px] items-center justify-between z-50">
       <button
         onClick={goTopHomePage}
         className="flex items-center w-[24px] h-[24px]"

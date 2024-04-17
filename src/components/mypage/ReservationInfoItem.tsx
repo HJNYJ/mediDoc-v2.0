@@ -14,6 +14,7 @@ import reservationDate from "@/assets/icons/modal/date.png";
 import subjectName from "@/assets/icons/modal/subject_name.png";
 import reservationStatus from "@/assets/icons/modal/status.png";
 import course from "@/assets/icons/modal/course.png";
+import PageCancel from "../layout/PageCancel";
 
 const ReservationInfoItem = () => {
   const [reservationInfo, setReservationInfo] = useState<ReservationInfo[]>([]);
@@ -157,19 +158,16 @@ const ReservationInfoItem = () => {
           </p>
         )}
       </section>
-      <section className="w-[358px] mx-[16px]">
+      <section className="mx-[16px]">
         {reservationInfo &&
           reservationInfo.map((info) => (
-            <div
-              key={info.reservation_id}
-              className="w-[358px] h-[134px] mt-[26px]"
-            >
+            <div key={info.reservation_id} className="h-[134px] mt-[26px]">
               <p className="w-[68px] h-[14px] text-[12px] text-center place-content-center font-light bg-gray-500 text-white rounded mb-[8px]">
                 {info.apply_date?.substring(0, 4)}.
                 {info.apply_date?.substring(5, 7)}.
                 {info.apply_date?.substring(8, 10)}
               </p>
-              <section className="w-[358px] h-[104px] border rounded-[10px] flex-col">
+              <section className="h-[104px] border rounded-[10px] flex-col">
                 <section className="flex mx-[16px] mt-[20.5px] mb-[12px]">
                   <p className="w-[296px] h-[19px] text-[16px] mr-[10px] font-medium">
                     예약번호: {info.reservation_id.substring(0, 7)}
@@ -182,110 +180,122 @@ const ReservationInfoItem = () => {
                     />
                   </button>
                 </section>
-                <section className="w-[82px] h-[14px] ml-[16px] mr-[8px] mb-[4px] flex">
-                  <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                <section className="w-[120px] h-[14px] ml-[16px] mb-[4px] flex">
+                  <p className="w-[48px] h-[14px] mr-[8px] text-[12px] font-medium">
                     검진자명
                   </p>
-                  <p className="w-[32px] h-[14px] text-[12px]">
+                  <p className="w-[60px] h-[14px] text-[12px] regular-12">
                     {info.subject_name}
                   </p>
                 </section>
                 <section className="w-[169px] h-[32px] ml-[16px]  flex">
-                  <p className="w-[42px] h-[14px] mr-[8px] text-[12px] font-medium">
+                  <p className="w-[48px] h-[14px] mr-[8px] text-[12px] font-medium">
                     예약시간
                   </p>
-                  <p className="w-[31px] h-[14px] text-[12px]">
+                  <p className="w-[60px] h-[14px] text-[12px] regular-12">
                     {info.apply_time?.substring(0, 5)}
                   </p>
                 </section>
               </section>
             </div>
           ))}
-        <section className="w-[358px] h-[393px]">
+        <section className="h-[393px]">
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="w-[358px] h-[393px] bg-white rounded-[10px] p-12 z-10 relative">
+              <div className="total_margin h-[393px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
-                  className="absolute top-[16px] right-[16px] cursor-pointer"
+                  className="cursor-pointer ml-auto"
                   onClick={handleModalClose}
                 >
-                  <Image
-                    src={closeIcon}
-                    alt="close button"
-                    className="w-[20px] h-[20px]"
-                  />
+                  <PageCancel />
                 </button>
-                <section className="w-[326px] h-[288px] top-[48px]">
-                  <div className="flex flex-row items-center w-[326px] h-[28px]">
+                <section className="medium-16">
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={reservationId}
                       alt="예약번호"
-                      className="w-[28px] h-[28px] left-[16px] top-[48px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span className="w-[56px] h-[19px] mr-[50px]">
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
                       예약번호
                     </span>
-                    <span className="w-[75px] h-[19px] mr-[105px] ">
+                    <span className="w-[75px] ">
                       {selectedReservation.reservation_id.substring(0, 7)}
                     </span>
                   </div>
-                  <div className="flex">
+                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={reservationHospital}
                       alt="예약병원"
-                      className="w-[28px] h-[28px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span>예약병원</span>
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
+                      예약병원
+                    </span>
                     <span>{selectedReservation.hospital_name}</span>
                   </div>
-                  <div className="flex">
+                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={reservationDate}
                       alt="예약일시"
-                      className="w-[28px] h-[28px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span>예약일시</span>
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
+                      예약일시
+                    </span>
                     <span>
                       {selectedReservation.apply_date?.substring(0, 4)}년
                       {selectedReservation.apply_date?.substring(6, 7)}월
                       {selectedReservation.apply_date?.substring(8, 10)}일
-                      {selectedReservation.apply_time?.substring(0, 5)}
+                      {selectedReservation.apply_time?.substring(0, 5)}시
                     </span>
                   </div>
-                  <div className="flex">
+                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={subjectName}
                       alt="검진자명"
-                      className="w-[28px] h-[28px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span>검진자명</span>
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
+                      검진자명
+                    </span>
                     <span>{selectedReservation.subject_name}</span>
                   </div>
-                  <div className="flex">
+                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={reservationStatus}
                       alt="진행상태"
-                      className="w-[28px] h-[28px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span>진행상태</span>
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
+                      진행상태
+                    </span>
                     <span>{selectedReservation.status}</span>
                   </div>
-                  <div className="flex">
+                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <div className="flex flex-row mb-3 items-center">
                     <Image
                       src={course}
                       alt="검진코스"
-                      className="w-[28px] h-[28px]"
+                      className="w-[28px] mr-3 h-[28px]"
                     />
-                    <span>검진코스</span>
+                    <span className="w-[66px] mr-[50px] tracking-[-1px]">
+                      검진코스
+                    </span>
                     <span>{selectedReservation.program_name}</span>
                   </div>
+                  <hr className="border-solid border-gray border-1 mb-3" />
                 </section>
-                <section>
+                <section className="flex justify-end">
                   {(selectedReservation.status === "예약 대기" ||
                     selectedReservation.status === "예약 확정") && (
                     <button
-                      className="absolute bottom-4"
+                      className=" bg-gray-200 rounded-full w-14"
                       onClick={handleEditButtonClick}
                     >
                       수정
@@ -293,7 +303,7 @@ const ReservationInfoItem = () => {
                   )}
                   {selectedReservation.status === "검진 완료" && (
                     <button
-                      className="absolute bottom-4"
+                      className=" bg-gray-200 rounded-full w-14"
                       onClick={handleDeleteCompletedList}
                     >
                       삭제
@@ -305,23 +315,40 @@ const ReservationInfoItem = () => {
           )}
         </section>
         {editedData && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="absolute inset-0 bg-black opacity-50 w-[358px] h-[393px]"></div>
-            <div className="bg-white rounded-lg p-12 z-10 relative">
-              <button onClick={handleModalClose}>X</button>
-              <h2>예약 정보 수정</h2>
-              <div>
-                <label htmlFor="subject_name">검진자명:</label>
+          <div className="fixed inset-0 flex items-center justify-center z-50 ">
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="bg-white total_margin h-[393px] rounded-[10px] p-4 z-10 relative flex flex-col">
+              <button
+                onClick={handleModalClose}
+                className="cursor-pointer ml-auto"
+              >
+                <PageCancel />
+              </button>
+              <h3 className="text-xl mb-4">예약정보 수정</h3>
+              <hr className="border-solid border-gray-800 border-1 mb-10" />
+              <div className="flex flex-row mb-3 items-center">
+                <label
+                  className="w-[66px] mr-[50px] tracking-[-1px]"
+                  htmlFor="subject_name"
+                >
+                  검진자명
+                </label>
                 <input
                   type="text"
                   id="subject_name"
                   name="subject_name"
-                  value={editedData?.subject_name || ""}
+                  value={editedData?.subject_name + " 님" || ""}
                   onChange={handleInputChange}
+                  className="text-left"
                 />
               </div>
-              <div>
-                <label htmlFor="apply_date">예약일:</label>
+              <div className="flex flex-row mb-3 items-center">
+                <label
+                  htmlFor="apply_date"
+                  className="w-[66px] mr-[50px] tracking-[-1px]"
+                >
+                  예약일
+                </label>
                 <input
                   type="date"
                   id="apply_date"
@@ -330,8 +357,13 @@ const ReservationInfoItem = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
-                <label htmlFor="apply_time">예약시간:</label>
+              <div className="flex flex-row mb-3 items-center">
+                <label
+                  htmlFor="apply_time"
+                  className="w-[66px] mr-[50px] tracking-[-1px]"
+                >
+                  예약시간
+                </label>
                 <input
                   type="time"
                   id="apply_time"
@@ -340,8 +372,20 @@ const ReservationInfoItem = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <button onClick={handleChangedReservationSave}>수정하기</button>
-              <button onClick={handleModalClose}>취소하기</button>
+              <div className="mt-auto flex justify-end">
+                <button
+                  className="bg-gray-200 rounded-full w-14 mr-2"
+                  onClick={handleChangedReservationSave}
+                >
+                  수정
+                </button>
+                <button
+                  className="bg-gray-200 rounded-full w-14"
+                  onClick={handleModalClose}
+                >
+                  취소
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -39,24 +39,22 @@ const ScrappedList = () => {
     <>
       <section>
         {scrappedList.length === 0 && (
-          <p className="w-[169px] h-[19px] mx-[110.5px] mt-[185px] text-[16px]  text-gray-400">
+          <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px]  text-gray-400">
             스크랩한 병원이 없습니다.
           </p>
         )}
       </section>
-      <section className="w-[358px] mx-[16px]">
+      <section className="w-full flex gap-2 flex-wrap">
         {scrappedList.map((item) => (
-          <div key={item.scrap_id} className="grid grid-flow-col mt-[26px]">
-            <div className="flex flex-col">
-              <img
-                className="w-[114px] h-[127px] rounded-[10px] object-cover"
-                src={item.hospital_info.hospital_image}
-                alt={item.hospital_info.hospital_name}
-              ></img>
-              <p className="text-[14px] font-medium w-[85px] h-[24px] mt-[8px]">
-                {item.hospital_info.hospital_name}
-              </p>
-            </div>
+          <div key={item.scrap_id} className="flex flex-col oneThird mb-4">
+            <img
+              className="object-cover h-[131px] rounded-[10px] "
+              src={item.hospital_info.hospital_image}
+              alt={item.hospital_info.hospital_name}
+            />
+            <span className="text-[14px] font-medium h-[24px] mt-[8px]">
+              {item.hospital_info.hospital_name}
+            </span>
           </div>
         ))}
       </section>
