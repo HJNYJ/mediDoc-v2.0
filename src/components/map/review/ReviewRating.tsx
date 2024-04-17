@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState } from "react";
+import hollowStar from "@/assets/icons/hollow_star.png";
+import filledStar from "@/assets/icons/filled_star.png";
 
 const ReviewRating = ({
   rating,
@@ -31,7 +34,12 @@ const ReviewRating = ({
               onMouseLeave={() => setHoverRating(null)}
               onClick={() => setRating(currentRating)}
             >
-              {currentRating <= (hoverRating || rating) ? "⭐" : "⚝"}
+              {/* {currentRating <= (hoverRating || rating) ? "⭐" : "⚝"} */}
+              {currentRating <= (hoverRating || rating) ? (
+                <Image src={filledStar} alt="filled star" />
+              ) : (
+                <Image src={hollowStar} alt="empty star" />
+              )}
             </div>
           </label>
         );

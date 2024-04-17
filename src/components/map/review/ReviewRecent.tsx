@@ -45,7 +45,11 @@ const ReviewRecent = () => {
     queryFn: async () => {
       const response = await supabase
         .from("review_info")
-        .select("*")
+        .select(
+          `*,
+        hospital_info (*)`
+        )
+        .eq("hospital_id", hospitalId)
         .order("created_at", { ascending: false })
         .range(0, 3);
       return response.data;

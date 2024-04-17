@@ -1,16 +1,19 @@
 "use client";
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import HashTags from "./HashTags";
 // import ConsultImages from "./ConsultImages";
 import { v4 as uuidv4 } from "uuid";
-import searchbar from "@/assets/icons/consult/searchbar.png";
-import okBtn from "@/assets/icons/consult/okBtn.png";
+// import searchbar from "@/assets/icons/consult/searchbar.png";
+// import okBtn from "@/assets/icons/consult/okBtn.png";
+import { getUserInfo } from "@/utils/getUserInfo";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
+import { useRouter } from "next/navigation";
+
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -29,6 +32,8 @@ const AskForm = () => {
       dataUrl: string;
     }[]
   >([]);
+  const router = useRouter();
+
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(typeof e.target.files); // string x , object
@@ -152,19 +157,26 @@ const AskForm = () => {
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
   const handleSubmit = async () => {
+    const userData = await getUserInfo();
+    const userName = userData?.userName;
+    const userEmail = userData?.userEmail;
     const data = await consultAddForm(
       title,
       contents,
       bodyparts,
-      selectedTags
+      selectedTags,
+      userName,
+      userEmail
       // consultId: uuid
       // 이미지 URL 추가
     );
     // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-    console.log(data);
+    console.log("consult Ask Form data", data);
     handleFiles(data); // data >> consultId
     if (data) {
       console.log("AskForm 추가 성공", data!);
+      alert("글 작성이 완료됐습니다.");
+      router.push("/consult");
     }
   };
   return (
