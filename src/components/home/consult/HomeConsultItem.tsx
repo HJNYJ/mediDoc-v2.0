@@ -2,11 +2,12 @@
 
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
 import { supabase } from "@/api/supabase";
 import Image from "next/image";
 import answer_complete from "@/assets/icons/consult/answer_complete.png";
 import answer_wait from "@/assets/icons/consult/answer_wait.png";
+import AnswerComplete from "@/components/layout/AnswerComplete";
+import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
@@ -72,17 +73,9 @@ const HomeConsultItem = () => {
 
           <div>
             {consult?.consult_answer && consult?.consult_answer?.length >= 1 ? (
-              <Image
-                src={answer_complete}
-                alt="답변 완료"
-                className="w-[57px] h-[27px]"
-              />
+              <AnswerComplete />
             ) : (
-              <Image
-                src={answer_wait}
-                alt="답변 대기중"
-                className="w-[57px] h-[27px]"
-              />
+              <AnswerWaiting />
             )}
           </div>
         </div>
