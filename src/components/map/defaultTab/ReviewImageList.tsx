@@ -1,10 +1,23 @@
 // 방문자 사진 section
 "use client";
-import { fetchReviewImages } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
 import useDetailTabStore from "@/shared/zustand/detailTabStore";
 import { useQuery } from "@tanstack/react-query";
 
-const ReviewImageList = () => {
+const fetchReviewImages = async (hospitalId: string) => {
+  const { data, error } = await supabase
+    .from("review_photos")
+    .select("*")
+    .eq("hospital_id", hospitalId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
   const { selectTab } = useDetailTabStore();
 
   const {
@@ -12,8 +25,8 @@ const ReviewImageList = () => {
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["reviewPhoto"],
-    queryFn: fetchReviewImages
+    queryKey: ["reviewPhoto", hospitalId],
+    queryFn: () => fetchReviewImages(hospitalId)
   });
 
   if (isLoading) return <p>Loading...</p>;

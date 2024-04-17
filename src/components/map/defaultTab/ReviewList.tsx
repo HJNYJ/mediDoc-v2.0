@@ -12,6 +12,8 @@ const ReviewList = ({
   reviewDetailData: any;
   hospitalId: string;
 }) => {
+  console.log("reviewDetailData", reviewDetailData);
+  console.log("hospitalId", hospitalId);
   const router = useRouter();
   console.log("reviewDetailData ===> ", reviewDetailData);
   function goToReviewForm(hospitalId: any): void {
@@ -31,7 +33,6 @@ const ReviewList = ({
           ✏ 리뷰쓰기
         </button>
       </div>
-      {reviewDetailData}
     </section>
   );
 };

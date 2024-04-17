@@ -64,34 +64,34 @@ export const consultAddForm = async (
   }
 };
 
-// review page OOO
-export const reviewAddForm = async (
-  newContents: string,
-  newHashTags: string[],
-  newRating: number,
-  newHospitalId: string
-) => {
-  try {
-    const review_id = uuidv4();
-    await supabase.from("review_info").insert([
-      {
-        review_id,
-        content: newContents,
-        hashtags: newHashTags,
-        rating: newRating,
-        hospital_id: newHospitalId
-      }
-    ]);
+// review page OOO => 현재 안 쓰고 있음.
+// export const reviewAddForm = async (
+//   newContents: string,
+//   newHashTags: string[],
+//   newRating: number,
+//   newHospitalId: string
+// ) => {
+//   try {
+//     const review_id = uuidv4();
+//     await supabase.from("review_info").insert([
+//       {
+//         review_id,
+//         content: newContents,
+//         hashtags: newHashTags,
+//         rating: newRating,
+//         hospital_id: newHospitalId
+//       }
+//     ]);
 
-    console.log("저장했음!!!~", review_id);
-    return review_id;
-  } catch (error) {
-    if (error) {
-      console.error("reviewAddForm error", error);
-      return;
-    }
-  }
-};
+//     console.log("저장했음!!!~", review_id);
+//     return review_id;
+//   } catch (error) {
+//     if (error) {
+//       console.error("reviewAddForm error", error);
+//       return;
+//     }
+//   }
+// };
 
 // url string 업로드하기 이거 되는 코드 OOO
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
@@ -127,9 +127,7 @@ export const uploadReviewPhotosUrl = async (
     // url 문자열과 consult_id 값을 consult_photos 테이블에 넣기
     const { data, error } = await supabase
       .from("review_photos")
-      .insert([
-        { photos: url, review_id: review_id, hospital_id: hospital_id }
-      ]);
+      .insert([{ photos: url, review_id, hospital_id }]);
 
     if (error) {
       console.log("url 업로드 error.... => ", error);
@@ -143,7 +141,7 @@ export const uploadReviewPhotosUrl = async (
   }
 };
 
-//OOO
+//OOO fetchImages가 fetchReviewImages로 바뀜
 export const fetchReviewImages = async () => {
   const { data, error } = await supabase.from("review_photos").select("*");
   if (error) {
@@ -249,7 +247,7 @@ export const getHospitalImages = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
       .from("hospital_info")
-      .select("hospital_images")
+      .select("hospital_image")
       .eq("hospital_id", hospitalId);
 
     if (error) {

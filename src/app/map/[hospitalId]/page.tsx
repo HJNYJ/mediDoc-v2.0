@@ -21,15 +21,15 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   console.log("params ===> ", params.hospitalId);
   const [selectedTab, setSelectedTab] = useState("default");
   const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
-    queryKey: ["reviewDetail", params.hospitalId],
+    queryKey: ["reviewDetailList", params.hospitalId],
     queryFn: () => getReviewDetail(params.hospitalId)
   });
   const { data: hospitalInfo, refetch: refetchHospitalInfo } = useQuery({
-    queryKey: ["hospitalInfo", params.hospitalId],
+    queryKey: ["hospitalInformation", params.hospitalId],
     queryFn: () => getHospitalInfo(params.hospitalId)
   });
   const { data: hospitalImages, refetch: refetchHospitalImages } = useQuery({
-    queryKey: ["hospitalImages", params.hospitalId],
+    queryKey: ["hospitalFetchImages", params.hospitalId],
     queryFn: () => getHospitalImages(params.hospitalId)
   });
 
@@ -53,7 +53,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["reviewPhoto"],
+    queryKey: ["reviewFetchPhotos"],
     queryFn: fetchReviewImages
   });
 
@@ -120,7 +120,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           />
         </>
       )}
-      {selectedTab === "image" && <ReviewImageList />}
+      {selectedTab === "image" && (
+        <ReviewImageList hospitalId={params.hospitalId} />
+      )}
       {selectedTab === "review" && (
         <>
           <ReviewItem hospitalId={params.hospitalId} />
