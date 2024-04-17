@@ -24,7 +24,11 @@ const AdminQuestionItem = () => {
   }, []);
   return (
     <>
-      {myAnsweredConsults.length === 0 && <p>실시간 상담 내역이 없습니다.</p>}
+      {myAnsweredConsults.length === 0 && (
+        <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
+          실시간 상담 내역이 없습니다.
+        </p>
+      )}
       {myAnsweredConsults.length > 0 && (
         <div className="mt-4">
           {myAnsweredConsults.map((consult) => (

@@ -5,6 +5,8 @@ import FindHospital from "@/components/home/FindHospital";
 import HospitalListView from "@/components/home/HospitalListView";
 import React from "react";
 import TopNavbar from "@/components/layout/TopNavbar";
+import MainPageReview from "@/components/home/MainPageReview";
+import SelfTestWidget from "@/components/home/SelfTestWidget";
 
 const HomePage = () => {
   return (
@@ -12,6 +14,8 @@ const HomePage = () => {
       <TopNavbar />
       <HospitalListView />
       <FindHospital />
+      <MainPageReview />
+      <SelfTestWidget />
     </div>
   );
 };

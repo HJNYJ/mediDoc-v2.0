@@ -22,7 +22,6 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
     if (error) {
       console.error("Error fetching posts:", error);
     }
-    console.log("current Tab data ==> ??? ", data);
     return setPosts(data || []);
   };
 

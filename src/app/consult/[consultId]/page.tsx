@@ -30,7 +30,6 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         if (userDataError) throw new Error(userDataError.message);
 
         const userType = userData?.user_type;
-        console.log("userType ===> ", userType);
         setUserType(userType);
       } catch (error) {
         console.log(error);
@@ -57,7 +56,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
   useEffect(() => {
     refetch();
-  }, [params.consultId]);
+  }, [params.consultId, refetch]);
 
   console.log("answerDetailData ===> ", answerDetailData);
 
