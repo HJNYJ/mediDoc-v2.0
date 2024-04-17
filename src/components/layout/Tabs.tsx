@@ -16,7 +16,7 @@ const Tab = ({ type, label, text, onClick, active, children }: TabProps) => {
   return (
     <button
       type={type || "button"}
-      className={`flex flex-row justify-center items-center focus:outline-none w-[119.33px]
+      className={`flex flex-row justify-center items-center focus:outline-none w-[33.333%]
     h-[35px] ${text} gap-[4px] 
     ${active ? "border-orange text-black border-b-4" : "border-gray200 text-gray-400 border-b-2 "}
     `}

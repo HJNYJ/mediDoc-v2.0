@@ -13,8 +13,8 @@ const MyPageTab = () => {
   };
   return (
     <>
-      <section className="w-[358px] mx-[16px]">
-        <div className="flex">
+      <section>
+        <div className="flex mb-[26px]">
           <Tab
             onClick={() => onChangeTabHandler("예약 정보")}
             text="bold-16"
