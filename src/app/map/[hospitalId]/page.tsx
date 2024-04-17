@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  fetchReviewImages,
   getHospitalImages,
   getHospitalInfo,
   getReviewDetail
@@ -46,6 +47,18 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
         break;
     }
   };
+
+  const {
+    data: reviewPhotos,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ["reviewPhoto"],
+    queryFn: fetchReviewImages
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error!</p>;
 
   return (
     <main className="w-[390px] h-[2398px]">
@@ -93,7 +106,33 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           <ProgramInfo />
           {/* <span>--------------</span> */}
           <Notice />
-          <ReviewImageList />
+          {/* <ReviewImageList /> */}
+          <h3 className="bold-18 mb-3">방문자 사진</h3>
+          <article className="inline-grid grid-cols-3 gap-2">
+            {reviewPhotos
+              ?.slice(0, 6)
+              .map((img, index) => (
+                <img
+                  key={img?.photo_id}
+                  src={img?.photos}
+                  alt={`사진${index + 1}`}
+                  className="w-[116.67px] h-[116px] rounded-[10px]"
+                />
+              ))}
+          </article>
+
+          <div className="mt-3 flex flex-col align-items">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedTab("image");
+              }}
+              className="border border-gray-300 text-gray-800 w-[358px] h-[50px] rounded-lg"
+            >
+              전체보기
+            </button>
+          </div>
+
           {/* <ReviewItem hospitalId={params.hospitalId} /> */}
           <ReviewList
             reviewDetailData={reviewDetailData}

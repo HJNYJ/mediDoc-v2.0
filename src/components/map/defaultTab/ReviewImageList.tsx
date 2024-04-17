@@ -32,7 +32,7 @@ const ReviewImageList = () => {
           />
         ))}
       </article>
-      <div className="mt-3 flex flex-col align-items justify-center">
+      <div className="mt-3 flex flex-col align-items">
         <button
           onClick={(e) => {
             e.preventDefault();
