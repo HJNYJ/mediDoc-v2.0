@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 const HashTags = ({
   hashtags,
@@ -12,7 +12,7 @@ const HashTags = ({
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   const handleClick = async (tag: string) => {
-    console.log(`${tag} 클릭됨!!!!!`);
+    // console.log(`${tag} 클릭됨!!!!!`);
     // setSelectedTag(tag); // 선택된 해시태그 상태 업데이트하기!!
     const isSelected = selectedTags.includes(tag);
 
@@ -38,7 +38,7 @@ const HashTags = ({
           onClick={() => handleClick(value)}
           className={`w-[120px] h-[35px] rounded-3xl focus:outline-none ${
             selectedTags.includes(value)
-              ? "bg-orange-500 text-white"
+              ? "bg-orange text-white"
               : "regular-13 text-gray-800 border border-gray-300"
           }`}
         >

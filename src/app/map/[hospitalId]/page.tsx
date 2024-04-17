@@ -66,25 +66,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           active={selectedTab === "review"}
           onClick={() => handleTabClick("review")}
         />
-        {/* <button
-          className={`bg-sky-500 mx-4 ${selectedTab === "default" ? "bg-sky-500" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("default")}
-        >
-          기본정보
-        </button>
-        <button
-          className={`bg-red-100 mx-4 ${selectedTab === "image" ? "bg-red-100" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("image")}
-        >
-          사진
-        </button>
-        |
-        <button
-          className={`bg-amber-100 mx-4 ${selectedTab === "review" ? "bg-amber-100" : "bg-gray-200"}`}
-          onClick={() => handleTabClick("review")}
-        >
-          리뷰
-        </button> */}
       </nav>
 
       {selectedTab === "default" && (
