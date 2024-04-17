@@ -1,6 +1,9 @@
 // 검진 프로그램 정보 & 가격 div
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
+import downtoggle from "@/assets/upanddown/down_toggle.png";
+import uptoggle from "@/assets/upanddown/up_toggle.png";
 
 const ProgramInfo = () => {
   const [isBasicToggled, setBasicToggled] = useState(false);
@@ -27,7 +30,11 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isBasicToggled ? "🔼" : "🔽"}
+            {isBasicToggled ? (
+              <Image src={uptoggle} alt="" />
+            ) : (
+              <Image src={downtoggle} alt="" />
+            )}
           </span>
         </div>
         {isBasicToggled && (
@@ -37,7 +44,7 @@ const ProgramInfo = () => {
               측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
               자궁경부세포(여)
             </p>
-            <p className="bold-16 text-orange my-3">40,000원</p>
+            <p className="bold-16 text-orange my-3">450,000원</p>
           </div>
         )}
       </div>
@@ -59,7 +66,11 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isStandardToggled ? "🔼" : "🔽"}
+            {isStandardToggled ? (
+              <Image src={uptoggle} alt="" />
+            ) : (
+              <Image src={downtoggle} alt="" />
+            )}
           </span>
         </div>
         {isStandardToggled && (
@@ -69,7 +80,7 @@ const ProgramInfo = () => {
               측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
               자궁경부세포(여)
             </p>
-            <p className="bold-16 text-orange my-3">50,000원</p>
+            <p className="bold-16 text-orange my-3">550,000원</p>
           </div>
         )}
       </div>
@@ -91,7 +102,11 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isVIPToggled ? "🔼" : "🔽"}
+            {isVIPToggled ? (
+              <Image src={uptoggle} alt="" />
+            ) : (
+              <Image src={downtoggle} alt="" />
+            )}
           </span>
         </div>
         {isVIPToggled && (
@@ -101,7 +116,7 @@ const ProgramInfo = () => {
               측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
               자궁경부세포(여)
             </p>
-            <p className="bold-16 text-orange my-3">60,000원</p>
+            <p className="bold-16 text-orange my-3">680,000원</p>
           </div>
         )}
       </div>
@@ -123,7 +138,11 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isVVIPToggled ? "🔼" : "🔽"}
+            {isVVIPToggled ? (
+              <Image src={uptoggle} alt="" />
+            ) : (
+              <Image src={downtoggle} alt="" />
+            )}
           </span>
         </div>
         {isVVIPToggled && (
@@ -133,7 +152,7 @@ const ProgramInfo = () => {
               측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
               자궁경부세포(여)
             </p>
-            <p className="bold-16 text-orange my-3">70,000원</p>
+            <p className="bold-16 text-orange my-3">850,000원</p>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
 "use client";
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import HashTags from "./HashTags";
 import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/utils/getUserInfo";

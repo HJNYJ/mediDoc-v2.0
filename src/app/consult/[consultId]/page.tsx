@@ -8,8 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import searchbar from "@/assets/icons/consult/searchbar.png";
+import PageCancel from "@/components/layout/PageCancel";
+import PagebackBtn from "@/components/layout/PageBackBtn";
+import { useRouter } from "next/navigation";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
+  const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
 
   useEffect(() => {
@@ -58,18 +62,27 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     refetch();
   }, [params.consultId, refetch]);
 
+  const onClickConsultHandeler = () => {
+    router.push("/home");
+  };
   console.log("answerDetailData ===> ", answerDetailData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="relative w-[390px]">
-      <div className="mt-10">
-        <Image src={searchbar} alt="상단바" />
+    <div className="relative w-full">
+      <div className="mt-10 mb-5 flex justify-center it relative">
+        <button
+          className="flex absolute left-3"
+          onClick={onClickConsultHandeler}
+        >
+          <PagebackBtn />
+        </button>
+        <p className="flex">실시간 상담</p>
       </div>
       <div className="p-6">
-        <div className="w-[390px]">
+        <div className="w-[390px] mb-10">
           <p id="user_answer_title" className="semibold-24">
             {consultDetailData?.consult_title}
           </p>
@@ -83,7 +96,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           >
             {consultDetailData?.consult_content}
           </p>
-          <div className="flex flex-wrap w-[300px] h-[32px]">
+          <div className="flex flex-wrap h-[32px]">
             {consultDetailData?.hashtags
               ?.toString()
               .split(",")
@@ -94,9 +107,9 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
               ))}
           </div>
         </div>
-        <div className="mt-10 mb-10 bg-gray-300 h-3"></div>
+        <div className="mb-8 bg-gray-300 h-3"></div>
 
-        <div className="mt-5">
+        <div className="mb-5">
           {userType === "hospital staff" ? (
             <div>
               {answerDetailData?.map((item: string) => (
@@ -119,7 +132,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             <div>
               {answerDetailData?.map((item: string, index: number) => (
                 <div key={item}>
-                  <div className="bold-18 w-[358px] h-[264px] text-black">
+                  <div className="bold-18 bg-green-600 w-[358px] h-[264px] text-black">
                     {item?.department} 답변
                   </div>
                   <div className="regular-14">{item?.answer}</div>

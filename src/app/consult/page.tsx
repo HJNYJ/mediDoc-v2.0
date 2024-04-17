@@ -9,9 +9,10 @@ import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import addIcon from "@/assets/icons/consult/add.png";
-import searchbar from "@/assets/icons/consult/searchbar.png";
-import answer_complete from "@/assets/icons/consult/answer_complete.png";
-import answer_wait from "@/assets/icons/consult/answer_wait.png";
+
+import PagebackBtn from "@/components/layout/PageBackBtn";
+import AnswerComplete from "@/components/layout/AnswerComplete";
+import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -57,18 +58,24 @@ const ConsultPage = () => {
   const goToDetailPage = (consultId: string) => {
     router.push(`/consult/${consultId}`);
   };
+  const onClickHomeHandler = () => {
+    router.push("/home");
+  };
 
   return (
-    <div className="mt-1 w-[390px] h-[945px]">
-      <div className="mt-10 mb-5">
-        <Image src={searchbar} alt="상단바" className="mb-4" />
-        <ConsultTabs handleCategoryChange={handleCategoryChange} />
+    <div className="w-full">
+      <div className="mt-10 mb-5 flex justify-center it relative">
+        <button className="flex absolute left-3" onClick={onClickHomeHandler}>
+          <PagebackBtn />
+        </button>
+        <p className="flex">실시간 상담</p>
       </div>
-      <div className="w-[390px] h-[154px] top-151 absolute">
+      <ConsultTabs handleCategoryChange={handleCategoryChange} />
+      <div className="h-[154px] top-151">
         {consultsData?.map((consult) => (
           <div
             key={consult?.consult_id}
-            className="flex p-4 mb-4 border border-gray-200 cursor-pointer"
+            className="flex p-4 mb-4 cursor-pointer"
             onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
           >
             <div className="flex flex-col justify-between">
@@ -83,15 +90,15 @@ const ConsultPage = () => {
                   />
                 ))}
             </div>
-            <div className="ml-4 w-[262px] h-[113px] overflow-hidden">
+
+            <div className="ml-4 w-full overflow-hidden">
               <p className="semibold-18 text-gray-800">
                 {consult?.consult_title}
               </p>
               <p className="text-gray-700 regular-14 mb-2">
                 {consult?.consult_content}
               </p>
-
-              <div className="mb-2">
+              <div className="mb-4 flex">
                 {consult?.hashtags
                   ?.toString()
                   .split(",")
@@ -99,17 +106,17 @@ const ConsultPage = () => {
                     <Hashtag key={hashtag} hashtag={hashtag} />
                   ))}
               </div>
-
               {consult.consult_answer.length ? (
-                <Image src={answer_complete} alt="답변 완료" />
+                <AnswerComplete />
               ) : (
-                <Image src={answer_wait} alt="답변 대기" />
+                <AnswerWaiting />
               )}
             </div>
           </div>
         ))}
       </div>
-
+      <hr className="w-full border-solid border-gray-400 border-1 mb-3" />
+      {/* 밑 줄 이거를 어떻게 반복 시킬까... */}
       <div className="relative">
         <button onClick={goToAskForm} className="fixed bottom-14 right-3">
           <Image src={addIcon} alt="작성하기" className="w-[80px] h-[80px]" />
