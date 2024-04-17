@@ -295,7 +295,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       </form>
     </div>
   );
-  s;
 };
 
 export default ReviewForm;
