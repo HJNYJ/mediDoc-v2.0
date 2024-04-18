@@ -100,26 +100,16 @@ export interface UserInfo {
   user_type: string;
 }
 
-export interface ScrappedList {
-  hospital_id?: string;
-  hospital_info: {
-    end_time: string;
-    hospital_address: string;
-    hospital_contact: string;
-    hospital_id?: string;
-    hospital_image: string;
-    hospital_introduction: string;
-    hospital_latitude: number;
-    hospital_longitude: number;
-    hospital_name: string;
-    region_id: number;
-    start_time: string;
-  } | null;
-  scrap_id?: string;
+export interface ScrappedListItem {
+  hospital_id: string;
   user_id: string;
+  scrap_id: string;
+  hospital_info: {
+    hospital_image: string;
+    hospital_name: string;
+  };
 }
 
-// 리뷰 -----------------
 export type Tab = "starRating" | "latest";
 
 export type ReviewDetailData = {

@@ -5,7 +5,7 @@ import {
 } from "@/utils/drawKakaoMap";
 import React, { useEffect } from "react";
 
-declare const kakao: any;
+declare const kakao;
 
 // ./src/components/apply/CourseSelect.tsx:29:31
 // Type error: Parameter ‘check’ implicitly has an ‘any’ type.
