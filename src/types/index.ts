@@ -9,6 +9,17 @@ export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
 }
 
+export interface AnswerDetail {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+}
+
 export interface ConsultRequest {
   consult_id: string; // DB 등록 UUID
   consult_title: string;
@@ -82,36 +93,23 @@ export interface ReservationInfo {
 }
 
 export interface UserInfo {
-  provider: string | null;
-  user_avatar: string | null;
-  user_birth_date: string | null;
+  provider: string;
   user_email: string;
-  user_id: string | null;
-  user_name: string;
-  user_phone_number: string | null;
-  user_type: string | null;
-}
-
-export interface ScrappedList {
-  hospital_id?: string;
-  hospital_info: {
-    end_time: string;
-    hospital_address: string;
-    hospital_contact: string;
-    hospital_id?: string;
-    hospital_image: string;
-    hospital_introduction: string;
-    hospital_latitude: number;
-    hospital_longitude: number;
-    hospital_name: string;
-    region_id: number;
-    start_time: string;
-  } | null;
-  scrap_id?: string;
   user_id: string;
+  user_name: string;
+  user_type: string;
 }
 
-// 리뷰 -----------------
+export interface ScrappedListItem {
+  hospital_id: string;
+  user_id: string;
+  scrap_id: string;
+  hospital_info: {
+    hospital_image: string;
+    hospital_name: string;
+  };
+}
+
 export type Tab = "starRating" | "latest";
 
 export type ReviewDetailData = {

@@ -19,6 +19,10 @@ const HospitalList = () => {
   });
   if (isLoading) return <p>병원 데이터를 가져오는 중입니다.</p>;
   if (isError) return <p>병원 데이터를 가져오는 동안 에러가 발생했습니다</p>;
+
+  if (!hospitalListData || hospitalListData.length === 0) {
+    return <p>병원 데이터가 없습니다.</p>;
+  }
   return (
     <main className="flex flex-col gap-10">
       {hospitalListData?.map((hospital) => (

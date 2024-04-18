@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchConsultInfo = async () => {
       try {
@@ -21,15 +20,13 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         } = await supabase.auth.getSession();
         const user = session?.user;
         const email = user?.email ?? "";
-
+        const email = user?.email ?? "";
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")
           .eq("user_email", email)
           .single();
-
         if (userDataError) throw new Error(userDataError.message);
-
         const userType = userData?.user_type;
         setUserType(userType);
       } catch (error) {

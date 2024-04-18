@@ -1,17 +1,32 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import { getMyConsultAnswerData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
+import Image from "next/image";
+
+interface ConsultAnswer {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+  photos: { photo_id: string; photos: string }[];
+  questionInfo: {
+    consult_title: string;
+    consult_content: string;
+  };
+}
 
 const AdminQuestionItem = () => {
-  const [myAnsweredConsults, setMyAnsweredConsults] = useState([]);
+  const [myAnsweredConsults, setMyAnsweredConsults] = useState<ConsultAnswer[]>(
+    []
+  );
 
-  // 병원 관계자일 경우
   useEffect(() => {
     const fetchMyAnsweredConsults = async () => {
       try {
-        // 자신이 답변한 질문 가져오기
         const answeredConsults = await getMyConsultAnswerData();
         console.log("answeredConsults", answeredConsults);
         setMyAnsweredConsults(answeredConsults || []);
@@ -22,6 +37,15 @@ const AdminQuestionItem = () => {
 
     fetchMyAnsweredConsults();
   }, []);
+
+  if (myAnsweredConsults === null) {
+    return (
+      <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
+        실시간 상담 내역이 없습니다.
+      </p>
+    );
+  }
+
   return (
     <>
       {myAnsweredConsults.length === 0 && (
@@ -32,33 +56,38 @@ const AdminQuestionItem = () => {
       {myAnsweredConsults.length > 0 && (
         <div className="mt-4">
           {myAnsweredConsults.map((consult) => (
-            <Link
+            <div
               key={consult.consult_id}
-              href={`/consult/${consult.consult_id}`}
               className="flex items-center w-96 m-4"
             >
-              <div className="relative w-32 h-40 mr-4 overflow-hidden">
-                {consult.photos.map((photo) => (
-                  <img
-                    key={photo.photo_id}
-                    src={photo.photos}
-                    alt=""
-                    className="w-full h-full object-fit"
-                  />
-                ))}
-              </div>
-              <div className="flex flex-col justify-between flex-1">
-                <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    {consult.questionInfo.consult_title}
-                  </h2>
-                  <p className="text-sm text-gray-500 mb-2">
-                    {consult.questionInfo.consult_content}
-                  </p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-500">답변 완료</p>
-            </Link>
+              <Link href={`/consult/${consult.consult_id}`}>
+                <span className="flex items-center w-full">
+                  <div className="relative w-[60px] h-[60px] mr-4 overflow-hidden">
+                    {consult.photos.map((photo) => (
+                      <Image
+                        key={photo.photo_id}
+                        src={photo.photos}
+                        alt=""
+                        width={60}
+                        height={60}
+                        className="w-[60px] h-[60px] object-fit"
+                      />
+                    ))}
+                  </div>
+                  <div className="flex flex-col justify-between flex-1">
+                    <div>
+                      <h2 className="text-2xl font-bold mb-2">
+                        {consult.questionInfo.consult_title}
+                      </h2>
+                      <p className="text-sm text-gray-500 mb-2">
+                        {consult.questionInfo.consult_content}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500">답변 완료</p>
+                </span>
+              </Link>
+            </div>
           ))}
         </div>
       )}
