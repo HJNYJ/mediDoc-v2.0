@@ -1,5 +1,40 @@
 import { supabase } from "@/api/supabase";
 
+interface ConsultAnswer {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+  photos: {
+    consult_id: string;
+    photo_id: string;
+    photos: string;
+    consult_info: {
+      bodyparts: string | null;
+      consult_content: string;
+      consult_id: string;
+      consult_title: string;
+      created_at: string;
+      hashtags: string | null;
+      user_email: string | null;
+      user_name: string | null;
+    } | null;
+  }[];
+  questionInfo: {
+    bodyparts: string | null;
+    consult_content: string;
+    consult_id: string;
+    consult_title: string;
+    created_at: string;
+    hashtags: string | null;
+    user_email: string | null;
+    user_name: string | null;
+  };
+}
 export const getMyConsultData = async () => {
   try {
     // 유저 정보 가져오기
@@ -28,7 +63,7 @@ export const getMyConsultData = async () => {
 
       if (consultPhotosError) throw new Error(consultPhotosError.message);
 
-      consult.photos = consultPhotos;
+      consult.consult_photos = consultPhotos;
     }
 
     return consultInfo;
@@ -37,16 +72,14 @@ export const getMyConsultData = async () => {
   }
 };
 
-export const getMyConsultAnswerData = async () => {
+export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
   try {
-    // 병원 관계자의 정보 가져오기
     const {
       data: { session }
     } = await supabase.auth.getSession();
     const user = session?.user;
     const id = user?.id ?? "";
 
-    // 병원 관계자인지 확인
     const { data: userInfo, error: userInfoError } = await supabase
       .from("user_info")
       .select("*")
@@ -54,20 +87,18 @@ export const getMyConsultAnswerData = async () => {
 
     if (userInfoError) throw new Error(userInfoError.message);
 
-    // 병원 관계자일 경우
     if (userInfo[0].user_type === "hospital staff") {
-      // 병원 관계자가 작성한 답변 가져오기
       const { data: consultAnswerData, error: consultAnswerError } =
         await supabase
           .from("consult_answer")
           .select("*")
           .eq("user_id", userInfo[0].user_id);
-      console.log("consultAnswerData", consultAnswerData);
+
       if (consultAnswerError) throw new Error(consultAnswerError.message);
 
-      // 병원 관계자가 작성한 답변에 있는 상담 정보와 사진 가져오기
+      const combinedConsultAnswerData: ConsultAnswer[] = [];
+
       for (const answer of consultAnswerData) {
-        // 사진 가져오기
         const { data: consultPhotos, error: consultPhotosError } =
           await supabase
             .from("consult_photos")
@@ -76,23 +107,26 @@ export const getMyConsultAnswerData = async () => {
 
         if (consultPhotosError) throw new Error(consultPhotosError.message);
 
-        // 상담글 가져오기
         const { data: questionInfo, error: questionInfoError } = await supabase
           .from("consult_info")
           .select("*")
           .eq("consult_id", answer.consult_id);
-        if (questionInfoError) throw new Error(questionInfoError.message);
-        console.log("questionInfo", questionInfo);
 
-        answer.photos = consultPhotos;
-        answer.questionInfo = questionInfo[0];
+        if (questionInfoError) throw new Error(questionInfoError.message);
+
+        combinedConsultAnswerData.push({
+          ...answer,
+          photos: consultPhotos,
+          questionInfo: questionInfo[0]
+        });
       }
 
-      return consultAnswerData;
+      return combinedConsultAnswerData;
     } else {
       return [];
     }
   } catch (error) {
     if (error instanceof Error) console.error(error.message);
+    return [];
   }
 };

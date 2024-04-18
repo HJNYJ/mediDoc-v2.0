@@ -5,7 +5,7 @@ import {
 } from "@/utils/drawKakaoMap";
 import React, { useEffect } from "react";
 
-declare const kakao: any;
+declare const kakao;
 
 const Map = ({
   name,

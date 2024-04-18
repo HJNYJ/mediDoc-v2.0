@@ -3,9 +3,15 @@ import { getMyConsultAnswerData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
 import Image from "next/image";
 
-// Define the type of the data returned by getMyConsultAnswerData
 interface ConsultAnswer {
+  answer: string;
+  answer_id: string;
   consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
   photos: { photo_id: string; photos: string }[];
   questionInfo: {
     consult_title: string;
@@ -32,6 +38,14 @@ const AdminQuestionItem = () => {
     fetchMyAnsweredConsults();
   }, []);
 
+  if (myAnsweredConsults === null) {
+    return (
+      <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
+        실시간 상담 내역이 없습니다.
+      </p>
+    );
+  }
+
   return (
     <>
       {myAnsweredConsults.length === 0 && (
@@ -47,14 +61,16 @@ const AdminQuestionItem = () => {
               className="flex items-center w-96 m-4"
             >
               <Link href={`/consult/${consult.consult_id}`}>
-                <a className="flex items-center w-full">
-                  <div className="relative w-32 h-40 mr-4 overflow-hidden">
+                <span className="flex items-center w-full">
+                  <div className="relative w-[60px] h-[60px] mr-4 overflow-hidden">
                     {consult.photos.map((photo) => (
                       <Image
                         key={photo.photo_id}
                         src={photo.photos}
                         alt=""
-                        className="w-full h-full object-fit"
+                        width={60}
+                        height={60}
+                        className="w-[60px] h-[60px] object-fit"
                       />
                     ))}
                   </div>
@@ -69,7 +85,7 @@ const AdminQuestionItem = () => {
                     </div>
                   </div>
                   <p className="text-sm text-gray-500">답변 완료</p>
-                </a>
+                </span>
               </Link>
             </div>
           ))}

@@ -89,13 +89,16 @@ export interface UserInfo {
   user_type: string;
 }
 
-export interface ScrappedList {
+export interface ScrappedListItem {
   hospital_id: string;
-  scrap_id: string;
   user_id: string;
+  scrap_id: string;
+  hospital_info: {
+    hospital_image: string;
+    hospital_name: string;
+  };
 }
 
-// 리뷰 -----------------
 export type Tab = "starRating" | "latest";
 
 export type Review = {

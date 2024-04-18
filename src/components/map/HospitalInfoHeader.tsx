@@ -1,8 +1,3 @@
-// 병원 정보 공통 출력 section
-"use client";
-import { fetchHospitalData } from "@/hooks/getHospitalData";
-import { removeTimeSecond } from "@/utils/changeTimeFormat";
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import Map from "./Map";
 import Image from "next/image";
@@ -18,30 +13,24 @@ import { getUserInfo } from "@/utils/getUserInfo";
 import useScrapStore from "@/shared/zustand/scrapStore";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
+import { fetchHospitalData } from "@/hooks/getHospitalData";
+import { useQuery } from "@tanstack/react-query";
+import { removeTimeSecond } from "@/utils/changeTimeFormat";
 
-interface HospitalData {
-  end_time: string;
-  hospital_address: string;
-  hospital_contact: string;
-  hospital_id: string;
-  hospital_image: string;
-  hospital_introduction: string;
-  hospital_latitude: number;
-  hospital_longitude: number;
-  hospital_name: string;
-  region_id: number;
-  start_time: string;
+interface HospitalInfoHeaderProps {
+  params: { hospitalId: string };
 }
 
-const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
+const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   const router = useRouter();
   const { isScrapped, setIsScrapped } = useScrapStore();
+
   // 병원 데이터 가져오기
   const {
     isLoading,
     isError,
     data: hospitalData
-  } = useQuery({
+  } = useQuery<Hospital>({
     queryKey: ["hospitalInfo", params.hospitalId],
     queryFn: () => fetchHospitalData(params.hospitalId)
   });
@@ -79,12 +68,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   const secondRemovedEndTime = removeTimeSecond(hospitalData!.end_time);
 
   // 운영 여부
-  // const currentTime = getTime();
-  // const isHospitalOpen = checkHospitalOpen(
-  //   currentTime,
-  //   secondRemovedStartTime,
-  //   secondRemovedEndTime
-  // );
+
   const handleScrapClick = async () => {
     const hospitalId = params.hospitalId;
     const userInfo = await getUserInfo();
@@ -122,8 +106,8 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
       <section className="w-[390px]">
         <Map
           name={hospitalData!.hospital_name}
-          latitude={hospitalData.hospital_latitude}
-          longitude={hospitalData.hospital_longitude}
+          latitude={hospitalData!.hospital_latitude}
+          longitude={hospitalData!.hospital_longitude}
         />
       </section>
       <section className="w-[358px] mx-[16px] mt-[24px]">
@@ -146,71 +130,30 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
               onClick={handleScrapClick}
             />
           </div>
-          {/* 진료시간 */}
-          {/* <div className="w-[390px] h-[90px] mt-[20px]"> */}
-          {/* 시간에 따라 운영 여부 다르게 출력 */}
-          {/* <section className="flex flex-row align-middle w-[230px] h-[24px]"> */}
-          {/* <Image
-                src={timeIcon}
-                alt="진료 시간"
-                className="w-[24px] h-[24px]"
-              />
-              <span className="regular-14 ml-[4px] w-[160px] h-[24px] ">
-                {isHospitalOpen}
-              </span> */}
-          {/* <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  isTimeToggleOpen
-                    ? setTimeToggleOpen(false)
-                    : setTimeToggleOpen(true);
-                }}
-              >
-                {isTimeToggleOpen ? "^" : "V"}
-              </button> */}
-          {/* 요일에 따라 요일&시간 다르게 출력 */}
-          {/* </section> */}
-          <div>
-            {/* <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  isTimeToggleOpen
-                    ? setTimeToggleOpen(false)
-                    : setTimeToggleOpen(true);
-                }}
-              >
-                {isTimeToggleOpen ? "^" : "V"}
-              </button> */}
-            {/* <div> */}
-            {/* {isTimeToggleOpen && ( */}
-            <Accordion>
-              <AccordionItem
-                key="all"
-                aria-label="5"
-                title="🕑 진료 시간"
-                className="text-center my-3"
-              >
-                <p>
-                  월요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                </p>
-                <p>
-                  화요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                </p>
-                <p>
-                  수요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                </p>
-                <p>
-                  목요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                </p>
-                <p>
-                  금요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
-                </p>
-              </AccordionItem>
-            </Accordion>
-            {/* )} */}
-            {/* </div> */}
-          </div>
-          {/* </div> */}
+          <Accordion>
+            <AccordionItem
+              key="all"
+              aria-label="5"
+              title="🕑 진료 시간"
+              className="text-center my-3"
+            >
+              <p>
+                월요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+              </p>
+              <p>
+                화요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+              </p>
+              <p>
+                수요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+              </p>
+              <p>
+                목요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+              </p>
+              <p>
+                금요일 : {secondRemovedStartTime} ~ {secondRemovedEndTime}
+              </p>
+            </AccordionItem>
+          </Accordion>
           {/* 전화번호 */}
           <div>
             <Accordion>
@@ -224,7 +167,6 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
               </AccordionItem>
             </Accordion>
           </div>
-
           {/* 소개글 */}
           <Accordion>
             <AccordionItem
@@ -237,7 +179,6 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
             </AccordionItem>
           </Accordion>
         </section>
-
         <Button
           type="button"
           buttonType="hollow"
