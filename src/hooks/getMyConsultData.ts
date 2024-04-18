@@ -139,7 +139,7 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
         });
       }
 
-      return combinedConsultAnswerData;
+      return combinedConsultAnswerData; // 제발 돼라...
     } else {
       return [];
     }
