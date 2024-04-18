@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchConsultInfo = async () => {
       try {
@@ -21,15 +20,13 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         } = await supabase.auth.getSession();
         const user = session?.user;
         const email = user?.email ?? "";
-
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")
           .eq("user_email", email)
+          .eq("user_email", email)
           .single();
-
         if (userDataError) throw new Error(userDataError.message);
-
         const userType = userData?.user_type;
         setUserType(userType);
       } catch (error) {
@@ -114,6 +111,11 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                   key={item.answer_id}
                   className="text-gray-800 w-[358px] mb-10"
                 >
+              {answerDetailData?.map((item) => (
+                <div
+                  key={item.answer_id}
+                  className="text-gray-800 w-[358px] mb-10"
+                >
                   <div className="bold-18 mb-5 text-black">
                     {item?.department} 답변
                   </div>
@@ -130,6 +132,8 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </div>
           ) : (
             <div>
+              {answerDetailData?.map((item) => (
+                <div key={item.answer_id}>
               {answerDetailData?.map((item) => (
                 <div key={item.answer_id}>
                   <div className="bold-18 bg-green-600 w-[358px] h-[264px] text-black">

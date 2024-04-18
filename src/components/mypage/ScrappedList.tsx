@@ -2,9 +2,18 @@
 import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 import type { ScrappedList } from "@/types";
+import Image from "next/image";
+
+interface ScrapItem {
+  scrap_id: string;
+  hospital_info: {
+    hospital_image: string;
+    hospital_name: string;
+  };
+}
 
 const ScrappedList = () => {
-  const [scrappedList, setScrappedList] = useState<ScrappedList[]>([]);
+  const [scrappedList, setScrappedList] = useState<ScrapItem[]>([]);
 
   useEffect(() => {
     const fetchScrappedList = async () => {
@@ -14,6 +23,7 @@ const ScrappedList = () => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
+        const id = user?.id ?? "";
 
         const { data, error } = await supabase
           .from("scrapped_list")
@@ -23,11 +33,11 @@ const ScrappedList = () => {
           hospital_info(*)
         `
           )
-          .eq("user_id", user?.id || "");
+          .eq("user_id", id);
 
         if (error) throw new Error(error.message);
 
-        setScrappedList(data);
+        setScrappedList(data || []);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
       }
@@ -47,7 +57,7 @@ const ScrappedList = () => {
       <section className="w-full flex gap-2 flex-wrap">
         {scrappedList.map((item) => (
           <div key={item.scrap_id} className="flex flex-col oneThird mb-4">
-            <img
+            <Image
               className="object-cover h-[131px] rounded-[10px] "
               src={item?.hospital_info?.hospital_image}
               alt={item?.hospital_info?.hospital_name}

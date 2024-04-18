@@ -48,7 +48,7 @@ const ApplyPageOne = ({
       setUserNameData(user?.user_metadata.name);
     };
     fetchUser();
-  }, []);
+  }, [setUserEmailData, setUserNameData]);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

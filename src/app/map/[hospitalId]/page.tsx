@@ -18,12 +18,22 @@ import ReviewItem from "@/components/map/review/ReviewItem";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
+// interface reviewDetailDataType {
+//   content: string;
+//   created_at: string;
+//   hashtags: string;
+//   hospital_id: string;
+//   rating: number;
+//   review_id: string;
+// }
+
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const [selectedTab, setSelectedTab] = useState("default");
   const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
     queryKey: ["reviewDetailList", params.hospitalId],
     queryFn: () => getReviewDetail(params.hospitalId)
   });
+  const { refetch: refetchHospitalInfo } = useQuery({
   const { refetch: refetchHospitalInfo } = useQuery({
     queryKey: ["hospitalInformation", params.hospitalId],
     queryFn: () => getHospitalInfo(params.hospitalId)
@@ -39,6 +49,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       case "default":
         refetchHospitalInfo();
         break;
+      // case "image":
+      //   refetchHospitalImages();
+      //   break;
       // case "image":
       //   refetchHospitalImages();
       //   break;

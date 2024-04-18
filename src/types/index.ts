@@ -9,6 +9,17 @@ export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
 }
 
+export interface AnswerDetail {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+}
+
 export interface ConsultRequest {
   consult_id: string; // DB 등록 UUID
   consult_title: string;
@@ -82,14 +93,11 @@ export interface ReservationInfo {
 }
 
 export interface UserInfo {
-  provider: string | null;
-  user_avatar: string | null;
-  user_birth_date: string | null;
+  provider: string;
   user_email: string;
-  user_id: string | null;
+  user_id: string;
   user_name: string;
-  user_phone_number: string | null;
-  user_type: string | null;
+  user_type: string;
 }
 
 export interface ScrappedList {

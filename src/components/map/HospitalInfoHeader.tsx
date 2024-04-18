@@ -1,8 +1,7 @@
 // 병원 정보 공통 출력 section
 "use client";
 import { fetchHospitalData } from "@/hooks/getHospitalData";
-import { removeTimeSecond, getTime } from "@/utils/changeTimeFormat";
-import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
+import { removeTimeSecond } from "@/utils/changeTimeFormat";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import Map from "./Map";
@@ -20,10 +19,22 @@ import useScrapStore from "@/shared/zustand/scrapStore";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 
+interface HospitalData {
+  end_time: string;
+  hospital_address: string;
+  hospital_contact: string;
+  hospital_id: string;
+  hospital_image: string;
+  hospital_introduction: string;
+  hospital_latitude: number;
+  hospital_longitude: number;
+  hospital_name: string;
+  region_id: number;
+  start_time: string;
+}
+
 const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   const router = useRouter();
-  // const [isTimeToggleOpen, setTimeToggleOpen] = useState(false); // 진료시간 toggle
-  // const [isIntroductionToggleOpen, setIntroductionToggleOpen] = useState(false); // 소개글 toggle
   const { isScrapped, setIsScrapped } = useScrapStore();
   // 병원 데이터 가져오기
   const {
@@ -39,7 +50,7 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
     const fetchScrappedStatus = async () => {
       const hospitalId = params.hospitalId;
       const userData = await getUserInfo();
-      const userId = userData?.userId;
+      const userId = userData?.userId ?? "";
 
       try {
         const { data: scrappedData, error } = await supabase
@@ -68,12 +79,12 @@ const HospitalInfoHeader = ({ params }: { params: { hospitalId: string } }) => {
   const secondRemovedEndTime = removeTimeSecond(hospitalData!.end_time);
 
   // 운영 여부
-  const currentTime = getTime();
-  const isHospitalOpen = checkHospitalOpen(
-    currentTime,
-    secondRemovedStartTime,
-    secondRemovedEndTime
-  );
+  // const currentTime = getTime();
+  // const isHospitalOpen = checkHospitalOpen(
+  //   currentTime,
+  //   secondRemovedStartTime,
+  //   secondRemovedEndTime
+  // );
   const handleScrapClick = async () => {
     const hospitalId = params.hospitalId;
     const userInfo = await getUserInfo();

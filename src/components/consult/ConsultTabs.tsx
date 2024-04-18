@@ -2,7 +2,6 @@ import type { TabsProps } from "@/types";
 import React, { useEffect, useState } from "react";
 import RoundTabs from "../layout/RoundTabs";
 import { supabase } from "@/api/supabase";
-import { useQuery } from "@tanstack/react-query";
 
 const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   // 탭 상태 관리
@@ -10,20 +9,20 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase
+        .from("consult_info")
+        .select("*")
+        .eq("bodyparts", currentTab);
+
+      if (error) {
+        console.error("Error fetching posts:", error);
+      }
+      return setPosts(data || []);
+    };
+
     fetchPosts();
   }, [currentTab]);
-
-  const fetchPosts = async () => {
-    const { data, error } = await supabase
-      .from("consult_info")
-      .select("*")
-      .eq("bodyparts", currentTab);
-
-    if (error) {
-      console.error("Error fetching posts:", error);
-    }
-    return setPosts(data || []);
-  };
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);

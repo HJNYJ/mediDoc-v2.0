@@ -6,10 +6,9 @@ import YellowBarMg from "../layout/YellowBarMg";
 import GrayBar from "../layout/GrayBar";
 interface BodyPartsProps {
   department: "이비인후과" | "내과" | "외과" | "치과" | "안과";
-  onSelect: () => void;
 }
 
-const BodyParts: React.FC<BodyPartsProps> = ({ department, onSelect }) => {
+const BodyParts: React.FC<BodyPartsProps> = ({ department }) => {
   const bodyParts = {
     이비인후과: ["귀", "코", "목"],
     내과: ["배", "등/허리", "가슴"],

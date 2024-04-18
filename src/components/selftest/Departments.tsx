@@ -48,7 +48,16 @@ const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
               <div
                 key={index}
                 className={`flex items-center w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer ${selectedDepartment === department ? "border-orange" : "border-bluegray"}`}
-                onClick={() => handleDepartmentSelect(department)}
+                onClick={() =>
+                  handleDepartmentSelect(
+                    department as
+                      | "이비인후과"
+                      | "내과"
+                      | "외과"
+                      | "치과"
+                      | "안과"
+                  )
+                }
               >
                 <label
                   htmlFor={`checkbox-${index}`}
@@ -60,7 +69,16 @@ const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
                   type="checkbox"
                   id={`checkbox-${index}`}
                   checked={selectedDepartment === department}
-                  onChange={() => handleDepartmentSelect(department)}
+                  onChange={() =>
+                    handleDepartmentSelect(
+                      department as
+                        | "이비인후과"
+                        | "내과"
+                        | "외과"
+                        | "치과"
+                        | "안과"
+                    )
+                  }
                   className="opacity-0 w-0 h-0"
                 />
 

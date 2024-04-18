@@ -19,7 +19,7 @@ const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
     if (hospitalData) {
       setHospitalName(hospitalData);
     }
-  }, [hospitalData]);
+  }, [setHospitalName, hospitalData]);
 
   if (isLoading) {
     <div>로딩 중 입니다...</div>;
