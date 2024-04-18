@@ -11,26 +11,65 @@ import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import { ConsultType } from "@/types";
 
+interface ConsultType {
+  consult_id: string;
+  user_name: string | null;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string | null;
+  hashtags: string | null;
+  consult_answer: {
+    answer: string;
+    answer_id: string;
+    user_id: string | null;
+  }[];
+}
+interface ConsultPhotoType {
+  photos_id: string;
+  consult_id: string;
+  photos: string;
+}
+interface ConsultType {
+  consult_id: string;
+  user_name: string | null;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string | null;
+  hashtags: string | null;
+  consult_answer: {
+    answer: string;
+    answer_id: string;
+    user_id: string | null;
+  }[];
+}
+interface ConsultPhotoType {
+  photos_id: string;
+  consult_id: string;
+  photos: string;
+}
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
   const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
-
+  const [consultPhotos, setConsultPhotos] = useState<ConsultPhotoType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
       const consultsData = await fetchConsults();
+      // console.log("데이터 확인임~~~", consultsData);
       setConsultsData(consultsData || []);
       setIsLoading(false);
     };
-
+    const fetchConsultPhotos = async () => {
+      setIsLoading(true);
+      const consultPhotos = await fetchImages();
+      setConsultPhotos(consultPhotos as []);
+      setIsLoading(false);
+    };
     fetchConsultsData();
   }, []);
-
   if (isLoading) return <p>Loading consults..!!</p>;
   // if (error) return <p>error : {error}</p>;
 

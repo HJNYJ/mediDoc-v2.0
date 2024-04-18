@@ -30,6 +30,7 @@ export const supabase = createBrowserClient<Database>(
 
 // consult page OOO
 // consult page OOO
+
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,

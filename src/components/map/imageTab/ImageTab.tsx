@@ -1,6 +1,7 @@
 // "사진" 탭을 눌렀을 때 나오는 div
 "use client";
 import { fetchReviewImages } from "@/api/supabase";
+import useDetailTabStore from "@/shared/zustand/detailTabStore";
 import { useQuery } from "@tanstack/react-query";
 
 const ImageTab = () => {
@@ -12,6 +13,7 @@ const ImageTab = () => {
     queryKey: ["reviewPhoto"],
     queryFn: fetchReviewImages
   });
+  const { selectTab } = useDetailTabStore();
 
   console.log("reviewPhotos ===> ", reviewPhotos);
 
