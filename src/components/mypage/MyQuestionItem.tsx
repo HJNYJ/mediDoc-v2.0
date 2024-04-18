@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
+import AnswerWaiting from "../layout/AnswerWaiting";
+import AnswerComplete from "../layout/AnswerComplete";
 
 const MyQuestionItem = () => {
   const [myConsults, setMyConsults] = useState([]);
@@ -53,10 +55,10 @@ const MyQuestionItem = () => {
       if (checkConsultAnswer && checkConsultAnswer.length > 0) {
         // 답변이 있는 경우
         if (checkConsultAnswer[0].consult_answer.length > 0) {
-          return "답변 완료";
+          return <AnswerComplete />;
         } else {
           // 답변이 없는 경우
-          return "답변 대기 중";
+          return <AnswerWaiting />;
         }
       } else {
         return "답변 정보 없음";
