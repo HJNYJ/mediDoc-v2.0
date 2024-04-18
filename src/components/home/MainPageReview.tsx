@@ -27,8 +27,6 @@ const MainPageReview = () => {
         )
         .order("rating", { ascending: false });
 
-      console.log("메인 페이지 후기11", response.data);
-      console.log("메인 페이지 후기22", response.data!.review_photos);
       return response.data;
     }
   });
