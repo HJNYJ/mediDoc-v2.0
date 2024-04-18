@@ -26,7 +26,7 @@ const CourseSelect = () => {
 
   const [checkedCourse, setCheckedCourse] = useState(new Map());
 
-  const checkCourseHandler = (check, id) => {
+  const checkCourseHandler = (check: boolean, id: string) => {
     const map = new Map();
     map.set(check, id);
     setCheckedCourse(map);
@@ -62,7 +62,6 @@ const CourseSelect = () => {
                         <TreatmentCourse />
                         {card.course_name}
                       </div>
-
                       <CourseCheckedIcon />
                     </div>
                   </label>
@@ -87,7 +86,6 @@ const CourseSelect = () => {
             </div>
           </div>
         </div>
-        {/* {courseToggle ? <div>{card.course_detail}</div> : <div></div>} */}
       </article>
     );
   });

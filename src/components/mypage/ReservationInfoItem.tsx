@@ -7,7 +7,6 @@ import type { ReservationInfo } from "@/types";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import detailIcon from "@/assets/icons/nextIcon.png";
 import Image from "next/image";
-import closeIcon from "@/assets/icons/xmark.png";
 import reservationId from "@/assets/icons/modal/reservation_id.png";
 import reservationHospital from "@/assets/icons/modal/hospital.png";
 import reservationDate from "@/assets/icons/modal/date.png";

@@ -1,7 +1,7 @@
 import { supabase } from "@/api/supabase";
 
 // 병원 전체 데이터를 가져오는 함수
-export const fetchHospitalList = async (regionId: string) => {
+export const fetchHospitalList = async (regionId: string | null) => {
   try {
     let response;
     if (regionId !== null) {

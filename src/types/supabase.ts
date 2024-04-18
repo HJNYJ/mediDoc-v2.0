@@ -94,12 +94,12 @@ export type Database = {
           user_name: string | null;
         };
         Insert: {
-          bodyparts?: string | null;
+          bodyparts?: string | null | undefined;
           consult_content: string;
           consult_id?: string;
           consult_title: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[];
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -362,7 +362,7 @@ export type Database = {
           user_name: string;
         };
         Insert: {
-          apply_date: string;
+          apply_date: Date;
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
@@ -375,7 +375,7 @@ export type Database = {
           subject_birth_date: string;
           subject_name: string;
           subject_phone_number: string;
-          user_email: string;
+          user_email?: string;
           user_name: string;
         };
         Update: {

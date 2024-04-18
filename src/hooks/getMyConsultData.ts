@@ -14,7 +14,7 @@ export const getMyConsultData = async () => {
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
-      .eq("user_email", user?.email);
+      .eq("user_email", user?.email || "");
 
     if (consultInfoError) throw new Error(consultInfoError.message);
 
@@ -48,7 +48,7 @@ export const getMyConsultAnswerData = async () => {
     const { data: userInfo, error: userInfoError } = await supabase
       .from("user_info")
       .select("*")
-      .eq("user_id", user?.id);
+      .eq("user_id", user?.id || "");
 
     if (userInfoError) throw new Error(userInfoError.message);
 

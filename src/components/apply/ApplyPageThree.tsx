@@ -31,10 +31,9 @@ const ApplyPageThree = ({
     setSelectedTime,
     setIsTimeClicked,
     setIsDateClicked,
-
+    setReservationInfo,
     selectedCourseName,
-    selectedCourseDetail,
-    setReservationInfo
+    selectedCourseDetail
   } = useApplyStore();
 
   const router = useRouter();
@@ -75,6 +74,11 @@ const ApplyPageThree = ({
     subject_phone_number: phoneNumber,
     program_detail: selectedCourseDetail,
     hospital_name: hospitalName
+    // hospital_id: "test",
+    // course_id: "test",
+    // program_id: "test",
+    // reservation_id: "test",
+    // status: "test"
   };
 
   const handleReservation = async () => {
@@ -86,9 +90,11 @@ const ApplyPageThree = ({
       if (error) {
         console.log("에러입니다.", error);
       }
-
-      setReservationInfo(data?.[0]);
+      if (data !== null) {
+        setReservationInfo(data?.[0]);
+      }
       handlePrevOrNextClick("success");
+      return data;
     } catch (error) {
       console.log(error);
       handlePrevOrNextClick("error");

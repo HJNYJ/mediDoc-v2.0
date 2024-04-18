@@ -5,11 +5,11 @@ import writeReview from "@/assets/icons/review/pencil.png";
 const ReviewList = ({
   hospitalId
 }: {
-  reviewDetailData: any;
+  reviewDetailData: Date;
   hospitalId: string;
 }) => {
   const router = useRouter();
-  const goToReviewForm = (hospitalId: any): void => {
+  const goToReviewForm = (hospitalId: string): void => {
     router.push(`/map/${hospitalId}/review`);
   };
 

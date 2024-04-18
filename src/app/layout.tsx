@@ -4,8 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 // import SupabaseProvider from "./supabaseProvider";
 import Providers from "./providers";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import MobileScreen from "@/components/layout/MobileScreen";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const inter = Inter({ subsets: ["latin"] });
 
