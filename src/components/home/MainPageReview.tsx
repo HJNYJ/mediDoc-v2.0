@@ -45,6 +45,7 @@ const MainPageReview = () => {
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         mousewheel={true}
       >
+        {/* 후기 보러가기 버튼 추가 */}
         {reviewRateTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
             <div className="flex flex-row mr-[14px]">
