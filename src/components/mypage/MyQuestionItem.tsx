@@ -105,7 +105,7 @@ const MyQuestionItem = () => {
             </section>
             <p
               className={`w-[57px] h-[27px] text-[13px] text-center place-content-center rounded-[4px]
-            ${consult.answerStatus === <AnswerWaiting /> ? " text-gray-500 bg-gray-200" : " text-amber-500 bg-amber-100"}
+            ${consult.answerStatus === "답변 대기" ? " text-gray-500 bg-gray-200" : " text-amber-500 bg-amber-100"}
              `}
             >
               {consult.answerStatus}
