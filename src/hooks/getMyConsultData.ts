@@ -1,18 +1,5 @@
 import { supabase } from "@/api/supabase";
 
-type Answer = {
-  answer: string;
-  answer_id: string;
-  consult_id: string | null;
-  department: string;
-  hospital_id: string | null;
-  hospital_name: string | null;
-  user_email: string | null;
-  user_id: string | null;
-  questionInfo?: object;
-  photos?: string;
-};
-
 interface ConsultAnswer {
   answer: string;
   answer_id: string;
@@ -57,14 +44,12 @@ export const getMyConsultData = async () => {
 
     const user = session?.user;
     const email = user?.email ?? "";
-    const email = user?.email ?? "";
 
     // 내가 작성한 상담글 가져오기
     // 1. consult_info에서 user_email이 일치하는 것 가져오기
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
-      .eq("user_email", email);
       .eq("user_email", email);
 
     if (consultInfoError) throw new Error(consultInfoError.message);
@@ -99,7 +84,6 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
       .from("user_info")
       .select("*")
       .eq("user_id", id);
-      .eq("user_id", id);
 
     if (userInfoError) throw new Error(userInfoError.message);
 
@@ -114,6 +98,8 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
       const combinedConsultAnswerData: ConsultAnswer[] = [];
 
+      const combinedConsultAnswerData: ConsultAnswer[] = [];
+
       for (const answer of consultAnswerData) {
         const { data: consultPhotos, error: consultPhotosError } =
           await supabase
@@ -122,8 +108,6 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
             .eq("consult_id", consultAnswer);
 
         if (consultPhotosError) throw new Error(consultPhotosError.message);
-
-        const consultAnswerId = answer?.consult_id || "";
 
         const { data: questionInfo, error: questionInfoError } = await supabase
           .from("consult_info")

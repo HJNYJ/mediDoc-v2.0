@@ -18,18 +18,13 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
         const {
           data: { session }
         } = await supabase.auth.getSession();
-        const {
-          data: { session }
-        } = await supabase.auth.getSession();
         const user = session?.user;
-        const email = user?.email || "";
-        console.log("user ===> ", user);
+        const email = user?.email ?? "";
 
         // 사용자 정보 가져오기
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("*")
-          .eq("user_email", email)
           .eq("user_email", email)
           .single();
 

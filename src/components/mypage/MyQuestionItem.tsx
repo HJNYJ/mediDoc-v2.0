@@ -16,8 +16,18 @@ interface Consult {
   consult_content: string;
   answerStatus: JSX.Element | string;
 }
+import Image from "next/image";
+
+interface Consult {
+  consult_id: string;
+  photos: { photo_id: string; photos: string }[];
+  consult_title: string;
+  consult_content: string;
+  answerStatus: JSX.Element | string;
+}
 
 const MyQuestionItem = () => {
+  const [myConsults, setMyConsults] = useState<Consult[]>([]);
   const [myConsults, setMyConsults] = useState<Consult[]>([]);
 
   useEffect(() => {
@@ -25,12 +35,9 @@ const MyQuestionItem = () => {
       try {
         const consults = await getMyConsultData();
 
-        if (consults) {
-          // 각 질문의 답변 상태를 확인하기
-          for (const consult of consults) {
-            const consultAnswer = await checkConsultAnswer(consult.consult_id);
-            consult.answerStatus = consultAnswer;
-          }
+        for (const consult of consults) {
+          const consultAnswer = await checkConsultAnswer(consult.consult_id);
+          consult.answerStatus = consultAnswer;
         }
 
         setMyConsults(consults || []);

@@ -52,15 +52,6 @@ export const consultAddForm = async (
       user_name: userName,
       user_email: userEmail
     });
-    await supabase.from("consult_info").insert({
-      consult_id: consultId,
-      consult_title: newTitle,
-      consult_content: newContents,
-      bodyparts: newBodyParts,
-      hashtags: newHashTags,
-      user_name: userName,
-      user_email: userEmail
-    });
 
     console.log("저장했음!!!~", userId);
     return { consultId, userId, userEmail };

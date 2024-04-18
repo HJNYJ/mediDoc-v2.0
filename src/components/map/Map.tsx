@@ -7,17 +7,6 @@ import React, { useEffect } from "react";
 
 declare const kakao;
 
-// ./src/components/apply/CourseSelect.tsx:29:31
-// Type error: Parameter ‘check’ implicitly has an ‘any’ type.
-//   27 |   const [checkedCourse, setCheckedCourse] = useState(new Map());
-//   28 |
-// > 29 |   const checkCourseHandler = (check, id) => {
-//      |                               ^
-//   30 |     const map = new Map();
-//   31 |     map.set(check, id);
-//   32 |     setCheckedCourse(map);
-// error Command failed with exit code 1.
-
 const Map = ({
   name,
   latitude,
