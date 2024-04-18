@@ -1,5 +1,18 @@
 import { supabase } from "@/api/supabase";
 
+type Answer = {
+  answer: string;
+  answer_id: string;
+  consult_id: string | null;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+  questionInfo?: object;
+  photos?: string;
+};
+
 export const getMyConsultData = async () => {
   try {
     // 유저 정보 가져오기

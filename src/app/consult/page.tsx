@@ -11,25 +11,7 @@ import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-
-interface ConsultType {
-  consult_id: string;
-  user_name: string | null;
-  consult_title: string;
-  consult_content: string;
-  bodyparts: string | null;
-  hashtags: string | null;
-  consult_answer: {
-    answer: string;
-    answer_id: string;
-    user_id: string | null;
-  }[];
-  consult_photos: {
-    consult_id: string;
-    photos: string | null;
-    photo_id: string;
-  };
-}
+import { ConsultType } from "@/types";
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
@@ -86,6 +68,26 @@ const ConsultPage = () => {
               onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
             >
               <div className="flex flex-col justify-between">
+                {consult?.consult_photos && consult?.consult_photos.length ? (
+                  consult?.consult_photos?.map((item) => {
+                    return (
+                      <img
+                        key={item?.photo_id}
+                        src={item?.photos || undefined} // 이미지 URL
+                        alt="Uploaded Image"
+                        className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                      />
+                    );
+                  })
+                ) : (
+                  <img
+                    src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
+                    alt="Uploaded Image"
+                    className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                  />
+                )}
+              </div>
+              {/* <div className="flex flex-col justify-between">
                 {consult?.consult_photos?.length ? (
                   consult?.consult_photos?.map((item) => {
                     return (
@@ -104,7 +106,7 @@ const ConsultPage = () => {
                     className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
                   />
                 )}
-              </div>
+              </div> */}
 
               <div className="ml-4 w-full overflow-hidden">
                 <p className="semibold-18 text-gray-800">

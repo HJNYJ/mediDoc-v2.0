@@ -1,4 +1,4 @@
-declare const kakao: any;
+declare const kakao;
 
 // 지도를 정의하는 함수
 export const setKakaoMap = (latitude: number, longitude: number) => {

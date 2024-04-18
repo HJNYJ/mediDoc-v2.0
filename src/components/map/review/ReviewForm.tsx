@@ -14,9 +14,14 @@ interface ReviewFormProps {
   hospitalId: string;
 }
 
+// type ReviewRatingProps = {
+//   rating: number | null;
+//   setRating: React.Dispatch<React.SetStateAction<number | null>>;
+// };
+
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
-  const [rating, setRating] = useState<number>(0); // 별점 관리
+  const [rating, setRating] = useState<number | null>(0); // 별점 관리
   const [img, setImg] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<
     {
@@ -139,13 +144,11 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
 
-  const deleteImgHandle = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== index));
-
-    // uploadedImages state 업데이트
-    const updatedImages = uploadedImages.filter((_, index) => index !== index);
+  const deleteImgHandle = (idx: number) => {
+    setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
+    const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
+    setImg([]);
   };
 
   const handleSubmit = async () => {
@@ -154,13 +157,16 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       const data = await supabase.from("review_info").insert([
         {
           content: content,
-          hashtags: selectedTags,
+          hashtags: selectedTags.join(","),
           hospital_id: hospitalId,
-          rating: rating,
+          rating: rating || 0,
           review_id: reviewId
         }
       ]);
-      handleFiles(data);
+      // handleFiles(data);
+      if (data.data) {
+        handleFiles(JSON.stringify(data.data));
+      }
 
       // 리뷰 이미지 업로드
       for (const image of img) {
@@ -199,9 +205,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           {/**  */}
           <ReviewRating
             rating={rating}
-            setRating={(rating: SetStateAction<number | null>) =>
-              setRating(rating)
-            }
+            setRating={(value: number | null) => setRating(value)}
           />
         </div>
         <div>
