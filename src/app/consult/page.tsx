@@ -2,48 +2,55 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { fetchConsults, fetchImages } from "@/api/supabase";
+import { fetchConsults } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
 import Hashtag from "@/utils/hashtag";
 import Image from "next/image";
 import addIcon from "@/assets/icons/consult/add.png";
-
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
+interface ConsultType {
+  consult_id: string;
+  user_name: string | null;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string | null;
+  hashtags: string | null;
+  consult_answer: {
+    answer: string;
+    answer_id: string;
+    user_id: string | null;
+  }[];
+  consult_photos: {
+    consult_id: string;
+    photos: string | null;
+    photo_id: string;
+  };
+}
+
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  const [consultsData, setConsultsData] = useState([]);
-  console.log("consultsData ---------> ????", consultsData);
-  const [consultPhotos, setConsultPhotos] = useState([]);
+  const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
       const consultsData = await fetchConsults();
-      // console.log("데이터 확인임~~~", consultsData);
-      setConsultsData(consultsData);
-      setIsLoading(false);
-    };
-
-    const fetchConsultPhotos = async () => {
-      setIsLoading(true);
-      const consultPhotos = await fetchImages();
-      setConsultPhotos(consultPhotos);
+      setConsultsData(consultsData || []);
       setIsLoading(false);
     };
 
     fetchConsultsData();
-    fetchConsultPhotos();
   }, []);
 
   if (isLoading) return <p>Loading consults..!!</p>;
-  if (error) return <p>error : {error}</p>;
+  // if (error) return <p>error : {error}</p>;
 
   const handleCategoryChange = () => {
     // bodyparts 탭으로 변경
@@ -71,49 +78,59 @@ const ConsultPage = () => {
       </div>
       <ConsultTabs handleCategoryChange={handleCategoryChange} />
       <div className="h-[154px] top-151">
-        {consultsData?.map((consult) => (
-          <div
-            key={consult?.consult_id}
-            className="flex p-4 mb-4 cursor-pointer"
-            onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
-          >
-            <div className="flex flex-col justify-between">
-              {consultPhotos
-                ?.filter((image) => image?.consult_id === consult?.consult_id)
-                ?.map((image) => (
+        {consultsData?.map((consult) => {
+          return (
+            <div
+              key={consult?.consult_id}
+              className="flex p-4 mb-4 cursor-pointer"
+              onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
+            >
+              <div className="flex flex-col justify-between">
+                {consult?.consult_photos?.length ? (
+                  consult?.consult_photos?.map((item) => {
+                    return (
+                      <img
+                        key={item?.photo_id}
+                        src={item?.photos} // 이미지 URL
+                        alt="Uploaded Image"
+                        className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                      />
+                    );
+                  })
+                ) : (
                   <img
-                    key={image?.photos_id}
-                    src={image?.photos} // 이미지 URL
+                    src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
                     alt="Uploaded Image"
                     className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
                   />
-                ))}
-            </div>
-
-            <div className="ml-4 w-full overflow-hidden">
-              <p className="semibold-18 text-gray-800">
-                {consult?.consult_title}
-              </p>
-              <p className="text-gray-700 regular-14 mb-2">
-                {consult?.consult_content}
-              </p>
-              <div className="mb-4 flex">
-                {consult?.hashtags
-                  ?.toString()
-                  .split(",")
-                  .map((hashtag: string) => (
-                    <Hashtag key={hashtag} hashtag={hashtag} />
-                  ))}
+                )}
               </div>
-              {consult?.consult_answer &&
-              consult?.consult_answer?.length > 0 ? (
-                <AnswerComplete />
-              ) : (
-                <AnswerWaiting />
-              )}
+
+              <div className="ml-4 w-full overflow-hidden">
+                <p className="semibold-18 text-gray-800">
+                  {consult?.consult_title}
+                </p>
+                <p className="text-gray-700 regular-14 mb-2">
+                  {consult?.consult_content}
+                </p>
+                <div className="mb-4 flex">
+                  {consult?.hashtags
+                    ?.toString()
+                    .split(",")
+                    .map((hashtag: string) => (
+                      <Hashtag key={hashtag} hashtag={hashtag} />
+                    ))}
+                </div>
+                {consult?.consult_answer &&
+                consult?.consult_answer?.length > 0 ? (
+                  <AnswerComplete />
+                ) : (
+                  <AnswerWaiting />
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <hr className="w-full border-solid border-gray-400 border-1 mb-3" />
       {/* 밑 줄 이거를 어떻게 반복 시킬까... */}

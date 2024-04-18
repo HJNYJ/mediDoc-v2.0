@@ -126,7 +126,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     }
   };
 
-  const handleImageOrder = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleImageOrder = (e: React.MouseEvent<HTMLDivElement>) => {
     const url = e.currentTarget.id;
 
     // 클릭된 아이템 인덱스 번호
@@ -139,7 +139,8 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
 
-  const deleteImgHandle = (e: MouseEvent<HTMLButtonElement>) => {
+  const deleteImgHandle = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== index));
 
     // uploadedImages state 업데이트
@@ -150,16 +151,13 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const handleSubmit = async () => {
     try {
       const reviewId = uuidv4(); // 새로운 리뷰 ID 생성
-      const selectedTagsArray: string[] = Array.from(selectedTags).map(String); // Convert selectedtags to string array
-
-      // Supabase에 리뷰 정보 삽입
       const data = await supabase.from("review_info").insert([
         {
-          review_id: reviewId,
           content: content,
+          hashtags: selectedTags,
+          hospital_id: hospitalId,
           rating: rating,
-          hashtags: selectedTagsArray,
-          hospital_id: hospitalId
+          review_id: reviewId
         }
       ]);
       handleFiles(data);

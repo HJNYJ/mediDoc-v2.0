@@ -14,15 +14,13 @@ import { useEffect, useState } from "react";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
-  const [consultsData, setConsultsData] = useState([]);
+  // const [consultsData, setConsultsData] = useState([]);
   const [consultPhotos, setConsultPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConsultPhotos = async () => {
       const consultPhotos = await fetchImages();
       setConsultPhotos(consultPhotos);
-      setIsLoading(false);
     };
 
     fetchConsultPhotos();
@@ -58,82 +56,63 @@ const HomeConsultItem = () => {
 
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
-  // if (isLoadingRecent || !consultRecentImageData) return <div>로딩 중...</div>;
-  // if (isErrorRecent || isErrorImgRecent) return <div>에러가 발생했습니다.</div>;
-
   return (
     <div className="w-[360px]">
-      {consultRecentData?.slice(0, 3).map((consult, index) => (
-        <div key={index} className="flex justify-center">
-          <div className="flex flex-col">
-            {consultPhotos
-              ?.filter((image) => image?.consult_id === consult?.consult_id)
-              ?.map((image, index) => (
-                <img
-                  src={image.photos}
-                  alt={`상담 이미지 ${index + 1}`}
-                  className="w-[100px] h-[100px]"
-                />
-              ))}
-            <div className="semibold-18">{consult?.consult_title}</div>
-            <div className="medium-14 text-gray-700">
-              {consult?.consult_content}
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={1}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }}
+      >
+        {consultRecentData?.map((consult, index) => (
+          <SwiperSlide key={index}>
+            <div className="flex justify-center">
+              <div className="flex flex-col">
+                <Swiper
+                  spaceBetween={50}
+                  slidesPerView={1}
+                  navigation={{
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                  }}
+                >
+                  {consultPhotos
+                    ?.filter(
+                      (image) => image?.consult_id === consult?.consult_id
+                    )
+                    ?.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={image.photos}
+                          alt={`상담 이미지 ${index + 1}`}
+                          className="w-[100px] h-[100px]"
+                        />
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+                <div className="semibold-18">{consult?.consult_title}</div>
+                <div className="medium-14 text-gray-700">
+                  {consult?.consult_content}
+                </div>
+              </div>
+
+              <div>
+                {consult?.consult_answer &&
+                consult?.consult_answer?.length >= 1 ? (
+                  <AnswerComplete />
+                ) : (
+                  <AnswerWaiting />
+                )}
+              </div>
             </div>
-          </div>
-
-          <div>
-            {consult?.consult_answer && consult?.consult_answer?.length >= 1 ? (
-              <AnswerComplete />
-            ) : (
-              <AnswerWaiting />
-            )}
-          </div>
-        </div>
-      ))}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="swiper-button-prev"></div>
+      <div className="swiper-button-next"></div>
     </div>
-    // <div className="w-[360px]">
-    //   {consultRecentData?.map((consult, index) => {
-    //     // const images = consultRecentImageData.filter(
-    //     //   (image) => image.consult_id === consult.consult_id
-    //     // );
-    //     return (
-    //       <div key={index} className="flex align-center justify-center">
-    //         <div className="flex flex-col">
-    //           <div className="semibold-18">{consult?.consult_title}</div>
-    //           <div className="medium-14 text-gray-700">
-    //             {consult?.consult_content}
-    //           </div>
-    //         </div>
-
-    //         <div>
-    //           {consult?.consult_answer &&
-    //           consult?.consult_answer?.length >= 1 ? (
-    //             <Image
-    //               src={answer_complete}
-    //               alt="답변 완료"
-    //               className="w-[57px] h-[27px]"
-    //             />
-    //           ) : (
-    //             <Image
-    //               src={answer_wait}
-    //               alt="답변 대기중"
-    //               className="w-[57px] h-[27px]"
-    //             />
-    //           )}
-    //         </div>
-
-    //         {/* {images.map((image, index) => (
-    //           <Image
-    //             key={index}
-    //             src={image.photos}
-    //             alt={`상담 이미지 ${index + 1}`}
-    //             className="w-[100px] h-[100px]"
-    //           />
-    //         ))} */}
-    //       </div>
-    //     );
-    //   })}
-    // </div>
   );
 };
 

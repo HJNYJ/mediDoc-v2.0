@@ -30,6 +30,17 @@ export interface ConsultResponse {
   created_at: string;
 }
 
+export interface answerDetailType {
+  answer: string;
+  answer_id: string;
+  consult_id: string | null;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+}
+
 export interface HashtagButtonsProps {
   hashtags: { [key: string]: string };
 }

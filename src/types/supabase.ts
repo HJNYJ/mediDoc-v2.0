@@ -89,7 +89,7 @@ export type Database = {
           consult_id: string;
           consult_title: string;
           created_at: string;
-          hashtags: string | null;
+          hashtags: string[] | null;
           user_email: string | null;
           user_name: string | null;
         };
@@ -99,7 +99,7 @@ export type Database = {
           consult_id?: string;
           consult_title: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -109,7 +109,7 @@ export type Database = {
           consult_id?: string;
           consult_title?: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
           user_email?: string | null;
           user_name?: string | null;
         };
