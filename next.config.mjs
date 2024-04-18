@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["icxxtjvkfjgebycacdab.supabase.co"]
+    domains: ["zxmfaufazajrwupitcjr.supabase.co"]
   }
   // webpack: (config) => {
   //   // URL 파일로더
