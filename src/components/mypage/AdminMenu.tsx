@@ -44,16 +44,20 @@ const AdminMenu = () => {
   };
 
   return (
-    <>
-      {showConsultButton && (
-        <button onClick={handleConsultList}>실시간 상담</button>
-      )}
-      {showReservationButton && (
-        <button onClick={handleReservationList}>예약 내역 관리</button>
-      )}
+    <div className="flex mt-[38px]">
+      <div className="w-[171px] h-[83px] regular-20 rounded-[20px] mr-[16px] place-content-center border-bluegray border-3">
+        {showConsultButton && (
+          <button onClick={handleConsultList}>실시간 상담</button>
+        )}
+      </div>
+      <div className="w-[171px] h-[83px] regular-20 rounded-[20px] mr-[16px] place-content-center border-bluegray border-3">
+        {showReservationButton && (
+          <button onClick={handleReservationList}>예약 내역 관리</button>
+        )}
+      </div>
       {showConsultList && <AdminQuestionItem />}
       {showReservationList && <ReservationInfoList />}
-    </>
+    </div>
   );
 };
 

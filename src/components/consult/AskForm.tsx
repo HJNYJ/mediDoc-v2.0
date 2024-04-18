@@ -8,6 +8,7 @@ import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
+import defaultImage from "@/assets/icons/defaultImage.png";
 import TopNavbar from "../layout/TopNavbar";
 import { useRouter } from "next/navigation";
 const AskForm = () => {
@@ -161,6 +162,16 @@ const AskForm = () => {
     const userData = await getUserInfo();
     const userName = userData?.userName;
     const userEmail = userData?.userEmail;
+
+    if (uploadedImages.length === 0) {
+      const defaultImageData = {
+        name: "defaultImage.png",
+        type: "image/png",
+        dataUrl: defaultImage
+      };
+      setUploadedImages([defaultImageData]);
+    }
+
     const data = await consultAddForm(
       title,
       contents,
@@ -245,6 +256,13 @@ const AskForm = () => {
                 {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
               </p>
               <div>
+                {/* {uploadedImages.length === 0 && (
+                  <Image
+                    src={defaultImage}
+                    alt="기본 이미지"
+                    className="w-[84px] h-[80px] rounded-[10px]"
+                  />
+                )} */}
                 {uploadedImages.map((image, idx: number) => (
                   <div key={image.dataUrl}>
                     {/**이미지 렌더링 */}
@@ -301,11 +319,6 @@ const AskForm = () => {
               label="물어보기"
             />
           </div>
-          {/* <Image
-            src={okBtn}
-            className="w-[358px] h-[50px] mt-16"
-            alt="물어보기"
-          /> */}
         </form>
       </div>
     </>

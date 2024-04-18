@@ -64,7 +64,16 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
           width={119.3}
         />
       </div>
-      <div>{/** 데이터 잘 렌더링됨 */}</div>
+      <div>
+        {/** 데이터 잘 렌더링됨 */}
+        {posts.map((post) => (
+          <div key={post.id}>
+            {/* 상담 정보를 렌더링하는 부분 */}
+            <p>{post.title}</p>
+            <p>{post.content}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
