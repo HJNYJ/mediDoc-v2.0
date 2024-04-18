@@ -1,7 +1,8 @@
 import { createBrowserClient } from "@supabase/ssr";
 import type { Database } from "@/types/supabase";
-import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/utils/getUserInfo";
+import { v4 as uuidv4 } from "uuid";
+import { ConsultType } from "@/types";
 
 // 필요한 부분은 언제든 꺼내 쓸 수 있게
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -32,27 +33,24 @@ export const supabase = createBrowserClient<Database>(
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
-  newBodyParts: string,
-  newHashTags: string[],
-  userName: string,
-  userEmail: string
+  newBodyParts: string | null,
+  newHashTags: string[] | null,
+  userName: string | null,
+  userEmail: string | null
 ) => {
   try {
     const consultId = uuidv4();
     const userData = await getUserInfo();
     const userId = userData?.userId;
-    const userEmail = userData?.userEmail;
-    await supabase.from("consult_info").insert([
-      {
-        consult_id: consultId,
-        consult_title: newTitle,
-        consult_content: newContents,
-        bodyparts: newBodyParts,
-        hashtags: newHashTags,
-        user_name: userName,
-        user_email: userEmail
-      }
-    ]);
+    await supabase.from("consult_info").insert({
+      consult_id: consultId,
+      consult_title: newTitle,
+      consult_content: newContents,
+      bodyparts: newBodyParts,
+      hashtags: newHashTags,
+      user_name: userName,
+      user_email: userEmail
+    });
 
     console.log("저장했음!!!~", userId);
     return { consultId, userId, userEmail };
@@ -171,7 +169,7 @@ export const fetchHospitalReviewImages = async (hospitalId: string) => {
 };
 
 // OOO
-export const fetchConsults = async () => {
+export const fetchConsults = async (): Promise<ConsultType[] | null> => {
   const { data, error } = await supabase.from("consult_info").select(
     `consult_id, 
       user_name, 
@@ -179,11 +177,12 @@ export const fetchConsults = async () => {
       consult_content,
       bodyparts, 
       hashtags,
-      consult_answer(*)
+      consult_answer(*),
+      consult_photos(*)
       `
   );
   if (error) console.error("error", error);
-  return data;
+  return data as ConsultType[] | null;
 };
 
 // OOO
@@ -333,4 +332,9 @@ export const hospitalImage = async (hospitalId: string) => {
 
   const { data } = response;
   return data;
+};
+
+export const consultInfoAndImage = async () => {
+  const response = await supabase.from("consult_info").select(`*
+          , consult_consult_photos(*)`);
 };

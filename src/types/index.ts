@@ -30,6 +30,17 @@ export interface ConsultResponse {
   created_at: string;
 }
 
+export interface answerDetailType {
+  answer: string;
+  answer_id: string;
+  consult_id: string | null;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+}
+
 export interface HashtagButtonsProps {
   hashtags: { [key: string]: string };
 }
@@ -82,20 +93,34 @@ export interface UserInfo {
 }
 
 export interface ScrappedList {
-  hospital_id: string;
-  scrap_id: string;
+  hospital_id?: string;
+  hospital_info: {
+    end_time: string;
+    hospital_address: string;
+    hospital_contact: string;
+    hospital_id?: string;
+    hospital_image: string;
+    hospital_introduction: string;
+    hospital_latitude: number;
+    hospital_longitude: number;
+    hospital_name: string;
+    region_id: number;
+    start_time: string;
+  } | null;
+  scrap_id?: string;
   user_id: string;
 }
 
 // 리뷰 -----------------
 export type Tab = "starRating" | "latest";
 
-export type Review = {
-  id: number;
-  user_id: string;
-  rating: number;
+export type ReviewDetailData = {
   content: string;
-  created_at: string;
+  created_at?: string;
+  hashtags?: string;
+  hospital_id?: string | null;
+  rating: number;
+  review_id?: string;
 };
 
 export type ReviewsProps = {
@@ -119,3 +144,22 @@ export type Row = {
   user_email: string;
   user_name: string;
 };
+
+export interface ConsultType {
+  consult_id: string;
+  user_name: string | null;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string | null;
+  hashtags: string | null;
+  consult_answer: {
+    answer: string;
+    answer_id: string;
+    user_id: string | null;
+  }[];
+  consult_photos: {
+    consult_id: string;
+    photos: string | null;
+    photo_id: string;
+  }[];
+}

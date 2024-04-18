@@ -15,19 +15,23 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const { data: session } = await supabase.auth.getSession();
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
         const user = session?.user;
+        const email = user?.email || "";
+        console.log("user ===> ", user);
 
         // 사용자 정보 가져오기
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("*")
-          .eq("user_email", user?.email)
+          .eq("user_email", email)
           .single();
 
         if (userDataError) throw new Error(userDataError.message);
 
-        setUserInfo(userData); // 사용자 정보 설정
+        setUserInfo(userData as UserInfo);
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
       }

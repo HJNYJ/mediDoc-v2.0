@@ -23,7 +23,7 @@ const ScrappedList = () => {
           hospital_info(*)
         `
           )
-          .eq("user_id", user?.id);
+          .eq("user_id", user?.id || "");
 
         if (error) throw new Error(error.message);
 
@@ -49,11 +49,11 @@ const ScrappedList = () => {
           <div key={item.scrap_id} className="flex flex-col oneThird mb-4">
             <img
               className="object-cover h-[131px] rounded-[10px] "
-              src={item.hospital_info.hospital_image}
-              alt={item.hospital_info.hospital_name}
+              src={item?.hospital_info?.hospital_image}
+              alt={item?.hospital_info?.hospital_name}
             />
             <span className="text-[14px] font-medium h-[24px] mt-[8px]">
-              {item.hospital_info.hospital_name}
+              {item.hospital_info?.hospital_name}
             </span>
           </div>
         ))}

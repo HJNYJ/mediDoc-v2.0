@@ -1,5 +1,18 @@
 import { supabase } from "@/api/supabase";
 
+type Answer = {
+  answer: string;
+  answer_id: string;
+  consult_id: string | null;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+  questionInfo?: object;
+  photos?: string;
+};
+
 export const getMyConsultData = async () => {
   try {
     // 유저 정보 가져오기
@@ -8,13 +21,14 @@ export const getMyConsultData = async () => {
     } = await supabase.auth.getSession();
 
     const user = session?.user;
+    const email = user?.email ?? "";
 
     // 내가 작성한 상담글 가져오기
     // 1. consult_info에서 user_email이 일치하는 것 가져오기
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
-      .eq("user_email", user?.email || "");
+      .eq("user_email", email);
 
     if (consultInfoError) throw new Error(consultInfoError.message);
 
@@ -43,12 +57,12 @@ export const getMyConsultAnswerData = async () => {
       data: { session }
     } = await supabase.auth.getSession();
     const user = session?.user;
-
+    const id = user?.id || "";
     // 병원 관계자인지 확인
     const { data: userInfo, error: userInfoError } = await supabase
       .from("user_info")
       .select("*")
-      .eq("user_id", user?.id || "");
+      .eq("user_id", id);
 
     if (userInfoError) throw new Error(userInfoError.message);
 
@@ -65,20 +79,23 @@ export const getMyConsultAnswerData = async () => {
 
       // 병원 관계자가 작성한 답변에 있는 상담 정보와 사진 가져오기
       for (const answer of consultAnswerData) {
+        const consultAnswer = answer?.consult_id || "";
         // 사진 가져오기
         const { data: consultPhotos, error: consultPhotosError } =
           await supabase
             .from("consult_photos")
             .select("*, consult_info(*)")
-            .eq("consult_id", answer.consult_id);
+            .eq("consult_id", consultAnswer);
 
         if (consultPhotosError) throw new Error(consultPhotosError.message);
+
+        const consultAnswerId = answer?.consult_id || "";
 
         // 상담글 가져오기
         const { data: questionInfo, error: questionInfoError } = await supabase
           .from("consult_info")
           .select("*")
-          .eq("consult_id", answer.consult_id);
+          .eq("consult_id", consultAnswerId);
         if (questionInfoError) throw new Error(questionInfoError.message);
         console.log("questionInfo", questionInfo);
 

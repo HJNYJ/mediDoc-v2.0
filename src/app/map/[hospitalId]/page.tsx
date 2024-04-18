@@ -2,7 +2,7 @@
 
 import {
   fetchHospitalReviewImages,
-  getHospitalImages,
+  // getHospitalImages,
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";
@@ -24,14 +24,14 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     queryKey: ["reviewDetailList", params.hospitalId],
     queryFn: () => getReviewDetail(params.hospitalId)
   });
-  const { data: hospitalInfo, refetch: refetchHospitalInfo } = useQuery({
+  const { refetch: refetchHospitalInfo } = useQuery({
     queryKey: ["hospitalInformation", params.hospitalId],
     queryFn: () => getHospitalInfo(params.hospitalId)
   });
-  const { data: hospitalImages, refetch: refetchHospitalImages } = useQuery({
-    queryKey: ["hospitalFetchImages", params.hospitalId],
-    queryFn: () => getHospitalImages(params.hospitalId)
-  });
+  // const { refetch: refetchHospitalImages } = useQuery({
+  //   queryKey: ["hospitalFetchImages", params.hospitalId],
+  //   queryFn: () => getHospitalImages(params.hospitalId)
+  // });
 
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
@@ -39,9 +39,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       case "default":
         refetchHospitalInfo();
         break;
-      case "image":
-        refetchHospitalImages();
-        break;
+      // case "image":
+      //   refetchHospitalImages();
+      //   break;
       case "review":
         refetchReviews();
         break;

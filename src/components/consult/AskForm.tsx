@@ -8,7 +8,7 @@ import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 import Button from "../layout/Buttons";
-import defaultImage from "@/assets/icons/defaultImage.png";
+// import defaultImage from "@/assets/icons/defaultImage.png";
 import TopNavbar from "../layout/TopNavbar";
 import { useRouter } from "next/navigation";
 const AskForm = () => {
@@ -26,7 +26,7 @@ const AskForm = () => {
     {
       name: string;
       type: string;
-      dataUrl: string;
+      dataUrl: string | ArrayBuffer | null;
     }[]
   >([]);
   const router = useRouter();
@@ -47,14 +47,22 @@ const AskForm = () => {
     fileList.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImages((prevFiles) => [
-          ...prevFiles,
-          {
-            name: file.name,
-            type: file.type,
-            dataUrl: reader.result as string
-          }
-        ]);
+        setUploadedImages(
+          (
+            prevFiles: {
+              name: string;
+              type: string;
+              dataUrl: string | ArrayBuffer | null;
+            }[]
+          ) => [
+            ...prevFiles,
+            {
+              name: file.name,
+              type: file.type,
+              dataUrl: reader.result
+            }
+          ]
+        );
       };
       reader.readAsDataURL(file);
     });
@@ -66,7 +74,10 @@ const AskForm = () => {
   ) => {
     // const fileList = e.target.files;
     const fileList = img;
-    if (fileList) {
+
+    console.log("fileList", fileList);
+
+    if (fileList.length) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
       filesArray.forEach((file) => {
@@ -81,6 +92,7 @@ const AskForm = () => {
   }
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
+    console.log("consultId >>>>>", consultId);
     try {
       const newFileName = `${Math.random()}`;
       // Supabase Storage에 이미지 업로드
@@ -95,7 +107,7 @@ const AskForm = () => {
         // console.log("url ?????????? => ", url); // 사진 잘 나오고있음, url이 잘 나오고 있음
         const uploadImgUrl = await uploadPhotosUrl(
           url.toString(),
-          consultId.consultId
+          consultId.toString()
         ); // consultId === null
 
         if (uploadImgUrl) {
@@ -127,6 +139,7 @@ const AskForm = () => {
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
+    setImg([]);
   };
 
   const fetchHashtags = async (selectedCategory: string) => {
@@ -161,16 +174,7 @@ const AskForm = () => {
   const handleSubmit = async () => {
     const userData = await getUserInfo();
     const userName = userData?.userName;
-    const userEmail = userData?.userEmail;
-
-    if (uploadedImages.length === 0) {
-      const defaultImageData = {
-        name: "defaultImage.png",
-        type: "image/png",
-        dataUrl: defaultImage
-      };
-      setUploadedImages([defaultImageData]);
-    }
+    const userEmail = userData?.userEmail || null;
 
     const data = await consultAddForm(
       title,
@@ -184,7 +188,11 @@ const AskForm = () => {
     );
     // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
     console.log("consult Ask Form data", data);
-    handleFiles(data); // data >> consultId
+
+    const id: string = data?.consultId || "";
+
+    handleFiles(id); // data >> consultId
+
     if (data) {
       console.log("AskForm 추가 성공", data!);
       alert("글 작성이 완료됐습니다.");
@@ -256,26 +264,24 @@ const AskForm = () => {
                 {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
               </p>
               <div>
-                {/* {uploadedImages.length === 0 && (
-                  <Image
-                    src={defaultImage}
-                    alt="기본 이미지"
-                    className="w-[84px] h-[80px] rounded-[10px]"
-                  />
-                )} */}
-                {uploadedImages.map((image, idx: number) => (
-                  <div key={image.dataUrl}>
-                    {/**이미지 렌더링 */}
-                    <img
-                      src={image.dataUrl}
-                      alt={image.name}
-                      className="w-[100px] h-[100px]"
-                    />
-                    {/* <img src={image.dataUrl} alt={image.name} /> */}
-                    <div id={image.dataUrl} onClick={handleImageOrder}></div>
-                    <button onClick={() => handleDeleteImage(idx)}>삭제</button>
-                  </div>
-                ))}
+                {uploadedImages.map((image, idx: number) => {
+                  console.log("image.dataUrl?????", image.dataUrl);
+                  return (
+                    <div key={idx}>
+                      {/**이미지 렌더링 */}
+                      <img
+                        src={String(image.dataUrl)}
+                        alt={image.name}
+                        className="w-[100px] h-[100px]"
+                      />
+                      {/* <img src={image.dataUrl} alt={image.name} /> */}
+                      <div onClick={handleImageOrder}></div>
+                      <button onClick={() => handleDeleteImage(idx)}>
+                        삭제
+                      </button>
+                    </div>
+                  );
+                })}
                 {uploadedFileUrl.length >= 3 ? (
                   <></>
                 ) : (

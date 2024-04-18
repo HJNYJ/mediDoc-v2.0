@@ -7,27 +7,35 @@ import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
 import AnswerWaiting from "../layout/AnswerWaiting";
 import AnswerComplete from "../layout/AnswerComplete";
-import Image from "next/image";
+import { ConsultType } from "@/types";
 
-interface Consult {
-  consult_id: string;
-  photos: { photo_id: string; photos: string }[];
-  consult_title: string;
+interface ConsultType {
+  bodyparts: string | null;
   consult_content: string;
-  answerStatus: JSX.Element | string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+  consult_photos: string;
+  answerStatus: string; // Add the answerStatus property
 }
 
 const MyQuestionItem = () => {
-  const [myConsults, setMyConsults] = useState<Consult[]>([]);
+  const [myConsults, setMyConsults] = useState<ConsultType[]>([]);
 
   useEffect(() => {
     const fetchMyConsults = async () => {
       try {
         const consults = await getMyConsultData();
 
-        for (const consult of consults) {
-          const consultAnswer = await checkConsultAnswer(consult.consult_id);
-          consult.answerStatus = consultAnswer;
+        if (consults) {
+          // 각 질문의 답변 상태를 확인하기
+          for (const consult of consults) {
+            const consultAnswer = await checkConsultAnswer(consult.consult_id);
+            consult.answerStatus = consultAnswer;
+          }
         }
 
         setMyConsults(consults || []);
