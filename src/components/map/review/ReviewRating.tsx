@@ -35,7 +35,7 @@ const ReviewRating = ({
               onClick={() => setRating(currentRating)}
             >
               {/* {currentRating <= (hoverRating || rating) ? "⭐" : "⚝"} */}
-              {currentRating <= (hoverRating || rating) ? (
+              {currentRating <= (hoverRating || rating || 0) ? (
                 <Image src={filledStar} alt="filled star" />
               ) : (
                 <Image src={hollowStar} alt="empty star" />

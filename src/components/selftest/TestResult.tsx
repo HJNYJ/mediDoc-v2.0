@@ -40,7 +40,7 @@ const TestResult = () => {
 
       // 선택된 증상과 매칭되는 질환 찾기
       let maxMatches = 0;
-      let matchedDiseases = [];
+      const matchedDiseases: Array<string> = [];
 
       possibleDiseases.forEach((disease) => {
         // 증상과 매칭되늰 질환의 수 확인
@@ -50,7 +50,7 @@ const TestResult = () => {
         // 선택된 증상과 가장 많이 일치하는 질환을 출력
         if (matches > maxMatches) {
           maxMatches = matches;
-          matchedDiseases = [disease.disease_name];
+          matchedDiseases.push(disease.disease_name);
         } else if (matches === maxMatches) {
           matchedDiseases.push(disease.disease_name);
         }

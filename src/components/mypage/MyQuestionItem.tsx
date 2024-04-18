@@ -7,9 +7,23 @@ import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
 import AnswerWaiting from "../layout/AnswerWaiting";
 import AnswerComplete from "../layout/AnswerComplete";
+import { ConsultType } from "@/types";
+
+interface ConsultType {
+  bodyparts: string | null;
+  consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+  consult_photos: string;
+  answerStatus: string; // Add the answerStatus property
+}
 
 const MyQuestionItem = () => {
-  const [myConsults, setMyConsults] = useState([]);
+  const [myConsults, setMyConsults] = useState<ConsultType[]>([]);
 
   useEffect(() => {
     const fetchMyConsults = async () => {
@@ -18,10 +32,12 @@ const MyQuestionItem = () => {
         const consults = await getMyConsultData();
         // console.log("내가 한 질문", consults);
 
-        // 각 질문의 답변 상태를 확인하기
-        for (const consult of consults) {
-          const consultAnswer = await checkConsultAnswer(consult.consult_id);
-          consult.answerStatus = consultAnswer;
+        if (consults) {
+          // 각 질문의 답변 상태를 확인하기
+          for (const consult of consults) {
+            const consultAnswer = await checkConsultAnswer(consult.consult_id);
+            consult.answerStatus = consultAnswer;
+          }
         }
 
         // console.log("답변 consults????", consults);

@@ -10,8 +10,10 @@ import "swiper/css/autoplay";
 import Hashtag from "@/utils/hashtag";
 import Image from "next/image";
 import star from "@/assets/icons/star.png";
+import { useRouter } from "next/navigation";
 
 const MainPageReview = () => {
+  const router = useRouter();
   const {
     data: reviewRateTopData,
     isLoading,
@@ -31,12 +33,19 @@ const MainPageReview = () => {
     }
   });
 
+  const handleViewAll = () => {
+    router.push("/map");
+  };
+
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   return (
     <>
       <p className="bold-18 mb-[16px]">내가 찾던 솔직한 후기</p>
+      <button onClick={handleViewAll} className="regular-13 text-gray-700">
+        전체 보기
+      </button>
       <Swiper
         loop={true}
         spaceBetween={4}

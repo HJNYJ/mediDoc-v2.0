@@ -8,7 +8,7 @@ import React from "react";
 const ReviewPage = () => {
   // const router = useRouter();
   const params = useParams();
-  const hospitalId = params.hospitalId;
+  const hospitalId = params.hospitalId.toString(); // Convert hospitalId to string
   console.log("ReviewPage params", hospitalId);
 
   return (
