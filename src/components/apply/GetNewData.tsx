@@ -3,7 +3,6 @@
 import useApplyStore from "@/shared/zustand/applyStore";
 import regionCheck from "@/assets/icons/check.png";
 import Image from "next/image";
-import HospitalName from "./HospitalName";
 
 const HospitalReservation = () => {
   const { reservationInfo } = useApplyStore();
