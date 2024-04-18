@@ -9,16 +9,13 @@ import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imageBox.png";
 // import review_okBtn from "@/assets/icons/review/review_okBtn.png";
 import Button from "@/components/layout/Buttons";
-
 interface ReviewFormProps {
   hospitalId: string;
 }
-
 // type ReviewRatingProps = {
 //   rating: number | null;
 //   setRating: React.Dispatch<React.SetStateAction<number | null>>;
 // };
-
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number | null>(0); // 별점 관리
@@ -34,7 +31,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [hashtags, setHashtags] = useState({}); // 해시태그 저장
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
   useEffect(() => {
     const fetchHashtags = async () => {
       try {
@@ -55,14 +51,11 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
         console.error("Error fetching hashtags:", error);
       }
     };
-
     fetchHashtags();
   }, []);
-
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
-
     fileList.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -78,25 +71,20 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       reader.readAsDataURL(file);
     });
   };
-
   const handleFiles = async (reviewId: string) => {
     const fileList = img;
-
     if (fileList) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-
       filesArray.forEach((file) => {
         handleAddImages(file, reviewId);
       });
     }
   };
-
   if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
     alert("이미지는 최대 3개 입니다.");
   }
-
   const handleAddImages = async (file: File, reviewId: string) => {
     try {
       const newFileName = `${uuidv4()}`;
@@ -104,24 +92,20 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       const result = await supabase.storage
         .from("images")
         .upload(`review_images/${newFileName}`, file);
-
       if (result.data) {
         const url =
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
         console.log("review result url은?? => ", url);
-
         const uploadImgUrl = await uploadReviewPhotosUrl(
           url.toString(),
           reviewId,
           hospitalId
         );
-
         if (uploadImgUrl) {
           console.log("리뷰 이미지 업로드! => ", uploadImgUrl);
         }
-
         // setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("review result => ", result);
@@ -130,10 +114,8 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       console.log("리뷰 이미지 오류가 났습니다:", error);
     }
   };
-
   const handleImageOrder = (e: React.MouseEvent<HTMLDivElement>) => {
     const url = e.currentTarget.id;
-
     // 클릭된 아이템 인덱스 번호
     const clickedItem = uploadedFileUrl.indexOf(url);
     // 클릭 된 아이템을 제외한 배열
@@ -143,14 +125,12 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     // 클릭 된 아이템을 맨 앞으로 해서 state를 변경
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
-
   const deleteImgHandle = (idx: number) => {
     setUploadedFileUrl(uploadedFileUrl.filter((_, index) => index !== idx));
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
     setImg([]);
   };
-
   const handleSubmit = async () => {
     try {
       const reviewId = uuidv4(); // 새로운 리뷰 ID 생성
@@ -167,31 +147,26 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       if (data.data) {
         handleFiles(JSON.stringify(data.data));
       }
-
       // 리뷰 이미지 업로드
       for (const image of img) {
         const newFileName = `${uuidv4()}`;
         const result = await supabase.storage
           .from("images")
           .upload(`review_images/${newFileName}`, image);
-
         if (result.data) {
           const imageUrl =
             process.env.NEXT_PUBLIC_SUPABASE_URL +
             "/storage/v1/object/public/images/" +
             result.data.path;
-
           // 리뷰 이미지 URL과 리뷰 ID를 이용하여 데이터베이스에 저장
           await uploadReviewPhotosUrl(imageUrl, reviewId, hospitalId);
         }
       }
-
       alert("리뷰가 등록되었습니다.");
     } catch (error) {
       console.error("리뷰 데이터 저장 중 오류 발생:", error);
     }
   };
-
   return (
     <div className="flex flex-col justify-center items-center">
       <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" />
@@ -298,5 +273,4 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     </div>
   );
 };
-
 export default ReviewForm;
