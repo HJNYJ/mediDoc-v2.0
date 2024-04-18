@@ -3,9 +3,11 @@
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
 import { fetchImages, supabase } from "@/api/supabase";
-import Image from "next/image";
-import answer_complete from "@/assets/icons/consult/answer_complete.png";
-import answer_wait from "@/assets/icons/consult/answer_wait.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
@@ -68,7 +70,6 @@ const HomeConsultItem = () => {
               ?.filter((image) => image?.consult_id === consult?.consult_id)
               ?.map((image, index) => (
                 <img
-                  key={index}
                   src={image.photos}
                   alt={`상담 이미지 ${index + 1}`}
                   className="w-[100px] h-[100px]"
