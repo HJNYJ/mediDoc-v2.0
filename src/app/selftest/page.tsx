@@ -60,9 +60,7 @@ const SelftestPage = () => {
       {/* 각 단계에 따라 컴포넌트 렌더링 */}
       {step === 0 && <Genders onSelect={goToNextPage} />}
       {step === 1 && <Departments onSelectDepartment={setSelectedDepartment} />}
-      {step === 2 && (
-        <BodyParts department={selectedDepartment} onSelect={goToNextPage} />
-      )}
+      {step === 2 && <BodyParts department={selectedDepartment} />}
       {step === 3 && <Symptoms />}
       {step < 3 && (
         <div className="mb-4 mt-auto">

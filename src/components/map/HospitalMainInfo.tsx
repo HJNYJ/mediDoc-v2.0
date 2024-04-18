@@ -7,18 +7,23 @@ import DefaultTab from "./defaultTab/DefaultTab";
 import ImageTab from "./imageTab/ImageTab";
 import ReviewTab from "./reviewTab/ReviewTab";
 
-const HospitalMainInfo = ({
-  selectedTab,
-  reviewDetailData
-}: TabList & { reviewDetailData: any }) => {
+const HospitalMainInfo = (
+  { selectedTab, reviewDetailData }: TabList & { reviewDetailData },
+  { hospitalId }: { hospitalId: string }
+) => {
   console.log("selectedTab", selectedTab);
   switch (selectedTab) {
     case "default":
-      return <DefaultTab />;
+      return <DefaultTab hospitalId={hospitalId} />;
     case "image":
       return <ImageTab />;
     case "review":
-      return <ReviewTab reviewDetailData={reviewDetailData} />;
+      return (
+        <ReviewTab
+          reviewDetailData={reviewDetailData}
+          selectedTab={selectedTab}
+        />
+      );
   }
 };
 

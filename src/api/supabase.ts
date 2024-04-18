@@ -29,30 +29,28 @@ export const supabase = createBrowserClient<Database>(
 
 // consult page OOO
 // consult page OOO
+
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
-  newBodyParts: string,
-  newHashTags: string[],
-  userName: string,
-  userEmail: string
+  newBodyParts: string | null,
+  newHashTags: string | null,
+  userName: string | null,
+  userEmail: string | null
 ) => {
   try {
     const consultId = uuidv4();
     const userData = await getUserInfo();
     const userId = userData?.userId;
-    const userEmail = userData?.userEmail;
-    await supabase.from("consult_info").insert([
-      {
-        consult_id: consultId,
-        consult_title: newTitle,
-        consult_content: newContents,
-        bodyparts: newBodyParts,
-        hashtags: newHashTags,
-        user_name: userName,
-        user_email: userEmail
-      }
-    ]);
+    await supabase.from("consult_info").insert({
+      consult_id: consultId,
+      consult_title: newTitle,
+      consult_content: newContents,
+      bodyparts: newBodyParts,
+      hashtags: newHashTags,
+      user_name: userName,
+      user_email: userEmail
+    });
 
     console.log("저장했음!!!~", userId);
     return { consultId, userId, userEmail };

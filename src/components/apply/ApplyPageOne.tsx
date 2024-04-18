@@ -43,11 +43,12 @@ const ApplyPageOne = ({
         data: { session }
       } = await supabase.auth.getSession();
       const user = session?.user;
-      setUserEmailData(user?.email);
+      const email = user?.email ?? "";
+      setUserEmailData(email);
       setUserNameData(user?.user_metadata.name);
     };
     fetchUser();
-  }, []);
+  }, [setUserEmailData, setUserNameData]);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

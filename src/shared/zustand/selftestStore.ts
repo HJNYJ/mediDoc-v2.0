@@ -1,5 +1,12 @@
 import { create } from "zustand";
 
+interface Symptoms {
+  bodyparts: string;
+  departments: string;
+  symptom_id: string;
+  symptoms: string;
+  symptoms_abbr: string;
+}
 interface State {
   selectedGender: "male" | "female";
   setSelectedGender: (gender: "male" | "female") => void;
@@ -9,8 +16,8 @@ interface State {
   ) => void;
   selectedPart: string;
   setSelectedPart: (selectedPart: string) => void;
-  symptoms: string[];
-  setSymptoms: (symptoms: string[]) => void;
+  symptoms: Symptoms[];
+  setSymptoms: (symptoms: Symptoms[]) => void;
   selectedSymptoms: string[];
   setSelectedSymptoms: (selectedSymptoms: string[]) => void;
   predictedDiseases: string[];

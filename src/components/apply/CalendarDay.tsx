@@ -3,7 +3,7 @@
 import useApplyStore from "@/shared/zustand/applyStore";
 import downtoggle from "@/assets/upanddown/down_toggle.png";
 import uptoggle from "@/assets/upanddown/up_toggle.png";
-import { getDate } from "@/utils/changeTimeFormat";
+// import { getDate } from "@/utils/changeTimeFormat";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -13,17 +13,17 @@ const Calendar = () => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   /** 선택된 날짜 */
-  const { selectedDate, setSelectedDate, setIsDateClicked } = useApplyStore();
+  const { setSelectedDate, setIsDateClicked } = useApplyStore();
 
-  const [selectedOneDate, setSelectedOneDate] = useState();
+  const [selectedOneDate, setSelectedOneDate] = useState<Date>();
 
-  const handleDateClick = (date: Date, cellDate) => {
+  const handleDateClick = (date: Date, cellDate: Date) => {
     setSelectedOneDate(cellDate);
     // 날짜 포맷 (ex: 2024년 4월 7일)
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-  const specifiedDate = getDate(selectedDate);
+  // const specifiedDate = getDate(selectedDate);
 
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
@@ -44,6 +44,12 @@ const Calendar = () => {
     "11",
     "12"
   ];
+
+  const todayDate = (date: Date) => {
+    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+
+  const toDay = todayDate(new Date());
 
   const generateMatrix = (): CalendarDay[][] => {
     const matrix: CalendarDay[][] = [];
@@ -114,7 +120,7 @@ const Calendar = () => {
         <button className="m-2" onClick={handleNextMonth}>
           &gt;
         </button>
-        {specifiedDate}
+        {toDay}
       </div>
 
       <div

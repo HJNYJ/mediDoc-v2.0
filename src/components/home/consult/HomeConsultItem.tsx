@@ -3,7 +3,6 @@
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
 import { fetchImages, supabase } from "@/api/supabase";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
@@ -14,15 +13,12 @@ import { useEffect, useState } from "react";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
-  const [consultsData, setConsultsData] = useState([]);
   const [consultPhotos, setConsultPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConsultPhotos = async () => {
       const consultPhotos = await fetchImages();
       setConsultPhotos(consultPhotos);
-      setIsLoading(false);
     };
 
     fetchConsultPhotos();
@@ -55,11 +51,7 @@ const HomeConsultItem = () => {
   });
 
   if (isLoadingRecent) return <div>로딩 중...</div>;
-
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
-
-  // if (isLoadingRecent || !consultRecentImageData) return <div>로딩 중...</div>;
-  // if (isErrorRecent || isErrorImgRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
     <div className="w-[360px]">
@@ -70,6 +62,7 @@ const HomeConsultItem = () => {
               ?.filter((image) => image?.consult_id === consult?.consult_id)
               ?.map((image, index) => (
                 <img
+                  key={index}
                   src={image.photos}
                   alt={`상담 이미지 ${index + 1}`}
                   className="w-[100px] h-[100px]"

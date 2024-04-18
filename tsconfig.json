@@ -4,6 +4,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "noImplicitAny": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -19,7 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./@types", "./node_modules/@types"]
+
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

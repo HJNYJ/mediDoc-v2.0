@@ -1,4 +1,4 @@
-declare const kakao: any;
+declare const kakao;
 
 // 지도를 정의하는 함수
 export const setKakaoMap = (latitude: number, longitude: number) => {
@@ -14,11 +14,7 @@ export const setKakaoMap = (latitude: number, longitude: number) => {
 };
 
 // 지도에 마커를 그리는 함수
-export const drawMarkerOnMap = (
-  map: any,
-  latitude: number,
-  longitude: number
-) => {
+export const drawMarkerOnMap = (map, latitude: number, longitude: number) => {
   // 마커 위치 정의
   const markerPosition = new kakao.maps.LatLng(latitude, longitude);
   // 마커 정의
@@ -34,8 +30,8 @@ export const drawMarkerOnMap = (
 
 // 지도에 마커의 설명을 그리는 함수
 export const drawMarkerInfoOnMap = (
-  map: any,
-  marker: any,
+  map,
+  marker,
   name: string,
   latitude: number,
   longitude: number

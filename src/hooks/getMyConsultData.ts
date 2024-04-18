@@ -8,13 +8,14 @@ export const getMyConsultData = async () => {
     } = await supabase.auth.getSession();
 
     const user = session?.user;
+    const email = user?.email ?? "";
 
     // 내가 작성한 상담글 가져오기
     // 1. consult_info에서 user_email이 일치하는 것 가져오기
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
-      .eq("user_email", user?.email);
+      .eq("user_email", email);
 
     if (consultInfoError) throw new Error(consultInfoError.message);
 
@@ -43,12 +44,13 @@ export const getMyConsultAnswerData = async () => {
       data: { session }
     } = await supabase.auth.getSession();
     const user = session?.user;
+    const id = user?.id ?? "";
 
     // 병원 관계자인지 확인
     const { data: userInfo, error: userInfoError } = await supabase
       .from("user_info")
       .select("*")
-      .eq("user_id", user?.id);
+      .eq("user_id", id);
 
     if (userInfoError) throw new Error(userInfoError.message);
 

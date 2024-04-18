@@ -41,7 +41,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
             className="w-[116.67px] h-[116px] rounded-[10px]"
           />
         ))}
-        {reviewPhotos.length === 0 && (
+        {reviewPhotos?.length === 0 && (
           <p className="w-full h-[19px] mx-[110px] mt-[185px] text-[16px] text-gray-400">
             등록된 사진이 없습니다.
           </p>

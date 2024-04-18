@@ -5,17 +5,13 @@ import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import searchbar from "@/assets/icons/consult/searchbar.png";
-import PageCancel from "@/components/layout/PageCancel";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import { useRouter } from "next/navigation";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchConsultInfo = async () => {
       try {
@@ -23,16 +19,13 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
-        console.log("user ===> ", user);
-
+        const email = user?.email ?? "";
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")
-          .eq("user_email", user?.email)
+          .eq("user_email", email)
           .single();
-
         if (userDataError) throw new Error(userDataError.message);
-
         const userType = userData?.user_type;
         setUserType(userType);
       } catch (error) {
@@ -112,8 +105,11 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         <div className="mb-5">
           {userType === "hospital staff" ? (
             <div>
-              {answerDetailData?.map((item: string) => (
-                <div key={item} className="text-gray-800 w-[358px] mb-10">
+              {answerDetailData?.map((item) => (
+                <div
+                  key={item.answer_id}
+                  className="text-gray-800 w-[358px] mb-10"
+                >
                   <div className="bold-18 mb-5 text-black">
                     {item?.department} 답변
                   </div>
@@ -130,8 +126,8 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </div>
           ) : (
             <div>
-              {answerDetailData?.map((item: string, index: number) => (
-                <div key={item}>
+              {answerDetailData?.map((item) => (
+                <div key={item.answer_id}>
                   <div className="bold-18 bg-green-600 w-[358px] h-[264px] text-black">
                     {item?.department} 답변
                   </div>
