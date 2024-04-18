@@ -27,7 +27,6 @@ const MainPageReview = () => {
         )
         .order("rating", { ascending: false });
 
-      console.log("메인 페이지 후기", response);
       return response.data;
     }
   });
@@ -66,23 +65,28 @@ const MainPageReview = () => {
                   </section>
                 </section>
                 <section className="ml-[10px] mt-[10px]">
-                  <div className="w-[200px] h-[30px] mr-[4px]">
+                  <div className="w-[140px] h-[30px] mr-[4px] flex">
                     {review.hashtags
                       ?.split(",")
                       .map((hashtag: string) => (
                         <Hashtag key={hashtag} hashtag={hashtag} />
                       ))}
                   </div>
-
                   <section className="w-[212px] h-[85px] regular-14 mb-[12px]">
                     {review.content}
                   </section>
                   <section>
-                    <Image
-                      src={review.review_photos?.photos}
-                      alt="후기 사진"
-                      className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
-                    />
+                    {review.review_photos &&
+                      review.review_photos.map((photo, index) => (
+                        <Image
+                          key={index}
+                          src={photo.photos}
+                          alt={`후기 사진 ${index + 1}`}
+                          width={68}
+                          height={62}
+                          className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
+                        />
+                      ))}
                   </section>
                 </section>
               </div>
