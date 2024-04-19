@@ -6,8 +6,6 @@ import kakaologin from "@/assets/icons/kakaologin.png";
 import googlelogin from "@/assets/icons/googlelogin.png";
 import Image from "next/image";
 import React from "react";
-import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-import StatusBar from "@/assets/icons/StatusBar.png";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
@@ -33,7 +31,6 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          // redirectTo: "https://medi-doc-three.vercel.app/home",
           redirectTo: "https://medi-doc-three.vercel.app/home",
           queryParams: {
             access_type: "offline",
@@ -50,12 +47,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <Image
-        src={StatusBar}
-        alt="Status Bar"
-        className="fixed top-0 left-0 w-[390px] z-50 mb-[44px]"
-      />
-      <section className="w-[358px] mx-[16px] mt-[616px]">
+      <section className=" mx-[16px] my-[140%]">
         <button onClick={() => signInWithKakao()}>
           <Image
             src={kakaologin}
@@ -67,7 +59,6 @@ const LoginPage = () => {
           <Image src={googlelogin} alt="구글로 계속하기" className="" />
         </button>
       </section>
-      <Image src={HomeIndicator} alt="Home Indicator" />
     </>
   );
 };

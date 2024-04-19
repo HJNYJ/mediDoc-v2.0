@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [https://medi-doc-5lf2.vercel.app/](https://medi-doc-5lf2.vercel.app/) with your browser to see the result.
+Open [https://medi-doc-three.vercel.app/](https://medi-doc-three.vercel.app/) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

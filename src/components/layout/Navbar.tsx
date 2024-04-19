@@ -62,14 +62,14 @@ export const Navbar = () => {
   };
 
   if (
-    pathname === "http://localhost:3000/" ||
-    pathname === "http://localhost:3000/login" ||
-    pathname === "http://localhost:3000/map"
+    pathname === "https://medi-doc-three.vercel.app/" ||
+    pathname === "https://medi-doc-three.vercel.app/login" ||
+    pathname === "https://medi-doc-three.vercel.app/map"
   ) {
     return null;
   }
   return (
-    <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
+    <nav className="navbar fixed bottom-0 flex justify-between items-center total_margin h-[68px] bg-white">
       <Link href={"/consult"}>
         <Image src={ConsultIcon} alt="Consult Icon" />
       </Link>
