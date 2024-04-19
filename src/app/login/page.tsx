@@ -31,7 +31,6 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          // redirectTo: "https://medi-doc-three.vercel.app/home",
           redirectTo: "https://medi-doc-three.vercel.app/home",
           queryParams: {
             access_type: "offline",

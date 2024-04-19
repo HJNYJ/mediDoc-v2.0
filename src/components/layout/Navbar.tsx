@@ -62,9 +62,9 @@ export const Navbar = () => {
   };
 
   if (
-    pathname === "http://localhost:3000/" ||
-    pathname === "http://localhost:3000/login" ||
-    pathname === "http://localhost:3000/map"
+    pathname === "https://medi-doc-three.vercel.app/" ||
+    pathname === "https://medi-doc-three.vercel.app/login" ||
+    pathname === "https://medi-doc-three.vercel.app/map"
   ) {
     return null;
   }
