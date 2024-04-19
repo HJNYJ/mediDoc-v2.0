@@ -34,7 +34,7 @@ const MainPageReview = () => {
   });
 
   const handleViewAll = () => {
-    router.push("https://medi-doc-three.vercel.app/map");
+    router.push(`http://localhost:3000/map`);
   };
 
   if (isLoading) return <div>로딩 중...</div>;

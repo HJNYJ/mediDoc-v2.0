@@ -117,9 +117,7 @@ const TestResult = () => {
             buttonType="filled"
             label="닫기"
             size="base"
-            onClick={() =>
-              router.push("https://medi-doc-three.vercel.app/home")
-            }
+            onClick={() => router.push("http://localhost:3000/home")}
           />
         </div>
       </section>
