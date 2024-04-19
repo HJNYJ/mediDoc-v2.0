@@ -30,10 +30,9 @@ const ReviewRecent = () => {
         .order("rating", { ascending: false })
         .range(0, 3);
 
-      console.log("리뷰정보~~~~~~~~::::", response);
       return response.data;
     },
-    enabled: selectedTab === "rateTop" // selectedTab이 'rateTop'일 때만 쿼리를 실행합니다.
+    enabled: selectedTab === "rateTop" // selectedTab이 'rateTop'일 때만 쿼리를 실행
   });
 
   // 최신순 데이터 가져오기
@@ -55,7 +54,7 @@ const ReviewRecent = () => {
         .range(0, 3);
       return response.data;
     },
-    enabled: selectedTab === "recent" // selectedTab이 'recent'일 때만 쿼리를 실행합니다.
+    enabled: selectedTab === "recent" // selectedTab이 'recent'일 때만 쿼리를 실행
   });
 
   if (isLoadingRateTop || isLoadingRecent) return <div>로딩 중...</div>;

@@ -16,11 +16,9 @@ const LoginPage = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "kakao",
-        // options: { redirectTo: "https://medi-doc-three.vercel.app/home" }
         options: { redirectTo: "https://medi-doc-three.vercel.app/home" }
       });
       if (error) throw error;
-      // router.push("https://medi-doc-three.vercel.app/home");
       router.push("https://medi-doc-three.vercel.app/home");
     } catch (error) {
       if (error instanceof Error) {

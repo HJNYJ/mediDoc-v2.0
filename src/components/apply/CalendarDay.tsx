@@ -14,7 +14,6 @@ const Calendar = () => {
   currentDate.setHours(0, 0, 0, 0);
   /** 선택된 날짜 */
   const { setSelectedDate, setIsDateClicked } = useApplyStore();
-
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
 
   const handleDateClick = (date: Date, cellDate: Date) => {
@@ -23,8 +22,6 @@ const Calendar = () => {
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-  // const specifiedDate = getDate(selectedDate);
-
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
   /** 캘린더 생성 */

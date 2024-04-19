@@ -26,7 +26,7 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
         `
       )
       .eq("bodyparts", currentTab);
-    console.log("data ==========> ", data);
+
     if (error) {
       console.error("Error fetching posts:", error);
     }
@@ -77,13 +77,3 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
 };
 
 export default ConsultTabs;
-
-/** <div>
-        {posts.map((post) => (
-          <div key={post.consult_id}>
-            // {/* 상담 정보를 렌더링하는 부분 *
-      //       <p>{post.consult_title}</p>
-      //       <p>{post.consult_content}</p>
-      //     </div>
-      //   ))}
-      // </div>   */

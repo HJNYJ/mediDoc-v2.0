@@ -13,24 +13,6 @@ export const supabase = createBrowserClient<Database>(
   supabaseAnonKey
 );
 
-// O
-//consult id를 가진 답변이 있는지 확인
-// export const checkConsultAnswer = async (consultId: string) => {
-//   const { data: consultAnswer, error } = await supabase
-//     .from("consult_answer")
-//     .select("answer")
-//     .eq("consult_id", consultId);
-
-//   if (error) {
-//     console.error("checkConsultAnswer error => ", error);
-//   }
-//   console.log("이게 답변의 컨설트 아이디???? => ", consultAnswer);
-//   return consultAnswer;
-// };
-
-// consult page OOO
-// consult page OOO
-
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
@@ -52,8 +34,6 @@ export const consultAddForm = async (
       user_name: userName,
       user_email: userEmail
     });
-
-    console.log("저장했음!!!~", userId);
     return { consultId, userId, userEmail };
   } catch (error) {
     if (error) {
@@ -63,40 +43,9 @@ export const consultAddForm = async (
   }
 };
 
-// review page OOO
-// export const reviewAddForm = async (
-//   newContents: string,
-//   newHashTags: string[],
-//   newRating: number,
-//   newHospitalId: string
-// ) => {
-//   try {
-//     const review_id = uuidv4();
-//     await supabase.from("review_info").insert([
-//       {
-//         review_id,
-//         content: newContents,
-//         hashtags: newHashTags,
-//         rating: newRating,
-//         hospital_id: newHospitalId
-//       }
-//     ]);
-
-//     console.log("저장했음!!!~", review_id);
-//     return review_id;
-//   } catch (error) {
-//     if (error) {
-//       console.error("reviewAddForm error", error);
-//       return null;
-//     }
-//   }
-// };
-
-// url string 업로드하기 이거 되는 코드 OOO
+// url string 업로드하기
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {
-    console.log("consult_id ===>", consult_id); //모든 consultId를 가져옴
-
     const { data, error } = await supabase
       .from("consult_photos")
       .insert([{ photos: url, consult_id: consult_id }])
@@ -128,8 +77,6 @@ export const uploadReviewPhotosUrl = async (
       console.log("url 업로드 error.... => ", error);
       return { error };
     }
-
-    console.log("uploadPhotosUrl data up => ", data);
     return { data };
   } catch (error) {
     console.log("url 업로드 error.... => ", error);
@@ -152,7 +99,6 @@ export const fetchReviewImages = async () => {
     console.error("error", error);
     return;
   }
-
   return data;
 };
 
@@ -169,7 +115,6 @@ export const fetchHospitalReviewImages = async (hospitalId: string) => {
   return data;
 };
 
-// OOO
 export const fetchConsults = async (): Promise<ConsultType[] | null> => {
   const { data, error } = await supabase
     .from("consult_info")
@@ -189,7 +134,6 @@ export const fetchConsults = async (): Promise<ConsultType[] | null> => {
   return data as ConsultType[] | null;
 };
 
-// OOO
 export const getConsultDetail = async (consultId: string) => {
   try {
     const { data, error } = await supabase
@@ -203,7 +147,6 @@ export const getConsultDetail = async (consultId: string) => {
       throw error;
     }
 
-    console.log(data);
     return data; // 데이터 반환해!
   } catch (error) {
     console.error("상담 내역 상세 정보 가져오기 실패ㅠㅡㅠ", error);
@@ -211,7 +154,6 @@ export const getConsultDetail = async (consultId: string) => {
   }
 };
 
-// OOO
 export const getAnswerDetail = async (consultId: string) => {
   try {
     const { data, error } = await supabase
@@ -223,7 +165,6 @@ export const getAnswerDetail = async (consultId: string) => {
       console.error("답변 가져오기 실패..", error);
       throw error;
     }
-    console.log("답변 가져오기 성공 ===> ", data);
     return data;
   } catch (error) {
     console.error("답변 가져오기 실패...", error);
@@ -231,7 +172,6 @@ export const getAnswerDetail = async (consultId: string) => {
   }
 };
 
-//OOO
 export const getReviewDetail = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -249,7 +189,6 @@ export const getReviewDetail = async (hospitalId: string) => {
   }
 };
 
-// OOO
 export const getHospitalInfo = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -268,7 +207,6 @@ export const getHospitalInfo = async (hospitalId: string) => {
   }
 };
 
-//OOO
 export const getHospitalImages = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -298,7 +236,6 @@ export const courseNameSelect = async () => {
 export const getHospitalId = async () => {
   try {
     const { data } = await supabase.from("hospital_info").select("hospital_id");
-
     return data;
   } catch (error) {
     console.error("hospital_id를 가져오는 중 오류 발생:", error);
@@ -337,8 +274,3 @@ export const hospitalImage = async (hospitalId: string) => {
   const { data } = response;
   return data;
 };
-
-// export const consultInfoAndImage = async () => {
-//   const response = await supabase.from("consult_info").select(`*
-//           , consult_consult_photos(*)`);
-// };

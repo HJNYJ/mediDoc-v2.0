@@ -33,7 +33,6 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
           alt="서울"
           className="w-[44px] h-[44px]"
         />
-        {/* <p className="text-sm">{regionInfo.region_name} 아이콘넣으셈</p> */}
       </div>
       <div className="medium-13 text-center">{regionInfo.region_name}</div>
     </div>

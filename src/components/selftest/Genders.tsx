@@ -15,7 +15,6 @@ interface GendersProps {
 
 const Genders: React.FC<GendersProps> = ({ onSelect }) => {
   const { selectedGender, setSelectedGender } = useSelftestStore();
-
   const handleGenderSelect = (gender: "male" | "female") => {
     setSelectedGender(gender);
   };
