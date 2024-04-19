@@ -98,14 +98,12 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
       const combinedConsultAnswerData: ConsultAnswer[] = [];
 
-      const combinedConsultAnswerData: ConsultAnswer[] = [];
-
       for (const answer of consultAnswerData) {
         const { data: consultPhotos, error: consultPhotosError } =
           await supabase
             .from("consult_photos")
             .select("*, consult_info(*)")
-            .eq("consult_id", consultAnswer);
+            .eq("consult_id", answer.consult_id);
 
         if (consultPhotosError) throw new Error(consultPhotosError.message);
 
@@ -118,12 +116,16 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
         combinedConsultAnswerData.push({
           ...answer,
+          // eslint-disable-next-line
+          // @ts-ignore
           photos: consultPhotos,
+          // eslint-disable-next-line
+          // @ts-ignore
           questionInfo: questionInfo[0]
         });
       }
 
-      return combinedConsultAnswerData; // 제발 돼라...
+      return combinedConsultAnswerData;
     } else {
       return [];
     }

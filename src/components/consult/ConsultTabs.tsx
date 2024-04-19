@@ -3,26 +3,37 @@ import React, { useEffect, useState } from "react";
 import RoundTabs from "../layout/RoundTabs";
 import { supabase } from "@/api/supabase";
 
+type PostType = {
+  bodyparts: string | null;
+  consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+};
+
 const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("eyes|ears|nose|neck|waist");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase
-        .from("consult_info")
-        .select("*")
-        .eq("bodyparts", currentTab);
-
-      if (error) {
-        console.error("Error fetching posts:", error);
-      }
-      return setPosts(data || []);
-    };
-
     fetchPosts();
   }, [currentTab]);
+
+  const fetchPosts = async () => {
+    const { data, error } = await supabase
+      .from("consult_info")
+      .select("*")
+      .eq("bodyparts", currentTab);
+
+    if (error) {
+      console.error("Error fetching posts:", error);
+    }
+    return setPosts(data || []);
+  };
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
@@ -66,10 +77,10 @@ const ConsultTabs = ({ handleCategoryChange }: TabsProps) => {
       <div>
         {/** 데이터 잘 렌더링됨 */}
         {posts.map((post) => (
-          <div key={post.id}>
+          <div key={post.consult_id}>
             {/* 상담 정보를 렌더링하는 부분 */}
-            <p>{post.title}</p>
-            <p>{post.content}</p>
+            <p>{post.consult_title}</p>
+            <p>{post.consult_content}</p>
           </div>
         ))}
       </div>

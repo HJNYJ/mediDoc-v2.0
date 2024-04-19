@@ -1,4 +1,5 @@
 // 상단 내비게이션 바
+"use client";
 
 import React from "react";
 import Image from "next/image";
