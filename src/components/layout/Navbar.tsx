@@ -62,36 +62,35 @@ export const Navbar = () => {
   };
 
   if (
-    pathname === "https://medi-doc-three.vercel.app/" ||
-    pathname === "https://medi-doc-three.vercel.app/login"
+    pathname === "http://localhost:3000/" ||
+    pathname === "http://localhost:3000/login" ||
+    pathname === "http://localhost:3000/map"
   ) {
     return null;
   }
   return (
-    <section className="total_margin h-[68px]">
-      <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
-        <Link href={"/consult"}>
-          <Image src={ConsultIcon} alt="Consult Icon" />
+    <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
+      <Link href={"/consult"}>
+        <Image src={ConsultIcon} alt="Consult Icon" />
+      </Link>
+      <Link href={"/selftest"}>
+        <Image src={TestIcon} alt="Test Icon" />
+      </Link>
+      <Link href={"/home"}>
+        <Image src={HomeIcon} alt="Home Icon" />
+      </Link>
+      <a onClick={handleMyPageClick} className="cursor-pointer">
+        <Image src={MypageIcon} alt="Mypage Icon" />
+      </a>
+      {isLoggedIn ? (
+        <button onClick={() => logoutHandler()}>
+          <Image src={LogoutIcon} alt="Logout Icon" />
+        </button>
+      ) : (
+        <Link href={"/login"}>
+          <Image src={LoginIcon} alt="Login Icon" />
         </Link>
-        <Link href={"/selftest"}>
-          <Image src={TestIcon} alt="Test Icon" />
-        </Link>
-        <Link href={"/home"}>
-          <Image src={HomeIcon} alt="Home Icon" />
-        </Link>
-        <a onClick={handleMyPageClick} className="cursor-pointer">
-          <Image src={MypageIcon} alt="Mypage Icon" />
-        </a>
-        {isLoggedIn ? (
-          <button onClick={() => logoutHandler()}>
-            <Image src={LogoutIcon} alt="Logout Icon" />
-          </button>
-        ) : (
-          <Link href={"/login"}>
-            <Image src={LoginIcon} alt="Login Icon" />
-          </Link>
-        )}
-      </nav>
-    </section>
+      )}
+    </nav>
   );
 };
