@@ -107,9 +107,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
 
   const goToApplyPage = () => {
     if (params?.hospitalId) {
-      router.push(
-        `https://medi-doc-three.vercel.app/apply/${params.hospitalId}`
-      );
+      router.push(`http://localhost:3000/apply/${params.hospitalId}`);
     } else {
       console.error("병원 ID가 유효하지 않습니다.");
     }

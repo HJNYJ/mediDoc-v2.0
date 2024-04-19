@@ -52,14 +52,14 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    router.push(`https://medi-doc-three.vercel.app/consult/ask`);
+    router.push(`http://localhost:3000/consult/ask`);
   };
 
   const goToDetailPage = (consultId: string) => {
-    router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
+    router.push(`http://localhost:3000/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    router.push(`https://medi-doc-three.vercel.app/home`);
+    router.push(`http://localhost:3000/home`);
   };
 
   return (

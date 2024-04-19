@@ -47,7 +47,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("https://medi-doc-three.vercel.app/home");
+      router.push("http://localhost:3000/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -55,9 +55,9 @@ export const Navbar = () => {
 
   const handleMyPageClick = () => {
     if (!isLoggedIn) {
-      router.push("https://medi-doc-three.vercel.app/login");
+      router.push("http://localhost:3000/login");
     } else {
-      router.push(`https://medi-doc-three.vercel.app/mypage/${userId}`);
+      router.push(`http://localhost:3000/mypage/${userId}`);
     }
   };
 
@@ -66,31 +66,32 @@ export const Navbar = () => {
     pathname === "http://localhost:3000/login" ||
     pathname === "http://localhost:3000/map"
   ) {
-    return null;
-  }
-  return (
-    <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
-      <Link href={"/consult"}>
-        <Image src={ConsultIcon} alt="Consult Icon" />
-      </Link>
-      <Link href={"/selftest"}>
-        <Image src={TestIcon} alt="Test Icon" />
-      </Link>
-      <Link href={"/home"}>
-        <Image src={HomeIcon} alt="Home Icon" />
-      </Link>
-      <a onClick={handleMyPageClick} className="cursor-pointer">
-        <Image src={MypageIcon} alt="Mypage Icon" />
-      </a>
-      {isLoggedIn ? (
-        <button onClick={() => logoutHandler()}>
-          <Image src={LogoutIcon} alt="Logout Icon" />
-        </button>
-      ) : (
-        <Link href={"/login"}>
-          <Image src={LoginIcon} alt="Login Icon" />
+    return;
+  } else {
+    return (
+      <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white border-solid border-gray-400 border-t-2">
+        <Link href={"/consult"}>
+          <Image src={ConsultIcon} alt="Consult Icon" />
         </Link>
-      )}
-    </nav>
-  );
+        <Link href={"/selftest"}>
+          <Image src={TestIcon} alt="Test Icon" />
+        </Link>
+        <Link href={"/home"}>
+          <Image src={HomeIcon} alt="Home Icon" />
+        </Link>
+        <a onClick={handleMyPageClick} className="cursor-pointer">
+          <Image src={MypageIcon} alt="Mypage Icon" />
+        </a>
+        {isLoggedIn ? (
+          <button onClick={() => logoutHandler()}>
+            <Image src={LogoutIcon} alt="Logout Icon" />
+          </button>
+        ) : (
+          <Link href={"/login"}>
+            <Image src={LoginIcon} alt="Login Icon" />
+          </Link>
+        )}
+      </nav>
+    );
+  }
 };
