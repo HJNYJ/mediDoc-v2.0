@@ -2,7 +2,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { fetchConsults } from "@/api/supabase";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
 import Hashtag from "@/utils/hashtag";
@@ -12,18 +11,32 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { ConsultType } from "@/types";
+// import { ConsultType } from "@/types";
+
+export type PostType = {
+  bodyparts: string | null;
+  consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+  // consult_photos: { photo_id: string; photos: string }[];
+  // consult_answer: { answer_id: string; answer_content: string }[];
+};
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
+  // const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
+  const [posts, setPosts] = useState<ConsultType[]>([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
-      const consultsData = await fetchConsults();
-      setConsultsData(consultsData || []);
       setIsLoading(false);
     };
 
@@ -39,14 +52,14 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    router.push(`/consult/ask`);
+    router.push(`https://medi-doc-three.vercel.app/consult/ask`);
   };
 
   const goToDetailPage = (consultId: string) => {
-    router.push(`/consult/${consultId}`);
+    router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    router.push("/home");
+    router.push(`https://medi-doc-three.vercel.app/home`);
   };
 
   return (
@@ -57,9 +70,13 @@ const ConsultPage = () => {
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs handleCategoryChange={handleCategoryChange} />
+      <ConsultTabs
+        handleCategoryChange={handleCategoryChange}
+        setPosts={setPosts}
+      />
       <div className="h-[154px] top-151">
-        {consultsData?.map((consult) => {
+        {posts?.map((consult) => {
+          console.log("consult =======> ", consult);
           return (
             <div
               key={consult?.consult_id}
@@ -86,27 +103,6 @@ const ConsultPage = () => {
                   />
                 )}
               </div>
-              {/* <div className="flex flex-col justify-between">
-                {consult?.consult_photos?.length ? (
-                  consult?.consult_photos?.map((item) => {
-                    return (
-                      <img
-                        key={item?.photo_id}
-                        src={item?.photos} // 이미지 URL
-                        alt="Uploaded Image"
-                        className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                      />
-                    );
-                  })
-                ) : (
-                  <img
-                    src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
-                    alt="Uploaded Image"
-                    className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                  />
-                )}
-              </div> */}
-
               <div className="ml-4 w-full overflow-hidden">
                 <p className="semibold-18 text-gray-800">
                   {consult?.consult_title}

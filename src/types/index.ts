@@ -7,6 +7,7 @@ export type TabList = Pick<TabState, "selectedTab">;
 
 export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
+  setPosts: React.Dispatch<React.SetStateAction<ConsultType[]>>;
 }
 
 export interface AnswerDetail {

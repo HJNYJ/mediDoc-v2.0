@@ -9,8 +9,6 @@ const FindHospital = () => {
     queryKey: ["hospitalRegion"],
     queryFn: async () => {
       const response = await supabase.from("hospital_region").select("*");
-      // region_id, region_name 둘 다 필요해서 *로 바꿈
-      // -> region_id로 hospitalInfo 테이블안에 region_id가 일치하는 병원들만 뽑아내기 위해(읽고 주석 지우셈)
 
       const { data } = response;
       return data;

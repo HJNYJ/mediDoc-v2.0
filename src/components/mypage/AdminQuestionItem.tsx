@@ -28,7 +28,6 @@ const AdminQuestionItem = () => {
     const fetchMyAnsweredConsults = async () => {
       try {
         const answeredConsults = await getMyConsultAnswerData();
-        console.log("answeredConsults", answeredConsults);
         setMyAnsweredConsults(answeredConsults || []);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);

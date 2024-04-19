@@ -76,7 +76,7 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
 
   // 홈으로 이동
   const goToAskList = () => {
-    router.push(`/consult`);
+    router.push(`https://medi-doc-three.vercel.app/consult`);
   };
 
   return (
@@ -117,8 +117,6 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
           답변하기
         </button>
       </form>
-      {/** 값이 어떻게 나오는지 체크해본것 */}
-      {/* {hospitalId} */}
     </section>
   );
 };

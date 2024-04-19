@@ -12,8 +12,6 @@ const HashTags = ({
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   const handleClick = async (tag: string) => {
-    console.log(`${tag} 클릭됨!!!!!`);
-    // setSelectedTag(tag); // 선택된 해시태그 상태 업데이트하기!!
     const isSelected = selectedTags.includes(tag);
 
     if (isSelected) {

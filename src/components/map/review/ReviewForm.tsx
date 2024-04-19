@@ -91,7 +91,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
-        console.log("review result url은?? => ", url);
+
         const uploadImgUrl = await uploadReviewPhotosUrl(
           url.toString(),
           reviewId,

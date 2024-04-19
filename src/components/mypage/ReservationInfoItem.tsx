@@ -104,8 +104,6 @@ const ReservationInfoItem = () => {
       if (editedData) {
         const { data, error } = await supabase
           .from("reservation_info")
-          // eslint-disable-next-line
-          // @ts-ignore
           .update(editedData)
           .eq("reservation_id", editedData.reservation_id);
         if (error) throw new Error(error.message);
@@ -263,11 +261,7 @@ const ReservationInfoItem = () => {
                       {selectedReservation.apply_date
                         ?.toString()
                         .substring(8, 10)}
-                      일
-                      {selectedReservation.apply_time
-                        ?.toString()
-                        .substring(0, 5)}
-                      시
+                      일{selectedReservation.apply_time?.substring(0, 5)}시
                     </span>
                   </div>
                   <hr className="border-solid border-gray border-1 mb-3" />

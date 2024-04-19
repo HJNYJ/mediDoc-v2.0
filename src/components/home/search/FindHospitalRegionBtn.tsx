@@ -20,7 +20,7 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
   const router = useRouter();
 
   const hospitalViewBtnHandler = (id: string) => {
-    router.push(`/map?region_id=${id}`);
+    router.push(`https://medi-doc-three.vercel.app/map?region_id=${id}`);
   };
   return (
     <div
@@ -33,7 +33,6 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
           alt="서울"
           className="w-[44px] h-[44px]"
         />
-        {/* <p className="text-sm">{regionInfo.region_name} 아이콘넣으셈</p> */}
       </div>
       <div className="medium-13 text-center">{regionInfo.region_name}</div>
     </div>

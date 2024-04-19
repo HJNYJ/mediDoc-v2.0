@@ -12,7 +12,6 @@ const Calendar = () => {
   currentDate.setHours(0, 0, 0, 0);
 
   const { setSelectedDate, setIsDateClicked } = useApplyStore();
-
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
 
   const handleDateClick = (date: Date, cellDate: Date) => {
@@ -21,7 +20,6 @@ const Calendar = () => {
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
 

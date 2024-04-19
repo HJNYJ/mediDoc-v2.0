@@ -56,7 +56,8 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   }, [params.consultId, refetch]);
 
   const onClickConsultHandeler = () => {
-    router.push("/home");
+    // router.push("https://medi-doc-three.vercel.app/home");
+    router.push(`https://medi-doc-three.vercel.app/home`);
   };
   console.log("answerDetailData ===> ", answerDetailData);
 

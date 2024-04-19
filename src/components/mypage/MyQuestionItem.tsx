@@ -10,22 +10,28 @@ import AnswerComplete from "../layout/AnswerComplete";
 import Image from "next/image";
 
 interface Consult {
-  consult_id: string;
-  consult_photos: { photo_id: string; photos: string }[];
-  consult_title: string;
+  bodyparts: string | null;
   consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+  consult_photos: { photo_id: string; photos: string }[];
 }
 
 const MyQuestionItem = () => {
   const [myConsults, setMyConsults] = useState<Consult[]>([]);
-  const [answerStatus, setAnswerStatus] = useState([]);
+  const [answerStatus, setAnswerStatus] = useState<object>([]);
 
   useEffect(() => {
     const fetchMyConsults = async () => {
       try {
-        const consults = await getMyConsultData();
-        if (!consults) {
-          return;
+        const consults = (await getMyConsultData()) ?? [];
+
+        for (const consult of consults) {
+          consult.consult_photos = [];
         }
         setMyConsults(consults);
       } catch (error) {
@@ -74,9 +80,8 @@ const MyQuestionItem = () => {
       const status = await Promise.all(
         myConsults.map((consult) => checkConsultAnswer(consult.consult_id))
       );
+
       setAnswerStatus(status);
-      console.log("스테이터스 :::::::::");
-      console.log(status);
     };
 
     updateAnswerStatus();

@@ -16,7 +16,6 @@ const TestResult = () => {
   const router = useRouter();
 
   const queryClient = useQueryClient();
-
   const { data: predictedDiseases } = useQuery({
     queryKey: ["predictedDiseases", selectedPart, selectedSymptoms],
     queryFn: async () => {
@@ -40,8 +39,7 @@ const TestResult = () => {
 
       // 선택된 증상과 매칭되는 질환 찾기
       let maxMatches = 0;
-      // eslint-disable-next-line
-      let matchedDiseases: string[] = [];
+      const matchedDiseases: string[] = [];
 
       possibleDiseases.forEach((disease) => {
         // 증상과 매칭되늰 질환의 수 확인
@@ -81,10 +79,6 @@ const TestResult = () => {
     selectedPart
   ]);
 
-  // const goToMapPage = () => {
-  //   router.push("/map");
-  // };
-
   return (
     <section>
       <div>
@@ -106,7 +100,6 @@ const TestResult = () => {
             불편하신 증상을 바탕으로 자가진단을 하는 검사입니다.
           </p>
         </section>
-        {/* <button onClick={goToMapPage}>병원 보러가기</button> */}
         <div className="mt-auto">
           <p className="w-full text-amber-700 regular-14 mb-2">
             * 연관있는 질환을 알려드리며 자세한 사항은 전문의와 상담하세요.
@@ -117,7 +110,9 @@ const TestResult = () => {
             buttonType="filled"
             label="닫기"
             size="base"
-            onClick={() => router.push("/home")}
+            onClick={() =>
+              router.push("https://medi-doc-three.vercel.app/home")
+            }
           />
         </div>
       </section>
