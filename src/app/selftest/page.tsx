@@ -42,7 +42,7 @@ const SelftestPage = () => {
 
   // 홈페이지로 이동
   const goToHomePage = () => {
-    router.push("/home");
+    router.push("https://medi-doc-three.vercel.app/home");
   };
 
   return (

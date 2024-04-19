@@ -59,7 +59,7 @@ const Symptoms = () => {
 
   const checkSelectedSymptoms = () => {
     if (selectedSymptoms.length > 0) {
-      router.push("/selftestresult");
+      router.push("https://medi-doc-three.vercel.app/selftestresult");
     } else {
       alert("증상을 선택해주세요.");
     }

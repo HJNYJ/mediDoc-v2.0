@@ -49,7 +49,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("/home");
+      router.push("https://medi-doc-three.vercel.app/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -57,13 +57,16 @@ export const Navbar = () => {
 
   const handleMyPageClick = () => {
     if (!isLoggedIn) {
-      router.push("/login");
+      router.push("https://medi-doc-three.vercel.app/login");
     } else {
-      router.push(`/mypage/${userId}`);
+      router.push(`https://medi-doc-three.vercel.app/mypage/${userId}`);
     }
   };
 
-  if (pathname === "/" || pathname === "/login") {
+  if (
+    pathname === "https://medi-doc-three.vercel.app/" ||
+    pathname === "https://medi-doc-three.vercel.app/login"
+  ) {
     return null;
   }
   return (

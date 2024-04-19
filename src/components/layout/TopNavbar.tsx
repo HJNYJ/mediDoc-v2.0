@@ -15,7 +15,7 @@ interface TopNavbarProps {
 const TopNavbar = ({ title, goToPreviousPage }: TopNavbarProps) => {
   const router = useRouter();
   const goTopHomePage = () => {
-    router.push("/home");
+    router.push("https://medi-doc-three.vercel.app/home");
   };
 
   return (
