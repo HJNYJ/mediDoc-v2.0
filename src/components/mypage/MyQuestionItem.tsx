@@ -16,18 +16,8 @@ interface Consult {
   consult_content: string;
   answerStatus: JSX.Element | string;
 }
-import Image from "next/image";
-
-interface Consult {
-  consult_id: string;
-  photos: { photo_id: string; photos: string }[];
-  consult_title: string;
-  consult_content: string;
-  answerStatus: JSX.Element | string;
-}
 
 const MyQuestionItem = () => {
-  const [myConsults, setMyConsults] = useState<Consult[]>([]);
   const [myConsults, setMyConsults] = useState<Consult[]>([]);
 
   useEffect(() => {
@@ -35,7 +25,7 @@ const MyQuestionItem = () => {
       try {
         const consults = await getMyConsultData();
 
-        for (const consult of consults) {
+        for (const consult of consults!) {
           const consultAnswer = await checkConsultAnswer(consult.consult_id);
           consult.answerStatus = consultAnswer;
         }
@@ -99,9 +89,9 @@ const MyQuestionItem = () => {
             key={consult.consult_id}
             href={`/consult/${consult.consult_id}`}
           >
-            <a className="flex items-center w-96 m-4">
+            <div className="flex items-center w-96 m-4">
               <section className="flex flex-row w-[267px] h-[71px] mr-[34px] overflow-hidden">
-                {consult.photos.map((photo) => (
+                {consult.photos?.map((photo) => (
                   <Image
                     key={photo.photo_id}
                     src={photo.photos}
@@ -125,7 +115,7 @@ const MyQuestionItem = () => {
               >
                 {consult.answerStatus}
               </p>
-            </a>
+            </div>
           </Link>
         ))}
       </section>

@@ -74,11 +74,6 @@ const ApplyPageThree = ({
     subject_phone_number: phoneNumber,
     program_detail: selectedCourseDetail,
     hospital_name: hospitalName
-    // hospital_id: "test",
-    // course_id: "test",
-    // program_id: "test",
-    // reservation_id: "test",
-    // status: "test"
   };
 
   const handleReservation = async () => {

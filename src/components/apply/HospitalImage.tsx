@@ -2,11 +2,10 @@
 
 import { hospitalImage } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
-// import Image from "next/image";
 
 const HospitalImage = ({ hospitalId }: { hospitalId: string }) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["reservation2", hospitalId], //쿼리키가 reservation으로 같았음.
+    queryKey: ["reservation2", hospitalId],
     queryFn: () => hospitalImage(hospitalId)
   });
 

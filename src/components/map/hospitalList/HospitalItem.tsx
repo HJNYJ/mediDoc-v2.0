@@ -8,15 +8,7 @@ import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 import Image from "next/image";
 import star from "@/assets/icons/star.png";
 
-interface Hospital {
-  hospital_id: string;
-  hospital_image: string;
-  hospital_name: string;
-  start_time: string;
-  end_time: string;
-  hospital_address: string;
-}
-const HospitalItem = ({ hospital }: { hospital: Hospital }) => {
+const HospitalItem = ({ hospital }) => {
   const router = useRouter();
 
   // 시간 출력 타입 변경
@@ -38,7 +30,7 @@ const HospitalItem = ({ hospital }: { hospital: Hospital }) => {
     >
       {/* 왼쪽 - 병원 이미지 */}
       <figure className="flex flex-col w-[96px] h-[98px] justify-center">
-        <Image
+        <img
           src={hospital.hospital_image}
           alt="병원 이미지"
           className="min-w-full min-h-full object-cover rounded-[10px]"

@@ -37,7 +37,6 @@ interface ConsultAnswer {
 }
 export const getMyConsultData = async () => {
   try {
-    // 유저 정보 가져오기
     const {
       data: { session }
     } = await supabase.auth.getSession();
@@ -45,8 +44,6 @@ export const getMyConsultData = async () => {
     const user = session?.user;
     const email = user?.email ?? "";
 
-    // 내가 작성한 상담글 가져오기
-    // 1. consult_info에서 user_email이 일치하는 것 가져오기
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
@@ -54,7 +51,6 @@ export const getMyConsultData = async () => {
 
     if (consultInfoError) throw new Error(consultInfoError.message);
 
-    // 2. consult_photos에서 consult_id가 일치하는 사진 가져오기
     for (const consult of consultInfo) {
       const { data: consultPhotos, error: consultPhotosError } = await supabase
         .from("consult_photos")
@@ -98,14 +94,12 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
       const combinedConsultAnswerData: ConsultAnswer[] = [];
 
-      const combinedConsultAnswerData: ConsultAnswer[] = [];
-
       for (const answer of consultAnswerData) {
         const { data: consultPhotos, error: consultPhotosError } =
           await supabase
             .from("consult_photos")
             .select("*, consult_info(*)")
-            .eq("consult_id", consultAnswer);
+            .eq("consult_id", answer.consult_id);
 
         if (consultPhotosError) throw new Error(consultPhotosError.message);
 
@@ -123,7 +117,7 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
         });
       }
 
-      return combinedConsultAnswerData; // 제발 돼라...
+      return combinedConsultAnswerData;
     } else {
       return [];
     }

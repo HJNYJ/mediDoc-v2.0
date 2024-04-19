@@ -94,7 +94,7 @@ export type Database = {
           user_name: string | null;
         };
         Insert: {
-          bodyparts?: string | null | undefined;
+          bodyparts?: string | null;
           consult_content: string;
           consult_id: string;
           consult_title: string;
@@ -375,7 +375,7 @@ export type Database = {
           subject_birth_date: string;
           subject_name: string;
           subject_phone_number: string;
-          user_email?: string;
+          user_email: string;
           user_name: string;
         };
         Update: {
@@ -628,9 +628,7 @@ export type Database = {
     };
   };
 };
-
 type PublicSchema = Database[Extract<keyof Database, "public">];
-
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
@@ -655,7 +653,6 @@ export type Tables<
       ? R
       : never
     : never;
-
 export type TablesInsert<
   PublicTableNameOrOptions extends
     | keyof PublicSchema["Tables"]
@@ -676,7 +673,6 @@ export type TablesInsert<
       ? I
       : never
     : never;
-
 export type TablesUpdate<
   PublicTableNameOrOptions extends
     | keyof PublicSchema["Tables"]
@@ -697,7 +693,6 @@ export type TablesUpdate<
       ? U
       : never
     : never;
-
 export type Enums<
   PublicEnumNameOrOptions extends
     | keyof PublicSchema["Enums"]

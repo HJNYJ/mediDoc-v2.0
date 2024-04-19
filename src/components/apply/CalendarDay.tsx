@@ -3,31 +3,28 @@
 import useApplyStore from "@/shared/zustand/applyStore";
 import downtoggle from "@/assets/upanddown/down_toggle.png";
 import uptoggle from "@/assets/upanddown/up_toggle.png";
-// import { getDate } from "@/utils/changeTimeFormat";
 import { useState } from "react";
 import Image from "next/image";
 
 import type { CalendarDay } from "@/types";
 const Calendar = () => {
-  /** 현재 날짜 */
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
-  /** 선택된 날짜 */
+
   const { setSelectedDate, setIsDateClicked } = useApplyStore();
 
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
 
   const handleDateClick = (date: Date, cellDate: Date) => {
     setSelectedOneDate(cellDate);
-    // 날짜 포맷 (ex: 2024년 4월 7일)
+
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-  // const specifiedDate = getDate(selectedDate);
 
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
-  /** 캘린더 생성 */
+
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const daysInWeek = ["일", "월", "화", "수", "목", "금", "토"];
   const monthsInYear = [
@@ -56,9 +53,7 @@ const Calendar = () => {
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     const firstDay = new Date(year, month, 1).getDay();
-    // 해당 달에 1일이 몇번째인지
     const numDays = new Date(year, month + 1, 0).getDate();
-    // 해당 달에 일이 몇개인지
 
     let date = 1;
     for (let i = 0; i < calendarToggle; i++) {
@@ -134,7 +129,6 @@ const Calendar = () => {
                 <th key={day} className="w-[52px]">
                   {day}
                 </th>
-                // 요일 : 일 월 화 수 목 금 토
               ))}
             </tr>
           </thead>
