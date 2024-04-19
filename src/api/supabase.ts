@@ -171,8 +171,10 @@ export const fetchHospitalReviewImages = async (hospitalId: string) => {
 
 // OOO
 export const fetchConsults = async (): Promise<ConsultType[] | null> => {
-  const { data, error } = await supabase.from("consult_info").select(
-    `consult_id, 
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select(
+      `consult_id, 
       user_name, 
       consult_title, 
       consult_content,
@@ -181,7 +183,8 @@ export const fetchConsults = async (): Promise<ConsultType[] | null> => {
       consult_answer(*),
       consult_photos(*)
       `
-  );
+    )
+    .order("created_at", { ascending: false });
   if (error) console.error("error", error);
   return data as ConsultType[] | null;
 };

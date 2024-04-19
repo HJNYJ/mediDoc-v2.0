@@ -19,7 +19,7 @@ interface ConsultAnswer {
       consult_id: string;
       consult_title: string;
       created_at: string;
-      hashtags: string | null;
+      hashtags: string[] | null;
       user_email: string | null;
       user_name: string | null;
     } | null;
@@ -30,14 +30,13 @@ interface ConsultAnswer {
     consult_id: string;
     consult_title: string;
     created_at: string;
-    hashtags: string | null;
+    hashtags: string[] | null;
     user_email: string | null;
     user_name: string | null;
   };
 }
 export const getMyConsultData = async () => {
   try {
-    // 유저 정보 가져오기
     const {
       data: { session }
     } = await supabase.auth.getSession();
@@ -45,8 +44,6 @@ export const getMyConsultData = async () => {
     const user = session?.user;
     const email = user?.email ?? "";
 
-    // 내가 작성한 상담글 가져오기
-    // 1. consult_info에서 user_email이 일치하는 것 가져오기
     const { data: consultInfo, error: consultInfoError } = await supabase
       .from("consult_info")
       .select(`*, consult_photos(*)`)
@@ -54,7 +51,6 @@ export const getMyConsultData = async () => {
 
     if (consultInfoError) throw new Error(consultInfoError.message);
 
-    // 2. consult_photos에서 consult_id가 일치하는 사진 가져오기
     for (const consult of consultInfo) {
       const { data: consultPhotos, error: consultPhotosError } = await supabase
         .from("consult_photos")
@@ -116,11 +112,8 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
         combinedConsultAnswerData.push({
           ...answer,
-          // eslint-disable-next-line
-          // @ts-ignore
+
           photos: consultPhotos,
-          // eslint-disable-next-line
-          // @ts-ignore
           questionInfo: questionInfo[0]
         });
       }

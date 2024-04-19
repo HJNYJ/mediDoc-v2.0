@@ -11,20 +11,34 @@ import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import { ConsultType } from "@/types";
+// import { ConsultType } from "@/types";
+
+export type PostType = {
+  bodyparts: string | null;
+  consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+  // consult_photos: { photo_id: string; photos: string }[];
+  // consult_answer: { answer_id: string; answer_content: string }[];
+};
 
 // consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
+  // const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
-      const consultsData = await fetchConsults();
-      setConsultsData(consultsData || []);
+      // const consultsData = await fetchConsults();
+      // setConsultsData(consultsData || []);
       setIsLoading(false);
     };
 
@@ -40,14 +54,17 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    router.push(`https://medi-doc-three.vercel.app/consult/ask`);
+    // router.push(`http://localhost:3000/consult/ask`);
+    router.push(`http://localhost:3000/consult/ask`);
   };
 
   const goToDetailPage = (consultId: string) => {
-    router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
+    // router.push(`http://localhost:3000/consult/${consultId}`);
+    router.push(`http://localhost:3000/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    router.push("https://medi-doc-three.vercel.app/home");
+    // router.push("http://localhost:3000/home");
+    router.push(`http://localhost:3000/home`);
   };
 
   return (
@@ -58,9 +75,14 @@ const ConsultPage = () => {
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs handleCategoryChange={handleCategoryChange} />
+      <ConsultTabs
+        handleCategoryChange={handleCategoryChange}
+        // posts={posts}
+        setPosts={setPosts}
+      />
       <div className="h-[154px] top-151">
-        {consultsData?.map((consult) => {
+        {posts?.map((consult) => {
+          console.log("consult =======> ", consult);
           return (
             <div
               key={consult?.consult_id}
