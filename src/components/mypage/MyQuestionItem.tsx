@@ -98,14 +98,14 @@ const MyQuestionItem = () => {
           </p>
         )}
       </section>
-      <section className="w-[358px] mx-[16px]">
+      <section>
         {myConsults.map((consult, index) => (
           <Link
             key={consult.consult_id}
             href={`/consult/${consult.consult_id}`}
           >
-            <div className="flex items-center w-96 m-4">
-              <section className="flex flex-row w-[267px] h-[71px] mr-[34px] overflow-hidden">
+            <div className="flex justify-between items-center ">
+              <section className="flex flex-row w-[70%] h-[71px] overflow-hidden text-ellipsis">
                 {consult.consult_photos.map((photo) => (
                   <Image
                     key={photo.photo_id}
@@ -114,21 +114,24 @@ const MyQuestionItem = () => {
                     className="w-[60px] h-[60px] rounded-[10px] my-[5.5px] mr-[12px] object-fit"
                   />
                 ))}
-                <section className="flex flex-col w-[195px] h-[71px]">
-                  <p className="w-[195px] h-[21px] mb-[8px] text-[18px] font-semibold ">
+                <section className="flex flex-col  h-[71px]">
+                  <p className=" h-[21px] mb-[8px] text-[18px] font-semibold overflow-hidden">
+                    {/** 글자 ...표기 */}
                     {consult.consult_title}
                   </p>
-                  <p className="w-[186px] h-[42px] text-[14px] text-gray-500">
+                  <p className=" h-[42px] text-[14px] text-gray-500">
                     {consult.consult_content}
                   </p>
                 </section>
               </section>
               <p
-                className={`w-[57px] h-[27px] text-[13px] text-center place-content-center rounded-[4px]
+                className={`h-[27px] text-[13px] text-center place-content-center rounded-[4px]
                   ${
-                    answerStatus[index] === "답변 대기"
-                      ? " text-gray-500 bg-gray-200"
-                      : " text-amber-500 bg-amber-100"
+                    answerStatus[index] === "답변 대기" ? (
+                      <AnswerWaiting />
+                    ) : (
+                      <AnswerComplete />
+                    )
                   }
                 `}
               >
