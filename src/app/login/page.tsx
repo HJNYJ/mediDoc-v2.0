@@ -48,7 +48,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <section className="fixed mt-[400px]">
+      <section className=" mx-[16px] my-[140%]">
         <button onClick={() => signInWithKakao()}>
           <Image
             src={kakaologin}

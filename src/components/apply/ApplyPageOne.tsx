@@ -107,7 +107,7 @@ const ApplyPageOne = ({
         <GrayBar />
       </div>
       <HospitalName hospitalId={hospitalId} />
-      <article className="w-[100%] mt-3 mb-6 h-[168px] bg-green-300 rounded-lg overflow-hidden">
+      <article className="w-[100%] mt-3 mb-6 h-[168px] rounded-lg overflow-hidden">
         <HospitalImage hospitalId={hospitalId} />
       </article>
       <form
