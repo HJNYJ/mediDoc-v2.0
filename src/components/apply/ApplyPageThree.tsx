@@ -61,7 +61,7 @@ const ApplyPageThree = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push(`http://localhost:3000/home`);
+    router.push(`https://medi-doc-three.vercel.app/home`);
   };
 
   const testObj = {

@@ -31,7 +31,9 @@ const Slider = () => {
             buttonType="filled"
             size="base"
             label="MediDoc 시작하기"
-            onClick={() => router.push("http://localhost:3000/home")}
+            onClick={() =>
+              router.push("https://medi-doc-three.vercel.app/home")
+            }
           />
         </SwiperSlide>
       </Swiper>

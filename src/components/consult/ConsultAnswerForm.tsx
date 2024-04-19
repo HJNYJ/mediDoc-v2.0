@@ -76,7 +76,7 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
 
   // 홈으로 이동
   const goToAskList = () => {
-    router.push(`http://localhost:3000/consult`);
+    router.push(`https://medi-doc-three.vercel.app/consult`);
   };
 
   return (
