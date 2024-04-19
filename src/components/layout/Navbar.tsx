@@ -69,7 +69,7 @@ export const Navbar = () => {
     return null;
   }
   return (
-    <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
+    <nav className="navbar fixed bottom-0 flex justify-between items-center total_margin h-[68px] bg-white">
       <Link href={"/consult"}>
         <Image src={ConsultIcon} alt="Consult Icon" />
       </Link>
