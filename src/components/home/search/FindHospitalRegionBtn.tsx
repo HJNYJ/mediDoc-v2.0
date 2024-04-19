@@ -20,7 +20,7 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
   const router = useRouter();
 
   const hospitalViewBtnHandler = (id: string) => {
-    router.push(`/map?region_id=${id}`);
+    router.push(`https://medi-doc-three.vercel.app/map?region_id=${id}`);
   };
   return (
     <div
