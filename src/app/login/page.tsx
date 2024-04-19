@@ -31,8 +31,7 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          // redirectTo: "http://localhost:3000/home",
-          redirectTo: "http://localhost:3000/home",
+          redirectTo: "https://medi-doc-three.vercel.app/home",
           queryParams: {
             access_type: "offline",
             prompt: "consent"
