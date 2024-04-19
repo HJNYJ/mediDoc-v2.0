@@ -375,7 +375,7 @@ export type Database = {
           subject_birth_date: string;
           subject_name: string;
           subject_phone_number: string;
-          user_email: string;
+          user_email?: string;
           user_name: string;
         };
         Update: {

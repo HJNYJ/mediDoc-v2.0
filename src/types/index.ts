@@ -75,11 +75,11 @@ export interface ConsultInfoType {
 }
 
 export interface ReservationInfo {
-  apply_date: string;
+  apply_date: Date;
   apply_time: string;
   course_id: string | null;
   hospital_id: string;
-  hospital_name: string;
+  hospital_name: string | null;
   program_detail: string;
   program_id: string;
   program_name: string;

@@ -80,8 +80,6 @@ const ApplyPageThree = ({
     try {
       const { data, error } = await supabase
         .from("reservation_info")
-        // eslint-disable-next-line
-        // @ts-ignore
         .insert([testObj])
         .select();
       if (error) {

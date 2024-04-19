@@ -17,7 +17,6 @@ import { ConsultType } from "@/types";
 const ConsultPage = () => {
   const router = useRouter();
   const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -11,13 +11,10 @@ import Button from "@/components/layout/Buttons";
 interface ReviewFormProps {
   hospitalId: string;
 }
-// type ReviewRatingProps = {
-//   rating: number | null;
-//   setRating: React.Dispatch<React.SetStateAction<number | null>>;
-// };
+
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
-  const [content, setContent] = useState(""); // 리뷰 내용 관리
-  const [rating, setRating] = useState<number | null>(0); // 별점 관리
+  const [content, setContent] = useState("");
+  const [rating, setRating] = useState<number | null>(0);
   const [img, setImg] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<
     {
@@ -28,7 +25,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   >([]);
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
-  const [hashtags, setHashtags] = useState({}); // 해시태그 저장
+  const [hashtags, setHashtags] = useState({});
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   useEffect(() => {
     const fetchHashtags = async () => {
@@ -42,9 +39,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           console.error("Error fetching hashtags:", error.message);
         } else {
           const fetchedHashtags = Object.values(data[0]);
-          setHashtags(fetchedHashtags.filter((tag) => tag)); // 필요한 데이터가 있는지 확인하고 배열로 만듭니다.
-          // const fetchedHashtags = data.map((item: any) => item.hashtag);
-          // setHashtags(fetchedHashtags.filter((tag: string) => tag));
+          setHashtags(fetchedHashtags.filter((tag) => tag));
         }
       } catch (error) {
         console.error("Error fetching hashtags:", error);
@@ -87,7 +82,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const handleAddImages = async (file: File, reviewId: string) => {
     try {
       const newFileName = `${uuidv4()}`;
-      // Supabase Storage에 이미지 업로드
+
       const result = await supabase.storage
         .from("images")
         .upload(`review_images/${newFileName}`, file);
@@ -105,7 +100,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
         if (uploadImgUrl) {
           console.log("리뷰 이미지 업로드! => ", uploadImgUrl);
         }
-        // setUploadedFileUrl((prev: string[]) => [...prev, url]);
       } else {
         console.log("review result => ", result);
       }
@@ -115,13 +109,13 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   };
   const handleImageOrder = (e: React.MouseEvent<HTMLDivElement>) => {
     const url = e.currentTarget.id;
-    // 클릭된 아이템 인덱스 번호
+
     const clickedItem = uploadedFileUrl.indexOf(url);
-    // 클릭 된 아이템을 제외한 배열
+
     const updatedArr = uploadedFileUrl.filter(
       (item) => item !== uploadedFileUrl[clickedItem]
     );
-    // 클릭 된 아이템을 맨 앞으로 해서 state를 변경
+
     setUploadedFileUrl([uploadedFileUrl[clickedItem], ...updatedArr]);
   };
   const deleteImgHandle = (idx: number) => {
@@ -132,7 +126,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   };
   const handleSubmit = async () => {
     try {
-      const reviewId = uuidv4(); // 새로운 리뷰 ID 생성
+      const reviewId = uuidv4();
       const data = await supabase.from("review_info").insert([
         {
           content: content,
@@ -142,11 +136,9 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           review_id: reviewId
         }
       ]);
-      // handleFiles(data);
       if (data.data) {
         handleFiles(JSON.stringify(data.data));
       }
-      // 리뷰 이미지 업로드
       for (const image of img) {
         const newFileName = `${uuidv4()}`;
         const result = await supabase.storage
@@ -157,7 +149,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
             process.env.NEXT_PUBLIC_SUPABASE_URL +
             "/storage/v1/object/public/images/" +
             result.data.path;
-          // 리뷰 이미지 URL과 리뷰 ID를 이용하여 데이터베이스에 저장
           await uploadReviewPhotosUrl(imageUrl, reviewId, hospitalId);
         }
       }
@@ -174,9 +165,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
         className="w-[358px] h-[290px]"
       >
         <div className="flex align-center justify-center mb-5 mt-5">
-          {/** OO 병원 방문은 어땠나요 ? 들어갈 부분 */}
-          {/**  */}
-          {/**  */}
           <ReviewRating
             rating={rating}
             setRating={(value: number | null) => setRating(value)}

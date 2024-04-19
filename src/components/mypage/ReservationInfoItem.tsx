@@ -53,8 +53,7 @@ const ReservationInfoItem = () => {
             .eq("user_email", email);
 
           if (error) throw new Error(error.message);
-          // eslint-disable-next-line
-          // @ts-ignore
+
           setReservationInfo(data);
         } else if (userType === "hospital staff") {
           // 병원 관계자일 경우
@@ -63,8 +62,7 @@ const ReservationInfoItem = () => {
             .select("*")
             .eq("hospital_name", hospitalName);
           if (error) throw new Error(error.message);
-          // eslint-disable-next-line
-          // @ts-ignore
+
           setReservationInfo(data);
         }
       } catch (error) {
@@ -170,9 +168,9 @@ const ReservationInfoItem = () => {
           reservationInfo.map((info) => (
             <div key={info.reservation_id} className="h-[134px] mt-[26px]">
               <p className="w-[68px] h-[14px] text-[12px] text-center place-content-center font-light bg-gray-500 text-white rounded mb-[8px]">
-                {info.apply_date?.substring(0, 4)}.
-                {info.apply_date?.substring(5, 7)}.
-                {info.apply_date?.substring(8, 10)}
+                {info.apply_date?.toString().substring(0, 4)}.
+                {info.apply_date?.toString().substring(5, 7)}.
+                {info.apply_date?.toString().substring(8, 10)}
               </p>
               <section className="h-[104px] border rounded-[10px] flex-col">
                 <section className="flex m-4 mb-[12px] justify-between">
@@ -254,10 +252,22 @@ const ReservationInfoItem = () => {
                       예약일시
                     </span>
                     <span>
-                      {selectedReservation.apply_date?.substring(0, 4)}년
-                      {selectedReservation.apply_date?.substring(6, 7)}월
-                      {selectedReservation.apply_date?.substring(8, 10)}일
-                      {selectedReservation.apply_time?.substring(0, 5)}시
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(0, 4)}
+                      년
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(6, 7)}
+                      월
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(8, 10)}
+                      일
+                      {selectedReservation.apply_time
+                        ?.toString()
+                        .substring(0, 5)}
+                      시
                     </span>
                   </div>
                   <hr className="border-solid border-gray border-1 mb-3" />
@@ -360,7 +370,7 @@ const ReservationInfoItem = () => {
                   type="date"
                   id="apply_date"
                   name="apply_date"
-                  value={editedData?.apply_date || ""}
+                  value={editedData?.apply_date.toString() || ""}
                   onChange={handleInputChange}
                 />
               </div>

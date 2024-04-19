@@ -19,7 +19,7 @@ interface ConsultAnswer {
       consult_id: string;
       consult_title: string;
       created_at: string;
-      hashtags: string | null;
+      hashtags: string[] | null;
       user_email: string | null;
       user_name: string | null;
     } | null;
@@ -30,7 +30,7 @@ interface ConsultAnswer {
     consult_id: string;
     consult_title: string;
     created_at: string;
-    hashtags: string | null;
+    hashtags: string[] | null;
     user_email: string | null;
     user_name: string | null;
   };
@@ -112,11 +112,8 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
         combinedConsultAnswerData.push({
           ...answer,
-          // eslint-disable-next-line
-          // @ts-ignore
+
           photos: consultPhotos,
-          // eslint-disable-next-line
-          // @ts-ignore
           questionInfo: questionInfo[0]
         });
       }

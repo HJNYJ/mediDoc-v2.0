@@ -1,7 +1,7 @@
 // 내가 한 질문 내역 div
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
@@ -11,28 +11,23 @@ import Image from "next/image";
 
 interface Consult {
   consult_id: string;
-  photos: { photo_id: string; photos: string }[];
+  consult_photos: { photo_id: string; photos: string }[];
   consult_title: string;
   consult_content: string;
-  answerStatus: JSX.Element | string;
 }
 
 const MyQuestionItem = () => {
   const [myConsults, setMyConsults] = useState<Consult[]>([]);
+  const [answerStatus, setAnswerStatus] = useState([]);
+
   useEffect(() => {
     const fetchMyConsults = async () => {
       try {
         const consults = await getMyConsultData();
-
-        for (const consult of consults!) {
-          const consultAnswer = await checkConsultAnswer(consult.consult_id);
-          // eslint-disable-next-line
-          // @ts-ignore
-          consult.answerStatus = consultAnswer;
+        if (!consults) {
+          return;
         }
-        // eslint-disable-next-line
-        // @ts-ignore
-        setMyConsults(consults || []);
+        setMyConsults(consults);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
       }
@@ -41,9 +36,7 @@ const MyQuestionItem = () => {
     fetchMyConsults();
   }, []);
 
-  const checkConsultAnswer = async (
-    consultId: string
-  ): Promise<JSX.Element | string> => {
+  const checkConsultAnswer = async (consultId: string) => {
     try {
       const { data: checkConsultAnswer, error } = await supabase
         .from("consult_info")
@@ -76,6 +69,19 @@ const MyQuestionItem = () => {
     }
   };
 
+  useEffect(() => {
+    const updateAnswerStatus = async () => {
+      const status = await Promise.all(
+        myConsults.map((consult) => checkConsultAnswer(consult.consult_id))
+      );
+      setAnswerStatus(status);
+      console.log("스테이터스 :::::::::");
+      console.log(status);
+    };
+
+    updateAnswerStatus();
+  }, [myConsults]);
+
   return (
     <>
       <section>
@@ -86,14 +92,14 @@ const MyQuestionItem = () => {
         )}
       </section>
       <section className="w-[358px] mx-[16px]">
-        {myConsults.map((consult) => (
+        {myConsults.map((consult, index) => (
           <Link
             key={consult.consult_id}
             href={`/consult/${consult.consult_id}`}
           >
             <div className="flex items-center w-96 m-4">
               <section className="flex flex-row w-[267px] h-[71px] mr-[34px] overflow-hidden">
-                {consult.photos?.map((photo) => (
+                {consult.consult_photos.map((photo) => (
                   <Image
                     key={photo.photo_id}
                     src={photo.photos}
@@ -112,10 +118,14 @@ const MyQuestionItem = () => {
               </section>
               <p
                 className={`w-[57px] h-[27px] text-[13px] text-center place-content-center rounded-[4px]
-                  ${consult.answerStatus === "답변 대기" ? " text-gray-500 bg-gray-200" : " text-amber-500 bg-amber-100"}
+                  ${
+                    answerStatus[index] === "답변 대기"
+                      ? " text-gray-500 bg-gray-200"
+                      : " text-amber-500 bg-amber-100"
+                  }
                 `}
               >
-                {consult.answerStatus}
+                {answerStatus[index]}
               </p>
             </div>
           </Link>

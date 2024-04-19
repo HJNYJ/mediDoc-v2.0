@@ -38,8 +38,6 @@ export interface HospitalType {
 const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   const router = useRouter();
   const { isScrapped, setIsScrapped } = useScrapStore();
-
-  // 병원 데이터 가져오기
   const {
     isLoading,
     isError,
