@@ -26,9 +26,9 @@ const FindHospital = () => {
   }
 
   return (
-    <div className="relative w-[358px] mx-[16px] mt-[30px]">
-      <span className="w-[133px] h-[21px] bold-18">지역별로 병원 찾기</span>
-      <div className="inline-grid grid-cols-4 gap-x-[50px] gap-y-[16px]">
+    <div className="relative mt-[30px] mb-[38px]">
+      <p className="bold-18">지역별로 병원 찾기</p>
+      <div className="inline-grid grid-cols-4 w-full gap-x-[50px]">
         {data?.map((item) => {
           return (
             <FindHospitalRegionBtn key={item.region_id} regionInfo={item} />

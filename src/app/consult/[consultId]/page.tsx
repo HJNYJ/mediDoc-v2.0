@@ -66,17 +66,17 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
   return (
     <div className="relative w-full">
-      <div className="mt-10 mb-5 flex justify-center it relative">
+      <div className="flex justify-center relative py-[15px]">
         <button
-          className="flex absolute left-3"
+          className="absolute left-0 top-[50%] translate-y-[-50%]"
           onClick={onClickConsultHandeler}
         >
           <PagebackBtn />
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <div className="p-6">
-        <div className="w-[390px] mb-10">
+      <div className="">
+        <div className=" mb-10">
           <p id="user_answer_title" className="semibold-24">
             {consultDetailData?.consult_title}
           </p>
@@ -95,13 +95,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
               ?.toString()
               .split(",")
               .map((hashtag: string) => (
-                <span key={hashtag}>
+                <span key={hashtag} className="mr-1">
                   <Hashtag key={hashtag} hashtag={hashtag} />
                 </span>
               ))}
           </div>
         </div>
-        <div className="mb-8 bg-gray-300 h-3"></div>
+        <div className="mb-8 bg-gray-300 relative h-3">
+          <span className="w-4 absolute h-3 bg-gray-300 left-[-16px]"></span>
+          <span className="w-4 absolute h-3 bg-gray-300 right-[-16px]"></span>
+        </div>
 
         <div className="mb-5">
           {userType === "hospital staff" ? (
@@ -118,9 +121,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                     <p className="rounded-full w-4 bg-blue-500"></p>
                     <p>{item?.hospital_name}</p>
                   </div>
-                  <div className="regular-14 w-[358px] h-[264px]">
-                    {item?.answer}
-                  </div>
+                  <div className="regular-14 h-[264px]">{item?.answer}</div>
                 </div>
               ))}
               <ConsultAnswerForm params={params} />
@@ -129,7 +130,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             <div>
               {answerDetailData?.map((item) => (
                 <div key={item.answer_id}>
-                  <div className="bold-18 bg-green-600 w-[358px] h-[264px] text-black">
+                  <div className="bold-18 w-full text-black mb-2">
                     {item?.department} 답변
                   </div>
                   <div className="regular-14">{item?.answer}</div>
