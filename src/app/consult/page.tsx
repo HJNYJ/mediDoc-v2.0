@@ -40,14 +40,14 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    router.push(`/consult/ask`);
+    router.push(`https://medi-doc-three.vercel.app/consult/ask`);
   };
 
   const goToDetailPage = (consultId: string) => {
-    router.push(`/consult/${consultId}`);
+    router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    router.push("/home");
+    router.push("https://medi-doc-three.vercel.app/home");
   };
 
   return (

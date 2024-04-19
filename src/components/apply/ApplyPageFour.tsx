@@ -15,7 +15,7 @@ const ApplyPageFour = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push("/home");
+    router.push("https://medi-doc-three.vercel.app/home");
   };
 
   return (

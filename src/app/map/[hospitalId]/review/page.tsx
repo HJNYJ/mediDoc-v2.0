@@ -4,7 +4,6 @@ import ReviewForm from "@/components/map/review/ReviewForm";
 import { useParams } from "next/navigation";
 import React from "react";
 const ReviewPage = () => {
-  // const router = useRouter();
   const params = useParams();
   const hospitalId = params.hospitalId.toString(); // Convert hospitalId to string
   console.log("ReviewPage params", hospitalId);
