@@ -22,7 +22,7 @@ const SelfTestWidget = () => {
         </section>
         <button
           onClick={() => {
-            router.push("/selftest");
+            router.push("https://medi-doc-three.vercel.app/selftest");
           }}
         >
           <Image src={nextIcon} alt="버튼" />

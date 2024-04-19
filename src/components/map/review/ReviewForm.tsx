@@ -6,7 +6,7 @@ import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
 import review_searchbar from "@/assets/icons/review/review_searchbar.png";
 import camera from "@/assets/icons/consult/camera.png";
-import imageBox from "@/assets/icons/consult/imageBox.png";
+import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "@/components/layout/Buttons";
 
 interface ReviewFormProps {

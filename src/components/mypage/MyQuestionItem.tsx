@@ -26,8 +26,7 @@ const MyQuestionItem = () => {
 
         for (const consult of consults!) {
           const consultAnswer = await checkConsultAnswer(consult.consult_id);
-          // eslint-disable-next-line
-          // @ts-ignore
+
           consult.answerStatus = consultAnswer;
         }
         // eslint-disable-next-line
@@ -91,7 +90,7 @@ const MyQuestionItem = () => {
             key={consult.consult_id}
             href={`/consult/${consult.consult_id}`}
           >
-            <a className="flex items-center w-96 m-4">
+            <div className="flex items-center w-96 m-4">
               <section className="flex flex-row w-[267px] h-[71px] mr-[34px] overflow-hidden">
                 {consult.photos.map((photo) => (
                   <Image
@@ -117,7 +116,7 @@ const MyQuestionItem = () => {
               >
                 {consult.answerStatus}
               </p>
-            </a>
+            </div>
           </Link>
         ))}
       </section>
