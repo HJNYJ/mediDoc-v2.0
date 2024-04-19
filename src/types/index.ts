@@ -7,6 +7,7 @@ export type TabList = Pick<TabState, "selectedTab">;
 
 export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
+  setPosts: React.Dispatch<React.SetStateAction<ConsultType[]>>;
 }
 
 export interface AnswerDetail {
@@ -75,11 +76,11 @@ export interface ConsultInfoType {
 }
 
 export interface ReservationInfo {
-  apply_date: string;
+  apply_date: Date;
   apply_time: string;
   course_id: string | null;
   hospital_id: string;
-  hospital_name: string;
+  hospital_name: string | null;
   program_detail: string;
   program_id: string;
   program_name: string;
