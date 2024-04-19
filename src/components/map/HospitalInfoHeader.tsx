@@ -17,8 +17,22 @@ import { fetchHospitalData } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { removeTimeSecond } from "@/utils/changeTimeFormat";
 
-interface HospitalInfoHeaderProps {
+export interface HospitalInfoHeaderProps {
   params: { hospitalId: string };
+}
+
+export interface HospitalType {
+  end_time: string;
+  hospital_address: string;
+  hospital_contact: string;
+  hospital_id?: string;
+  hospital_image: string;
+  hospital_introduction: string;
+  hospital_latitude: number;
+  hospital_longitude: number;
+  hospital_name: string;
+  region_id: number;
+  start_time: string;
 }
 
 const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
@@ -30,7 +44,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
     isLoading,
     isError,
     data: hospitalData
-  } = useQuery<Hospital>({
+  } = useQuery<HospitalType>({
     queryKey: ["hospitalInfo", params.hospitalId],
     queryFn: () => fetchHospitalData(params.hospitalId)
   });

@@ -112,7 +112,11 @@ export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
 
         combinedConsultAnswerData.push({
           ...answer,
+          // eslint-disable-next-line
+          // @ts-ignore
           photos: consultPhotos,
+          // eslint-disable-next-line
+          // @ts-ignore
           questionInfo: questionInfo[0]
         });
       }

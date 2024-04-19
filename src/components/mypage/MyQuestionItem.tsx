@@ -19,7 +19,6 @@ interface Consult {
 
 const MyQuestionItem = () => {
   const [myConsults, setMyConsults] = useState<Consult[]>([]);
-
   useEffect(() => {
     const fetchMyConsults = async () => {
       try {
@@ -27,9 +26,12 @@ const MyQuestionItem = () => {
 
         for (const consult of consults!) {
           const consultAnswer = await checkConsultAnswer(consult.consult_id);
+          // eslint-disable-next-line
+          // @ts-ignore
           consult.answerStatus = consultAnswer;
         }
-
+        // eslint-disable-next-line
+        // @ts-ignore
         setMyConsults(consults || []);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);
