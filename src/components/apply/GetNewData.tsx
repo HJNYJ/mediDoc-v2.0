@@ -3,7 +3,6 @@
 import useApplyStore from "@/shared/zustand/applyStore";
 import regionCheck from "@/assets/icons/check.png";
 import Image from "next/image";
-import HospitalName from "./HospitalName";
 
 const HospitalReservation = () => {
   const { reservationInfo } = useApplyStore();
@@ -34,7 +33,9 @@ const HospitalReservation = () => {
         </p>
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">일정</span>
-          <span className="w-60 regular-16">{reservationInfo.apply_date}</span>
+          <span className="w-60 regular-16">
+            {reservationInfo.apply_date.toString()}
+          </span>
         </p>
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">예약자</span>
@@ -44,7 +45,9 @@ const HospitalReservation = () => {
         </p>
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">시간</span>
-          <span className="w-60 regular-16">{reservationInfo.apply_time}</span>
+          <span className="w-60 regular-16">
+            {reservationInfo.apply_time.toString()}
+          </span>
         </p>
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">연락처</span>
@@ -55,13 +58,13 @@ const HospitalReservation = () => {
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">검사코스</span>
           <span className="w-60 regular-16">
-            {reservationInfo.program_name}{" "}
+            {reservationInfo.program_name}
           </span>
         </p>
         <p className="flex mb-4">
           <span className="w-[70px] bold-16 mr-3">검사내용</span>
           <span className="w-60 regular-16">
-            {reservationInfo.program_detail}{" "}
+            {reservationInfo.program_detail}
           </span>
         </p>
       </div>

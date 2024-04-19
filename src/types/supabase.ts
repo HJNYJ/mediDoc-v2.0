@@ -13,7 +13,7 @@ export type Database = {
         Row: {
           answer: string;
           answer_id: string;
-          consult_id: string | null;
+          consult_id: string;
           department: string;
           hospital_id: string | null;
           hospital_name: string | null;
@@ -23,7 +23,7 @@ export type Database = {
         Insert: {
           answer: string;
           answer_id?: string;
-          consult_id?: string | null;
+          consult_id: string;
           department: string;
           hospital_id?: string | null;
           hospital_name?: string | null;
@@ -33,7 +33,7 @@ export type Database = {
         Update: {
           answer?: string;
           answer_id?: string;
-          consult_id?: string | null;
+          consult_id?: string;
           department?: string;
           hospital_id?: string | null;
           hospital_name?: string | null;
@@ -71,7 +71,7 @@ export type Database = {
           hashtags_id: string;
         };
         Insert: {
-          consult_id?: string;
+          consult_id: string;
           hashtags?: string;
           hashtags_id?: string;
         };
@@ -96,7 +96,7 @@ export type Database = {
         Insert: {
           bodyparts?: string | null;
           consult_content: string;
-          consult_id?: string;
+          consult_id: string;
           consult_title: string;
           created_at?: string;
           hashtags?: string[] | null;
@@ -345,7 +345,7 @@ export type Database = {
       };
       reservation_info: {
         Row: {
-          apply_date: string;
+          apply_date: Date;
           apply_time: string;
           course_id: string | null;
           hospital_id: string;
@@ -362,7 +362,7 @@ export type Database = {
           user_name: string;
         };
         Insert: {
-          apply_date: string;
+          apply_date: Date;
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
@@ -379,7 +379,7 @@ export type Database = {
           user_name: string;
         };
         Update: {
-          apply_date?: string;
+          apply_date?: Date;
           apply_time?: string;
           course_id?: string | null;
           hospital_id?: string;

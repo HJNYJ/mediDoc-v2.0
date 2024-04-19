@@ -40,7 +40,8 @@ const TestResult = () => {
 
       // 선택된 증상과 매칭되는 질환 찾기
       let maxMatches = 0;
-      const matchedDiseases: Array<string> = [];
+      // eslint-disable-next-line
+      let matchedDiseases: string[] = [];
 
       possibleDiseases.forEach((disease) => {
         // 증상과 매칭되늰 질환의 수 확인

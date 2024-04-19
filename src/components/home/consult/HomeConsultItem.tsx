@@ -3,6 +3,10 @@
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
 import { fetchImages, supabase } from "@/api/supabase";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
@@ -51,7 +55,6 @@ const HomeConsultItem = () => {
   });
 
   if (isLoadingRecent) return <div>로딩 중...</div>;
-
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (

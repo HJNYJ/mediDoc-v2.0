@@ -7,7 +7,6 @@ import type { ReservationInfo } from "@/types";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import detailIcon from "@/assets/icons/nextIcon.png";
 import Image from "next/image";
-import closeIcon from "@/assets/icons/xmark.png";
 import reservationId from "@/assets/icons/modal/reservation_id.png";
 import reservationHospital from "@/assets/icons/modal/hospital.png";
 import reservationDate from "@/assets/icons/modal/date.png";
@@ -32,12 +31,14 @@ const ReservationInfoItem = () => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
+        const id = user?.id ?? "";
+        const email = user?.email ?? "";
 
         // 유저 타입 가져오기
         const { data: userInfo, error: userInfoError } = await supabase
           .from("user_info")
           .select("user_type")
-          .eq("user_id", user?.id)
+          .eq("user_id", id)
           .single();
 
         if (userInfoError) throw new Error(userInfoError.message);
@@ -49,9 +50,11 @@ const ReservationInfoItem = () => {
           const { data, error } = await supabase
             .from("reservation_info")
             .select("*")
-            .eq("user_email", user?.email);
+            .eq("user_email", email);
 
           if (error) throw new Error(error.message);
+          // eslint-disable-next-line
+          // @ts-ignore
           setReservationInfo(data);
         } else if (userType === "hospital staff") {
           // 병원 관계자일 경우
@@ -60,6 +63,8 @@ const ReservationInfoItem = () => {
             .select("*")
             .eq("hospital_name", hospitalName);
           if (error) throw new Error(error.message);
+          // eslint-disable-next-line
+          // @ts-ignore
           setReservationInfo(data);
         }
       } catch (error) {
@@ -101,6 +106,8 @@ const ReservationInfoItem = () => {
       if (editedData) {
         const { data, error } = await supabase
           .from("reservation_info")
+          // eslint-disable-next-line
+          // @ts-ignore
           .update(editedData)
           .eq("reservation_id", editedData.reservation_id);
         if (error) throw new Error(error.message);
