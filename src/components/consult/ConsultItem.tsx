@@ -2,10 +2,8 @@
 
 // 상담 내역 1개
 import React from "react";
-import ConsultQuestion from "./ConsultQuestion";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
-// import ConsultAnswer from "./ConsultAnswer";
 
 const fetchHospitals = async () => {
   const { data: hospitalData, error } = await supabase
@@ -16,13 +14,10 @@ const fetchHospitals = async () => {
     console.error("error", error);
     return;
   }
-  console.log("hospitalData => ", hospitalData);
   return hospitalData;
 };
 
 const ConsultItem = () => {
-  // const [hospitals, setHospitals] = useState("");
-
   const {
     isLoading,
     error,
@@ -32,15 +27,11 @@ const ConsultItem = () => {
     queryFn: fetchHospitals
   });
 
-  console.log("hospitalData ====> ", hospitalData);
-
   if (isLoading) return <p>consult detail page Loading..!!</p>;
   if (error) return <p>error : {error.message}</p>;
 
   return (
     <section>
-      <ConsultQuestion />
-      {/* <ConsultAnswer /> */}
       <hr />
       <div>
         {hospitalData?.map((hospital) => (

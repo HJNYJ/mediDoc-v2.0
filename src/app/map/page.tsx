@@ -7,14 +7,12 @@ import TopNavbar from "@/components/layout/TopNavbar";
 
 const HospitalListPage = () => {
   return (
-    <main className="w-[390px] h-[844px]">
-      <section className="mx-[16px]">
-        <TopNavbar />
-        <Suspense>
-          <HospitalList />
-        </Suspense>
-      </section>
-    </main>
+    <section>
+      <TopNavbar />
+      <Suspense>
+        <HospitalList />
+      </Suspense>
+    </section>
   );
 };
 

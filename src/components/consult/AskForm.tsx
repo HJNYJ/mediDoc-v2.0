@@ -8,7 +8,6 @@ import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "../layout/Buttons";
-// import defaultImage from "@/assets/icons/defaultImage.png";
 import TopNavbar from "../layout/TopNavbar";
 import { useRouter } from "next/navigation";
 const AskForm = () => {
@@ -68,15 +67,8 @@ const AskForm = () => {
     });
   };
   // 웹 페이지에서 파일 등록하기
-  const handleFiles = async (
-    // e: React.ChangeEvent<HTMLInputElement>,
-    consultId: string
-  ) => {
-    // const fileList = e.target.files;
+  const handleFiles = async (consultId: string) => {
     const fileList = img;
-
-    console.log("fileList", fileList);
-
     if (fileList.length) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
@@ -104,11 +96,10 @@ const AskForm = () => {
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
-        // console.log("url ?????????? => ", url); // 사진 잘 나오고있음, url이 잘 나오고 있음
         const uploadImgUrl = await uploadPhotosUrl(
           url.toString(),
           consultId.toString()
-        ); // consultId === null
+        );
 
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
@@ -183,11 +174,7 @@ const AskForm = () => {
       selectedTags,
       userName,
       userEmail
-      // consultId: uuid
-      // 이미지 URL 추가
     );
-    // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-    console.log("consult Ask Form data", data);
 
     const id: string = data?.consultId || "";
 

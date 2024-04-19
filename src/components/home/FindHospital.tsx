@@ -9,8 +9,6 @@ const FindHospital = () => {
     queryKey: ["hospitalRegion"],
     queryFn: async () => {
       const response = await supabase.from("hospital_region").select("*");
-      // region_id, region_name 둘 다 필요해서 *로 바꿈
-      // -> region_id로 hospitalInfo 테이블안에 region_id가 일치하는 병원들만 뽑아내기 위해(읽고 주석 지우셈)
 
       const { data } = response;
       return data;
@@ -26,9 +24,9 @@ const FindHospital = () => {
   }
 
   return (
-    <div className="relative w-[358px] mx-[16px] mt-[30px]">
-      <span className="w-[133px] h-[21px] bold-18">지역별로 병원 찾기</span>
-      <div className="inline-grid grid-cols-4 gap-x-[50px] gap-y-[16px]">
+    <div className="relative mt-[30px] mb-[38px]">
+      <p className="bold-18">지역별로 병원 찾기</p>
+      <div className="inline-grid grid-cols-4 w-full gap-x-[50px]">
         {data?.map((item) => {
           return (
             <FindHospitalRegionBtn key={item.region_id} regionInfo={item} />

@@ -14,7 +14,7 @@ import Image from "next/image";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
-  // const [consultsData, setConsultsData] = useState([]);
+
   const [consultPhotos, setConsultPhotos] = useState<
     { consult_id: string; photo_id: string; photos: string }[]
   >([]);
@@ -58,34 +58,30 @@ const HomeConsultItem = () => {
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div className="w-[360px]">
+    <div className="">
       {consultRecentData?.map((consult, index) => (
         <div key={index}>
-          <div className="flex justify-center">
-            <div className="flex flex-col">
+          <div className="flex justify-between mb-6">
+            <div className="flex">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.map((image, index) => (
-                  <div key={index}>
+                  <div key={index} className="mr-3">
                     <Image
                       src={image.photos}
                       alt={`상담 이미지 ${index + 1}`}
-                      width={100}
-                      height={100}
+                      width={60}
+                      height={60}
                       className="object-cover"
                     />
-                    {/* <img
-                          src={image.photos}
-                          alt={`상담 이미지 ${index + 1}`}
-                          className="w-[100px] h-[100px]"
-                        /> */}
-                    {/** 노란줄도 지워야하나 싶어서 지워봄..... */}
                   </div>
                 ))}
 
-              <div className="semibold-18">{consult?.consult_title}</div>
-              <div className="medium-14 text-gray-700">
-                {consult?.consult_content}
+              <div>
+                <div className="semibold-18">{consult?.consult_title}</div>
+                <div className="medium-14 text-gray-700">
+                  {consult?.consult_content}
+                </div>
               </div>
             </div>
 

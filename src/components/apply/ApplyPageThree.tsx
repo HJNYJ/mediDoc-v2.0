@@ -31,7 +31,6 @@ const ApplyPageThree = ({
     setSelectedTime,
     setIsTimeClicked,
     setIsDateClicked,
-
     selectedCourseName,
     selectedCourseDetail,
     setReservationInfo

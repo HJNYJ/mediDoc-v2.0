@@ -52,16 +52,13 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    // router.push(`https://medi-doc-three.vercel.app/consult/ask`);
     router.push(`https://medi-doc-three.vercel.app/consult/ask`);
   };
 
   const goToDetailPage = (consultId: string) => {
-    // router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
     router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    // router.push("https://medi-doc-three.vercel.app/home");
     router.push(`https://medi-doc-three.vercel.app/home`);
   };
 
@@ -75,89 +72,71 @@ const ConsultPage = () => {
       </div>
       <ConsultTabs
         handleCategoryChange={handleCategoryChange}
-        // posts={posts}
         setPosts={setPosts}
       />
-      <div className="h-[154px] top-151">
+      <div className="">
         {posts?.map((consult) => {
           console.log("consult =======> ", consult);
           return (
             <div
               key={consult?.consult_id}
-              className="flex p-4 mb-4 cursor-pointer"
+              className="flex cursor-pointer flex-col"
               onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
             >
-              <div className="flex flex-col justify-between">
-                {consult?.consult_photos && consult?.consult_photos.length ? (
-                  consult?.consult_photos?.map((item) => {
-                    return (
-                      <img
-                        key={item?.photo_id}
-                        src={item?.photos || undefined} // 이미지 URL
-                        alt="Uploaded Image"
-                        className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                      />
-                    );
-                  })
-                ) : (
-                  <img
-                    src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
-                    alt="Uploaded Image"
-                    className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                  />
-                )}
-              </div>
-              {/* <div className="flex flex-col justify-between">
-                {consult?.consult_photos?.length ? (
-                  consult?.consult_photos?.map((item) => {
-                    return (
-                      <img
-                        key={item?.photo_id}
-                        src={item?.photos} // 이미지 URL
-                        alt="Uploaded Image"
-                        className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                      />
-                    );
-                  })
-                ) : (
-                  <img
-                    src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
-                    alt="Uploaded Image"
-                    className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                  />
-                )}
-              </div> */}
-
-              <div className="ml-4 w-full overflow-hidden">
-                <p className="semibold-18 text-gray-800">
-                  {consult?.consult_title}
-                </p>
-                <p className="text-gray-700 regular-14 mb-2">
-                  {consult?.consult_content}
-                </p>
-                <div className="mb-4 flex">
-                  {consult?.hashtags
-                    ?.toString()
-                    .split(",")
-                    .map((hashtag: string) => (
-                      <Hashtag key={hashtag} hashtag={hashtag} />
-                    ))}
+              <div className="flex items-center">
+                <div className="flex flex-col justify-between">
+                  {consult?.consult_photos && consult?.consult_photos.length ? (
+                    consult?.consult_photos?.map((item) => {
+                      return (
+                        <img
+                          key={item?.photo_id}
+                          src={item?.photos || undefined} // 이미지 URL
+                          alt="Uploaded Image"
+                          className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                        />
+                      );
+                    })
+                  ) : (
+                    <img
+                      src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
+                      alt="Uploaded Image"
+                      className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                    />
+                  )}
                 </div>
-                {consult?.consult_answer &&
-                consult?.consult_answer?.length > 0 ? (
-                  <AnswerComplete />
-                ) : (
-                  <AnswerWaiting />
-                )}
+
+                <div className="ml-4 w-full overflow-hidden">
+                  <p className="semibold-18 text-gray-800">
+                    {consult?.consult_title}
+                  </p>
+                  <p className="text-gray-700 regular-14 mb-2">
+                    {consult?.consult_content}
+                  </p>
+                  <div className="mb-4 flex">
+                    {consult?.hashtags
+                      ?.toString()
+                      .split(",")
+                      .map((hashtag: string) => (
+                        <Hashtag key={hashtag} hashtag={hashtag} />
+                      ))}
+                  </div>
+                  {consult?.consult_answer &&
+                  consult?.consult_answer?.length > 0 ? (
+                    <AnswerComplete />
+                  ) : (
+                    <AnswerWaiting />
+                  )}
+                </div>
               </div>
+              <hr className="w-full border-solid border-gray-400 border-1 mb-5 mt-6" />
             </div>
           );
         })}
       </div>
-      <hr className="w-full border-solid border-gray-400 border-1 mb-3" />
+
       {/* 밑 줄 이거를 어떻게 반복 시킬까... */}
       <div className="relative">
-        <button onClick={goToAskForm} className="fixed bottom-14 right-3">
+        <button onClick={goToAskForm} className="fixed bottom-16 right-3 ">
           <Image src={addIcon} alt="작성하기" className="w-[80px] h-[80px]" />
         </button>
       </div>
