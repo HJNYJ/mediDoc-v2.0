@@ -1,0 +1,136 @@
+import { supabase } from "@/api/supabase";
+
+interface ConsultAnswer {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
+  photos: {
+    consult_id: string;
+    photo_id: string;
+    photos: string;
+    consult_info: {
+      bodyparts: string | null;
+      consult_content: string;
+      consult_id: string;
+      consult_title: string;
+      created_at: string;
+      hashtags: string | null;
+      user_email: string | null;
+      user_name: string | null;
+    } | null;
+  }[];
+  questionInfo: {
+    bodyparts: string | null;
+    consult_content: string;
+    consult_id: string;
+    consult_title: string;
+    created_at: string;
+    hashtags: string | null;
+    user_email: string | null;
+    user_name: string | null;
+  };
+}
+export const getMyConsultData = async () => {
+  try {
+    // 유저 정보 가져오기
+    const {
+      data: { session }
+    } = await supabase.auth.getSession();
+
+    const user = session?.user;
+    const email = user?.email ?? "";
+
+    // 내가 작성한 상담글 가져오기
+    // 1. consult_info에서 user_email이 일치하는 것 가져오기
+    const { data: consultInfo, error: consultInfoError } = await supabase
+      .from("consult_info")
+      .select(`*, consult_photos(*)`)
+      .eq("user_email", email);
+
+    if (consultInfoError) throw new Error(consultInfoError.message);
+
+    // 2. consult_photos에서 consult_id가 일치하는 사진 가져오기
+    for (const consult of consultInfo) {
+      const { data: consultPhotos, error: consultPhotosError } = await supabase
+        .from("consult_photos")
+        .select("*")
+        .eq("consult_id", consult.consult_id);
+
+      if (consultPhotosError) throw new Error(consultPhotosError.message);
+
+      consult.consult_photos = consultPhotos;
+    }
+
+    return consultInfo;
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message);
+  }
+};
+
+export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
+  try {
+    const {
+      data: { session }
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    const id = user?.id ?? "";
+
+    const { data: userInfo, error: userInfoError } = await supabase
+      .from("user_info")
+      .select("*")
+      .eq("user_id", id);
+
+    if (userInfoError) throw new Error(userInfoError.message);
+
+    if (userInfo[0].user_type === "hospital staff") {
+      const { data: consultAnswerData, error: consultAnswerError } =
+        await supabase
+          .from("consult_answer")
+          .select("*")
+          .eq("user_id", userInfo[0].user_id);
+
+      if (consultAnswerError) throw new Error(consultAnswerError.message);
+
+      const combinedConsultAnswerData: ConsultAnswer[] = [];
+
+      for (const answer of consultAnswerData) {
+        const { data: consultPhotos, error: consultPhotosError } =
+          await supabase
+            .from("consult_photos")
+            .select("*, consult_info(*)")
+            .eq("consult_id", answer.consult_id);
+
+        if (consultPhotosError) throw new Error(consultPhotosError.message);
+
+        const { data: questionInfo, error: questionInfoError } = await supabase
+          .from("consult_info")
+          .select("*")
+          .eq("consult_id", answer.consult_id);
+
+        if (questionInfoError) throw new Error(questionInfoError.message);
+
+        combinedConsultAnswerData.push({
+          ...answer,
+          // eslint-disable-next-line
+          // @ts-ignore
+          photos: consultPhotos,
+          // eslint-disable-next-line
+          // @ts-ignore
+          questionInfo: questionInfo[0]
+        });
+      }
+
+      return combinedConsultAnswerData;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message);
+    return [];
+  }
+};

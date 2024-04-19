@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'pretendard' !important;
+}
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+} */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.activeTab {
+  background-color: pink;
+}
+
+.total_margin{
+  width: calc(100% - 32px);
+}
+
+.selectDate{
+  color: white !important;
+  position: relative;
+  z-index: 1;
+}
+
+.selectDate::after{
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: orange;
+  border-radius: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.oneThird{
+  width: calc((100% - 16px) / 3)
+}
