@@ -11,6 +11,7 @@ import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
+import { ConsultType } from "@/types";
 // import { ConsultType } from "@/types";
 
 export type PostType = {
@@ -30,15 +31,13 @@ export type PostType = {
 const ConsultPage = () => {
   const router = useRouter();
   // const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
-  const [posts, setPosts] = useState<PostType[]>([]);
+  const [posts, setPosts] = useState<ConsultType[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConsultsData = async () => {
       setIsLoading(true);
-      // const consultsData = await fetchConsults();
-      // setConsultsData(consultsData || []);
       setIsLoading(false);
     };
 
