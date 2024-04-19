@@ -335,7 +335,7 @@ export const hospitalImage = async (hospitalId: string) => {
   return data;
 };
 
-export const consultInfoAndImage = async () => {
-  const response = await supabase.from("consult_info").select(`*
-          , consult_consult_photos(*)`);
-};
+// export const consultInfoAndImage = async () => {
+//   const response = await supabase.from("consult_info").select(`*
+//           , consult_consult_photos(*)`);
+// };

@@ -20,7 +20,6 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         } = await supabase.auth.getSession();
         const user = session?.user;
         const email = user?.email ?? "";
-        const email = user?.email ?? "";
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")

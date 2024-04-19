@@ -53,6 +53,8 @@ const ReservationInfoItem = () => {
             .eq("user_email", email);
 
           if (error) throw new Error(error.message);
+          // eslint-disable-next-line
+          // @ts-ignore
           setReservationInfo(data);
         } else if (userType === "hospital staff") {
           // 병원 관계자일 경우
@@ -61,6 +63,8 @@ const ReservationInfoItem = () => {
             .select("*")
             .eq("hospital_name", hospitalName);
           if (error) throw new Error(error.message);
+          // eslint-disable-next-line
+          // @ts-ignore
           setReservationInfo(data);
         }
       } catch (error) {
@@ -102,6 +106,8 @@ const ReservationInfoItem = () => {
       if (editedData) {
         const { data, error } = await supabase
           .from("reservation_info")
+          // eslint-disable-next-line
+          // @ts-ignore
           .update(editedData)
           .eq("reservation_id", editedData.reservation_id);
         if (error) throw new Error(error.message);

@@ -2,7 +2,7 @@
 "use client";
 
 import HospitalList from "@/components/map/hospitalList/HospitalList";
-import React from "react";
+import React, { Suspense } from "react";
 import TopNavbar from "@/components/layout/TopNavbar";
 
 const HospitalListPage = () => {
@@ -10,7 +10,9 @@ const HospitalListPage = () => {
     <main className="w-[390px] h-[844px]">
       <section className="mx-[16px]">
         <TopNavbar />
-        <HospitalList />
+        <Suspense>
+          <HospitalList />
+        </Suspense>
       </section>
     </main>
   );

@@ -48,7 +48,8 @@ export const fetchHospitalList = async (regionId: string | null) => {
 };
 
 // 선택한 병원의 데이터를 가져오는 함수
-export const fetchHospitalData = async (hospital_id: string) => {
+// eslint-disable-next-line
+export const fetchHospitalData = async (hospital_id: string): Promise<any> => {
   try {
     const { data: hospitalData, error } = await supabase
       .from("hospital_info")
