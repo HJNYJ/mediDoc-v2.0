@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/utils/getUserInfo";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
-import imageBox from "@/assets/icons/consult/imageBox.png";
+import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "../layout/Buttons";
 // import defaultImage from "@/assets/icons/defaultImage.png";
 import TopNavbar from "../layout/TopNavbar";
