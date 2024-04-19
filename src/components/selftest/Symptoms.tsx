@@ -28,7 +28,6 @@ const Symptoms = () => {
   } = useSelftestStore();
 
   const router = useRouter();
-
   // supabase에서 선택한 아픈 부위에 해당하는 증상들 가져오기
   useEffect(() => {
     const fetchSymptoms = async () => {
@@ -59,7 +58,7 @@ const Symptoms = () => {
 
   const checkSelectedSymptoms = () => {
     if (selectedSymptoms.length > 0) {
-      router.push("http://localhost:3000/selftestresult");
+      router.push("https://medi-doc-three.vercel.app/selftestresult");
     } else {
       alert("증상을 선택해주세요.");
     }

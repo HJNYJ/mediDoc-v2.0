@@ -29,12 +29,10 @@ const MyQuestionItem = () => {
     const fetchMyConsults = async () => {
       try {
         const consults = (await getMyConsultData()) ?? [];
-        // setMyConsults(consults);
 
         for (const consult of consults) {
           consult.consult_photos = [];
         }
-
         setMyConsults(consults);
       } catch (error) {
         if (error instanceof Error) console.error(error.message);

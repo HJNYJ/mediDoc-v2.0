@@ -30,11 +30,9 @@ const ReviewRating = ({
             />
             <div
               className="flex justify-center items-center w-[40px] h-[40px] text-3xl cursor-pointer "
-              // onMouseEnter={() => setHoverRating(currentRating)}
               onMouseLeave={() => setHoverRating(null)}
               onClick={() => setRating(currentRating)}
             >
-              {/* {currentRating <= (hoverRating || rating) ? "⭐" : "⚝"} */}
               {currentRating <= (hoverRating || rating || 0) ? (
                 <Image src={filledStar} alt="filled star" />
               ) : (

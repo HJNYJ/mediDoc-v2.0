@@ -7,8 +7,6 @@ import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-// import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-// import StatusBar from "@/assets/icons/StatusBar.png";
 import ConsultIcon from "@/assets/icons/consultIcon.png";
 import TestIcon from "@/assets/icons/testIcon.png";
 import HomeIcon from "@/assets/icons/homeIcon.png";
@@ -49,7 +47,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("http://localhost:3000/home");
+      router.push("https://medi-doc-three.vercel.app/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -57,9 +55,9 @@ export const Navbar = () => {
 
   const handleMyPageClick = () => {
     if (!isLoggedIn) {
-      router.push("http://localhost:3000/login");
+      router.push("https://medi-doc-three.vercel.app/login");
     } else {
-      router.push(`http://localhost:3000/mypage/${userId}`);
+      router.push(`https://medi-doc-three.vercel.app/mypage/${userId}`);
     }
   };
 

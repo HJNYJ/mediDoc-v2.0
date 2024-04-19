@@ -13,11 +13,6 @@ interface ReviewFormProps {
   hospitalId: string;
 }
 
-// type ReviewRatingProps = {
-//   rating: number | null;
-//   setRating: React.Dispatch<React.SetStateAction<number | null>>;
-// };
-
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [content, setContent] = useState(""); // 리뷰 내용 관리
   const [rating, setRating] = useState<number | null>(0); // 별점 관리
@@ -47,8 +42,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
         } else {
           const fetchedHashtags = Object.values(data[0]);
           setHashtags(fetchedHashtags.filter((tag) => tag)); // 필요한 데이터가 있는지 확인하고 배열로 만듭니다.
-          // const fetchedHashtags = data.map((item: any) => item.hashtag);
-          // setHashtags(fetchedHashtags.filter((tag: string) => tag));
         }
       } catch (error) {
         console.error("Error fetching hashtags:", error);
@@ -109,7 +102,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
-        console.log("review result url은?? => ", url);
 
         const uploadImgUrl = await uploadReviewPhotosUrl(
           url.toString(),

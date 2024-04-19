@@ -6,7 +6,6 @@ import Image from "next/image";
 
 const HospitalReservation = () => {
   const { reservationInfo } = useApplyStore();
-  console.log("reservationInfo", reservationInfo);
 
   return (
     <div>

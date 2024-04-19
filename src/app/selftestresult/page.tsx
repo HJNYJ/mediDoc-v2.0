@@ -2,7 +2,6 @@
 
 import React from "react";
 import TestResult from "@/components/selftest/TestResult";
-
 const SelftestResultPage = () => {
   return (
     <div>

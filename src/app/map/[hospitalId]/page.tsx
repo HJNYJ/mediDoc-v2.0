@@ -105,8 +105,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
               }}
             />
           </div>
-
-          {/* <ReviewItem hospitalId={params.hospitalId} /> */}
           <ReviewList hospitalId={params.hospitalId} />
         </>
       )}

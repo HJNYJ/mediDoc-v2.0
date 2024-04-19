@@ -14,7 +14,7 @@ import Image from "next/image";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
-  // const [consultsData, setConsultsData] = useState([]);
+
   const [consultPhotos, setConsultPhotos] = useState<
     { consult_id: string; photo_id: string; photos: string }[]
   >([]);
@@ -74,12 +74,6 @@ const HomeConsultItem = () => {
                       height={60}
                       className="object-cover"
                     />
-                    {/* <img
-                          src={image.photos}
-                          alt={`상담 이미지 ${index + 1}`}
-                          className="w-[100px] h-[100px]"
-                        /> */}
-                    {/** 노란줄도 지워야하나 싶어서 지워봄..... */}
                   </div>
                 ))}
 

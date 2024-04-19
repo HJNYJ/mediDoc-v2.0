@@ -10,7 +10,6 @@ const Notice = () => {
         <Image src={notice_btn} alt="주의사항" />
         <h2 className="ml-1 bold-18">유의사항</h2>
       </div>
-
       <p className="regular-14 text-gray-800 ml-1">
         위 사이트에서는 추가적인 사항을 제공하지 않습니다.
         <br />

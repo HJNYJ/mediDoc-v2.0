@@ -14,9 +14,8 @@ const AdminMenu = () => {
 
   const handleConsultList = async () => {
     try {
-      const { data, error } = await supabase.from("consult_info").select("*");
+      const { error } = await supabase.from("consult_info").select("*");
       if (error) throw new Error(error.message);
-      console.log("data", data);
       setShowConsultButton(false);
       setShowReservationButton(false);
       setShowConsultList(true);
