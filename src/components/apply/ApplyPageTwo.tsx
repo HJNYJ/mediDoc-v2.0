@@ -42,7 +42,7 @@ const ApplyPageTwo = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push(`http://localhost:3000/home`);
+    router.push(`https://medi-doc-three.vercel.app/home`);
   };
   return (
     <div className="flex flex-col min-h-[90vh]">

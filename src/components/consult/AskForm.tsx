@@ -196,7 +196,7 @@ const AskForm = () => {
     if (data) {
       console.log("AskForm 추가 성공", data!);
       alert("글 작성이 완료됐습니다.");
-      router.push(`http://localhost:3000/consult`);
+      router.push(`https://medi-doc-three.vercel.app/consult`);
     }
   };
   return (

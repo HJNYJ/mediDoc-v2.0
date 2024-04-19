@@ -8,7 +8,7 @@ const HomeConsultList = () => {
   const router = useRouter();
 
   const handleViewAll = () => {
-    router.push("http://localhost:3000/consult");
+    router.push("https://medi-doc-three.vercel.app/consult");
   };
   return (
     <section className="relative w-[358px] h-[298px] mt-[30px]">
