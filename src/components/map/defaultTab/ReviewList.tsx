@@ -2,12 +2,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import writeReview from "@/assets/icons/review/pencil.png";
 
-const ReviewList = ({
-  hospitalId
-}: {
-  reviewDetailData: Date;
-  hospitalId: string;
-}) => {
+const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
   const goToReviewForm = (hospitalId: string): void => {
     router.push(`/map/${hospitalId}/review`);
