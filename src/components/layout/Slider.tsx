@@ -26,13 +26,17 @@ const Slider = () => {
         </SwiperSlide>
         <SwiperSlide>
           <Image src={Page4} alt="Page 4" />
-          <Button
-            type="button"
-            buttonType="filled"
-            size="base"
-            label="MediDoc 시작하기"
-            onClick={() => router.push("http://localhost:3000/home")}
-          />
+          <div className="mt-[-40px]">
+            <Button
+              type="button"
+              buttonType="filled"
+              size="base"
+              label="MediDoc 시작하기"
+              onClick={() =>
+                router.push("https://medi-doc-three.vercel.app/home")
+              }
+            />
+          </div>
         </SwiperSlide>
       </Swiper>
     </>

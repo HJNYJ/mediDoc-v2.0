@@ -74,7 +74,7 @@ const ConsultPage = () => {
         handleCategoryChange={handleCategoryChange}
         setPosts={setPosts}
       />
-      <div className="">
+      <div>
         {posts?.map((consult) => {
           console.log("consult =======> ", consult);
           return (
