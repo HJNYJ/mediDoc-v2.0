@@ -2,7 +2,6 @@
 export const removeTimeSecond = (time: string) => {
   // 시/분/초 분리
   const timeParts = time.split(":");
-
   const timeHour = timeParts[0];
   const timeMinute = timeParts[1];
 

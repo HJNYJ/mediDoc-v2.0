@@ -106,8 +106,6 @@ const ReservationInfoItem = () => {
       if (editedData) {
         const { data, error } = await supabase
           .from("reservation_info")
-          // eslint-disable-next-line
-          // @ts-ignore
           .update(editedData)
           .eq("reservation_id", editedData.reservation_id);
         if (error) throw new Error(error.message);

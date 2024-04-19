@@ -2,7 +2,6 @@
 
 import { hospitalImage } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
-// import Image from "next/image";
 
 const HospitalImage = ({ hospitalId }: { hospitalId: string }) => {
   const { data, isLoading, isError } = useQuery({

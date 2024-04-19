@@ -15,8 +15,6 @@ const ImageTab = () => {
   });
   const { selectTab } = useDetailTabStore();
 
-  console.log("reviewPhotos ===> ", reviewPhotos);
-
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error!</p>;
 

@@ -82,7 +82,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   const secondRemovedEndTime = removeTimeSecond(hospitalData!.end_time);
 
   // 운영 여부
-
   const handleScrapClick = async () => {
     const hospitalId = params.hospitalId;
     const userInfo = await getUserInfo();
