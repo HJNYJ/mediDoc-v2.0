@@ -34,7 +34,7 @@ const MainPageReview = () => {
   });
 
   const handleViewAll = () => {
-    router.push(`https://medi-doc-three.vercel.app/map`);
+    router.push(`http://localhost:3000/map`);
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -42,14 +42,17 @@ const MainPageReview = () => {
 
   return (
     <>
-      <p className="bold-18 mb-[16px]">내가 찾던 솔직한 후기</p>
-      <button onClick={handleViewAll} className="regular-13 text-gray-700">
-        전체 보기
-      </button>
+      <div className="flex justify-between mb-4">
+        <h3 className="bold-18">내가 찾던 솔직한 후기</h3>
+        <button onClick={handleViewAll} className="regular-13 text-gray-700">
+          전체 보기
+        </button>
+      </div>
+
       <Swiper
         loop={true}
         spaceBetween={4}
-        slidesPerView={3}
+        slidesPerView={1.5}
         scrollbar={{ draggable: true }}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         mousewheel={true}
@@ -58,9 +61,9 @@ const MainPageReview = () => {
         {reviewRateTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
             <div className="flex flex-row mr-[14px]">
-              <div className="w-[232px] h-[275px] rounded-[6px] border-2 border-bluegray">
+              <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">
                 <section className="h-[54px] border-b-2 border-b-bluegray">
-                  <p className="w-[180px] h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
+                  <p className="h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
                     {review.hospital_info?.hospital_name}
                   </p>
                   <section className="flex">
@@ -74,18 +77,18 @@ const MainPageReview = () => {
                     </p>
                   </section>
                 </section>
-                <section className="ml-[10px] mt-[10px]">
-                  <div className="w-[140px] h-[30px] mr-[4px] flex">
+                <section className="ml-[10px] mt-[10px] flex flex-col h-[201px]">
+                  <div className="mr-[4px] flex flex-wrap">
                     {review.hashtags
                       ?.split(",")
                       .map((hashtag: string) => (
                         <Hashtag key={hashtag} hashtag={hashtag} />
                       ))}
                   </div>
-                  <section className="w-[212px] h-[85px] regular-14 mb-[12px]">
+                  <section className="regular-14 w-full text-ellipsis overflow-hidden">
                     {review.content}
                   </section>
-                  <section>
+                  <section className="mt-auto mb-3">
                     {review.review_photos &&
                       review.review_photos.map((photo, index) => (
                         <Image

@@ -58,28 +58,32 @@ const HomeConsultItem = () => {
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div className="w-[360px]">
+    <div className="">
       {consultRecentData?.map((consult, index) => (
         <div key={index}>
-          <div className="flex justify-center">
-            <div className="flex flex-col">
+          <div className="flex justify-between mb-6">
+            <div className="flex">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.map((image, index) => (
-                  <div key={index}>
+                  <div key={index} className="mr-3">
                     <Image
                       src={image.photos}
                       alt={`상담 이미지 ${index + 1}`}
-                      width={100}
-                      height={100}
+                      width={60}
+                      height={60}
                       className="object-cover"
                     />
                   </div>
                 ))}
 
-              <div className="semibold-18">{consult?.consult_title}</div>
-              <div className="medium-14 text-gray-700">
-                {consult?.consult_content}
+              <div>
+                <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
+                  {consult?.consult_title}
+                </div>
+                <div className="medium-14 text-gray-700">
+                  {consult?.consult_content}
+                </div>
               </div>
             </div>
 
