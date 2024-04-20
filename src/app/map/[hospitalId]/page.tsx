@@ -2,7 +2,6 @@
 
 import {
   fetchHospitalReviewImages,
-  // getHospitalImages,
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";

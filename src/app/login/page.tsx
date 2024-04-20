@@ -2,14 +2,13 @@
 "use client";
 
 import { supabase } from "@/api/supabase";
-import kakaologin from "@/assets/icons/kakaologin.png";
-import googlelogin from "@/assets/icons/googlelogin.png";
-import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { GoogleIcon, KakaoIcon } from "@/components/layout/CheckIcons";
 
 const LoginPage = () => {
   const router = useRouter();
+
   const signInWithKakao = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -47,16 +46,12 @@ const LoginPage = () => {
 
   return (
     <>
-      <section className=" mx-[16px] my-[140%]">
+      <section className="mx-[16px] my-[140%]">
         <button onClick={() => signInWithKakao()}>
-          <Image
-            src={kakaologin}
-            alt="카카오로 계속하기"
-            className="mb-[8px]"
-          />
+          <KakaoIcon />
         </button>
         <button onClick={() => signInWithGoogle()}>
-          <Image src={googlelogin} alt="구글로 계속하기" className="" />
+          <GoogleIcon />
         </button>
       </section>
     </>

@@ -10,10 +10,8 @@ interface Symptoms {
 interface State {
   selectedGender: "male" | "female";
   setSelectedGender: (gender: "male" | "female") => void;
-  selectedDepartment: "이비인후과" | "내과" | "외과" | "치과" | "안과";
-  setSelectedDepartment: (
-    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  ) => void;
+  selectedDepartment: string;
+  setSelectedDepartment: (department: string) => void;
   selectedPart: string;
   setSelectedPart: (selectedPart: string) => void;
   symptoms: Symptoms[];

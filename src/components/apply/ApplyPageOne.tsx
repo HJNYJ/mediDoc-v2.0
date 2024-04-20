@@ -10,9 +10,8 @@ import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
 import PageCancel from "../layout/PageCancel";
-import warning from "@/assets/icons/modal/warning.png";
-import Image from "next/image";
 import HospitalImage from "./HospitalImage";
+import { DeleteBtnIcon, WarningIcon } from "../layout/CheckIcons";
 
 const ApplyPageOne = ({
   setPageCount,
@@ -67,24 +66,10 @@ const ApplyPageOne = ({
   };
 
   const handleNextClick = () => {
-    if (isNaN(Number(idNumber))) {
-      alert("주민번호는 숫자만 입력 가능합니다.");
+    if (!(nameValid && idNumberValid && phoneValid)) {
       return;
-    } else if (isNaN(Number(phoneNumber))) {
-      alert("연락처는 숫자만 입력 가능합니다.");
-      return;
-    } else if (!nameValid) {
-      alert("이름은 반드시 2글자 이상이어야 합니다.");
-      return;
-    } else if (!idNumberValid) {
-      alert("생년월일이 6자리가 아닙니다.");
-      return;
-    } else if (!phoneValid) {
-      alert("연락처가 11자리가 아닙니다.");
-      return;
-    } else {
-      return setPageCount("two");
     }
+    setPageCount("two");
   };
 
   const handleBtnClick = () => {
@@ -92,6 +77,31 @@ const ApplyPageOne = ({
     setIdNumber("");
     setPhoneNumber("");
     router.push("/home");
+  };
+
+  const checkMaxLength = (target) => {
+    if (target.value.length > target.maxLength) {
+      target.value = target.value.slice(0, target.maxLength);
+    }
+  };
+
+  const closeBtnHandler = (target) => {
+    switch (target) {
+      case "name":
+        setName("");
+        setNameValid(false);
+        break;
+      case "idNumber":
+        setIdNumber("");
+        setIdNumberValid(false);
+        break;
+      case "phoneNumber":
+        setPhoneNumber("");
+        setPhoneValid(false);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -121,53 +131,83 @@ const ApplyPageOne = ({
         </p>
         <div className="mb-7">
           <p className="mb-3 text-[13px]">*이름</p>
-          <input
-            placeholder="홍길동"
-            className="text-black mb-2 w-full px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
-            onChange={onChangeName}
-            value={name}
-          />
+          <label className="relative">
+            <input
+              placeholder="홍길동"
+              className="text-black mb-2 w-full px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+              onChange={onChangeName}
+              value={name}
+            />
+            <button
+              className="absolute top-[50%] right-4 translate-y-[-50%]"
+              onClick={() => closeBtnHandler("name")}
+            >
+              <DeleteBtnIcon />
+            </button>
+          </label>
           {!nameValid && (
-            <p className="text-[#F95F5F] text-[13px] flex">
-              <Image src={warning} alt="" />
+            <p className="text-[#F95F5F] text-[13px] flex relative pl-4">
+              <WarningIcon />
               이름을 기입해주세요.
             </p>
           )}
         </div>
         <div className="mb-7">
           <p className="mb-3 text-[13px]">*주민등록번호</p>
-          <input
-            className="text-black w-[45%] mb-2 px-4 py-[14px] mr-[10px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
-            onChange={onChangeIdNumber}
-            value={idNumber}
-            placeholder="생년월일 6자리"
-            maxLength={6}
-          />
+          <label className="relative">
+            <input
+              className="text-black w-[45%] mb-2 px-4 py-[14px] mr-[10px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+              onChange={onChangeIdNumber}
+              value={idNumber}
+              placeholder="생년월일 6자리"
+              maxLength={6}
+              type="number"
+              onInput={(e) => checkMaxLength(e.target)}
+            />
+            <button
+              className="absolute top-[50%] right-4 translate-y-[-50%]"
+              onClick={() => closeBtnHandler("idNumber")}
+            >
+              <DeleteBtnIcon />
+            </button>
+          </label>
           -
           <input
             maxLength={1}
+            type="number"
+            onInput={(e) => checkMaxLength(e.target)}
             className="text-black ml-[10px] px-4 py-[14px] w-[45px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
           &nbsp; &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;*
           {!idNumberValid && (
-            <p className="text-[#F95F5F] text-[13px] flex">
-              <Image src={warning} alt="" />
+            <p className="text-[#F95F5F] text-[13px] flex relative pl-4">
+              <WarningIcon />
               생년월일 6자리를 기입해주세요.
             </p>
           )}
         </div>
         <div className="mb-7">
           <p className="mb-3 text-[13px]">*휴대폰 번호</p>
-          <input
-            className="text-black w-full mb-2 px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
-            onChange={onChangePhoneNumber}
-            value={phoneNumber}
-            placeholder="-없이 휴대폰 11자리 번호 입력"
-            maxLength={11}
-          />
+          <label className="relative">
+            <input
+              className="text-black w-full mb-2 px-4 py-[14px] h-10 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+              onChange={onChangePhoneNumber}
+              value={phoneNumber}
+              placeholder="-없이 휴대폰 11자리 번호 입력"
+              type="number"
+              maxLength={11}
+              onInput={(e) => checkMaxLength(e.target)}
+            />
+            <button
+              className="absolute top-[50%] right-4 translate-y-[-50%]"
+              onClick={() => closeBtnHandler("phoneNumber")}
+            >
+              <DeleteBtnIcon />
+            </button>
+          </label>
           {!phoneValid && (
-            <p className="text-[#F95F5F] text-[13px] flex">
-              <Image src={warning} alt="" />
+            <p className="text-[#F95F5F] text-[13px] flex relative pl-4">
+              <WarningIcon />
               전화번호를 11자리를 기입해주세요.
             </p>
           )}

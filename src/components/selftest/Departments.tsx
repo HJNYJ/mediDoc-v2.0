@@ -7,17 +7,13 @@ import GrayBar from "../layout/GrayBar";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 
 interface DepartmentsProps {
-  onSelectDepartment: (
-    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  ) => void;
+  onSelectDepartment: (department: string) => void;
 }
 
 const Departments: React.FC<DepartmentsProps> = ({ onSelectDepartment }) => {
   const { selectedDepartment, setSelectedDepartment } = useSelftestStore();
 
-  const handleDepartmentSelect = (
-    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  ) => {
+  const handleDepartmentSelect = (department: string) => {
     if (selectedDepartment === department) {
       setSelectedDepartment(department);
       onSelectDepartment(department);

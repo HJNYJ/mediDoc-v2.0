@@ -59,7 +59,6 @@ const CourseSelect = () => {
                         <TreatmentCourse />
                         {card.course_name}
                       </div>
-
                       <CourseCheckedIcon />
                     </div>
                   </label>
