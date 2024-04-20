@@ -2,7 +2,6 @@
 "use client";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 
 const fetchReviewImages = async (hospitalId: string) => {
   const { data, error } = await supabase
@@ -35,7 +34,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
       <h3 className="bold-18 mb-3">방문자 사진</h3>
       <article className="inline-grid grid-cols-3 gap-2">
         {reviewPhotos?.map((img, index) => (
-          <Image
+          <img
             key={img?.photo_id}
             src={img?.photos}
             alt={`사진${index + 1}`}

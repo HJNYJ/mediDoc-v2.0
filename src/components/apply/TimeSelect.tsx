@@ -57,7 +57,7 @@ const TimeSelect = () => {
     setIsTimeClicked(true);
   };
   return (
-    <div className="px-4">
+    <div>
       시간선택
       <div className="my-3">오전</div>
       <div>
@@ -76,7 +76,7 @@ const TimeSelect = () => {
         })}
       </div>
       <div className="my-3">오후</div>
-      <div className="flex flex-wrap w-[380px]">
+      <div className="flex flex-wrap mb-6">
         {afternoon.map((time, idx) => {
           return (
             <button

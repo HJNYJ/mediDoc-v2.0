@@ -112,9 +112,8 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   };
 
   return (
-    <main className="">
-      {/* 병원 위치(지도) */}
-      <section className="w-[390px]">
+    <main>
+      <section className="w-full">
         <Map
           name={hospitalData!.hospital_name}
           latitude={hospitalData!.hospital_latitude}
@@ -122,10 +121,8 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
         />
       </section>
       <section className="w-[358px] mx-[16px] mt-[24px]">
-        {/* 병원 기본정보 */}
         <section className="my-3">
-          {/* 이름&주소 & 스크랩 버튼 */}
-          <div className="flex w-[358px] h-[64px] border-b-2">
+          <div className="flex w-[350px] h-[64px] border-b-2">
             <div>
               <p className="w-[200px] h-[24px] semibold-20">
                 {hospitalData!.hospital_name}
@@ -165,7 +162,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
               </p>
             </AccordionItem>
           </Accordion>
-          {/* 전화번호 */}
           <div>
             <Accordion>
               <AccordionItem
@@ -178,7 +174,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
               </AccordionItem>
             </Accordion>
           </div>
-          {/* 소개글 */}
           <Accordion>
             <AccordionItem
               key="all"
