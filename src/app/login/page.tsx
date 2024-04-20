@@ -14,7 +14,7 @@ const LoginPage = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "kakao",
-        options: { redirectTo: "http://localhost:3000/home" }
+        options: { redirectTo: "https://medi-doc-three.vercel.app/home" }
       });
       if (error) throw error;
       router.push("/home");
@@ -31,7 +31,7 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "http://localhost:3000/home",
+          redirectTo: "https://medi-doc-three.vercel.app/home",
           queryParams: {
             access_type: "offline",
             prompt: "consent"
