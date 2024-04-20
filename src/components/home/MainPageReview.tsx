@@ -34,7 +34,7 @@ const MainPageReview = () => {
   });
 
   const handleViewAll = () => {
-    router.push(`https://medi-doc-three.vercel.app/map`);
+    router.push("/map");
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -61,7 +61,7 @@ const MainPageReview = () => {
         {reviewRateTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
             <div className="flex flex-row mr-[14px]">
-              <div className=" rounded-[6px] border-2 border-bluegray">
+              <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">
                 <section className="h-[54px] border-b-2 border-b-bluegray">
                   <p className="h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
                     {review.hospital_info?.hospital_name}

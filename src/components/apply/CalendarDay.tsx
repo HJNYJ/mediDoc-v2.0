@@ -102,7 +102,7 @@ const Calendar = () => {
   const matrix = generateMatrix();
 
   return (
-    <div className="">
+    <div>
       <div className="text-center">
         <button className="m-2" onClick={handlePrevMonth}>
           &lt;

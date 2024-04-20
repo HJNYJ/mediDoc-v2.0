@@ -32,14 +32,10 @@ const AskForm = () => {
 
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
   const consultId = uuidv4();
-  // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-  // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-  // consultInfo 테이블, consult_image 테이블에 동일한 consultId
   console.log(consultId);
 
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(typeof e.target.files); // string x , object
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
     // 이미지를 선택한 후에 바로 이미지를 미리보기
@@ -178,12 +174,11 @@ const AskForm = () => {
 
     const id: string = data?.consultId || "";
 
-    handleFiles(id); // data >> consultId
+    handleFiles(id);
 
     if (data) {
-      console.log("AskForm 추가 성공", data!);
       alert("글 작성이 완료됐습니다.");
-      router.push(`https://medi-doc-three.vercel.app/consult`);
+      router.push("/consult");
     }
   };
   return (
@@ -252,7 +247,6 @@ const AskForm = () => {
               </p>
               <div>
                 {uploadedImages.map((image, idx: number) => {
-                  console.log("image.dataUrl?????", image.dataUrl);
                   return (
                     <div key={idx}>
                       {/**이미지 렌더링 */}

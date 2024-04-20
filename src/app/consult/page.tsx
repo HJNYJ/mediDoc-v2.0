@@ -52,14 +52,14 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
-    router.push(`https://medi-doc-three.vercel.app/consult/ask`);
+    router.push("/consult/ask");
   };
 
   const goToDetailPage = (consultId: string) => {
-    router.push(`https://medi-doc-three.vercel.app/consult/${consultId}`);
+    router.push(`/consult/${consultId}`);
   };
   const onClickHomeHandler = () => {
-    router.push(`https://medi-doc-three.vercel.app/home`);
+    router.push("/home");
   };
 
   return (
@@ -74,9 +74,8 @@ const ConsultPage = () => {
         handleCategoryChange={handleCategoryChange}
         setPosts={setPosts}
       />
-      <div className="">
+      <div>
         {posts?.map((consult) => {
-          console.log("consult =======> ", consult);
           return (
             <div
               key={consult?.consult_id}
