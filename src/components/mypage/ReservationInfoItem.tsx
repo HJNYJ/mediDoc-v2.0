@@ -207,7 +207,7 @@ const ReservationInfoItem = () => {
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="total_margin h-[340px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
+              <div className="total_margin h-[400px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
                   className="cursor-pointer ml-auto"
                   onClick={handleModalClose}
