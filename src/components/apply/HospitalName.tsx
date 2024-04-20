@@ -1,9 +1,9 @@
 "use client";
 
 import { hospitalName } from "@/api/supabase";
-import useApplyStore from "@/shared/zustand/applyStore";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
+import useApplyStore from "@/shared/zustand/applyStore";
 
 const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   const { setHospitalName } = useApplyStore();

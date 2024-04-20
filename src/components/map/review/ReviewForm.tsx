@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import { supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
@@ -8,6 +7,7 @@ import review_searchbar from "@/assets/icons/review/review_searchbar.png";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "@/components/layout/Buttons";
+import Image from "next/image";
 interface ReviewFormProps {
   hospitalId: string;
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import useApplyStore from "@/shared/zustand/applyStore";
 import { getDate } from "@/utils/changeTimeFormat";
+import useApplyStore from "@/shared/zustand/applyStore";
 import React from "react";
 
 const TimeSelect = () => {
