@@ -12,7 +12,7 @@ import TopNavbar from "@/components/layout/TopNavbar";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
-  const { hospitalName, setHospitalName } = useMyPageStore();
+  const { setHospitalName } = useMyPageStore();
 
   useEffect(() => {
     // 유저 정보 불러오기
@@ -22,11 +22,12 @@ const MyPage = () => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
+        const id = user?.id ?? "";
 
         const { data, error } = await supabase
           .from("user_info")
           .select("*")
-          .eq("user_id", user?.id);
+          .eq("user_id", id);
 
         if (error) throw new Error(error.message);
 
@@ -51,12 +52,15 @@ const MyPage = () => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
+        const id = user?.id ?? "";
+        const email = user?.email ?? "";
+        const provider = user?.app_metadata.provider ?? "";
 
         // 데이터가 이미 있는지 확인하기
         const { data: existingData, error: selectError } = await supabase
           .from("user_info")
           .select("*")
-          .eq("user_id", user?.id);
+          .eq("user_id", id);
 
         if (selectError) {
           throw new Error(selectError.message);
@@ -66,15 +70,13 @@ const MyPage = () => {
         if (!existingData || existingData.length === 0) {
           const { error: insertError } = await supabase
             .from("user_info")
-            .insert([
-              {
-                user_id: user?.id,
-                user_email: user?.email,
-                provider: user?.app_metadata.provider,
-                user_name: user?.user_metadata.full_name,
-                user_type: "general user"
-              }
-            ]);
+            .insert({
+              provider: provider,
+              user_email: email,
+              user_id: id,
+              user_name: user?.user_metadata.full_name,
+              user_type: "general user"
+            });
           if (insertError) {
             throw new Error(insertError.message);
           }
@@ -112,11 +114,9 @@ const MyPage = () => {
       </section>
       <section>
         {userInfo[0].user_type === "general user" && <MyPageTab />}
-        <div className="w-[390px]">
-          {userInfo[0].user_type === "hospital staff" && (
-            <AdminMenu hospitalName={hospitalName} />
-          )}
-        </div>
+
+        {userInfo[0].user_type === "hospital staff" && <AdminMenu />}
+
         {userInfo[0].user_type === "developer" && <AccessDenied />}
       </section>
     </section>

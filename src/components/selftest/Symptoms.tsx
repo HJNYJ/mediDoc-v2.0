@@ -28,7 +28,6 @@ const Symptoms = () => {
   } = useSelftestStore();
 
   const router = useRouter();
-
   // supabase에서 선택한 아픈 부위에 해당하는 증상들 가져오기
   useEffect(() => {
     const fetchSymptoms = async () => {

@@ -1,16 +1,21 @@
 import { create } from "zustand";
 
+interface Symptoms {
+  bodyparts: string;
+  departments: string;
+  symptom_id: string;
+  symptoms: string;
+  symptoms_abbr: string;
+}
 interface State {
   selectedGender: "male" | "female";
   setSelectedGender: (gender: "male" | "female") => void;
-  selectedDepartment: "이비인후과" | "내과" | "외과" | "치과" | "안과";
-  setSelectedDepartment: (
-    department: "이비인후과" | "내과" | "외과" | "치과" | "안과"
-  ) => void;
+  selectedDepartment: string;
+  setSelectedDepartment: (department: string) => void;
   selectedPart: string;
   setSelectedPart: (selectedPart: string) => void;
-  symptoms: string[];
-  setSymptoms: (symptoms: string[]) => void;
+  symptoms: Symptoms[];
+  setSymptoms: (symptoms: Symptoms[]) => void;
   selectedSymptoms: string[];
   setSelectedSymptoms: (selectedSymptoms: string[]) => void;
   predictedDiseases: string[];

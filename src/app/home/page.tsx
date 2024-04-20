@@ -1,16 +1,16 @@
 // 메인페이지
 "use client";
 
+import React from "react";
 import FindHospital from "@/components/home/FindHospital";
 import HospitalListView from "@/components/home/HospitalListView";
-import React from "react";
 import MainPageReview from "@/components/home/MainPageReview";
 import SelfTestWidget from "@/components/home/SelfTestWidget";
 import HomeConsultList from "@/components/home/consult/HomeConsultList";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col w-[358px] mx-[16px] h-[1389px]">
+    <div className="flex flex-col relative z-1">
       <HospitalListView />
       <FindHospital />
       <MainPageReview />

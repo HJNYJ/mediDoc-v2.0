@@ -70,3 +70,9 @@
 .oneThird{
   width: calc((100% - 16px) / 3)
 }
+
+.swiper {
+  width: 100%;
+  /* z-index: -9999; */
+}
+

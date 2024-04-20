@@ -13,7 +13,7 @@ export type Database = {
         Row: {
           answer: string;
           answer_id: string;
-          consult_id: string | null;
+          consult_id: string;
           department: string;
           hospital_id: string | null;
           hospital_name: string | null;
@@ -23,7 +23,7 @@ export type Database = {
         Insert: {
           answer: string;
           answer_id?: string;
-          consult_id?: string | null;
+          consult_id: string;
           department: string;
           hospital_id?: string | null;
           hospital_name?: string | null;
@@ -33,7 +33,7 @@ export type Database = {
         Update: {
           answer?: string;
           answer_id?: string;
-          consult_id?: string | null;
+          consult_id?: string;
           department?: string;
           hospital_id?: string | null;
           hospital_name?: string | null;
@@ -71,7 +71,7 @@ export type Database = {
           hashtags_id: string;
         };
         Insert: {
-          consult_id?: string;
+          consult_id: string;
           hashtags?: string;
           hashtags_id?: string;
         };
@@ -89,17 +89,17 @@ export type Database = {
           consult_id: string;
           consult_title: string;
           created_at: string;
-          hashtags: string | null;
+          hashtags: string[] | null;
           user_email: string | null;
           user_name: string | null;
         };
         Insert: {
           bodyparts?: string | null;
           consult_content: string;
-          consult_id?: string;
+          consult_id: string;
           consult_title: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -109,7 +109,7 @@ export type Database = {
           consult_id?: string;
           consult_title?: string;
           created_at?: string;
-          hashtags?: string | null;
+          hashtags?: string[] | null;
           user_email?: string | null;
           user_name?: string | null;
         };
@@ -345,7 +345,7 @@ export type Database = {
       };
       reservation_info: {
         Row: {
-          apply_date: string;
+          apply_date: Date;
           apply_time: string;
           course_id: string | null;
           hospital_id: string;
@@ -362,7 +362,7 @@ export type Database = {
           user_name: string;
         };
         Insert: {
-          apply_date: string;
+          apply_date: Date;
           apply_time: string;
           course_id?: string | null;
           hospital_id?: string;
@@ -375,11 +375,11 @@ export type Database = {
           subject_birth_date: string;
           subject_name: string;
           subject_phone_number: string;
-          user_email: string;
+          user_email?: string;
           user_name: string;
         };
         Update: {
-          apply_date?: string;
+          apply_date?: Date;
           apply_time?: string;
           course_id?: string | null;
           hospital_id?: string;
@@ -628,9 +628,7 @@ export type Database = {
     };
   };
 };
-
 type PublicSchema = Database[Extract<keyof Database, "public">];
-
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
@@ -655,7 +653,6 @@ export type Tables<
       ? R
       : never
     : never;
-
 export type TablesInsert<
   PublicTableNameOrOptions extends
     | keyof PublicSchema["Tables"]
@@ -676,7 +673,6 @@ export type TablesInsert<
       ? I
       : never
     : never;
-
 export type TablesUpdate<
   PublicTableNameOrOptions extends
     | keyof PublicSchema["Tables"]
@@ -697,7 +693,6 @@ export type TablesUpdate<
       ? U
       : never
     : never;
-
 export type Enums<
   PublicEnumNameOrOptions extends
     | keyof PublicSchema["Enums"]

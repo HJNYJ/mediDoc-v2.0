@@ -2,17 +2,17 @@
 "use client";
 
 import HospitalList from "@/components/map/hospitalList/HospitalList";
-import React from "react";
+import React, { Suspense } from "react";
 import TopNavbar from "@/components/layout/TopNavbar";
 
 const HospitalListPage = () => {
   return (
-    <main className="w-[390px] h-[844px]">
-      <section className="mx-[16px]">
-        <TopNavbar />
+    <section>
+      <TopNavbar />
+      <Suspense>
         <HospitalList />
-      </section>
-    </main>
+      </Suspense>
+    </section>
   );
 };
 

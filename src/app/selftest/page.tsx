@@ -61,7 +61,16 @@ const SelftestPage = () => {
       {step === 0 && <Genders onSelect={goToNextPage} />}
       {step === 1 && <Departments onSelectDepartment={setSelectedDepartment} />}
       {step === 2 && (
-        <BodyParts department={selectedDepartment} onSelect={goToNextPage} />
+        <BodyParts
+          department={
+            selectedDepartment as
+              | "이비인후과"
+              | "내과"
+              | "외과"
+              | "치과"
+              | "안과"
+          }
+        />
       )}
       {step === 3 && <Symptoms />}
       {step < 3 && (

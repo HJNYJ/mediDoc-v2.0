@@ -7,10 +7,8 @@ import writeReview from "@/assets/icons/review/pencil.png";
 
 const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
-  console.log("reviewItem hospitalId", hospitalId);
 
   const goToReviewForm = (hospitalId: string) => {
-    console.log("go to review form hospitalId", hospitalId);
     router.push(`/map/${hospitalId}/review`);
   };
 

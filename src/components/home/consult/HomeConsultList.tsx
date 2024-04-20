@@ -11,9 +11,9 @@ const HomeConsultList = () => {
     router.push("/consult");
   };
   return (
-    <section className="relative w-[358px] h-[298px] mt-[30px]">
+    <section className="relative mt-[30px]">
       <div className="flex justify-between mb-[16px]">
-        <p className="w-[133px] h-[21px] bold-18">실시간 상담</p>
+        <p className=" bold-18">실시간 상담</p>
         <button onClick={handleViewAll} className="regular-13 text-gray-700">
           전체 보기
         </button>

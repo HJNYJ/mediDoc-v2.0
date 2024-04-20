@@ -31,10 +31,9 @@ const ApplyPageThree = ({
     setSelectedTime,
     setIsTimeClicked,
     setIsDateClicked,
-
+    setReservationInfo,
     selectedCourseName,
-    selectedCourseDetail,
-    setReservationInfo
+    selectedCourseDetail
   } = useApplyStore();
 
   const router = useRouter();
@@ -86,9 +85,11 @@ const ApplyPageThree = ({
       if (error) {
         console.log("에러입니다.", error);
       }
-
-      setReservationInfo(data?.[0]);
+      if (data !== null) {
+        setReservationInfo(data?.[0]);
+      }
       handlePrevOrNextClick("success");
+      return data;
     } catch (error) {
       console.log(error);
       handlePrevOrNextClick("error");

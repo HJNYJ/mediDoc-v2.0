@@ -3,7 +3,6 @@
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
 import { fetchImages, supabase } from "@/api/supabase";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
@@ -11,18 +10,19 @@ import "swiper/css/autoplay";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const HomeConsultItem = () => {
   // 사진 가져오기위해
-  const [consultsData, setConsultsData] = useState([]);
-  const [consultPhotos, setConsultPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [consultPhotos, setConsultPhotos] = useState<
+    { consult_id: string; photo_id: string; photos: string }[]
+  >([]);
 
   useEffect(() => {
     const fetchConsultPhotos = async () => {
       const consultPhotos = await fetchImages();
-      setConsultPhotos(consultPhotos);
-      setIsLoading(false);
+      setConsultPhotos(consultPhotos || []);
     };
 
     fetchConsultPhotos();
@@ -55,85 +55,50 @@ const HomeConsultItem = () => {
   });
 
   if (isLoadingRecent) return <div>로딩 중...</div>;
-
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
-  // if (isLoadingRecent || !consultRecentImageData) return <div>로딩 중...</div>;
-  // if (isErrorRecent || isErrorImgRecent) return <div>에러가 발생했습니다.</div>;
-
   return (
-    <div className="w-[360px]">
-      {consultRecentData?.slice(0, 3).map((consult, index) => (
-        <div key={index} className="flex justify-center">
-          <div className="flex flex-col">
-            {consultPhotos
-              ?.filter((image) => image?.consult_id === consult?.consult_id)
-              ?.map((image, index) => (
-                <img
-                  src={image.photos}
-                  alt={`상담 이미지 ${index + 1}`}
-                  className="w-[100px] h-[100px]"
-                />
-              ))}
-            <div className="semibold-18">{consult?.consult_title}</div>
-            <div className="medium-14 text-gray-700">
-              {consult?.consult_content}
-            </div>
-          </div>
+    <div className="">
+      {consultRecentData?.map((consult, index) => (
+        <div key={index}>
+          <div className="flex justify-between mb-6">
+            <div className="flex">
+              {consultPhotos
+                ?.filter((image) => image?.consult_id === consult?.consult_id)
+                ?.map((image, index) => (
+                  <div key={index} className="mr-3">
+                    <Image
+                      src={image.photos}
+                      alt={`상담 이미지 ${index + 1}`}
+                      width={60}
+                      height={60}
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
 
-          <div>
-            {consult?.consult_answer && consult?.consult_answer?.length >= 1 ? (
-              <AnswerComplete />
-            ) : (
-              <AnswerWaiting />
-            )}
+              <div>
+                <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
+                  {consult?.consult_title}
+                </div>
+                <div className="medium-14 text-gray-700">
+                  {consult?.consult_content}
+                </div>
+              </div>
+            </div>
+
+            <div>
+              {consult?.consult_answer &&
+              consult?.consult_answer?.length >= 1 ? (
+                <AnswerComplete />
+              ) : (
+                <AnswerWaiting />
+              )}
+            </div>
           </div>
         </div>
       ))}
     </div>
-    // <div className="w-[360px]">
-    //   {consultRecentData?.map((consult, index) => {
-    //     // const images = consultRecentImageData.filter(
-    //     //   (image) => image.consult_id === consult.consult_id
-    //     // );
-    //     return (
-    //       <div key={index} className="flex align-center justify-center">
-    //         <div className="flex flex-col">
-    //           <div className="semibold-18">{consult?.consult_title}</div>
-    //           <div className="medium-14 text-gray-700">
-    //             {consult?.consult_content}
-    //           </div>
-    //         </div>
-
-    //         <div>
-    //           {consult?.consult_answer &&
-    //           consult?.consult_answer?.length >= 1 ? (
-    //             <Image
-    //               src={answer_complete}
-    //               alt="답변 완료"
-    //               className="w-[57px] h-[27px]"
-    //             />
-    //           ) : (
-    //             <Image
-    //               src={answer_wait}
-    //               alt="답변 대기중"
-    //               className="w-[57px] h-[27px]"
-    //             />
-    //           )}
-    //         </div>
-
-    //         {/* {images.map((image, index) => (
-    //           <Image
-    //             key={index}
-    //             src={image.photos}
-    //             alt={`상담 이미지 ${index + 1}`}
-    //             className="w-[100px] h-[100px]"
-    //           />
-    //         ))} */}
-    //       </div>
-    //     );
-    //   })}
-    // </div>
   );
 };
 

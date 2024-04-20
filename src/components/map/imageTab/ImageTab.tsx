@@ -1,7 +1,9 @@
 // "사진" 탭을 눌렀을 때 나오는 div
 "use client";
 import { fetchReviewImages } from "@/api/supabase";
+import useDetailTabStore from "@/shared/zustand/detailTabStore";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 const ImageTab = () => {
   const {
@@ -12,8 +14,7 @@ const ImageTab = () => {
     queryKey: ["reviewPhoto"],
     queryFn: fetchReviewImages
   });
-
-  console.log("reviewPhotos ===> ", reviewPhotos);
+  const { selectTab } = useDetailTabStore();
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error!</p>;
@@ -24,7 +25,7 @@ const ImageTab = () => {
       {/* 아래는 map으로 출력됐다고 가정하고 Image로 각각을 표현 */}
       <section className="grid grid-cols-3 gap-4">
         {reviewPhotos?.map((img, index) => (
-          <img
+          <Image
             key={img?.photo_id}
             src={img?.photos}
             alt={`사진${index + 1}`}
@@ -35,7 +36,7 @@ const ImageTab = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          selectTab("image");
+          // selectTab("image");
         }}
       >
         전체보기

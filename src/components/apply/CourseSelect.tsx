@@ -23,15 +23,12 @@ const CourseSelect = () => {
 
   const { setSelectedCourseName, setSelectedCourseDetail, setIsCourseClicked } =
     useApplyStore();
-
   const [checkedCourse, setCheckedCourse] = useState(new Map());
-
   const checkCourseHandler = (check, id) => {
     const map = new Map();
     map.set(check, id);
     setCheckedCourse(map);
   };
-
   const courseName = course?.map((card) => {
     return (
       <article key={card.course_id}>
@@ -62,7 +59,6 @@ const CourseSelect = () => {
                         <TreatmentCourse />
                         {card.course_name}
                       </div>
-
                       <CourseCheckedIcon />
                     </div>
                   </label>
@@ -87,7 +83,6 @@ const CourseSelect = () => {
             </div>
           </div>
         </div>
-        {/* {courseToggle ? <div>{card.course_detail}</div> : <div></div>} */}
       </article>
     );
   });

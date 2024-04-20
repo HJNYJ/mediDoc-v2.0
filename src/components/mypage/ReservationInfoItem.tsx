@@ -7,7 +7,6 @@ import type { ReservationInfo } from "@/types";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import detailIcon from "@/assets/icons/nextIcon.png";
 import Image from "next/image";
-import closeIcon from "@/assets/icons/xmark.png";
 import reservationId from "@/assets/icons/modal/reservation_id.png";
 import reservationHospital from "@/assets/icons/modal/hospital.png";
 import reservationDate from "@/assets/icons/modal/date.png";
@@ -32,12 +31,14 @@ const ReservationInfoItem = () => {
           data: { session }
         } = await supabase.auth.getSession();
         const user = session?.user;
+        const id = user?.id ?? "";
+        const email = user?.email ?? "";
 
         // 유저 타입 가져오기
         const { data: userInfo, error: userInfoError } = await supabase
           .from("user_info")
           .select("user_type")
-          .eq("user_id", user?.id)
+          .eq("user_id", id)
           .single();
 
         if (userInfoError) throw new Error(userInfoError.message);
@@ -49,9 +50,10 @@ const ReservationInfoItem = () => {
           const { data, error } = await supabase
             .from("reservation_info")
             .select("*")
-            .eq("user_email", user?.email);
+            .eq("user_email", email);
 
           if (error) throw new Error(error.message);
+
           setReservationInfo(data);
         } else if (userType === "hospital staff") {
           // 병원 관계자일 경우
@@ -60,6 +62,7 @@ const ReservationInfoItem = () => {
             .select("*")
             .eq("hospital_name", hospitalName);
           if (error) throw new Error(error.message);
+
           setReservationInfo(data);
         }
       } catch (error) {
@@ -163,9 +166,9 @@ const ReservationInfoItem = () => {
           reservationInfo.map((info) => (
             <div key={info.reservation_id} className="h-[134px] mt-[26px]">
               <p className="w-[68px] h-[14px] text-[12px] text-center place-content-center font-light bg-gray-500 text-white rounded mb-[8px]">
-                {info.apply_date?.substring(0, 4)}.
-                {info.apply_date?.substring(5, 7)}.
-                {info.apply_date?.substring(8, 10)}
+                {info.apply_date?.toString().substring(0, 4)}.
+                {info.apply_date?.toString().substring(5, 7)}.
+                {info.apply_date?.toString().substring(8, 10)}
               </p>
               <section className="h-[104px] border rounded-[10px] flex-col">
                 <section className="flex m-4 mb-[12px] justify-between">
@@ -247,10 +250,18 @@ const ReservationInfoItem = () => {
                       예약일시
                     </span>
                     <span>
-                      {selectedReservation.apply_date?.substring(0, 4)}년
-                      {selectedReservation.apply_date?.substring(6, 7)}월
-                      {selectedReservation.apply_date?.substring(8, 10)}일
-                      {selectedReservation.apply_time?.substring(0, 5)}시
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(0, 4)}
+                      년
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(6, 7)}
+                      월
+                      {selectedReservation.apply_date
+                        ?.toString()
+                        .substring(8, 10)}
+                      일{selectedReservation.apply_time?.substring(0, 5)}시
                     </span>
                   </div>
                   <hr className="border-solid border-gray border-1 mb-3" />
@@ -353,7 +364,7 @@ const ReservationInfoItem = () => {
                   type="date"
                   id="apply_date"
                   name="apply_date"
-                  value={editedData?.apply_date || ""}
+                  value={editedData?.apply_date.toString() || ""}
                   onChange={handleInputChange}
                 />
               </div>

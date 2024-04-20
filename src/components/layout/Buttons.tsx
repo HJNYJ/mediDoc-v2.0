@@ -25,11 +25,12 @@ const Button = ({
   const textColor = buttonType === "filled" ? "white" : "orange";
   const borderColor = buttonType === "hollow" ? "gray-300" : "transparent";
   const borderStyle = buttonType === "hollow" ? "border-2" : "";
+  const flexJustify = size === "lg" ? "start" : "center";
 
   return (
     <button
       type={type || "button"}
-      className={`flex flex-col justify-center items-center focus:outline-none w-full 
+      className={`flex flex-col justify-center items-${flexJustify} focus:outline-none w-full 
       ${height} ${borderRadius} text-${textColor} ${bgColor} border-${borderColor} ${borderStyle}
       `}
       onClick={onClick}

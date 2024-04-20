@@ -1,5 +1,23 @@
 import { create } from "zustand";
 
+interface ReservationInfo {
+  apply_date: Date;
+  apply_time: string;
+  course_id: string | null;
+  hospital_id: string;
+  hospital_name: string | null;
+  program_detail: string;
+  program_id: string;
+  program_name: string;
+  reservation_id: string;
+  status: string;
+  subject_birth_date: string;
+  subject_name: string;
+  subject_phone_number: string;
+  user_email: string;
+  user_name: string;
+}
+
 type State = {
   name: string;
   setName: (name: string) => void;
@@ -15,8 +33,8 @@ type State = {
   setSelectedCourseName: (selectedCourseName: string) => void;
   selectedCourseDetail: string;
   setSelectedCourseDetail: (selectedCourseDetail: string) => void;
-  userEmailData: string;
-  setUserEmailData: (userEmailData: string) => void;
+  userEmailData: string | undefined;
+  setUserEmailData: (userEmailData: string | undefined) => void;
   userNameData: string;
   setUserNameData: (userNameData: string) => void;
   isTimeClicked: boolean;
@@ -25,11 +43,12 @@ type State = {
   setIsDateClicked: (nextDateToggle: boolean) => void;
   isCourseClicked: boolean;
   setIsCourseClicked: (isCourseClicked: boolean) => void;
-  reservationInfo: object;
-  setReservationInfo: (reservationInfo: object) => void;
+  reservationInfo: ReservationInfo;
+  setReservationInfo: (reservationInfo: ReservationInfo) => void;
   hospitalName: string;
   setHospitalName: (hospitalName: string) => void;
 };
+
 const useApplyStore = create<State>()((set) => ({
   name: "",
   setName: (name) => set({ name }),
@@ -56,7 +75,7 @@ const useApplyStore = create<State>()((set) => ({
   setIsDateClicked: (isDateClicked) => set({ isDateClicked }),
   isCourseClicked: false,
   setIsCourseClicked: (isCourseClicked) => set({ isCourseClicked }),
-  reservationInfo: {},
+  reservationInfo: {} as ReservationInfo,
   setReservationInfo: (reservationInfo) => set({ reservationInfo }),
   hospitalName: "",
   setHospitalName: (hospitalName) => set({ hospitalName })

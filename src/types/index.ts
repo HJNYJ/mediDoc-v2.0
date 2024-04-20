@@ -7,6 +7,18 @@ export type TabList = Pick<TabState, "selectedTab">;
 
 export interface TabsProps {
   handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
+  setPosts: React.Dispatch<React.SetStateAction<ConsultType[]>>;
+}
+
+export interface AnswerDetail {
+  answer: string;
+  answer_id: string;
+  consult_id: string;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
 }
 
 export interface ConsultRequest {
@@ -28,6 +40,17 @@ export interface ConsultResponse {
   bodyparts: string;
   // consult_photos: string[];
   created_at: string;
+}
+
+export interface answerDetailType {
+  answer: string;
+  answer_id: string;
+  consult_id: string | null;
+  department: string;
+  hospital_id: string | null;
+  hospital_name: string | null;
+  user_email: string | null;
+  user_id: string | null;
 }
 
 export interface HashtagButtonsProps {
@@ -53,11 +76,11 @@ export interface ConsultInfoType {
 }
 
 export interface ReservationInfo {
-  apply_date: string;
+  apply_date: Date;
   apply_time: string;
   course_id: string | null;
   hospital_id: string;
-  hospital_name: string;
+  hospital_name: string | null;
   program_detail: string;
   program_id: string;
   program_name: string;
@@ -71,31 +94,32 @@ export interface ReservationInfo {
 }
 
 export interface UserInfo {
-  provider: string | null;
-  user_avatar: string | null;
-  user_birth_date: string | null;
+  provider: string;
   user_email: string;
-  user_id: string | null;
-  user_name: string;
-  user_phone_number: string | null;
-  user_type: string | null;
-}
-
-export interface ScrappedList {
-  hospital_id: string;
-  scrap_id: string;
   user_id: string;
+  user_name: string;
+  user_type: string;
 }
 
-// 리뷰 -----------------
+export interface ScrappedListItem {
+  hospital_id: string;
+  user_id: string;
+  scrap_id: string;
+  hospital_info: {
+    hospital_image: string;
+    hospital_name: string;
+  };
+}
+
 export type Tab = "starRating" | "latest";
 
-export type Review = {
-  id: number;
-  user_id: string;
-  rating: number;
+export type ReviewDetailData = {
   content: string;
-  created_at: string;
+  created_at?: string;
+  hashtags?: string;
+  hospital_id?: string | null;
+  rating: number;
+  review_id?: string;
 };
 
 export type ReviewsProps = {
@@ -119,3 +143,22 @@ export type Row = {
   user_email: string;
   user_name: string;
 };
+
+export interface ConsultType {
+  consult_id: string;
+  user_name: string | null;
+  consult_title: string;
+  consult_content: string;
+  bodyparts: string | null;
+  hashtags: string | null;
+  consult_answer: {
+    answer: string;
+    answer_id: string;
+    user_id: string | null;
+  }[];
+  consult_photos: {
+    consult_id: string;
+    photos: string | null;
+    photo_id: string;
+  }[];
+}

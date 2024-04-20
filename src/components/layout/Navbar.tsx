@@ -6,15 +6,15 @@ import React, { useState, useEffect } from "react";
 import useAuthStore from "@/shared/zustand/authStore";
 import { supabase } from "@/api/supabase";
 import { useRouter, usePathname } from "next/navigation";
-import Image from "next/image";
-// import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-// import StatusBar from "@/assets/icons/StatusBar.png";
-import ConsultIcon from "@/assets/icons/consultIcon.png";
-import TestIcon from "@/assets/icons/testIcon.png";
-import HomeIcon from "@/assets/icons/homeIcon.png";
-import MypageIcon from "@/assets/icons/mypageIcon.png";
-import LoginIcon from "@/assets/icons/loginIcon.png";
-import LogoutIcon from "@/assets/icons/logoutIcon.png";
+
+import {
+  ConsultBtnIcon,
+  HomeBtnIcon,
+  LoginIconBtn,
+  LogoutBtnIcon,
+  MyPageIcon,
+  SelfTestIcon
+} from "./CheckIcons";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -63,46 +63,41 @@ export const Navbar = () => {
     }
   };
 
-  if (pathname === "/" || pathname === "/login") {
+  if (
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname === "/map" ||
+    pathname === `/mypage/${userId}`
+  ) {
     return null;
   }
   return (
-    <section className="total_margin h-[68px]">
-      {/* <Image
-        src={StatusBar}
-        alt="Status Bar"
-        className="fixed top-0 w-[390px] z-50 mb-[44px]"
-      /> */}
-      <nav className="fixed bottom-0 flex justify-between items-center total_margin h-[68px] z-1000 bg-white">
-        <Link href={"/consult"}>
-          <Image src={ConsultIcon} alt="Consult Icon" />
-        </Link>
-        <Link href={"/selftest"}>
-          <Image src={TestIcon} alt="Test Icon" />
-        </Link>
-        <Link href={"/home"}>
-          <Image src={HomeIcon} alt="Home Icon" />
-        </Link>
-        <a onClick={handleMyPageClick} className="cursor-pointer">
-          <Image src={MypageIcon} alt="Mypage Icon" />
-        </a>
-        {isLoggedIn ? (
-          <button onClick={() => logoutHandler()}>
-            <Image src={LogoutIcon} alt="Logout Icon" />
-          </button>
-        ) : (
-          <Link href={"/login"}>
-            <Image src={LoginIcon} alt="Login Icon" />
+    <div className="pt-20 relative z-10">
+      <nav className="navbar fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
+        <div className="flex justify-between items-center max-w-screen-lg mx-auto px-4 py-2">
+          <Link href={"/consult"}>
+            <ConsultBtnIcon />
           </Link>
-        )}
+          <Link href={"/selftest"}>
+            <SelfTestIcon />
+          </Link>
+          <Link href={"/home"}>
+            <HomeBtnIcon />
+          </Link>
+          <div onClick={handleMyPageClick} className="cursor-pointer">
+            <MyPageIcon />
+          </div>
+          {isLoggedIn ? (
+            <button onClick={() => logoutHandler()}>
+              <LogoutBtnIcon />
+            </button>
+          ) : (
+            <Link href={"/login"}>
+              <LoginIconBtn />
+            </Link>
+          )}
+        </div>
       </nav>
-      {/* <div className="w-full">
-        <Image
-          src={HomeIndicator}
-          alt="Home Indicator"
-          className="fixed bottom-0 w-full z-50"
-        />
-      </div> */}
-    </section>
+    </div>
   );
 };

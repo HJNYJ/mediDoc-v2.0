@@ -2,7 +2,6 @@
 
 import {
   fetchHospitalReviewImages,
-  getHospitalImages,
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";
@@ -20,17 +19,13 @@ import { useState } from "react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const [selectedTab, setSelectedTab] = useState("default");
-  const { data: reviewDetailData, refetch: refetchReviews } = useQuery({
+  const { refetch: refetchReviews } = useQuery({
     queryKey: ["reviewDetailList", params.hospitalId],
     queryFn: () => getReviewDetail(params.hospitalId)
   });
-  const { data: hospitalInfo, refetch: refetchHospitalInfo } = useQuery({
+  const { refetch: refetchHospitalInfo } = useQuery({
     queryKey: ["hospitalInformation", params.hospitalId],
     queryFn: () => getHospitalInfo(params.hospitalId)
-  });
-  const { data: hospitalImages, refetch: refetchHospitalImages } = useQuery({
-    queryKey: ["hospitalFetchImages", params.hospitalId],
-    queryFn: () => getHospitalImages(params.hospitalId)
   });
 
   const handleTabClick = (tab: string) => {
@@ -38,9 +33,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     switch (tab) {
       case "default":
         refetchHospitalInfo();
-        break;
-      case "image":
-        refetchHospitalImages();
         break;
       case "review":
         refetchReviews();
@@ -112,12 +104,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
               }}
             />
           </div>
-
-          {/* <ReviewItem hospitalId={params.hospitalId} /> */}
-          <ReviewList
-            reviewDetailData={reviewDetailData}
-            hospitalId={params.hospitalId}
-          />
+          <ReviewList hospitalId={params.hospitalId} />
         </>
       )}
       {selectedTab === "image" && (

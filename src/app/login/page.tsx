@@ -2,21 +2,18 @@
 "use client";
 
 import { supabase } from "@/api/supabase";
-import kakaologin from "@/assets/icons/kakaologin.png";
-import googlelogin from "@/assets/icons/googlelogin.png";
-import Image from "next/image";
 import React from "react";
-import HomeIndicator from "@/assets/icons/HomeIndicator.png";
-import StatusBar from "@/assets/icons/StatusBar.png";
 import { useRouter } from "next/navigation";
+import { GoogleIcon, KakaoIcon } from "@/components/layout/CheckIcons";
 
 const LoginPage = () => {
   const router = useRouter();
+
   const signInWithKakao = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "kakao",
-        options: { redirectTo: "http://localhost:3000/home" }
+        options: { redirectTo: "https://medi-doc-three.vercel.app/home" }
       });
       if (error) throw error;
       router.push("/home");
@@ -33,7 +30,7 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "http://localhost:3000/home",
+          redirectTo: "https://medi-doc-three.vercel.app/home",
           queryParams: {
             access_type: "offline",
             prompt: "consent"
@@ -49,24 +46,14 @@ const LoginPage = () => {
 
   return (
     <>
-      <Image
-        src={StatusBar}
-        alt="Status Bar"
-        className="fixed top-0 left-0 w-[390px] z-50 mb-[44px]"
-      />
-      <section className="w-[358px] mx-[16px] mt-[616px]">
+      <section className="mx-[16px] my-[140%]">
         <button onClick={() => signInWithKakao()}>
-          <Image
-            src={kakaologin}
-            alt="카카오로 계속하기"
-            className="mb-[8px]"
-          />
+          <KakaoIcon />
         </button>
         <button onClick={() => signInWithGoogle()}>
-          <Image src={googlelogin} alt="구글로 계속하기" className="" />
+          <GoogleIcon />
         </button>
       </section>
-      <Image src={HomeIndicator} alt="Home Indicator" />
     </>
   );
 };

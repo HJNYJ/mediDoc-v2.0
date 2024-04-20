@@ -7,9 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/utils/getUserInfo";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
-import imageBox from "@/assets/icons/consult/imageBox.png";
+import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "../layout/Buttons";
-import defaultImage from "@/assets/icons/defaultImage.png";
 import TopNavbar from "../layout/TopNavbar";
 import { useRouter } from "next/navigation";
 const AskForm = () => {
@@ -27,47 +26,47 @@ const AskForm = () => {
     {
       name: string;
       type: string;
-      dataUrl: string;
+      dataUrl: string | ArrayBuffer | null;
     }[]
   >([]);
   const router = useRouter();
 
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
   const consultId = uuidv4();
-  // 1. 실시간상담 게시글 작성 및 이미지 업로드 (저장전)
-  // 2. uuidv4();  ->>> 작성한 데이터(+consultId) ->> 실제 DB에 저장(데이터 넘겨서 그 데이터들을 INSERT)
-  // consultInfo 테이블, consult_image 테이블에 동일한 consultId
   console.log(consultId);
 
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(typeof e.target.files); // string x , object
     const fileList = Array.from(e.target.files as FileList);
     setImg([...img, ...fileList]);
     // 이미지를 선택한 후에 바로 이미지를 미리보기
     fileList.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImages((prevFiles) => [
-          ...prevFiles,
-          {
-            name: file.name,
-            type: file.type,
-            dataUrl: reader.result as string
-          }
-        ]);
+        setUploadedImages(
+          (
+            prevFiles: {
+              name: string;
+              type: string;
+              dataUrl: string | ArrayBuffer | null;
+            }[]
+          ) => [
+            ...prevFiles,
+            {
+              name: file.name,
+              type: file.type,
+              dataUrl: reader.result
+            }
+          ]
+        );
       };
       reader.readAsDataURL(file);
     });
   };
   // 웹 페이지에서 파일 등록하기
-  const handleFiles = async (
-    // e: React.ChangeEvent<HTMLInputElement>,
-    consultId: string
-  ) => {
-    // const fileList = e.target.files;
+  const handleFiles = async (consultId: string) => {
     const fileList = img;
-    if (fileList) {
+    if (fileList.length) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
       filesArray.forEach((file) => {
@@ -82,6 +81,7 @@ const AskForm = () => {
   }
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
+    console.log("consultId >>>>>", consultId);
     try {
       const newFileName = `${Math.random()}`;
       // Supabase Storage에 이미지 업로드
@@ -93,11 +93,10 @@ const AskForm = () => {
           process.env.NEXT_PUBLIC_SUPABASE_URL +
           "/storage/v1/object/public/images/" +
           result.data.path;
-        // console.log("url ?????????? => ", url); // 사진 잘 나오고있음, url이 잘 나오고 있음
         const uploadImgUrl = await uploadPhotosUrl(
           url.toString(),
-          consultId.consultId
-        ); // consultId === null
+          consultId.toString()
+        );
 
         if (uploadImgUrl) {
           console.log("이건 askform이구영 => ", uploadImgUrl);
@@ -128,6 +127,7 @@ const AskForm = () => {
     // uploadedImages state 업데이트
     const updatedImages = uploadedImages.filter((_, index) => index !== idx);
     setUploadedImages(updatedImages);
+    setImg([]);
   };
 
   const fetchHashtags = async (selectedCategory: string) => {
@@ -162,16 +162,7 @@ const AskForm = () => {
   const handleSubmit = async () => {
     const userData = await getUserInfo();
     const userName = userData?.userName;
-    const userEmail = userData?.userEmail;
-
-    if (uploadedImages.length === 0) {
-      const defaultImageData = {
-        name: "defaultImage.png",
-        type: "image/png",
-        dataUrl: defaultImage
-      };
-      setUploadedImages([defaultImageData]);
-    }
+    const userEmail = userData?.userEmail || null;
 
     const data = await consultAddForm(
       title,
@@ -180,14 +171,13 @@ const AskForm = () => {
       selectedTags,
       userName,
       userEmail
-      // consultId: uuid
-      // 이미지 URL 추가
     );
-    // handleFiles(uuid) >> handelAddImages(uuid) >> uploadPhotosUrl(uuid)
-    console.log("consult Ask Form data", data);
-    handleFiles(data); // data >> consultId
+
+    const id: string = data?.consultId || "";
+
+    handleFiles(id);
+
     if (data) {
-      console.log("AskForm 추가 성공", data!);
       alert("글 작성이 완료됐습니다.");
       router.push("/consult");
     }
@@ -257,26 +247,23 @@ const AskForm = () => {
                 {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
               </p>
               <div>
-                {/* {uploadedImages.length === 0 && (
-                  <Image
-                    src={defaultImage}
-                    alt="기본 이미지"
-                    className="w-[84px] h-[80px] rounded-[10px]"
-                  />
-                )} */}
-                {uploadedImages.map((image, idx: number) => (
-                  <div key={image.dataUrl}>
-                    {/**이미지 렌더링 */}
-                    <img
-                      src={image.dataUrl}
-                      alt={image.name}
-                      className="w-[100px] h-[100px]"
-                    />
-                    {/* <img src={image.dataUrl} alt={image.name} /> */}
-                    <div id={image.dataUrl} onClick={handleImageOrder}></div>
-                    <button onClick={() => handleDeleteImage(idx)}>삭제</button>
-                  </div>
-                ))}
+                {uploadedImages.map((image, idx: number) => {
+                  return (
+                    <div key={idx}>
+                      {/**이미지 렌더링 */}
+                      <img
+                        src={String(image.dataUrl)}
+                        alt={image.name}
+                        className="w-[100px] h-[100px]"
+                      />
+                      {/* <img src={image.dataUrl} alt={image.name} /> */}
+                      <div onClick={handleImageOrder}></div>
+                      <button onClick={() => handleDeleteImage(idx)}>
+                        삭제
+                      </button>
+                    </div>
+                  );
+                })}
                 {uploadedFileUrl.length >= 3 ? (
                   <></>
                 ) : (

@@ -15,19 +15,22 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const { data: session } = await supabase.auth.getSession();
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
         const user = session?.user;
+        const email = user?.email ?? "";
 
         // 사용자 정보 가져오기
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("*")
-          .eq("user_email", user?.email)
+          .eq("user_email", email)
           .single();
 
         if (userDataError) throw new Error(userDataError.message);
 
-        setUserInfo(userData); // 사용자 정보 설정
+        setUserInfo(userData as UserInfo);
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
       }
@@ -73,7 +76,7 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
 
   // 홈으로 이동
   const goToAskList = () => {
-    router.push(`/consult`);
+    router.push("/consult");
   };
 
   return (
@@ -114,8 +117,6 @@ const ConsultAnswerForm = ({ params }: { params: { consultId: string } }) => {
           답변하기
         </button>
       </form>
-      {/** 값이 어떻게 나오는지 체크해본것 */}
-      {/* {hospitalId} */}
     </section>
   );
 };

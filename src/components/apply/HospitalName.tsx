@@ -13,13 +13,12 @@ const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   });
 
   const hospitalData = data?.[0].hospital_name;
-  // 데이터를 꺼내 쓰는 용도 (배열)
 
   useEffect(() => {
     if (hospitalData) {
       setHospitalName(hospitalData);
     }
-  }, [hospitalData]);
+  }, [setHospitalName, hospitalData]);
 
   if (isLoading) {
     <div>로딩 중 입니다...</div>;
