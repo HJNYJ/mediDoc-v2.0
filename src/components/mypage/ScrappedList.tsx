@@ -1,5 +1,6 @@
 import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
+
 import type { ScrappedListItem } from "@/types";
 
 const ScrappedList: React.FC = () => {

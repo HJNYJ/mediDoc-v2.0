@@ -5,6 +5,8 @@ import {
   getHospitalInfo,
   getReviewDetail
 } from "@/api/supabase";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import Button from "@/components/layout/Buttons";
 import Tab from "@/components/layout/Tabs";
 import TopNavbar from "@/components/layout/TopNavbar";
@@ -14,8 +16,6 @@ import ProgramInfo from "@/components/map/defaultTab/ProgramInfo";
 import ReviewImageList from "@/components/map/defaultTab/ReviewImageList";
 import ReviewList from "@/components/map/defaultTab/ReviewList";
 import ReviewItem from "@/components/map/review/ReviewItem";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const [selectedTab, setSelectedTab] = useState("default");

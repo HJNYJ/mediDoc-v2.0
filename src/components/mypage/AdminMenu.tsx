@@ -1,9 +1,9 @@
 // 관리자페이지 메인 div
 import { supabase } from "@/api/supabase";
 import React, { useState } from "react";
-import ReservationInfoList from "./ReservationInfoList";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import AdminQuestionItem from "./AdminQuestionItem";
+import ReservationInfoItem from "./ReservationInfoItem";
 
 const AdminMenu = () => {
   const [showConsultList, setShowConsultList] = useState(false);
@@ -55,7 +55,7 @@ const AdminMenu = () => {
         )}
       </div>
       {showConsultList && <AdminQuestionItem />}
-      {showReservationList && <ReservationInfoList />}
+      {showReservationList && <ReservationInfoItem />}
     </div>
   );
 };

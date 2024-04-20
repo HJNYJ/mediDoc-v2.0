@@ -6,10 +6,10 @@ interface TabsPropsType {
   text?: string;
   label?: string;
   width?: number;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   classes?: string;
   clicked?: boolean;
   active?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const RoundTabs = ({ label, onClick, active }: TabsPropsType) => {

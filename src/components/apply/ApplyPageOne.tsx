@@ -1,17 +1,17 @@
 "use client";
 
-import HospitalName from "./HospitalName";
-import useApplyStore from "../../shared/zustand/applyStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
+import { DeleteBtnIcon, WarningIcon } from "../layout/CheckIcons";
+import HospitalName from "./HospitalName";
+import useApplyStore from "../../shared/zustand/applyStore";
 import Button from "../layout/Buttons";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
 import PageCancel from "../layout/PageCancel";
 import HospitalImage from "./HospitalImage";
-import { DeleteBtnIcon, WarningIcon } from "../layout/CheckIcons";
 
 const ApplyPageOne = ({
   setPageCount,

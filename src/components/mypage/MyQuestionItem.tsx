@@ -1,7 +1,7 @@
 // 내가 한 질문 내역 div
 "use client";
 
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";

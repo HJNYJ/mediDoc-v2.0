@@ -463,3 +463,74 @@ export const WarningIcon = () => {
     </svg>
   );
 };
+
+export const OnePage = () => {
+  return (
+    <svg
+      width="62"
+      height="8"
+      viewBox="0 0 62 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="4" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="22" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="22" cy="4" r="4" fill="black" fill-opacity="0.1" />
+      <circle cx="40" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="40" cy="4" r="4" fill="black" fill-opacity="0.1" />
+      <circle cx="58" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="58" cy="4" r="4" fill="black" fill-opacity="0.1" />
+    </svg>
+  );
+};
+export const TwoPage = () => {
+  return (
+    <svg
+      width="62"
+      height="8"
+      viewBox="0 0 62 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="4" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="22" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="40" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="40" cy="4" r="4" fill="black" fill-opacity="0.1" />
+      <circle cx="58" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="58" cy="4" r="4" fill="black" fill-opacity="0.1" />
+    </svg>
+  );
+};
+export const ThreePage = () => {
+  return (
+    <svg
+      width="62"
+      height="8"
+      viewBox="0 0 62 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="4" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="22" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="40" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="58" cy="4" r="4" fill="#EFF0F3" />
+      <circle cx="58" cy="4" r="4" fill="black" fill-opacity="0.1" />
+    </svg>
+  );
+};
+export const FourPage = () => {
+  return (
+    <svg
+      width="62"
+      height="8"
+      viewBox="0 0 62 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="4" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="22" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="40" cy="4" r="4" fill="#FF9A00" />
+      <circle cx="58" cy="4" r="4" fill="#FF9A00" />
+    </svg>
+  );
+};

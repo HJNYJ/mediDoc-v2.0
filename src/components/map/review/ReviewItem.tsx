@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ReviewRecent from "./ReviewRecent";
 import Image from "next/image";
+import ReviewRecent from "./ReviewRecent";
 import writeReview from "@/assets/icons/review/pencil.png";
 
 const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {

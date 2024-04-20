@@ -1,10 +1,10 @@
 // 마이페이지 탭 컴포넌트
 
 import React, { useState } from "react";
-import ReservationInfoList from "./ReservationInfoList";
 import ScrappedList from "./ScrappedList";
 import MyQuestionList from "./MyQuestionList";
 import Tab from "../layout/Tabs";
+import ReservationInfoItem from "./ReservationInfoItem";
 
 const MyPageTab = () => {
   const [currentTab, SetCurrentTab] = useState("예약 정보");
@@ -38,7 +38,7 @@ const MyPageTab = () => {
           </Tab>
         </div>
       </section>
-      <section>{currentTab === "예약 정보" && <ReservationInfoList />}</section>
+      <section>{currentTab === "예약 정보" && <ReservationInfoItem />}</section>
       <section>{currentTab === "스크랩" && <ScrappedList />}</section>
       <section>{currentTab === "내가 한 질문" && <MyQuestionList />}</section>
     </>

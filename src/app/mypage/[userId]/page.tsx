@@ -7,8 +7,9 @@ import MyPageTab from "@/components/mypage/MyPageTab";
 import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
 import useMyPageStore from "@/shared/zustand/myPageStore";
-import type { UserInfo } from "@/types";
 import TopNavbar from "@/components/layout/TopNavbar";
+
+import type { UserInfo } from "@/types";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);

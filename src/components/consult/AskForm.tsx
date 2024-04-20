@@ -2,15 +2,16 @@
 "use client";
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
-import HashTags from "./HashTags";
 import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/utils/getUserInfo";
+import { useRouter } from "next/navigation";
+import HashTags from "./HashTags";
 import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
-import { useRouter } from "next/navigation";
+
 const AskForm = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
