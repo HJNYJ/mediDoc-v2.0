@@ -29,12 +29,6 @@ type State = {
   setSelectedDate: (selectedDate: Date) => void;
   selectedTime: string;
   setSelectedTime: (selectedTime: string) => void;
-  selectedCourseName: string;
-  setSelectedCourseName: (selectedCourseName: string) => void;
-  selectedCourseDetail: string;
-  setSelectedCourseDetail: (selectedCourseDetail: string) => void;
-  userEmailData: string | undefined;
-  setUserEmailData: (userEmailData: string | undefined) => void;
   userNameData: string;
   setUserNameData: (userNameData: string) => void;
   isTimeClicked: boolean;
@@ -43,6 +37,12 @@ type State = {
   setIsDateClicked: (nextDateToggle: boolean) => void;
   isCourseClicked: boolean;
   setIsCourseClicked: (isCourseClicked: boolean) => void;
+  selectedCourseName: string;
+  setSelectedCourseName: (selectedCourseName: string) => void;
+  selectedCourseDetail: string;
+  setSelectedCourseDetail: (selectedCourseDetail: string) => void;
+  userEmailData: string | undefined;
+  setUserEmailData: (userEmailData: string | undefined) => void;
   reservationInfo: ReservationInfo;
   setReservationInfo: (reservationInfo: ReservationInfo) => void;
   hospitalName: string;

@@ -2,7 +2,6 @@
 
 import { courseNameSelect } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
-import useApplyStore from "@/shared/zustand/applyStore";
 import { useState } from "react";
 import {
   CourseCheckedIcon,
@@ -10,6 +9,7 @@ import {
   TreatmentCourse,
   TreatmentNotCourse
 } from "../layout/CheckIcons";
+import useApplyStore from "@/shared/zustand/applyStore";
 
 const CourseSelect = () => {
   const {

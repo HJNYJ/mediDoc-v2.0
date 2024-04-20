@@ -1,7 +1,8 @@
-import type { ConsultType, TabsProps } from "@/types";
 import React, { useEffect, useState } from "react";
-import RoundTabs from "../layout/RoundTabs";
 import { supabase } from "@/api/supabase";
+import RoundTabs from "../layout/RoundTabs";
+
+import type { ConsultType, TabsProps } from "@/types";
 
 const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
   // 탭 상태 관리

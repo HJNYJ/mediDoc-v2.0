@@ -1,7 +1,7 @@
 import React from "react";
-import { OnePage } from "../layout/CheckIcons";
 import Page1 from "@/assets/landing/Page1.png";
 import Image from "next/image";
+import { OnePage } from "../layout/CheckIcons";
 
 const LandingPageOne = () => {
   return (

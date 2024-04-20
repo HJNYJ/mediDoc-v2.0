@@ -1,7 +1,7 @@
 import React from "react";
-import { FourPage } from "../layout/CheckIcons";
 import Page4 from "@/assets/landing/Page4.png";
 import Image from "next/image";
+import { FourPage } from "../layout/CheckIcons";
 
 const LandingPageFour = () => {
   return (

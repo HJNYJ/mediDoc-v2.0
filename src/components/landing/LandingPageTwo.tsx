@@ -1,6 +1,8 @@
+import React from "react";
 import Image from "next/image";
-import { TwoPage } from "../layout/CheckIcons";
 import Page2 from "@/assets/landing/Page2.png";
+import { TwoPage } from "../layout/CheckIcons";
+
 const LandingPageOne = () => {
   return (
     <div className="mt-20">

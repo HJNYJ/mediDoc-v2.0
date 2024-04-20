@@ -1,7 +1,7 @@
 import React from "react";
-import { ThreePage } from "../layout/CheckIcons";
 import Page3 from "@/assets/landing/Page3.png";
 import Image from "next/image";
+import { ThreePage } from "../layout/CheckIcons";
 
 const LandingPageThree = () => {
   return (

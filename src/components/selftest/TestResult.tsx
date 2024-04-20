@@ -1,14 +1,14 @@
 // 테스트 결과 div
 "use client";
 
+import Image from "next/image";
+import Button from "../layout/Buttons";
+import ear_disease from "@/assets/icons/selftest/ear_disease.jpeg";
 import React, { useEffect } from "react";
 import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import ear_disease from "@/assets/icons/selftest/ear_disease.jpeg";
-import Button from "../layout/Buttons";
 
 const TestResult = () => {
   const { selectedPart, selectedSymptoms, setPredictedDiseases } =

@@ -3,12 +3,12 @@
 
 import React, { useEffect } from "react";
 import { supabase } from "@/api/supabase";
-import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useRouter } from "next/navigation";
-import Button from "../layout/Buttons";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
+import Button from "../layout/Buttons";
 import YellowBar from "../layout/YellowBar";
 import YellowBarMg from "../layout/YellowBarMg";
+import useSelftestStore from "@/shared/zustand/selftestStore";
 
 interface Symptoms {
   bodyparts: string | null;
@@ -73,7 +73,7 @@ const Symptoms = () => {
         <YellowBar />
       </div>
       <section className="flex flex-col">
-        <p className="w-full h-[36px] mb-8 bold-26">
+        <p className="w-full h-[36px] mb-10 bold-26">
           해당하는 증상을 선택해 주세요.
         </p>
         <p className="w-full h-[21px] mb-7 medium-18 text-gray-400">

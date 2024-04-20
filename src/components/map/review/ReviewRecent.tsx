@@ -3,8 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabase";
 import { useState } from "react";
-import Hashtag from "@/utils/hashtag";
 import { useParams } from "next/navigation";
+import Hashtag from "@/utils/hashtag";
 import RoundTabs from "@/components/layout/RoundTabs";
 
 const ReviewRecent = () => {

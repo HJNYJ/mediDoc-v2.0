@@ -3,9 +3,9 @@
 
 import React from "react";
 import FindHospital from "@/components/home/FindHospital";
-import HospitalListView from "@/components/home/HospitalListView";
 import MainPageReview from "@/components/home/MainPageReview";
 import SelfTestWidget from "@/components/home/SelfTestWidget";
+import HospitalListView from "@/components/home/HospitalListView";
 import HomeConsultList from "@/components/home/consult/HomeConsultList";
 
 const HomePage = () => {
