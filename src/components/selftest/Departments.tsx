@@ -1,10 +1,10 @@
 // 진료과 div
 import React from "react";
-import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
 import useSelftestStore from "@/shared/zustand/selftestStore";
+import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 
 interface DepartmentsProps {
   onSelectDepartment: (department: string) => void;

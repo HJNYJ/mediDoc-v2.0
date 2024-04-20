@@ -1,13 +1,13 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
 import { getAnswerDetail, getConsultDetail, supabase } from "@/api/supabase";
-import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
-import ConsultNotice from "@/components/consult/ConsultNotice";
-import Hashtag from "@/utils/hashtag";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import PagebackBtn from "@/components/layout/PageBackBtn";
 import { useRouter } from "next/navigation";
+import Hashtag from "@/utils/hashtag";
+import PagebackBtn from "@/components/layout/PageBackBtn";
+import ConsultNotice from "@/components/consult/ConsultNotice";
+import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();

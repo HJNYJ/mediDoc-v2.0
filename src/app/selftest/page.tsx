@@ -2,12 +2,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Genders from "@/components/selftest/Genders";
 import Departments from "@/components/selftest/Departments";
 import BodyParts from "@/components/selftest/BodyParts";
 import Symptoms from "@/components/selftest/Symptoms";
 import Button from "@/components/layout/Buttons";
-import { useRouter } from "next/navigation";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import PageCancel from "@/components/layout/PageCancel";

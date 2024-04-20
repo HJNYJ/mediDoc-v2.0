@@ -1,8 +1,8 @@
 // 로그인 페이지
 "use client";
 
-import { supabase } from "@/api/supabase";
 import React from "react";
+import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
 import { GoogleIcon, KakaoIcon } from "@/components/layout/CheckIcons";
 

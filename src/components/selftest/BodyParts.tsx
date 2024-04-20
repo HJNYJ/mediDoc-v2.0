@@ -1,9 +1,9 @@
 // 부위 div
 import React, { useState } from "react";
-import useSelftestStore from "@/shared/zustand/selftestStore";
 import { CheckedIcon, NotCheckedIcon } from "../layout/CheckIcons";
 import YellowBarMg from "../layout/YellowBarMg";
 import GrayBar from "../layout/GrayBar";
+import useSelftestStore from "@/shared/zustand/selftestStore";
 interface BodyPartsProps {
   department: "이비인후과" | "내과" | "외과" | "치과" | "안과";
 }

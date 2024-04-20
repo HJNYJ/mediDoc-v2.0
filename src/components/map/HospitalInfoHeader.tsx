@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
 import Map from "./Map";
 import Image from "next/image";
 import scrapIcon from "@/assets/icons/bookmark.png";
 import scrappedIcon from "@/assets/icons/bookmark_checked.png";
 import Button from "../layout/Buttons";
-import { useRouter } from "next/navigation";
-import {
-  addScrappedList,
-  removeScrappedList
-} from "@/utils/changeScrappedList";
-import { getUserInfo } from "@/utils/getUserInfo";
 import useScrapStore from "@/shared/zustand/scrapStore";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { getUserInfo } from "@/utils/getUserInfo";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 import { fetchHospitalData } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { removeTimeSecond } from "@/utils/changeTimeFormat";
+import {
+  addScrappedList,
+  removeScrappedList
+} from "@/utils/changeScrappedList";
 
 export interface HospitalInfoHeaderProps {
   params: { hospitalId: string };

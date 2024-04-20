@@ -5,6 +5,7 @@ import HospitalItem from "./HospitalItem";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHospitalList } from "@/hooks/getHospitalData";
 import { useSearchParams } from "next/navigation";
+
 const HospitalList = () => {
   const searchParam = useSearchParams();
   const regionId = searchParam.get("region_id");
