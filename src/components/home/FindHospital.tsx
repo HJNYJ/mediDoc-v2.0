@@ -16,11 +16,9 @@ const FindHospital = () => {
   });
   if (isLoading) {
     <p>로딩 중...</p>;
-    console.log("이즈 로동");
   }
   if (isError) {
     <p>오류가 발생했습니다.</p>;
-    console.log("실패함");
   }
 
   return (

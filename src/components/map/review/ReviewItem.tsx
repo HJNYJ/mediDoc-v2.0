@@ -9,7 +9,7 @@ const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
 
   const goToReviewForm = (hospitalId: string) => {
-    router.push(`https://medi-doc-three.vercel.app/map/${hospitalId}/review`);
+    router.push(`/map/${hospitalId}/review`);
   };
 
   return (

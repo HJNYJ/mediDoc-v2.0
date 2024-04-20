@@ -5,8 +5,7 @@ import { useParams } from "next/navigation";
 import React from "react";
 const ReviewPage = () => {
   const params = useParams();
-  const hospitalId = params.hospitalId.toString(); // Convert hospitalId to string
-  console.log("ReviewPage params", hospitalId);
+  const hospitalId = params.hospitalId.toString();
   return (
     <div className="w-[390px] h-[1176px] flex flex-col">
       <ReviewForm hospitalId={hospitalId} />
