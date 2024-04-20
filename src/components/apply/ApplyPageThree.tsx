@@ -31,9 +31,9 @@ const ApplyPageThree = ({
     setSelectedTime,
     setIsTimeClicked,
     setIsDateClicked,
+    setReservationInfo,
     selectedCourseName,
-    selectedCourseDetail,
-    setReservationInfo
+    selectedCourseDetail
   } = useApplyStore();
 
   const router = useRouter();

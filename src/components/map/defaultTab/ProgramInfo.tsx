@@ -1,9 +1,11 @@
 // 검진 프로그램 정보 & 가격 div
 "use client";
-import Image from "next/image";
+
 import React, { useState } from "react";
-import downtoggle from "@/assets/upanddown/down_toggle.png";
-import uptoggle from "@/assets/upanddown/up_toggle.png";
+import {
+  CourseCheckedIcon,
+  CourseNotCheckedIcon
+} from "@/components/layout/CheckIcons";
 
 const ProgramInfo = () => {
   const [isBasicToggled, setBasicToggled] = useState(false);
@@ -12,7 +14,6 @@ const ProgramInfo = () => {
   const [isVVIPToggled, setVVIPToggled] = useState(false);
   return (
     <section className="w-[390px] justify-center">
-      {/* 베이직 */}
       <div>
         <div className="flex justify-between w-[358px]">
           <h2 className="medium-16 my-3">베이직</h2>
@@ -30,11 +31,7 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isBasicToggled ? (
-              <Image src={uptoggle} alt="" />
-            ) : (
-              <Image src={downtoggle} alt="" />
-            )}
+            {isBasicToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
           </span>
         </div>
         {isBasicToggled && (
@@ -67,9 +64,9 @@ const ProgramInfo = () => {
             }}
           >
             {isStandardToggled ? (
-              <Image src={uptoggle} alt="" />
+              <CourseCheckedIcon />
             ) : (
-              <Image src={downtoggle} alt="" />
+              <CourseNotCheckedIcon />
             )}
           </span>
         </div>
@@ -102,11 +99,7 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isVIPToggled ? (
-              <Image src={uptoggle} alt="" />
-            ) : (
-              <Image src={downtoggle} alt="" />
-            )}
+            {isVIPToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
           </span>
         </div>
         {isVIPToggled && (
@@ -138,11 +131,7 @@ const ProgramInfo = () => {
               }
             }}
           >
-            {isVVIPToggled ? (
-              <Image src={uptoggle} alt="" />
-            ) : (
-              <Image src={downtoggle} alt="" />
-            )}
+            {isVVIPToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
           </span>
         </div>
         {isVVIPToggled && (

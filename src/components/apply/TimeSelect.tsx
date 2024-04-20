@@ -17,7 +17,7 @@ const TimeSelect = () => {
     "19:00",
     "20:00"
   ];
-  const now = new Date(); // 현재 시간 가져오기
+  const now = new Date();
 
   const isSelectedDateBeforeAfterToday = (): "before" | "after" | "today" => {
     const nowDateObj = getDate(now);
@@ -40,7 +40,6 @@ const TimeSelect = () => {
     if (isSelectedDateBeforeAfterToday() === "before") return true;
     if (isSelectedDateBeforeAfterToday() === "after") return false;
 
-    // 현재 시간 이후의 시간은 활성화, 이전의 시간은 비활성화
     if (now.getHours() > selectedHour) {
       return true;
     } else {
@@ -58,7 +57,7 @@ const TimeSelect = () => {
     setIsTimeClicked(true);
   };
   return (
-    <div className="px-4">
+    <div>
       시간선택
       <div className="my-3">오전</div>
       <div>
@@ -77,7 +76,7 @@ const TimeSelect = () => {
         })}
       </div>
       <div className="my-3">오후</div>
-      <div className="flex flex-wrap w-[380px]">
+      <div className="flex flex-wrap mb-6">
         {afternoon.map((time, idx) => {
           return (
             <button
