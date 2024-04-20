@@ -52,6 +52,7 @@ const ConsultPage = () => {
   };
 
   const goToAskForm = () => {
+<<<<<<< HEAD
     router.push(`http://localhost:3000/consult/ask`);
   };
 
@@ -60,6 +61,16 @@ const ConsultPage = () => {
   };
   const onClickHomeHandler = () => {
     router.push(`http://localhost:3000/home`);
+=======
+    router.push("/consult/ask");
+  };
+
+  const goToDetailPage = (consultId: string) => {
+    router.push(`/consult/${consultId}`);
+  };
+  const onClickHomeHandler = () => {
+    router.push("/home");
+>>>>>>> d0eccb77cb157cce006537e3a07f981c466add78
   };
 
   return (
@@ -76,7 +87,6 @@ const ConsultPage = () => {
       />
       <div>
         {posts?.map((consult) => {
-          console.log("consult =======> ", consult);
           return (
             <div
               key={consult?.consult_id}

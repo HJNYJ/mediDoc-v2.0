@@ -110,7 +110,7 @@ const TestResult = () => {
             buttonType="filled"
             label="닫기"
             size="base"
-            onClick={() => router.push("http://localhost:3000/home")}
+            onClick={() => router.push("/home")}
           />
         </div>
       </section>

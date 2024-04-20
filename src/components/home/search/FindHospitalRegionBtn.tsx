@@ -20,7 +20,7 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
   const router = useRouter();
 
   const hospitalViewBtnHandler = (id: string) => {
-    router.push(`http://localhost:3000/map?region_id=${id}`);
+    router.push(`/map?region_id=${id}`);
   };
   return (
     <div

@@ -22,7 +22,7 @@ const SelfTestWidget = () => {
         </section>
         <button
           onClick={() => {
-            router.push("http://localhost:3000/selftest");
+            router.push("/selftest");
           }}
         >
           <Image src={nextIcon} alt="버튼" />

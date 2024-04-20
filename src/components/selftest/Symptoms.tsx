@@ -58,7 +58,7 @@ const Symptoms = () => {
 
   const checkSelectedSymptoms = () => {
     if (selectedSymptoms.length > 0) {
-      router.push("http://localhost:3000/selftestresult");
+      router.push("/selftestresult");
     } else {
       alert("증상을 선택해주세요.");
     }

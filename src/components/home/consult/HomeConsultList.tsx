@@ -8,7 +8,7 @@ const HomeConsultList = () => {
   const router = useRouter();
 
   const handleViewAll = () => {
-    router.push("http://localhost:3000/consult");
+    router.push("/consult");
   };
   return (
     <section className="relative mt-[30px]">

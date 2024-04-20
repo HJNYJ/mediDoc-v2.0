@@ -42,7 +42,7 @@ const ApplyPageTwo = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push(`http://localhost:3000/home`);
+    router.push("/home");
   };
   return (
     <div className="flex flex-col min-h-[90vh]">

@@ -15,7 +15,7 @@ interface TopNavbarProps {
 const TopNavbar = ({ title, goToPreviousPage }: TopNavbarProps) => {
   const router = useRouter();
   const goTopHomePage = () => {
-    router.push("http://localhost:3000/home");
+    router.push("/home");
   };
 
   return (

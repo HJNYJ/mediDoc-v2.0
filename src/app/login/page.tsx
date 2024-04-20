@@ -17,7 +17,7 @@ const LoginPage = () => {
         options: { redirectTo: "http://localhost:3000/home" }
       });
       if (error) throw error;
-      router.push("http://localhost:3000/home");
+      router.push("/home");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

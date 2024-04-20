@@ -5,7 +5,7 @@ import writeReview from "@/assets/icons/review/pencil.png";
 const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
   const goToReviewForm = (hospitalId: string): void => {
-    router.push(`http://localhost:3000/map/${hospitalId}/review`);
+    router.push(`/map/${hospitalId}/review`);
   };
 
   return (

@@ -12,7 +12,7 @@ const HospitalListView = () => {
         type="button"
         buttonType="filled"
         size="lg"
-        onClick={() => router.push(`http://localhost:3000/map`)}
+        onClick={() => router.push("/map")}
         label={
           <>
             <span className="regular-14 w-full h-[17px]">

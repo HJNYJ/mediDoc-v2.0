@@ -60,7 +60,7 @@ const ApplyPageThree = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push(`http://localhost:3000/home`);
+    router.push("/home");
   };
 
   const testObj = {
