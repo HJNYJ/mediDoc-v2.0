@@ -2,30 +2,29 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import Image from "next/image";
-import Page1 from "@/assets/landing/Page1.png";
-import Page2 from "@/assets/landing/Page2.png";
-import Page3 from "@/assets/landing/Page3.png";
-import Page4 from "@/assets/landing/Page4.png";
 import Button from "@/components/layout/Buttons";
 import { useRouter } from "next/navigation";
+import LandingPageOne from "../landing/LandingPageOne";
+import LandingPageTwo from "../landing/LandingPageTwo";
+import LandingPageThree from "../landing/LandingPageThree";
+import LandingPageFour from "../landing/LandingPageFour";
 
 const Slider = () => {
   const router = useRouter();
   return (
-    <>
+    <div>
       <Swiper>
         <SwiperSlide>
-          <Image src={Page1} alt="Page 1" />
+          <LandingPageOne />
         </SwiperSlide>
         <SwiperSlide>
-          <Image src={Page2} alt="Page 2" />
+          <LandingPageTwo />
         </SwiperSlide>
         <SwiperSlide>
-          <Image src={Page3} alt="Page 3" />
+          <LandingPageThree />
         </SwiperSlide>
         <SwiperSlide>
-          <Image src={Page4} alt="Page 4" />
+          <LandingPageFour />
           <div className="mb-4">
             <Button
               type="button"
@@ -37,7 +36,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
       </Swiper>
-    </>
+    </div>
   );
 };
 export default Slider;

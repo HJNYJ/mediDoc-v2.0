@@ -5,11 +5,11 @@ interface TabProps {
   size?: "base" | "lg";
   text?: string;
   label?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   classes?: string;
   clicked?: boolean;
   active?: boolean;
   children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Tab = ({ type, label, text, onClick, active, children }: TabProps) => {

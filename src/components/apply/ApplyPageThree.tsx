@@ -1,9 +1,9 @@
 "use client";
 
-import CourseSelect from "./CourseSelect";
-import useApplyStore from "@/shared/zustand/applyStore";
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
+import CourseSelect from "./CourseSelect";
+import useApplyStore from "@/shared/zustand/applyStore";
 import Button from "../layout/Buttons";
 import YellowBarMg from "../layout/YellowBarMg";
 import YellowBar from "../layout/YellowBar";

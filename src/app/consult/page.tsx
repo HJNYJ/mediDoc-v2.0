@@ -2,15 +2,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ConsultTabs from "@/components/consult/ConsultTabs";
 import { useEffect, useState } from "react";
-import Hashtag from "@/utils/hashtag";
 import Image from "next/image";
+import Hashtag from "@/utils/hashtag";
 import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
+import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import { ConsultType } from "@/types";
+
+import type { ConsultType } from "@/types";
 // import { ConsultType } from "@/types";
 
 export type PostType = {

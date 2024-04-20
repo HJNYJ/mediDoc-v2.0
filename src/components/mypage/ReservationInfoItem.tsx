@@ -3,17 +3,18 @@
 
 import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
-import type { ReservationInfo } from "@/types";
-import useMyPageStore from "@/shared/zustand/myPageStore";
-import detailIcon from "@/assets/icons/nextIcon.png";
 import Image from "next/image";
-import reservationId from "@/assets/icons/modal/reservation_id.png";
-import reservationHospital from "@/assets/icons/modal/hospital.png";
+import PageCancel from "../layout/PageCancel";
+import course from "@/assets/icons/modal/course.png";
+import detailIcon from "@/assets/icons/nextIcon.png";
+import useMyPageStore from "@/shared/zustand/myPageStore";
 import reservationDate from "@/assets/icons/modal/date.png";
 import subjectName from "@/assets/icons/modal/subject_name.png";
 import reservationStatus from "@/assets/icons/modal/status.png";
-import course from "@/assets/icons/modal/course.png";
-import PageCancel from "../layout/PageCancel";
+import reservationId from "@/assets/icons/modal/reservation_id.png";
+import reservationHospital from "@/assets/icons/modal/hospital.png";
+
+import type { ReservationInfo } from "@/types";
 
 const ReservationInfoItem = () => {
   const [reservationInfo, setReservationInfo] = useState<ReservationInfo[]>([]);
@@ -206,7 +207,7 @@ const ReservationInfoItem = () => {
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="total_margin h-[393px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
+              <div className="total_margin h-[340px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
                   className="cursor-pointer ml-auto"
                   onClick={handleModalClose}
