@@ -26,11 +26,7 @@ const HospitalItem = ({ hospital }) => {
   return (
     <section
       className="flex gap-4 cursor-pointer w-[390px] h-[108px]"
-      onClick={() =>
-        router.push(
-          `https://medi-doc-three.vercel.app/map/${hospital.hospital_id}`
-        )
-      }
+      onClick={() => router.push(`/map/${hospital.hospital_id}`)}
     >
       {/* 왼쪽 - 병원 이미지 */}
       <figure className="flex flex-col w-[96px] h-[98px] justify-center">

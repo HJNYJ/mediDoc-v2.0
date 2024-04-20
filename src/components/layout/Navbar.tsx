@@ -47,7 +47,7 @@ export const Navbar = () => {
     try {
       await supabase.auth.signOut();
       changeLoggedIn(false);
-      router.push("https://medi-doc-three.vercel.app/home");
+      router.push("/home");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -55,42 +55,47 @@ export const Navbar = () => {
 
   const handleMyPageClick = () => {
     if (!isLoggedIn) {
-      router.push("https://medi-doc-three.vercel.app/login");
+      router.push("/login");
     } else {
-      router.push(`https://medi-doc-three.vercel.app/mypage/${userId}`);
+      router.push(`/mypage/${userId}`);
     }
   };
 
   if (
-    pathname === "https://medi-doc-three.vercel.app/" ||
-    pathname === "https://medi-doc-three.vercel.app/login" ||
-    pathname === "https://medi-doc-three.vercel.app/map"
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname === "/map" ||
+    pathname === `/mypage/${userId}`
   ) {
     return null;
   }
   return (
-    <nav className="navbar fixed bottom-0 flex justify-between items-center total_margin h-[68px] bg-white">
-      <Link href={"/consult"}>
-        <Image src={ConsultIcon} alt="Consult Icon" />
-      </Link>
-      <Link href={"/selftest"}>
-        <Image src={TestIcon} alt="Test Icon" />
-      </Link>
-      <Link href={"/home"}>
-        <Image src={HomeIcon} alt="Home Icon" />
-      </Link>
-      <a onClick={handleMyPageClick} className="cursor-pointer">
-        <Image src={MypageIcon} alt="Mypage Icon" />
-      </a>
-      {isLoggedIn ? (
-        <button onClick={() => logoutHandler()}>
-          <Image src={LogoutIcon} alt="Logout Icon" />
-        </button>
-      ) : (
-        <Link href={"/login"}>
-          <Image src={LoginIcon} alt="Login Icon" />
-        </Link>
-      )}
-    </nav>
+    <div className="pt-20">
+      <nav className="navbar fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
+        <div className="flex justify-between items-center max-w-screen-lg mx-auto px-4 py-2">
+          <Link href={"/consult"}>
+            <Image src={ConsultIcon} alt="Consult Icon" />
+          </Link>
+          <Link href={"/selftest"}>
+            <Image src={TestIcon} alt="Test Icon" />
+          </Link>
+          <Link href={"/home"}>
+            <Image src={HomeIcon} alt="Home Icon" />
+          </Link>
+          <div onClick={handleMyPageClick} className="cursor-pointer">
+            <Image src={MypageIcon} alt="Mypage Icon" />
+          </div>
+          {isLoggedIn ? (
+            <button onClick={() => logoutHandler()}>
+              <Image src={LogoutIcon} alt="Logout Icon" />
+            </button>
+          ) : (
+            <Link href={"/login"}>
+              <Image src={LoginIcon} alt="Login Icon" />
+            </Link>
+          )}
+        </div>
+      </nav>
+    </div>
   );
 };

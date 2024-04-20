@@ -91,7 +91,7 @@ const ApplyPageOne = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
-    router.push(`https://medi-doc-three.vercel.app/home`);
+    router.push("/home");
   };
 
   return (
