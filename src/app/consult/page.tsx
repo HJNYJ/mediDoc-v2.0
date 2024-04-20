@@ -46,22 +46,9 @@ const ConsultPage = () => {
   if (isLoading) return <p>Loading consults..!!</p>;
   // if (error) return <p>error : {error}</p>;
 
-  const handleCategoryChange = () => {
-    // bodyparts 탭으로 변경
-    // setSelectedBodyPart(bodypart);
-  };
+  const handleCategoryChange = () => {};
 
   const goToAskForm = () => {
-<<<<<<< HEAD
-    router.push(`http://localhost:3000/consult/ask`);
-  };
-
-  const goToDetailPage = (consultId: string) => {
-    router.push(`http://localhost:3000/consult/${consultId}`);
-  };
-  const onClickHomeHandler = () => {
-    router.push(`http://localhost:3000/home`);
-=======
     router.push("/consult/ask");
   };
 
@@ -70,7 +57,6 @@ const ConsultPage = () => {
   };
   const onClickHomeHandler = () => {
     router.push("/home");
->>>>>>> d0eccb77cb157cce006537e3a07f981c466add78
   };
 
   return (
