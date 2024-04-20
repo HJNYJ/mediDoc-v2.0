@@ -1,7 +1,7 @@
 // 유의사항 div
+import React from "react";
 import Image from "next/image";
 import notice_btn from "@/assets/icons/notice_btn.png";
-import React from "react";
 
 const Notice = () => {
   return (

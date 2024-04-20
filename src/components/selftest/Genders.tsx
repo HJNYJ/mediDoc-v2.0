@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import Male_checked from "@/assets/icons/selftest/Male_checked.png";
-import Male_not_checked from "@/assets/icons/selftest/Male_not_checked.png";
-import Female_checked from "@/assets/icons/selftest/Female_checked.png";
-import Female_not_checked from "@/assets/icons/selftest/Female_not_checked.png";
-import useSelftestStore from "@/shared/zustand/selftestStore";
-import YellowBarMg from "../layout/YellowBarMg";
-import GrayBarMg from "../layout/GrayBarMg";
 import GrayBar from "../layout/GrayBar";
+import GrayBarMg from "../layout/GrayBarMg";
+import YellowBarMg from "../layout/YellowBarMg";
+import useSelftestStore from "@/shared/zustand/selftestStore";
+import Male_checked from "@/assets/icons/selftest/Male_checked.png";
+import Female_checked from "@/assets/icons/selftest/Female_checked.png";
+import Male_not_checked from "@/assets/icons/selftest/Male_not_checked.png";
+import Female_not_checked from "@/assets/icons/selftest/Female_not_checked.png";
 
 interface GendersProps {
   onSelect: () => void;
@@ -33,7 +33,7 @@ const Genders: React.FC<GendersProps> = ({ onSelect }) => {
           성별에 따라 진료 결과가 달라질 수 있어요.
         </p>
       </section>
-      <section className="flex justify-between mb-[362px] h-[185px]">
+      <section className="flex justify-between mb-20">
         <button
           onClick={() => handleGenderSelect("female")}
           onSelect={onSelect}

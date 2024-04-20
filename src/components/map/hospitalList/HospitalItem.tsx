@@ -2,11 +2,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import star from "@/assets/icons/star.png";
 import { useRouter } from "next/navigation";
 import { getTime, removeTimeSecond } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
-import Image from "next/image";
-import star from "@/assets/icons/star.png";
 
 const HospitalItem = ({ hospital }) => {
   const router = useRouter();
