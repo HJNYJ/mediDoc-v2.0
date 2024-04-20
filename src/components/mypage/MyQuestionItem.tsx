@@ -1,7 +1,7 @@
 // 내가 한 질문 내역 div
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import { getMyConsultData } from "@/hooks/getMyConsultData";
 import Link from "next/link";
@@ -42,9 +42,7 @@ const MyQuestionItem = () => {
     fetchMyConsults();
   }, []);
 
-  const checkConsultAnswer = async (
-    consultId: string
-  ): Promise<JSX.Element | string> => {
+  const checkConsultAnswer = async (consultId: string) => {
     try {
       const { data: checkConsultAnswer, error } = await supabase
         .from("consult_info")

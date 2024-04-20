@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const HospitalImage = ({ hospitalId }: { hospitalId: string }) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["reservation2", hospitalId], //쿼리키가 reservation으로 같았음.
+    queryKey: ["reservation2", hospitalId],
     queryFn: () => hospitalImage(hospitalId)
   });
 
