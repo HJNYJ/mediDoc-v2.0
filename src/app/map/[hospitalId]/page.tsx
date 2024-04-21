@@ -53,7 +53,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   if (isError) return <p>Error!</p>;
 
   return (
-    <main className="">
+    <main>
       <TopNavbar />
       <HospitalInfoHeader params={params} />
       <nav className=" flex justify-center py-2 mt-[26px] border-t-4">

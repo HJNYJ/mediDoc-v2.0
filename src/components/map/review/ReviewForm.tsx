@@ -7,13 +7,14 @@ import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "@/components/layout/Buttons";
 import Image from "next/image";
-import TopNavbar from "@/components/layout/TopNavbar";
+import PagebackBtn from "@/components/layout/PageBackBtn";
+import { useRouter } from "next/navigation";
 interface ReviewFormProps {
   hospitalId: string;
 }
 
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
-  // const router = useRouter();
+  const router = useRouter();
   const [content, setContent] = useState("");
   const [rating, setRating] = useState<number | null>(0);
   const [img, setImg] = useState<File[]>([]);
@@ -159,9 +160,28 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     }
   };
 
+  const goBack = () => {
+    const confirmed = window.confirm(
+      "작성하던 내용이 저장되지 않습니다. 나가시겠습니까?"
+    );
+    if (confirmed) {
+      router.back();
+    } else {
+      // 현재 리뷰폼에 머물기
+      return null;
+    }
+  };
+
   return (
     <>
-      <TopNavbar />
+      <button
+        onClick={() => {
+          goBack();
+        }}
+        className="w-10 h-10 mt-5"
+      >
+        <PagebackBtn />
+      </button>
       <div className="flex flex-col justify-center items-center">
         {/* <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" /> */}
 
