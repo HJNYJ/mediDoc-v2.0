@@ -25,7 +25,7 @@ const HospitalItem = ({ hospital }) => {
 
   return (
     <section
-      className="flex gap-4 cursor-pointer w-[390px] h-[108px]"
+      className="flex gap-4 cursor-pointer"
       onClick={() => router.push(`/map/${hospital.hospital_id}`)}
     >
       <figure className="flex flex-col w-[96px] h-[98px] justify-center">

@@ -8,7 +8,7 @@ const ReviewPage = () => {
   const params = useParams();
   const hospitalId = params.hospitalId.toString();
   return (
-    <div className="w-[390px] h-[1176px] flex flex-col">
+    <div className="flex flex-col">
       <ReviewForm hospitalId={hospitalId} />
     </div>
   );

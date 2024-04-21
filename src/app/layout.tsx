@@ -1,5 +1,4 @@
 import "./globals.css";
-
 import { Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import Providers from "./providers";

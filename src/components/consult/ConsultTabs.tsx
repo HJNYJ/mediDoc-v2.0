@@ -6,7 +6,7 @@ import type { ConsultType, TabsProps } from "@/types";
 
 const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
   // 탭 상태 관리
-  const [currentTab, setCurrentTab] = useState("eyes");
+  const [currentTab, setCurrentTab] = useState("nose");
 
   useEffect(() => {
     fetchPosts();
@@ -40,39 +40,43 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
   };
 
   return (
-    <div className="flex mb-4">
-      <div className="flex">
-        <RoundTabs
-          label="눈 통증"
-          onClick={() => onChangeTabHandler("eyes")}
-          active={currentTab === "eyes"}
-          width={120.3}
-        />
-        <RoundTabs
-          label="귀 통증"
-          onClick={() => onChangeTabHandler("ears")}
-          active={currentTab === "ears"}
-          width={119.3}
-        />
-        <RoundTabs
-          label="코 통증"
-          onClick={() => onChangeTabHandler("nose")}
-          active={currentTab === "nose"}
-          width={119.3}
-        />
-        <RoundTabs
-          label="목 통증"
-          onClick={() => onChangeTabHandler("abdomen")}
-          active={currentTab === "abdomen"}
-          width={119.3}
-        />
-        <RoundTabs
-          label="허리 통증"
-          onClick={() => onChangeTabHandler("waist")}
-          active={currentTab === "waist"}
-          width={119.3}
-        />
-      </div>
+    <div className="flex flex-wrap justify-center mb-4 w-[390px]">
+      <RoundTabs
+        label="코 통증"
+        onClick={() => onChangeTabHandler("nose")}
+        active={currentTab === "nose"}
+        width={119.3}
+      />
+      <RoundTabs
+        label="목 통증"
+        onClick={() => onChangeTabHandler("neck")}
+        active={currentTab === "neck"}
+        width={119.3}
+      />
+      <RoundTabs
+        label="귀 통증"
+        onClick={() => onChangeTabHandler("ears")}
+        active={currentTab === "ears"}
+        width={119.3}
+      />
+      <RoundTabs
+        label="등/허리 통증"
+        onClick={() => onChangeTabHandler("waist")}
+        active={currentTab === "waist"}
+        width={120.3}
+      />
+      <RoundTabs
+        label="배 통증"
+        onClick={() => onChangeTabHandler("abdomen")}
+        active={currentTab === "abdomen"}
+        width={120.3}
+      />
+      <RoundTabs
+        label="가슴 통증"
+        onClick={() => onChangeTabHandler("chest")}
+        active={currentTab === "chest"}
+        width={120.3}
+      />
     </div>
   );
 };
