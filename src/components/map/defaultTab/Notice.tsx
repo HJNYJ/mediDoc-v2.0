@@ -1,13 +1,12 @@
 // 유의사항 div
 import React from "react";
-import Image from "next/image";
-import notice_btn from "@/assets/icons/notice_btn.png";
+import { IcIconBtn } from "@/components/layout/CheckIcons";
 
 const Notice = () => {
   return (
     <section className="border-t border-b border-gray-100 my-5 py-2">
       <div className="flex mb-3">
-        <Image src={notice_btn} alt="주의사항" />
+        <IcIconBtn />
         <h2 className="ml-1 bold-18">유의사항</h2>
       </div>
       <p className="regular-14 text-gray-800 ml-1">

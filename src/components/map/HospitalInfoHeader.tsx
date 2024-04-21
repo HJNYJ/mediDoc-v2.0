@@ -113,7 +113,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
 
   return (
     <main>
-      <section className="w-full">
+      <section>
         <Map
           name={hospitalData!.hospital_name}
           latitude={hospitalData!.hospital_latitude}
@@ -122,12 +122,10 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
       </section>
       <section className="mx-[16px] mt-[24px]">
         <section className="my-3">
-          <div className="flex h-[64px] justify-between border-b-2">
+          <div className="flex justify-between border-b-2">
             <div>
-              <p className="w-[200px] h-[24px] semibold-20">
-                {hospitalData!.hospital_name}
-              </p>
-              <p className="h-[16px] regular-13 text-gray-800 mt-[2px]">
+              <p className=" semibold-20">{hospitalData!.hospital_name}</p>
+              <p className="regular-13 text-gray-800 my-[6px]">
                 {hospitalData!.hospital_address}
               </p>
             </div>
@@ -162,21 +160,9 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
               </p>
             </AccordionItem>
           </Accordion>
-          <div>
-            <Accordion>
-              {/* <AccordionItem
-                key="all"
-                aria-label="2"
-                title="📞 전화번호"
-                className="text-center my-3"
-              > */}
-              <AccordionItem
-                title={hospitalData!.hospital_contact}
-                className="text-center my-3"
-              />
-              {/* </AccordionItem> */}
-            </Accordion>
-          </div>
+
+          <div className="text-center my-3">{`📞 ${hospitalData!.hospital_contact}`}</div>
+
           <Accordion>
             <AccordionItem
               key="all"

@@ -56,7 +56,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     <main>
       <TopNavbar />
       <HospitalInfoHeader params={params} />
-      <nav className=" flex justify-center py-2 mt-[26px] border-t-4">
+      <nav className="flex justify-center py-2 mt-[26px] border-t-4">
         <Tab
           label="기본정보"
           active={selectedTab === "default"}
