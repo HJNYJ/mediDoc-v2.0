@@ -120,14 +120,14 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
           longitude={hospitalData!.hospital_longitude}
         />
       </section>
-      <section className="w-[358px] mx-[16px] mt-[24px]">
+      <section className="mx-[16px] mt-[24px]">
         <section className="my-3">
-          <div className="flex w-[350px] h-[64px] border-b-2">
+          <div className="flex h-[64px] justify-between border-b-2">
             <div>
               <p className="w-[200px] h-[24px] semibold-20">
                 {hospitalData!.hospital_name}
               </p>
-              <p className="w-[358px] h-[16px] regular-13 text-gray-800 mt-[2px]">
+              <p className="h-[16px] regular-13 text-gray-800 mt-[2px]">
                 {hospitalData!.hospital_address}
               </p>
             </div>
