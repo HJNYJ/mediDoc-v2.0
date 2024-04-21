@@ -109,7 +109,7 @@ const ConsultPage = () => {
                   <p className="semibold-18 text-gray-800">
                     {consult?.consult_title}
                   </p>
-                  <p className="text-gray-700 regular-14 mb-2">
+                  <p className="text-gray-700 regular-14 mb-2 overflow-hidden whitespace-nowrap text-ellipsis">
                     {consult?.consult_content}
                   </p>
                   <div className="mb-4 flex">
