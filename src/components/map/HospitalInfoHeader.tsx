@@ -164,14 +164,17 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
           </Accordion>
           <div>
             <Accordion>
-              <AccordionItem
+              {/* <AccordionItem
                 key="all"
                 aria-label="2"
                 title="📞 전화번호"
                 className="text-center my-3"
-              >
-                <span>{hospitalData!.hospital_contact}</span>
-              </AccordionItem>
+              > */}
+              <AccordionItem
+                title={hospitalData!.hospital_contact}
+                className="text-center my-3"
+              />
+              {/* </AccordionItem> */}
             </Accordion>
           </div>
           <Accordion>
