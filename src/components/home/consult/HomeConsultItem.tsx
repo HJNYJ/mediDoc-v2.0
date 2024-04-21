@@ -65,6 +65,7 @@ const HomeConsultItem = () => {
             <div className="flex">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
+                ?.slice(0, 1)
                 ?.map((image, index) => (
                   <div key={index} className="mr-3">
                     <Image
@@ -81,7 +82,7 @@ const HomeConsultItem = () => {
                 <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
                   {consult?.consult_title}
                 </div>
-                <div className="medium-14 text-gray-700">
+                <div className="medium-14 text-gray-700 w-[211px] h-[42px] overflow-hidden text-ellipsis">
                   {consult?.consult_content}
                 </div>
               </div>

@@ -86,7 +86,7 @@ const ConsultPage = () => {
               <div className="flex items-center">
                 <div className="flex flex-col justify-between">
                   {consult?.consult_photos && consult?.consult_photos.length ? (
-                    consult?.consult_photos?.map((item) => {
+                    consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
                         <img
                           key={item?.photo_id}

@@ -82,6 +82,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             {consultDetailData?.user_name &&
               `${consultDetailData.user_name.substring(0, 2)}${"*".repeat(Math.max(0, consultDetailData.user_name.length - 2))}`}
           </p>
+          <div className="flex">
+            {consultDetailData?.consult_photos?.map((photo) => (
+              <img
+                key={photo.photo_id}
+                src={photo.photos}
+                alt="상담 이미지"
+                className="w-[90px] h-[90px] object-cover mb-5"
+              />
+            ))}
+          </div>
           <p
             id="user_content_title"
             className="medium-14 text-gray-800 w-[330px] mb-5"
