@@ -4,7 +4,11 @@
 import React from "react";
 import { supabase } from "@/api/supabase";
 import { useRouter } from "next/navigation";
-import { GoogleIcon, KakaoIcon } from "@/components/layout/CheckIcons";
+import {
+  GoogleIcon,
+  KakaoIcon,
+  LogoIcon
+} from "@/components/layout/CheckIcons";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -45,8 +49,11 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <section className="mx-[16px] my-[140%]">
+    <div>
+      <article className="flex justify-center mt-20">
+        <LogoIcon />
+      </article>
+      <section className="mx-[16px] my-[30%]">
         <button onClick={() => signInWithKakao()}>
           <KakaoIcon />
         </button>
@@ -54,7 +61,7 @@ const LoginPage = () => {
           <GoogleIcon />
         </button>
       </section>
-    </>
+    </div>
   );
 };
 
