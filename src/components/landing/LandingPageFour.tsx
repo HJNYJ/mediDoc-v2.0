@@ -11,8 +11,7 @@ const LandingPageFour = () => {
         <p className="text-orange semibold-24 mb-4">건강상태 자가진단</p>
         <p className="regular-14 text-gray-700">
           몸 어딘가가 불편하다면 간단하게
-        </p>
-        <p className="regular-14 text-gray-700">
+          <br />
           건강상태를 자가진단 할 수 있어요
         </p>
       </div>
