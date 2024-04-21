@@ -50,8 +50,8 @@ const ReviewRecent = () => {
         hospital_info (*)`
         )
         .eq("hospital_id", hospitalId)
-        .order("created_at", { ascending: false })
-        .range(0, 3);
+        .order("created_at", { ascending: false });
+
       return response.data;
     },
     enabled: selectedTab === "recent" // selectedTab이 'recent'일 때만 쿼리를 실행

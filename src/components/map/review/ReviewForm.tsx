@@ -249,13 +249,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
             label="등록하기"
           />
         </div>
-        {/* <button type="button" onClick={handleSubmit} className="mt-8">
-          <Image
-            src={review_okBtn}
-            className="w-[358px] h-[50px] mt-10"
-            alt="등록하기"
-          />
-        </button> */}
       </form>
     </div>
   );

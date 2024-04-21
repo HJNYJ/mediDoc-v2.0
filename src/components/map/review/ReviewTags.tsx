@@ -27,7 +27,7 @@ const HashTags = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2 w-[390px] h-[112px]">
+    <div className="flex flex-wrap gap-2">
       {Object.entries(hashtags).map(([key, value]) => (
         <button
           key={key}

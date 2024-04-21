@@ -167,7 +167,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
               <AccordionItem
                 key="all"
                 aria-label="2"
-                title="📞전화번호"
+                title="📞 전화번호"
                 className="text-center my-3"
               >
                 <span>{hospitalData!.hospital_contact}</span>
