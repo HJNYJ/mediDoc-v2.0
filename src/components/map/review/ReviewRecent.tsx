@@ -77,20 +77,41 @@ const ReviewRecent = () => {
       <section>
         {selectedTab === "rateTop" && (
           <div>
-            {reviewRateTopData?.map((review) => (
-              <div key={review.review_id}>
-                <h3>{review.content}</h3>
-                <p>별점: {review.rating}</p>
-                <div className="flex text-center my-2">
-                  {review.hashtags
-                    ?.split(",")
-                    .map((hashtag: string) => (
-                      <Hashtag key={hashtag} hashtag={hashtag} />
-                    ))}
+            {reviewRateTopData?.length === 0 ? (
+              <p className="text-gray-700">
+                아직 리뷰가 없습니다. 첫 리뷰를 작성해보세요!
+              </p>
+            ) : (
+              reviewRateTopData?.map((review) => (
+                <div key={review.review_id}>
+                  <h3>{review.content}</h3>
+                  <p>별점: {review.rating}</p>
+                  <div className="flex text-center my-2">
+                    {review.hashtags
+                      ?.split(",")
+                      .map((hashtag: string) => (
+                        <Hashtag key={hashtag} hashtag={hashtag} />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
+          // <div>
+          //   {reviewRateTopData?.map((review) => (
+          //     <div key={review.review_id}>
+          //       <h3>{review.content}</h3>
+          //       <p>별점: {review.rating}</p>
+          //       <div className="flex text-center my-2">
+          //         {review.hashtags
+          //           ?.split(",")
+          //           .map((hashtag: string) => (
+          //             <Hashtag key={hashtag} hashtag={hashtag} />
+          //           ))}
+          //       </div>
+          //     </div>
+          //   ))}
+          // </div>
         )}
         {selectedTab === "recent" && (
           <div>

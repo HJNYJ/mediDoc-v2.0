@@ -9,6 +9,7 @@ import Button from "@/components/layout/Buttons";
 import Image from "next/image";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import { useRouter } from "next/navigation";
+import { getUserInfo } from "@/utils/getUserInfo";
 interface ReviewFormProps {
   hospitalId: string;
 }
@@ -127,6 +128,10 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     setImg([]);
   };
   const handleSubmit = async () => {
+    const userData = await getUserInfo();
+    const userName = userData?.userName;
+    const userEmail = userData?.userEmail || null;
+
     try {
       const reviewId = uuidv4();
       const data = await supabase.from("review_info").insert([
@@ -135,7 +140,9 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           hashtags: selectedTags.join(","),
           hospital_id: hospitalId,
           rating: rating || 0,
-          review_id: reviewId
+          review_id: reviewId,
+          user_email: userEmail,
+          user_name: userName
         }
       ]);
       if (data.data) {
@@ -155,6 +162,8 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
         }
       }
       alert("리뷰가 등록되었습니다.");
+      // 등록 후 hospitalId 페이지로 이동
+      router.push(`/map/${hospitalId}`);
     } catch (error) {
       console.error("리뷰 데이터 저장 중 오류 발생:", error);
     }

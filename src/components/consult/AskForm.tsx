@@ -29,6 +29,7 @@ const AskForm = () => {
       dataUrl: string | ArrayBuffer | null;
     }[]
   >([]);
+
   const router = useRouter();
 
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
