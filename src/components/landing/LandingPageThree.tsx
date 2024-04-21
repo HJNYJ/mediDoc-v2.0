@@ -8,10 +8,10 @@ const LandingPageThree = () => {
     <div className="mt-20">
       <div className="mb-4">
         <p className="semibold-24">한번의 클릭으로</p>
-        <p className="text-orange semibold-24 mb-3">제휴 병원 예약하기</p>
-        <p className="w-[65%] regular-14 text-gray-700">
-          병원에 일일이 전화 하지 않고 모바일로 가격까지 알아보고 예약할 수
-          있어요
+        <p className="text-orange semibold-24 mb-4">제휴 병원 예약하기</p>
+        <p className="regular-14 text-gray-700">병원에 일일이 전화 하지 않고</p>
+        <p className="regular-14 text-gray-700">
+          모바일로 가격까지 알아보고 예약할 수 있어요
         </p>
       </div>
       <ThreePage />
