@@ -3,16 +3,17 @@ import { v4 as uuidv4 } from "uuid";
 import { supabase, uploadReviewPhotosUrl } from "@/api/supabase";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
-import review_searchbar from "@/assets/icons/review/review_searchbar.png";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
 import Button from "@/components/layout/Buttons";
 import Image from "next/image";
+import TopNavbar from "@/components/layout/TopNavbar";
 interface ReviewFormProps {
   hospitalId: string;
 }
 
 const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
+  // const router = useRouter();
   const [content, setContent] = useState("");
   const [rating, setRating] = useState<number | null>(0);
   const [img, setImg] = useState<File[]>([]);
@@ -157,97 +158,102 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       console.error("리뷰 데이터 저장 중 오류 발생:", error);
     }
   };
+
   return (
-    <div className="flex flex-col justify-center items-center">
-      <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" />
-      <form onSubmit={(e) => e.preventDefault()} className="">
-        <div className="flex align-center justify-center mb-5 mt-5">
-          <ReviewRating
-            rating={rating}
-            setRating={(value: number | null) => setRating(value)}
-          />
-        </div>
-        <div>
-          <p className="text-gray-800 regular-14 mb-2">리뷰</p>
-          <textarea
-            id="review"
-            placeholder="리뷰를 작성해주세요."
-            value={content}
-            maxLength={500}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            className="w-[358px] h-[290px] p-2 border border-gray-300 rounded-md focus:outline-none regular-16 resize-none"
-          />
-          <p className="text-gray-500 text-right regular-13 mb-4">
-            {content.length}/500
-          </p>
-        </div>
-        <div>
-          <p className="regular-14 text-gray-800 mb-2">사진 첨부[선택]</p>
-          {uploadedImages.map((image, idx: number) => (
-            <div key={image.dataUrl}>
-              {/**이미지 렌더링 */}
-              <img
-                src={image.dataUrl}
-                alt={image.name}
-                className="w-[100px] h-[100px] flex"
-              />
-              {/* <img src={image.dataUrl} alt={image.name} /> */}
-              <div id={image.dataUrl} onClick={handleImageOrder}></div>
-              <button onClick={() => deleteImgHandle(idx)}>삭제</button>
-            </div>
-          ))}
-          {uploadedFileUrl.length >= 3 ? (
-            <></>
-          ) : (
-            <label htmlFor="file" className="flex">
-              <input
-                type="file"
-                id="file"
-                name="file"
-                onChange={setImgHandler}
-                // onChange={handleFiles}
-                multiple
-                hidden
-              />
-              <Image
-                src={camera}
-                alt="카메라"
-                className="w-[100px] h-[100px] mr-2"
-              />
-              <Image
-                src={imageBox}
-                alt="사진2"
-                className="w-[100px] h-[100px] mr-2"
-              />
-              <Image
-                src={imageBox}
-                alt="사진3"
-                className="w-[100px] h-[100px] mr-2"
-              />
-            </label>
-          )}
-        </div>
-        <div>
-          {/* 해시태그 칩*/}
-          <p className="regular-16 mt-5 mb-3">해시태그</p>
-          <ReviewTags
-            hashtags={hashtags}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
-        </div>
-        <div className="mt-16">
-          <Button
-            type="submit"
-            buttonType="filled"
-            size="base"
-            onClick={handleSubmit}
-            label="등록하기"
-          />
-        </div>
-      </form>
-    </div>
+    <>
+      <TopNavbar />
+      <div className="flex flex-col justify-center items-center">
+        {/* <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" /> */}
+
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="flex align-center justify-center mb-5 mt-5">
+            <ReviewRating
+              rating={rating}
+              setRating={(value: number | null) => setRating(value)}
+            />
+          </div>
+          <div>
+            <p className="text-gray-800 regular-14 mb-2">리뷰</p>
+            <textarea
+              id="review"
+              placeholder="리뷰를 작성해주세요."
+              value={content}
+              maxLength={500}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              className="w-[358px] h-[290px] p-2 border border-gray-300 rounded-md focus:outline-none regular-16 resize-none"
+            />
+            <p className="text-gray-500 text-right regular-13 mb-4">
+              {content.length}/500
+            </p>
+          </div>
+          <div>
+            <p className="regular-14 text-gray-800 mb-2">사진 첨부[선택]</p>
+            {uploadedImages.map((image, idx: number) => (
+              <div key={image.dataUrl}>
+                {/**이미지 렌더링 */}
+                <img
+                  src={image.dataUrl}
+                  alt={image.name}
+                  className="w-[100px] h-[100px] flex"
+                />
+                {/* <img src={image.dataUrl} alt={image.name} /> */}
+                <div id={image.dataUrl} onClick={handleImageOrder}></div>
+                <button onClick={() => deleteImgHandle(idx)}>삭제</button>
+              </div>
+            ))}
+            {uploadedFileUrl.length >= 3 ? (
+              <></>
+            ) : (
+              <label htmlFor="file" className="flex justify-center">
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={setImgHandler}
+                  // onChange={handleFiles}
+                  multiple
+                  hidden
+                />
+                <Image
+                  src={camera}
+                  alt="카메라"
+                  className="w-[100px] h-[100px] mr-2"
+                />
+                <Image
+                  src={imageBox}
+                  alt="사진2"
+                  className="w-[100px] h-[100px] mr-2"
+                />
+                <Image
+                  src={imageBox}
+                  alt="사진3"
+                  className="w-[100px] h-[100px] mr-2"
+                />
+              </label>
+            )}
+          </div>
+          <div>
+            {/* 해시태그 칩*/}
+            <p className="regular-16 mt-5 mb-3">해시태그</p>
+            <ReviewTags
+              hashtags={hashtags}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          </div>
+          <div className="mt-16">
+            <Button
+              type="submit"
+              buttonType="filled"
+              size="base"
+              onClick={handleSubmit}
+              label="등록하기"
+            />
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 export default ReviewForm;
