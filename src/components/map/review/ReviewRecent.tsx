@@ -81,7 +81,7 @@ const ReviewRecent = () => {
               <div key={review.review_id}>
                 <h3>{review.content}</h3>
                 <p>별점: {review.rating}</p>
-                <div>
+                <div className="flex text-center my-2">
                   {review.hashtags
                     ?.split(",")
                     .map((hashtag: string) => (
@@ -98,7 +98,7 @@ const ReviewRecent = () => {
               <div key={review.review_id}>
                 <h3>{review.content}</h3>
                 <p>별점: {review.rating}</p>
-                <div>
+                <div className="flex text-center my-2">
                   {review.hashtags
                     ?.split(",")
                     .map((hashtag: string) => (

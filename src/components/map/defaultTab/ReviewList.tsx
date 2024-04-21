@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import writeReview from "@/assets/icons/review/pencil.png";
+import ReviewRecent from "../review/ReviewRecent";
 
 const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
           <span className="text-orange">리뷰쓰기</span>
         </button>
       </div>
+      <ReviewRecent />
     </section>
   );
 };
