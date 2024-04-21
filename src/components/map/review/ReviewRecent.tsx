@@ -86,7 +86,12 @@ const ReviewRecent = () => {
             ) : (
               reviewRateTopData?.map((review) => (
                 <div key={review.review_id}>
-                  <p>⭐{review.rating}.0</p>
+                  {review?.user_name ? (
+                    <p>{review.user_name.slice(0, -1) + "*"}</p>
+                  ) : (
+                    <p>익명</p>
+                  )}
+                  <p className="regular-13 gray-800">⭐{review.rating}.0</p>
                   {review.review_photos && (
                     <div>
                       {review.review_photos.map((photo) => (
@@ -99,7 +104,7 @@ const ReviewRecent = () => {
                       ))}
                     </div>
                   )}
-                  <div>{review.content}</div>
+                  <div className="gray-800 regular-14">{review.content}</div>
                   <div className="flex text-center my-2">
                     {review.hashtags
                       ?.split(",")
@@ -117,7 +122,12 @@ const ReviewRecent = () => {
           <div>
             {reviewRecentData?.map((review) => (
               <div key={review.review_id}>
-                <p>⭐{review.rating}.0</p>
+                {review?.user_name ? (
+                  <p>{review.user_name.slice(0, -1) + "*"}</p>
+                ) : (
+                  <p>익명</p>
+                )}
+                <p className="regular-13 gray-800">⭐{review.rating}.0</p>
                 {review.review_photos && (
                   <div>
                     {review.review_photos.map((photo) => (
@@ -130,7 +140,7 @@ const ReviewRecent = () => {
                     ))}
                   </div>
                 )}
-                <div>{review.content}</div>
+                <div className="gray-800 regular-14">{review.content}</div>
                 <div className="flex text-center my-2">
                   {review.hashtags
                     ?.split(",")
