@@ -1,15 +1,45 @@
 // 제휴 병원 간단 정보 div
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import star from "@/assets/icons/star.png";
 import { useRouter } from "next/navigation";
 import { getTime, removeTimeSecond } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/api/supabase";
 
 const HospitalItem = ({ hospital }) => {
   const router = useRouter();
+  const [averageRating, setAverageRating] = useState<number>(0);
+
+  // 병원 리뷰 평균 별점
+  const {
+    data: ratingData,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ["rating", hospital.hospital_id],
+    queryFn: async () => {
+      const response = await supabase
+        .from("review_info")
+        .select("rating")
+        .eq("hospital_id", hospital.hospital_id);
+
+      return response.data;
+    }
+  });
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      if (ratingData && ratingData.length > 0) {
+        const sum = ratingData.reduce((acc, review) => acc + review.rating, 0);
+        const average = sum / ratingData.length;
+        setAverageRating(average);
+      }
+    }
+  }, [ratingData, isLoading, isError]);
 
   // 시간 출력 타입 변경
   const secondRemovedStartTime = removeTimeSecond(hospital.start_time);
@@ -49,7 +79,12 @@ const HospitalItem = ({ hospital }) => {
           {hospital.hospital_address}
         </p>
         {/* 평균 별점 & 후기 개수 */}
-        <Image src={star} alt="star" className="w-[18px] h-[18px]" />
+        <div className="flex">
+          <Image src={star} alt="star" className="w-[18px] h-[18px]" />
+          <span className="regular-14 text-gray-800 ml-[4px]">
+            {averageRating.toFixed(1)}
+          </span>
+        </div>
         {/* <p> 5.0 (40개)</p> */}
       </article>
     </section>
