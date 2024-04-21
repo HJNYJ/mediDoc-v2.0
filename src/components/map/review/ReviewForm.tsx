@@ -160,10 +160,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Image src={review_searchbar} alt="리뷰상단바" className="mt-8" />
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="w-[358px] h-[290px]"
-      >
+      <form onSubmit={(e) => e.preventDefault()} className="">
         <div className="flex align-center justify-center mb-5 mt-5">
           <ReviewRating
             rating={rating}
