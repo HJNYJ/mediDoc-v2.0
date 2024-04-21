@@ -48,7 +48,8 @@ const ReviewRecent = () => {
         .from("review_info")
         .select(
           `*,
-        hospital_info (*)`
+        hospital_info (*),
+        review_photos(*)`
         )
         .eq("hospital_id", hospitalId)
         .order("created_at", { ascending: false });
@@ -130,8 +131,20 @@ const ReviewRecent = () => {
           <div>
             {reviewRecentData?.map((review) => (
               <div key={review.review_id}>
-                <h3>{review.content}</h3>
                 <p>별점: {review.rating}</p>
+                {review.review_photos && (
+                  <div>
+                    {review.review_photos.map((photo) => (
+                      <img
+                        key={photo.photo_id}
+                        src={photo.photos}
+                        alt="리뷰 이미지"
+                        className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
+                      />
+                    ))}
+                  </div>
+                )}
+                <div>{review.content}</div>
                 <div className="flex text-center my-2">
                   {review.hashtags
                     ?.split(",")
