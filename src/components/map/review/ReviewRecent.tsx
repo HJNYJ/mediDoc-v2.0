@@ -28,8 +28,7 @@ const ReviewRecent = () => {
         review_photos(*)`
         )
         .eq("hospital_id", hospitalId)
-        .order("rating", { ascending: false })
-        .range(0, 3);
+        .order("rating", { ascending: false });
 
       return response.data;
     },
