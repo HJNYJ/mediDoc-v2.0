@@ -107,6 +107,7 @@ const ReviewRecent = () => {
                         <Hashtag key={hashtag} hashtag={hashtag} />
                       ))}
                   </div>
+                  <hr className="mb-3" />
                 </div>
               ))
             )}
@@ -137,6 +138,7 @@ const ReviewRecent = () => {
                       <Hashtag key={hashtag} hashtag={hashtag} />
                     ))}
                 </div>
+                <hr className="mb-3" />
               </div>
             ))}
           </div>
