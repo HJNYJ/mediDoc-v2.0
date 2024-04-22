@@ -3,8 +3,8 @@
 
 import React from "react";
 import Image from "next/image";
+import PageCancel from "./PageCancel";
 import previousIcon from "@/assets/icons/previousIcon.png";
-import closeIcon from "@/assets/icons/xmark.png";
 import { useRouter } from "next/navigation";
 
 interface TopNavbarProps {
@@ -38,11 +38,7 @@ const TopNavbar = ({ title, goToPreviousPage }: TopNavbarProps) => {
           onClick={goToPreviousPage}
           className="flex items-center mr-[13px]"
         >
-          <Image
-            src={closeIcon}
-            alt="close button"
-            className="w-[24px] h-[24px]"
-          />
+          <PageCancel />
         </button>
       )}
     </section>
