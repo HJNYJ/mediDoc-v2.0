@@ -103,31 +103,45 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
 
   const scrapIconSrc = isScrapped ? scrappedIcon : scrapIcon;
 
-  const goToApplyPage = () => {
-    if (params?.hospitalId) {
-      router.push(`/apply/${params.hospitalId}`);
+  // const goToApplyPage = () => {
+  //   if (params?.hospitalId) {
+  //     router.push(`/apply/${params.hospitalId}`);
+  //   } else {
+  //     console.error("병원 ID가 유효하지 않습니다.");
+  //   }
+  // };
+  const goToApplyPage = async () => {
+    const session = await supabase.auth.getSession();
+    console.log(session, "<----------session");
+    if (session.data.session === null) {
+      if (params?.hospitalId) {
+        alert("로그인이 필요한 서비스입니다.");
+        router.push("/login");
+      }
     } else {
-      console.error("병원 ID가 유효하지 않습니다.");
+      if (params?.hospitalId) {
+        router.push(`/apply/${params.hospitalId}`);
+      } else {
+        console.error("병원 ID가 유효하지 않습니다.");
+      }
     }
   };
 
   return (
     <main>
-      <section className="w-full">
+      <section className="w-[100%]">
         <Map
           name={hospitalData!.hospital_name}
           latitude={hospitalData!.hospital_latitude}
           longitude={hospitalData!.hospital_longitude}
         />
       </section>
-      <section className="w-[358px] mx-[16px] mt-[24px]">
+      <section className="mx-[16px] mt-[24px]">
         <section className="my-3">
-          <div className="flex w-[350px] h-[64px] border-b-2">
+          <div className="flex justify-between border-b-2">
             <div>
-              <p className="w-[200px] h-[24px] semibold-20">
-                {hospitalData!.hospital_name}
-              </p>
-              <p className="w-[358px] h-[16px] regular-13 text-gray-800 mt-[2px]">
+              <p className=" semibold-20">{hospitalData!.hospital_name}</p>
+              <p className="regular-13 text-gray-800 my-[6px]">
                 {hospitalData!.hospital_address}
               </p>
             </div>
@@ -162,18 +176,9 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
               </p>
             </AccordionItem>
           </Accordion>
-          <div>
-            <Accordion>
-              <AccordionItem
-                key="all"
-                aria-label="2"
-                title="📞전화번호"
-                className="text-center my-3"
-              >
-                <span>{hospitalData!.hospital_contact}</span>
-              </AccordionItem>
-            </Accordion>
-          </div>
+
+          <div className="text-center my-3">{`📞 ${hospitalData!.hospital_contact}`}</div>
+
           <Accordion>
             <AccordionItem
               key="all"

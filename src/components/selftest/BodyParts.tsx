@@ -5,16 +5,17 @@ import YellowBarMg from "../layout/YellowBarMg";
 import GrayBar from "../layout/GrayBar";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 interface BodyPartsProps {
-  department: "이비인후과" | "내과" | "외과" | "치과" | "안과";
+  department: "이비인후과" | "내과";
+  // | "외과" | "치과" | "안과";
 }
 
 const BodyParts: React.FC<BodyPartsProps> = ({ department }) => {
   const bodyParts = {
     이비인후과: ["귀", "코", "목"],
-    내과: ["배", "등/허리", "가슴"],
-    외과: ["팔", "다리", "손", "발"],
-    치과: ["이", "입"],
-    안과: ["눈"]
+    내과: ["배", "등/허리", "가슴"]
+    // 외과: ["팔", "다리", "손", "발"],
+    // 치과: ["이", "입"],
+    // 안과: ["눈"]
   };
   const { setSelectedPart } = useSelftestStore();
   const [selectedBodyPart, setSelectedBodyPart] = useState<string | null>(null);

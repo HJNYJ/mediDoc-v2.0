@@ -130,7 +130,7 @@ export const fetchConsults = async (): Promise<ConsultType[] | null> => {
       consult_photos(*)
       `
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
   if (error) console.error("error", error);
   return data as ConsultType[] | null;
 };
@@ -139,7 +139,17 @@ export const getConsultDetail = async (consultId: string) => {
   try {
     const { data, error } = await supabase
       .from("consult_info")
-      .select("*")
+      .select(
+        `consult_id, 
+      user_name, 
+      consult_title, 
+      consult_content,
+      bodyparts, 
+      hashtags,
+      consult_answer(*),
+      consult_photos(*)
+      `
+      )
       .eq("consult_id", consultId)
       .single();
 

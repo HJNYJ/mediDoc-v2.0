@@ -461,6 +461,8 @@ export type Database = {
           hospital_id: string | null;
           rating: number;
           review_id: string;
+          user_name: string | null;
+          user_email: string | null;
         };
         Insert: {
           content: string;
@@ -469,6 +471,8 @@ export type Database = {
           hospital_id?: string | null;
           rating: number;
           review_id?: string;
+          user_name: string | null;
+          user_email: string | null;
         };
         Update: {
           content?: string;
@@ -477,6 +481,8 @@ export type Database = {
           hospital_id?: string | null;
           rating?: number;
           review_id?: string;
+          user_name: string | null;
+          user_email: string | null;
         };
         Relationships: [
           {
