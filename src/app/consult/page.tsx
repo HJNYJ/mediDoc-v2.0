@@ -12,6 +12,7 @@ import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
 import type { ConsultType } from "@/types";
+import { supabase } from "@/api/supabase";
 // import { ConsultType } from "@/types";
 
 export type PostType = {
@@ -49,8 +50,21 @@ const ConsultPage = () => {
 
   const handleCategoryChange = () => {};
 
-  const goToAskForm = () => {
-    router.push("/consult/ask");
+  const goToAskForm = async () => {
+    try {
+      const session = await supabase.auth.getSession();
+      console.log("consult session ===> ", session);
+
+      if (session.data.session === null) {
+        alert("로그인이 필요한 서비스입니다.");
+        router.push("/login");
+      } else {
+        console.log("consult session ===> ", session.data.session);
+        router.push("/consult/ask");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   const goToDetailPage = (consultId: string) => {

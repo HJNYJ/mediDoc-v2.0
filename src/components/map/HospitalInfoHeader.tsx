@@ -113,7 +113,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   const goToApplyPage = async () => {
     try {
       const session = await supabase.auth.getSession();
-      console.log(session, "<----------session");
+
       if (session.data.session === null) {
         if (params?.hospitalId) {
           alert("로그인이 필요한 서비스입니다.");
