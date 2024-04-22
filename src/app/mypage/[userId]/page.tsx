@@ -115,9 +115,7 @@ const MyPage = () => {
       </section>
       <section>
         {userInfo[0].user_type === "general user" && <MyPageTab />}
-
         {userInfo[0].user_type === "hospital staff" && <AdminMenu />}
-
         {userInfo[0].user_type === "developer" && <AccessDenied />}
       </section>
     </section>

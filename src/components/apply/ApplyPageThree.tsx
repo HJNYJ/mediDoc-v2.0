@@ -111,7 +111,7 @@ const ApplyPageThree = ({
         <YellowBarMg />
         <YellowBar />
       </div>
-      <div className="mb-24">
+      <div className="mb-96">
         <CourseSelect />
       </div>
       <div className="mt-auto mb-4">
