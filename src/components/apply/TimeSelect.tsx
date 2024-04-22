@@ -58,7 +58,7 @@ const TimeSelect = () => {
   };
   return (
     <div>
-      시간선택
+      <div className="bold-16">시간선택</div>
       <div className="my-3">오전</div>
       <div>
         {morning.map((time, idx) => {
