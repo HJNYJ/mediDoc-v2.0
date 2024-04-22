@@ -1,8 +1,8 @@
 "use client";
 
-import FindHospitalRegionBtn from "./search/FindHospitalRegionBtn";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
+import FindHospitalRegionBtn from "./search/FindHospitalRegionBtn";
 
 const FindHospital = () => {
   const { data, isLoading, isError } = useQuery({

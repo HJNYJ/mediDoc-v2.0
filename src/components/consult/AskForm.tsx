@@ -1,3 +1,4 @@
+// 질문&답변 Textarea
 "use client";
 import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
 import React, { MouseEvent, useState } from "react";
