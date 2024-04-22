@@ -11,12 +11,9 @@ const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
 
   return (
     <section className="mt-10">
-      <div className="flex gap-4 justify-between w-[390px]">
+      <div className="flex gap-4 justify-between">
         <h3 className="bold-18">방문자 리뷰</h3>
-        <button
-          onClick={() => goToReviewForm(hospitalId)}
-          className="flex mr-10"
-        >
+        <button onClick={() => goToReviewForm(hospitalId)} className="flex">
           <Image src={writeReview} alt="리뷰쓰기 버튼" />
           <span className="text-orange">리뷰쓰기</span>
         </button>
