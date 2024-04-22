@@ -87,47 +87,6 @@ const MyQuestionItem = () => {
     updateAnswerStatus();
   }, [myConsults]);
 
-  const handleDeleteConsult = async (consultId: string) => {
-    try {
-      // consult_info 테이블에서 해당 consultId에 해당하는 글을 삭제합니다.
-      const { data, error } = await supabase
-        .from("consult_info")
-        .delete()
-        .eq("consult_id", consultId);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      // consult_photos 테이블에서 해당 consultId에 해당하는 사진도 삭제합니다.
-      const { data: photoData, error: photoError } = await supabase
-        .from("consult_photos")
-        .delete()
-        .eq("consult_id", consultId);
-
-      if (photoError) {
-        throw new Error(photoError.message);
-      }
-
-      // consult_answer 테이블에서 해당 consultId에 해당하는 답변도 삭제합니다.
-      const { data: answerData, error: answerError } = await supabase
-        .from("consult_answer")
-        .delete()
-        .eq("consult_id", consultId);
-
-      if (answerError) {
-        throw new Error(answerError.message);
-      }
-
-      // 성공적으로 삭제되면 새로운 상태로 업데이트합니다.
-      setMyConsults((prevConsults) =>
-        prevConsults.filter((consult) => consult.consult_id !== consultId)
-      );
-    } catch (error) {
-      console.error("상담 글을 삭제하는 중에 오류가 발생했습니다:", error);
-    }
-  };
-
   return (
     <>
       <section>
@@ -158,17 +117,11 @@ const MyQuestionItem = () => {
                     {/** 글자 ...표기 */}
                     {consult.consult_title}
                   </p>
-                  <p className=" h-[42px] text-[14px] text-gray-500 bg-purple-200">
+                  <p className=" h-[42px] text-[14px] text-gray-500">
                     {consult.consult_content}
                   </p>
                 </section>
               </section>
-              <button
-                className="h-[27px] text-[13px] text-center place-content-center rounded-[4px] bg-red-500 text-white"
-                onClick={() => handleDeleteConsult(consult.consult_id)}
-              >
-                삭제
-              </button>
               <p
                 className={`h-[27px] text-[13px] text-center place-content-center rounded-[4px]
                   ${

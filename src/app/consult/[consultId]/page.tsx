@@ -169,7 +169,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           <ConsultNotice />
         </div>
 
-        <button onClick={() => deletePost(params.consultId)}>삭제하기</button>
+        <button onClick={() => deletePost(params)}>삭제하기</button>
       </div>
     </div>
   );
