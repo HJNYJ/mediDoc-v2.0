@@ -46,6 +46,7 @@
 
 .total_margin{
   width: calc(100% - 32px);
+  min-height: 100vh;
 }
 
 .selectDate{
