@@ -135,7 +135,6 @@ const MyQuestionItem = () => {
               >
                 {answerStatus[index]}
               </p>
-              <p>삭제</p>
             </div>
           </Link>
         ))}
