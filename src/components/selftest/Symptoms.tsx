@@ -81,36 +81,42 @@ const Symptoms = () => {
         </p>
       </section>
       <section>
-        {symptoms &&
-          symptoms.map((symptom) => (
-            <div
-              key={symptom.symptom_id}
-              className={`flex items-center justify-between w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative
-              ${selectedSymptoms.includes(symptom.symptom_id) ? "border-orange" : "border-bluegray"}
-              `}
-            >
-              <label
-                htmlFor={`checkbox-${symptom.symptom_id}`}
-                className="flex items-center h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+        <section className="flex flex-col items-center">
+          {symptoms &&
+            symptoms.map((symptom) => (
+              <div
+                key={symptom.symptom_id}
+                className={`flex items-center justify-between w-full h-[55px] border-2 rounded-[8px] mb-[16px] relative cursor-pointer
+      ${selectedSymptoms.includes(symptom.symptom_id) ? "border-orange" : "border-bluegray"}
+      `}
+                onClick={() => selectSymptomHandler(symptom.symptom_id)}
               >
-                {symptom.symptoms}
-              </label>
-              <input
-                type="checkbox"
-                id={`checkbox-${symptom.symptom_id}`}
-                checked={selectedSymptoms.includes(symptom.symptom_id)}
-                onChange={() => selectSymptomHandler(symptom.symptom_id)}
-                className="opacity-0 w-0 h-0"
-              />
-              <div className="relative">
-                {selectedSymptoms.includes(symptom.symptom_id) ? (
-                  <CheckedIcon />
-                ) : (
-                  <NotCheckedIcon />
-                )}
+                <label
+                  htmlFor={`checkbox-${symptom.symptom_id}`}
+                  className="flex items-center h-[21px] ml-[16px] mr-[4px] mt-[17px] mb-[17px] semibold-18 cursor-pointer"
+                >
+                  {symptom.symptoms}
+                </label>
+                {/* <input
+        type="checkbox"
+        id={`checkbox-${symptom.symptom_id}`}
+        checked={selectedSymptoms.includes(symptom.symptom_id)}
+        onChange={() => selectSymptomHandler(symptom.symptom_id)}
+        className="opacity-0 w-0 h-0"
+      /> */}
+                <div
+                  className="relative"
+                  onClick={() => selectSymptomHandler(symptom.symptom_id)}
+                >
+                  {selectedSymptoms.includes(symptom.symptom_id) ? (
+                    <CheckedIcon />
+                  ) : (
+                    <NotCheckedIcon />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </section>
       </section>
       <section className="">
         <Button
