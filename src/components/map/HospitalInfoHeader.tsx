@@ -111,19 +111,56 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
   //   }
   // };
   const goToApplyPage = async () => {
-    const session = await supabase.auth.getSession();
-    console.log(session, "<----------session");
-    if (session.data.session === null) {
-      if (params?.hospitalId) {
-        alert("로그인이 필요한 서비스입니다.");
-        router.push("/login");
-      }
-    } else {
-      if (params?.hospitalId) {
-        router.push(`/apply/${params.hospitalId}`);
+    try {
+      const session = await supabase.auth.getSession();
+      console.log(session, "<----------session");
+      if (session.data.session === null) {
+        if (params?.hospitalId) {
+          alert("로그인이 필요한 서비스입니다.");
+          router.push("/login");
+        }
       } else {
-        console.error("병원 ID가 유효하지 않습니다.");
+        // 세션이 있는 경우
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+        const id = user?.id ?? "";
+        const email = user?.email ?? "";
+        const provider = user?.app_metadata.provider ?? "";
+
+        const { data: existingData, error: selectError } = await supabase
+          .from("user_info")
+          .select("*")
+          .eq("user_id", id);
+
+        if (selectError) {
+          throw new Error(selectError.message);
+        }
+
+        if (!existingData || existingData.length === 0) {
+          const { error: insertError } = await supabase
+            .from("user_info")
+            .insert({
+              provider: provider,
+              user_email: email,
+              user_id: id,
+              user_name: user?.user_metadata.full_name,
+              user_type: "general user"
+            });
+          if (insertError) {
+            throw new Error(insertError.message);
+          }
+        }
+
+        if (params?.hospitalId) {
+          router.push(`/apply/${params.hospitalId}`);
+        } else {
+          console.error("병원 ID가 유효하지 않습니다.");
+        }
       }
+    } catch (error) {
+      console.error("에러 발생:", error);
     }
   };
 
