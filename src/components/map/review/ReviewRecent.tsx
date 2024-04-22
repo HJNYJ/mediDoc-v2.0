@@ -28,8 +28,7 @@ const ReviewRecent = () => {
         review_photos(*)`
         )
         .eq("hospital_id", hospitalId)
-        .order("rating", { ascending: false })
-        .range(0, 3);
+        .order("rating", { ascending: false });
 
       return response.data;
     },
@@ -48,7 +47,8 @@ const ReviewRecent = () => {
         .from("review_info")
         .select(
           `*,
-        hospital_info (*)`
+        hospital_info (*),
+        review_photos(*)`
         )
         .eq("hospital_id", hospitalId)
         .order("created_at", { ascending: false });
@@ -85,7 +85,12 @@ const ReviewRecent = () => {
             ) : (
               reviewRateTopData?.map((review) => (
                 <div key={review.review_id}>
-                  <p>별점: {review.rating}</p>
+                  {review?.user_name ? (
+                    <p>{review.user_name.slice(0, -1) + "*"}</p>
+                  ) : (
+                    <p>익명</p>
+                  )}
+                  <p className="regular-13 gray-800">⭐{review.rating}.0</p>
                   {review.review_photos && (
                     <div>
                       {review.review_photos.map((photo) => (
@@ -98,7 +103,7 @@ const ReviewRecent = () => {
                       ))}
                     </div>
                   )}
-                  <div>{review.content}</div>
+                  <div className="gray-800 regular-14">{review.content}</div>
                   <div className="flex text-center my-2">
                     {review.hashtags
                       ?.split(",")
@@ -106,32 +111,35 @@ const ReviewRecent = () => {
                         <Hashtag key={hashtag} hashtag={hashtag} />
                       ))}
                   </div>
+                  <hr className="mb-3" />
                 </div>
               ))
             )}
           </div>
-          // <div>
-          //   {reviewRateTopData?.map((review) => (
-          //     <div key={review.review_id}>
-          //       <h3>{review.content}</h3>
-          //       <p>별점: {review.rating}</p>
-          //       <div className="flex text-center my-2">
-          //         {review.hashtags
-          //           ?.split(",")
-          //           .map((hashtag: string) => (
-          //             <Hashtag key={hashtag} hashtag={hashtag} />
-          //           ))}
-          //       </div>
-          //     </div>
-          //   ))}
-          // </div>
         )}
         {selectedTab === "recent" && (
           <div>
             {reviewRecentData?.map((review) => (
               <div key={review.review_id}>
-                <h3>{review.content}</h3>
-                <p>별점: {review.rating}</p>
+                {review?.user_name ? (
+                  <p>{review.user_name.slice(0, -1) + "*"}</p>
+                ) : (
+                  <p>익명</p>
+                )}
+                <p className="regular-13 gray-800">⭐{review.rating}.0</p>
+                {review.review_photos && (
+                  <div>
+                    {review.review_photos.map((photo) => (
+                      <img
+                        key={photo.photo_id}
+                        src={photo.photos}
+                        alt="리뷰 이미지"
+                        className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
+                      />
+                    ))}
+                  </div>
+                )}
+                <div className="gray-800 regular-14">{review.content}</div>
                 <div className="flex text-center my-2">
                   {review.hashtags
                     ?.split(",")
@@ -139,6 +147,7 @@ const ReviewRecent = () => {
                       <Hashtag key={hashtag} hashtag={hashtag} />
                     ))}
                 </div>
+                <hr className="mb-3" />
               </div>
             ))}
           </div>

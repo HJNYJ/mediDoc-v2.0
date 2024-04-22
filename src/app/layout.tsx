@@ -10,7 +10,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MediDoc",
-  description: "Best choice for medical checkup"
+  description: "Best medical service in the world!",
+  icons: {
+    icon: "/medidoc_logo.png"
+  }
 };
 
 export default function RootLayout({
@@ -20,6 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="public/medidoc_logo.png"
+          sizes="16x16"
+          type="image/png"
+        />
+      </head>
       <body className={inter.className}>
         <Providers>
           {/* <div className="max-w-mobile mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"> */}

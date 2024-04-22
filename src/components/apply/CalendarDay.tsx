@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import useApplyStore from "@/shared/zustand/applyStore";
-import downtoggle from "@/assets/upanddown/down_toggle.png";
-import uptoggle from "@/assets/upanddown/up_toggle.png";
 import Image from "next/image";
+import Back from "@/assets/upanddown/Back.png";
+import Next from "@/assets/upanddown/Next.png";
+import uptoggle from "@/assets/upanddown/UpToggle.png";
+import useApplyStore from "@/shared/zustand/applyStore";
+import downtoggle from "@/assets/upanddown/DownToggle.png";
 
 import type { CalendarDay } from "@/types";
+
 const Calendar = () => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
@@ -20,9 +23,9 @@ const Calendar = () => {
     setIsDateClicked(true);
     setSelectedDate(date);
   };
+
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
-
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const daysInWeek = ["일", "월", "화", "수", "목", "금", "토"];
   const monthsInYear = [
@@ -103,17 +106,24 @@ const Calendar = () => {
 
   return (
     <div>
-      <div className="text-center">
-        <button className="m-2" onClick={handlePrevMonth}>
-          &lt;
-        </button>
-        <span className="m-2">
-          {currentMonth.getFullYear()}. {monthsInYear[currentMonth.getMonth()]}
-        </span>
-        <button className="m-2" onClick={handleNextMonth}>
-          &gt;
-        </button>
-        {toDay}
+      <div className="text-center mb-4">
+        <div className="flex items-center justify-center">
+          <button className="m-2" onClick={handlePrevMonth}>
+            <div className="w-5">
+              <Image src={Back} alt="Back" />
+            </div>
+          </button>
+          <span className="m-2 bold-20">
+            {currentMonth.getFullYear()}
+            {monthsInYear[currentMonth.getMonth()]}
+          </span>
+          <button className="m-2" onClick={handleNextMonth}>
+            <div className="w-5">
+              <Image src={Next} alt="Next" />
+            </div>
+          </button>
+        </div>
+        <div>{toDay}</div>
       </div>
 
       <div
@@ -133,7 +143,7 @@ const Calendar = () => {
           <tbody className={isOpenToggle ? "h-3" : "h-20"}>
             {matrix.map((row, rowIndex) => {
               return (
-                <tr key={rowIndex}>
+                <tr key={rowIndex} className="bold-14">
                   {row.map((cell, cellIndex) => {
                     const cellDate = new Date(cell.date);
                     const isPastDate = cellDate < currentDate;
