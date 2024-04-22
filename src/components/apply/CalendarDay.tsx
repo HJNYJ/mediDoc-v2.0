@@ -109,7 +109,7 @@ const Calendar = () => {
       <div className="text-center mb-4">
         <div className="flex items-center justify-center">
           <button className="m-2" onClick={handlePrevMonth}>
-            <div className="w-5">
+            <div className="w-5 relative top-[1px]">
               <Image src={Back} alt="Back" />
             </div>
           </button>
@@ -118,7 +118,7 @@ const Calendar = () => {
             {monthsInYear[currentMonth.getMonth()]}
           </span>
           <button className="m-2" onClick={handleNextMonth}>
-            <div className="w-5">
+            <div className="w-5 relative top-[1px]">
               <Image src={Next} alt="Next" />
             </div>
           </button>

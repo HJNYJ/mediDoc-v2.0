@@ -77,7 +77,6 @@ const HomeConsultItem = () => {
                     />
                   </div>
                 ))}
-
               <div>
                 <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
                   {consult?.consult_title}
@@ -87,7 +86,6 @@ const HomeConsultItem = () => {
                 </div>
               </div>
             </div>
-
             <div>
               {consult?.consult_answer &&
               consult?.consult_answer?.length >= 1 ? (

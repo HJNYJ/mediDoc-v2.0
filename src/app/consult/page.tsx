@@ -115,8 +115,7 @@ const ConsultPage = () => {
                     />
                   )}
                 </div>
-
-                <div className="ml-4 w-full overflow-hidden">
+                <div className="ml-4 w-full h-auto overflow-hidden pb-[2px]">
                   <p className="semibold-18 text-gray-800">
                     {consult?.consult_title}
                   </p>
