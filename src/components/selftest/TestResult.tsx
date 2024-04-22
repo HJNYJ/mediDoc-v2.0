@@ -1,21 +1,29 @@
 // 테스트 결과 div
 "use client";
 
-import Image from "next/image";
-import Button from "../layout/Buttons";
-import ear_disease from "@/assets/icons/selftest/ear_disease.jpeg";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import useSelftestStore from "@/shared/zustand/selftestStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
+import Button from "../layout/Buttons";
+import ear_disease from "@/assets/icons/selftest/ear_disease.jpeg";
+import nose_disease from "@/assets/icons/selftest/nose_disease.jpeg";
+import neck_disease from "@/assets/icons/selftest/neck_disease.jpeg";
+import abdomen_disease from "@/assets/icons/selftest/abdomen_disease.jpeg";
+import back_disease from "@/assets/icons/selftest/back_disease.jpeg";
+import chest_disease from "@/assets/icons/selftest/chest_disease.jpeg";
 
 const TestResult = () => {
   const { selectedPart, selectedSymptoms, setPredictedDiseases } =
     useSelftestStore();
   const router = useRouter();
-
+  const [diseaseImage, setDiseaseImage] =
+    useState<StaticImageData>(ear_disease);
   const queryClient = useQueryClient();
+
   const { data: predictedDiseases } = useQuery({
     queryKey: ["predictedDiseases", selectedPart, selectedSymptoms],
     queryFn: async () => {
@@ -79,12 +87,38 @@ const TestResult = () => {
     selectedPart
   ]);
 
+  useEffect(() => {
+    switch (selectedPart) {
+      case "귀":
+        setDiseaseImage(ear_disease);
+        break;
+      case "코":
+        setDiseaseImage(nose_disease);
+        break;
+      case "목":
+        setDiseaseImage(neck_disease);
+        break;
+      case "배":
+        setDiseaseImage(abdomen_disease);
+        break;
+      case "등/허리":
+        setDiseaseImage(back_disease);
+        break;
+      case "가슴":
+        setDiseaseImage(chest_disease);
+        break;
+      default:
+        setDiseaseImage(ear_disease);
+        break;
+    }
+  }, [selectedPart]);
+
   return (
     <section>
       <div>
         <Image
-          src={ear_disease}
-          alt="이미지"
+          src={diseaseImage}
+          alt="아픈 부위 이미지"
           className="w-full h-[390px] overflow-hidden mb-6
           "
         />
