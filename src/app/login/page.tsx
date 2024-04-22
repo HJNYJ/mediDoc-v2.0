@@ -49,15 +49,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <article className="flex justify-center mt-20">
+    <div className="w-full h-[100vh] bg-orange relative">
+      <span className="absolute w-[18px] h-full bg-orange left-[-16px]"></span>
+      <span className="absolute w-[18px] h-full bg-orange right-[-16px]"></span>
+      <article className="flex justify-center">
         <LogoIcon />
       </article>
-      <section className="mx-[16px] my-[30%]">
-        <button onClick={() => signInWithKakao()}>
+      <section className="absolute left-[50%] w-full translate-x-[-50%] bottom-[10%]">
+        <button className="w-full" onClick={() => signInWithKakao()}>
           <KakaoIcon />
         </button>
-        <button onClick={() => signInWithGoogle()}>
+        <button className="w-full" onClick={() => signInWithGoogle()}>
           <GoogleIcon />
         </button>
       </section>
