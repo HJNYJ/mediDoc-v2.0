@@ -17,7 +17,7 @@ const LoginPage = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "kakao",
-        options: { redirectTo: "https://medi-doc-three.vercel.app/home" }
+        options: { redirectTo: "http://localhost:3000/home" }
       });
       if (error) throw error;
       router.push("/home");

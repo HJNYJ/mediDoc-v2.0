@@ -47,10 +47,7 @@ const ConsultPage = () => {
   if (isLoading) return <p>Loading consults..!!</p>;
   // if (error) return <p>error : {error}</p>;
 
-  const handleCategoryChange = () => {
-    // bodyparts 탭으로 변경
-    // setSelectedBodyPart(bodypart);
-  };
+  const handleCategoryChange = () => {};
 
   const goToAskForm = () => {
     router.push("/consult/ask");
