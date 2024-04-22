@@ -63,12 +63,10 @@ const SelftestPage = () => {
       {step === 2 && (
         <BodyParts
           department={
-            selectedDepartment as
-              | "이비인후과"
-              | "내과"
-              | "외과"
-              | "치과"
-              | "안과"
+            selectedDepartment as "이비인후과" | "내과"
+            // | "외과"
+            // | "치과"
+            // | "안과"
           }
         />
       )}
