@@ -82,7 +82,7 @@ const HomeConsultItem = () => {
                 <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
                   {consult?.consult_title}
                 </div>
-                <div className="medium-14 text-gray-700 w-[200px] h-[42px] overflow-hidden text-ellipsis">
+                <div className="medium-14 text-gray-700 w-[180px] h-[42px] overflow-hidden text-ellipsis">
                   {consult?.consult_content}
                 </div>
               </div>
