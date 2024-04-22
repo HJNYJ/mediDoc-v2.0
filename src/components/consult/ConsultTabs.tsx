@@ -40,7 +40,7 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center mb-4 w-[390px]">
+    <div className="flex flex-wrap justify-center mb-4">
       <RoundTabs
         label="코 통증"
         onClick={() => onChangeTabHandler("nose")}

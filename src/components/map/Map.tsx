@@ -45,7 +45,7 @@ const Map = ({
   }, [name, latitude, longitude]);
 
   return (
-    <div id="map" className="w-[390px] h-[281px]">
+    <div id="map" className="h-[281px]">
       Map
     </div>
   );
