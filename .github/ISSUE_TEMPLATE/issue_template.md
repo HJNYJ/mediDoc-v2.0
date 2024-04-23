@@ -1,6 +1,6 @@
 ---
 name: 이슈 템플릿
-about: MEZOZIDA 이슈 템플릿
+about: HJNYJ 이슈 템플릿
 title: "[타입] - 제목"
 labels: ''
 assignees: ''
