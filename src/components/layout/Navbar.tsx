@@ -79,7 +79,7 @@ export const Navbar = () => {
       <nav className="navbar fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
         <div className="flex justify-between items-center max-w-screen-lg mx-auto px-4 py-2">
           <Link href={"/consult"}>
-            {pathname === "/consult" ? (
+            {pathname === "/consult" || pathname === "/consult/ask" ? (
               <OrangeConsultIcon />
             ) : (
               <ConsultBtnIcon />
