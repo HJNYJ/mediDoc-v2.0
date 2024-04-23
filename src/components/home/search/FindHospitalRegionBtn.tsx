@@ -31,6 +31,8 @@ const FindHospitalRegionBtn = ({ regionInfo }) => {
         <Image
           src={region[regionInfo.region_name]}
           alt="서울"
+          width={44}
+          height={44}
           className="w-[44px] h-[44px] inline-block"
         />
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { hospitalName } from "@/api/supabase";
+import { getHospitalName } from "@/hooks/getReservationData";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import useApplyStore from "@/shared/zustand/applyStore";
@@ -8,8 +8,8 @@ import useApplyStore from "@/shared/zustand/applyStore";
 const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   const { setHospitalName } = useApplyStore();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["reservation", hospitalId],
-    queryFn: () => hospitalName(hospitalId)
+    queryKey: ["hospitalName", hospitalId],
+    queryFn: () => getHospitalName(hospitalId)
   });
 
   const hospitalData = data?.[0].hospital_name;
