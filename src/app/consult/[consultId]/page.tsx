@@ -8,6 +8,7 @@ import Hashtag from "@/utils/hashtag";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
+import Image from "next/image";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
@@ -82,7 +83,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             {consultDetailData?.user_name &&
               `${consultDetailData.user_name.substring(0, 2)}${"*".repeat(Math.max(0, consultDetailData.user_name.length - 2))}`}
           </p>
-          <div className="flex">
+          {/* <div className="flex">
             {consultDetailData?.consult_photos?.map((photo) => (
               <img
                 key={photo.photo_id}
@@ -90,6 +91,19 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
                 alt="상담 이미지"
                 className="w-[90px] h-[90px] object-cover mb-5"
               />
+            ))}
+          </div> */}
+          <div className="flex">
+            {consultDetailData?.consult_photos?.map((photo) => (
+              <div key={photo.photo_id} className="w-[90px] h-[90px] mb-5">
+                <Image
+                  src={photo.photos}
+                  alt="상담 이미지"
+                  width={90}
+                  height={90}
+                  objectFit="cover"
+                />
+              </div>
             ))}
           </div>
           <p
