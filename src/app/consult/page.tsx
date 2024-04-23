@@ -3,9 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
-import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
@@ -170,11 +168,12 @@ const ConsultPage = () => {
           );
         })}
       </div>
-
-      {/* 밑 줄 이거를 어떻게 반복 시킬까... */}
       <div className="relative">
-        <button onClick={goToAskForm} className="fixed bottom-16 right-3 ">
-          <Image src={addIcon} alt="작성하기" className="w-[80px] h-[80px]" />
+       <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
+          <div className="w-16 h-16 relative bg-orange rounded-full">
+            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-10 rounded-full"></span>
+            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-[90deg] rounded-full"></span>
+          </div>
         </button>
       </div>
     </div>
