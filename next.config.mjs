@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       "zxmfaufazajrwupitcjr.supabase.co",
-      "icxxtjvkfjgebycacdab.supabase.co"
+      "icxxtjvkfjgebycacdab.supabase.co",
+      "ifh.cc"
     ]
   }
   // webpack: (config) => {
