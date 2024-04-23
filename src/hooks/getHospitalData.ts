@@ -73,3 +73,89 @@ export const fetchHospitalData = async (hospital_id: string): Promise<any> => {
     console.error("에러 발생 => ", error);
   }
 };
+
+export const getHospitalInfo = async (hospitalId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("hospital_info")
+      .select("*")
+      .eq("hospital_id", hospitalId)
+      .single();
+
+    if (error) {
+      console.error("error", error);
+    }
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return null;
+  }
+};
+
+export const getHospitalImages = async (hospitalId: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("hospital_info")
+      .select("hospital_image")
+      .eq("hospital_id", hospitalId);
+
+    if (error) {
+      console.error("error", error);
+    }
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return null;
+  }
+};
+
+export const courseNameSelect = async () => {
+  const response = await supabase
+    .from("course_info")
+    .select("*")
+    .order("course_price", { ascending: true });
+  const { data } = response;
+  return data;
+};
+
+export const getHospitalId = async () => {
+  try {
+    const { data } = await supabase.from("hospital_info").select("hospital_id");
+    return data;
+  } catch (error) {
+    console.error("hospital_id를 가져오는 중 오류 발생:", error);
+    return null;
+  }
+};
+
+export const hospitalName = async (hospitalId: string) => {
+  const response = await supabase
+    .from("hospital_info")
+    .select("hospital_name")
+    .eq("hospital_id", hospitalId);
+
+  const { data } = response;
+  return data;
+};
+
+export const hospitalReservation = async () => {
+  const response = await supabase.from("reservation_info").select("*");
+  const { data } = response;
+  return data;
+};
+
+export const hospitalRegion = async () => {
+  const response = await supabase.from("hospital_region").select("*");
+  const { data } = response;
+  return data;
+};
+
+export const hospitalImage = async (hospitalId: string) => {
+  const response = await supabase
+    .from("hospital_info")
+    .select("hospital_image")
+    .eq("hospital_id", hospitalId);
+
+  const { data } = response;
+  return data;
+};

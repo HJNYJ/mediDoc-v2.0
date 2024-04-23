@@ -1,6 +1,6 @@
 "use client";
 
-import { hospitalImage } from "@/api/supabase";
+import { hospitalImage } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 
 const HospitalImage = ({ hospitalId }: { hospitalId: string }) => {

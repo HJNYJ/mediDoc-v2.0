@@ -1,6 +1,6 @@
 "use client";
 
-import { courseNameSelect } from "@/api/supabase";
+import { courseNameSelect } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {

@@ -1,6 +1,6 @@
 // "사진" 탭을 눌렀을 때 나오는 div
 "use client";
-import { fetchReviewImages } from "@/api/supabase";
+import { fetchReviewImages } from "@/hooks/getReviewData";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 

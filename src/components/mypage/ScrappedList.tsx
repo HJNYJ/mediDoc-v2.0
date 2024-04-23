@@ -2,6 +2,7 @@ import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 
 import type { ScrappedListItem } from "@/types";
+import Image from "next/image";
 
 const ScrappedList: React.FC = () => {
   const [scrappedList, setScrappedList] = useState<ScrappedListItem[]>([]);
@@ -63,7 +64,7 @@ const ScrappedList: React.FC = () => {
       <section className="w-full flex gap-2 flex-wrap">
         {scrappedList.map((item) => (
           <div key={item.scrap_id} className="flex flex-col oneThird mb-4">
-            <img
+            <Image
               className="object-cover h-[131px] rounded-[10px] "
               src={item.hospital_info!.hospital_image}
               alt={item.hospital_info!.hospital_name}

@@ -2,9 +2,9 @@
 
 import {
   fetchHospitalReviewImages,
-  getHospitalInfo,
   getReviewDetail
-} from "@/api/supabase";
+} from "@/hooks/getReviewData";
+import { getHospitalInfo } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Button from "@/components/layout/Buttons";

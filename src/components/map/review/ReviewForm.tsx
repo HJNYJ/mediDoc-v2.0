@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { supabase, uploadReviewPhotosUrl } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
+import { uploadReviewPhotosUrl } from "@/hooks/getReviewData";
 import ReviewRating from "@/components/map/review/ReviewRating";
 import ReviewTags from "@/components/map/review/ReviewTags";
 import camera from "@/assets/icons/consult/camera.png";
@@ -9,7 +10,7 @@ import Button from "@/components/layout/Buttons";
 import Image from "next/image";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import { useRouter } from "next/navigation";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { getUserInfo } from "@/hooks/getUserInfo";
 interface ReviewFormProps {
   hospitalId: string;
 }

@@ -1,9 +1,10 @@
 // 질문&답변 Textarea
 "use client";
-import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
+import { consultAddForm, uploadPhotosUrl } from "@/hooks/getConsultData";
 import React, { MouseEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { getUserInfo } from "@/hooks/getUserInfo";
 import { useRouter } from "next/navigation";
 import HashTags from "./HashTags";
 import Image from "next/image";

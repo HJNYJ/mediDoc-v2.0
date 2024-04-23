@@ -6,10 +6,10 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import Hashtag from "@/utils/hashtag";
 import RoundTabs from "@/components/layout/RoundTabs";
+import Image from "next/image";
 
 const ReviewRecent = () => {
   const { hospitalId } = useParams();
-
   const [selectedTab, setSelectedTab] = useState("rateTop");
   // 별점 높은 순 데이터 가져오기
 
@@ -94,7 +94,7 @@ const ReviewRecent = () => {
                   {review.review_photos && (
                     <div>
                       {review.review_photos.map((photo) => (
-                        <img
+                        <Image
                           key={photo.photo_id}
                           src={photo.photos}
                           alt="리뷰 이미지"

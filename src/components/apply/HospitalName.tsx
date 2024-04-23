@@ -1,6 +1,6 @@
 "use client";
 
-import { hospitalName } from "@/api/supabase";
+import { hospitalName } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import useApplyStore from "@/shared/zustand/applyStore";
