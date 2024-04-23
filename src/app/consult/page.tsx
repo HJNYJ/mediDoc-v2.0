@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { ConsultType } from "@/types";
 import { supabase } from "@/api/supabase";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
@@ -13,7 +12,7 @@ import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import BoardSkeleton from "@/components/skeleton/ContainerSkeleton";
 
-// import { ConsultType } from "@/types";
+import type { ConsultType } from "@/types";
 
 export type PostType = {
   bodyparts: string | null;
