@@ -29,6 +29,7 @@ const ApplyPageThree = ({
     setPhoneNumber,
     isCourseClicked,
     setSelectedTime,
+    setSelectedDate,
     setIsTimeClicked,
     setIsDateClicked,
     setReservationInfo,
@@ -53,6 +54,7 @@ const ApplyPageThree = ({
     setIdNumber("");
     setPhoneNumber("");
     setSelectedTime("");
+    setSelectedDate(new Date());
     return setPageCount("one");
   };
 
@@ -111,7 +113,7 @@ const ApplyPageThree = ({
         <YellowBarMg />
         <YellowBar />
       </div>
-      <div className="mb-96">
+      <div className="mb-44">
         <CourseSelect />
       </div>
       <div className="mt-auto mb-4">

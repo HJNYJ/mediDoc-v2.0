@@ -2,9 +2,9 @@
 
 import {
   fetchHospitalReviewImages,
-  getHospitalInfo,
   getReviewDetail
-} from "@/api/supabase";
+} from "@/hooks/getReviewData";
+import { getHospitalInfo } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Button from "@/components/layout/Buttons";
@@ -16,6 +16,7 @@ import ProgramInfo from "@/components/map/defaultTab/ProgramInfo";
 import ReviewImageList from "@/components/map/defaultTab/ReviewImageList";
 import ReviewList from "@/components/map/defaultTab/ReviewList";
 import ReviewItem from "@/components/map/review/ReviewItem";
+import Image from "next/image";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const [selectedTab, setSelectedTab] = useState("default");
@@ -80,7 +81,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           {/* <span>--------------</span> */}
           <Notice />
           <h3 className="bold-18 mb-3">방문자 사진</h3>
-          <article className="inline-grid grid-cols-3 gap-2">
+          {/* <article className="inline-grid grid-cols-3 gap-2">
             {reviewPhotos
               ?.slice(0, 6)
               .map((img, index) => (
@@ -91,6 +92,23 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                   className="w-[116.67px] h-[116px] rounded-[10px]"
                 />
               ))}
+          </article> */}
+          <article className="inline-grid grid-cols-3 gap-2">
+            {reviewPhotos?.slice(0, 6).map((img, index) => (
+              <div
+                key={img?.photo_id}
+                className="relative w-[116.67px] h-[116px] rounded-[10px]"
+              >
+                <Image
+                  src={img?.photos}
+                  alt={`사진${index + 1}`}
+                  width={116.67}
+                  height={116}
+                  // layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            ))}
           </article>
           <div className="mt-3 flex flex-col align-items">
             <Button

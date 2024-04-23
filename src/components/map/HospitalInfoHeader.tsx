@@ -1,12 +1,9 @@
 import Map from "./Map";
-import Image from "next/image";
-import scrapIcon from "@/assets/icons/bookmark.png";
-import scrappedIcon from "@/assets/icons/bookmark_checked.png";
 import Button from "../layout/Buttons";
 import useScrapStore from "@/shared/zustand/scrapStore";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { getUserInfo } from "@/hooks/getUserInfo";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 import { fetchHospitalData } from "@/hooks/getHospitalData";
@@ -16,6 +13,7 @@ import {
   addScrappedList,
   removeScrappedList
 } from "@/utils/changeScrappedList";
+import { ScrapIcon, ScrappedIcon } from "../layout/CheckIcons";
 
 export interface HospitalInfoHeaderProps {
   params: { hospitalId: string };
@@ -101,8 +99,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
     }
   };
 
-  const scrapIconSrc = isScrapped ? scrappedIcon : scrapIcon;
-
   // const goToApplyPage = () => {
   //   if (params?.hospitalId) {
   //     router.push(`/apply/${params.hospitalId}`);
@@ -182,12 +178,9 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
                 {hospitalData!.hospital_address}
               </p>
             </div>
-            <Image
-              src={scrapIconSrc}
-              alt="scrap Icon"
-              className="w-[24px] h-[24px]"
-              onClick={handleScrapClick}
-            />
+            <button onClick={handleScrapClick}>
+              {isScrapped ? <ScrappedIcon /> : <ScrapIcon />}
+            </button>
           </div>
           <Accordion>
             <AccordionItem

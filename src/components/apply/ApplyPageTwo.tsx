@@ -64,10 +64,8 @@ const ApplyPageTwo = ({
         <YellowBarMg />
         <GrayBar />
       </div>
-      <p className="">
-        <Calendar />
-        <TimeSelect />
-      </p>
+      <Calendar />
+      <TimeSelect />
       <div className="mt-auto">
         <Button
           type="button"

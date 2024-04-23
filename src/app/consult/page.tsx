@@ -3,17 +3,16 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { supabase } from "@/api/supabase";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
-import addIcon from "@/assets/icons/consult/add.png";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
+import BoardSkeleton from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
-import { supabase } from "@/api/supabase";
-// import { ConsultType } from "@/types";
 
 export type PostType = {
   bodyparts: string | null;
@@ -56,7 +55,7 @@ const ConsultPage = () => {
       console.log("consult session ===> ", session);
 
       if (session.data.session === null) {
-        alert("로그인이 필요한 서비스입니다.");
+        // alert("로그인이 필요한 서비스입니다.");
         router.push("/login");
       } else {
         console.log("consult session ===> ", session.data.session);
@@ -76,7 +75,8 @@ const ConsultPage = () => {
 
   return (
     <div className="w-full">
-      <div className="mt-10 mb-5 flex justify-center it relative">
+      <BoardSkeleton />
+      <div className="mt-10 mb-5 flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
@@ -99,24 +99,37 @@ const ConsultPage = () => {
                   {consult?.consult_photos && consult?.consult_photos.length ? (
                     consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
-                        <img
+                        <div
                           key={item?.photo_id}
-                          src={item?.photos || undefined} // 이미지 URL
-                          alt="Uploaded Image"
-                          className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                        />
+                          className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
+                          // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                        >
+                          <Image
+                            src={item?.photos || ""}
+                            alt="Uploaded Image"
+                            width={90}
+                            height={90}
+                            layout="fixed"
+                          />
+                        </div>
                       );
                     })
                   ) : (
-                    <img
-                      src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
-                      alt="Uploaded Image"
-                      className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                    />
+                    // <div className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0">
+                    <div>
+                      <Image
+                        src={`https://ifh.cc/g/WDVwsQ.png`}
+                        alt="Uploaded Image"
+                        width={89}
+                        height={80}
+                        layout="fixed"
+                        className=" bg-gray-300 rounded-lg flex-none order-0 flex-grow-0 w-[89px] h-[80px]"
+                      />
+                    </div>
                   )}
                 </div>
                 <div className="ml-4 w-full h-auto overflow-hidden pb-[2px]">
-                  <p className="semibold-18 text-gray-800">
+                  <p className="semibold-18 text-gray-800 line-clamp-2">
                     {consult?.consult_title}
                   </p>
                   <p className="text-gray-700 regular-14 mb-2 overflow-hidden whitespace-nowrap text-ellipsis">
@@ -143,11 +156,12 @@ const ConsultPage = () => {
           );
         })}
       </div>
-
-      {/* 밑 줄 이거를 어떻게 반복 시킬까... */}
       <div className="relative">
-        <button onClick={goToAskForm} className="fixed bottom-16 right-3 ">
-          <Image src={addIcon} alt="작성하기" className="w-[80px] h-[80px]" />
+        <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
+          <div className="w-16 h-16 relative bg-orange rounded-full">
+            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-10 rounded-full"></span>
+            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-[90deg] rounded-full"></span>
+          </div>
         </button>
       </div>
     </div>

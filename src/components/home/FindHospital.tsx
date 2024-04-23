@@ -1,18 +1,13 @@
 "use client";
 
-import { supabase } from "@/api/supabase";
+import { getHospitalRegion } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import FindHospitalRegionBtn from "./search/FindHospitalRegionBtn";
 
 const FindHospital = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["hospitalRegion"],
-    queryFn: async () => {
-      const response = await supabase.from("hospital_region").select("*");
-
-      const { data } = response;
-      return data;
-    }
+    queryFn: getHospitalRegion
   });
   if (isLoading) {
     <p>로딩 중...</p>;

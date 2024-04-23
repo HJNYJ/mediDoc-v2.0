@@ -1,9 +1,10 @@
 // 질문&답변 Textarea
 "use client";
-import { consultAddForm, uploadPhotosUrl, supabase } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
+import { consultAddForm, uploadPhotosUrl } from "@/hooks/getConsultData";
 import React, { MouseEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { getUserInfo } from "@/hooks/getUserInfo";
 import { useRouter } from "next/navigation";
 import HashTags from "./HashTags";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
 
 const AskForm = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [bodyparts, setBodyparts] = useState("");
@@ -31,15 +33,27 @@ const AskForm = () => {
     }[]
   >([]);
 
-  const router = useRouter();
-
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
   const consultId = uuidv4();
   console.log(consultId);
 
+  const isValidImgSize = (imgList) => {
+    let result = true;
+    imgList.forEach((item) => {
+      if (item.size > 5000) {
+        alert("5MB 이하의 파일만 업로드 가능합니다.");
+        result = false;
+      }
+    });
+    return result;
+  };
+
   // 이미지 업로드 핸들러
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files as FileList);
+
+    if (!isValidImgSize(fileList)) return;
+
     setImg([...img, ...fileList]);
     // 이미지를 선택한 후에 바로 이미지를 미리보기
     fileList.forEach((file) => {
@@ -280,19 +294,26 @@ const AskForm = () => {
                       multiple
                       hidden
                     />
+
                     <Image
                       src={camera}
                       alt="카메라"
+                      width={100}
+                      height={100}
                       className="w-[100px] h-[100px] mr-2"
                     />
                     <Image
                       src={imageBox}
                       alt="사진2"
+                      width={100}
+                      height={100}
                       className="w-[100px] h-[100px] mr-2"
                     />
                     <Image
                       src={imageBox}
                       alt="사진3"
+                      width={100}
+                      height={100}
                       className="w-[100px] h-[100px] mr-2"
                     />
                   </label>
