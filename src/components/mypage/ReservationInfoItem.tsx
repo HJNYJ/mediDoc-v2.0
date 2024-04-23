@@ -207,7 +207,7 @@ const ReservationInfoItem = () => {
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="total_margin h-[410px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
+              <div className="h-[410px] bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
                   className="cursor-pointer ml-auto"
                   onClick={handleModalClose}
@@ -302,7 +302,7 @@ const ReservationInfoItem = () => {
                     </span>
                     <span>{selectedReservation.program_name}</span>
                   </div>
-                  <hr className="border-solid border-gray border-1 mb-3" />
+                  <hr className="border-solid border-gray border-1 mb-5" />
                 </section>
                 <section className="flex justify-end">
                   {(selectedReservation.status === "예약 대기" ||
