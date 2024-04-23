@@ -11,6 +11,7 @@ import AnswerWaiting from "@/components/layout/AnswerWaiting";
 
 import type { ConsultType } from "@/types";
 import { supabase } from "@/api/supabase";
+import Image from "next/image";
 // import { ConsultType } from "@/types";
 
 export type PostType = {
@@ -97,33 +98,21 @@ const ConsultPage = () => {
                   {consult?.consult_photos && consult?.consult_photos.length ? (
                     consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
-                        //       <img
-                        //         key={item?.photo_id}
-                        //         src={item?.photos || undefined} // 이미지 URL
-                        //         alt="Uploaded Image"
-                        //         className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                        //       />
-                        //     );
-                        //   })
-                        // ) : (
-                        //   <img
-                        //     src={`https://ifh.cc/g/WDVwsQ.png`} // 이미지 URL
-                        //     alt="Uploaded Image"
-                        //     className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                        //   />
-                        <div
-                          key={item?.photo_id}
-                          className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
-                          // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                        >
-                          <Image
-                            src={item?.photos || ""}
-                            alt="Uploaded Image"
-                            width={90}
-                            height={90}
-                            layout="fixed"
-                          />
-                        </div>
+                        <>
+                          <div
+                            key={item?.photo_id}
+                            className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
+                            // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                          >
+                            <Image
+                              src={item?.photos || ""}
+                              alt="Uploaded Image"
+                              width={90}
+                              height={90}
+                              layout="fixed"
+                            />
+                          </div>
+                        </>
                       );
                     })
                   ) : (
@@ -169,7 +158,7 @@ const ConsultPage = () => {
         })}
       </div>
       <div className="relative">
-       <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
+        <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
           <div className="w-16 h-16 relative bg-orange rounded-full">
             <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-10 rounded-full"></span>
             <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-[90deg] rounded-full"></span>
