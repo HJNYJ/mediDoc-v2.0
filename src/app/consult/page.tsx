@@ -10,10 +10,9 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
+import BoardSkeleton from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
-
-// import { ConsultType } from "@/types";
 
 export type PostType = {
   bodyparts: string | null;
@@ -76,7 +75,8 @@ const ConsultPage = () => {
 
   return (
     <div className="w-full">
-      <div className="mt-10 mb-5 flex justify-center it relative">
+      <BoardSkeleton />
+      <div className="mt-10 mb-5 flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>

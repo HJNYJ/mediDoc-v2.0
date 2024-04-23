@@ -5,6 +5,7 @@ const nextConfig = {
       "icxxtjvkfjgebycacdab.supabase.co",
       "ifh.cc",
       "search.pstatic.net"
+      // "zxmfaufazajrwupitcjr.supabase.co",
     ]
   }
 };

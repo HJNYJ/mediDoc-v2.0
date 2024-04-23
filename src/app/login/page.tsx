@@ -35,6 +35,7 @@ const LoginPage = () => {
         provider: "google",
         options: {
           redirectTo: "http://localhost:3000/home",
+
           queryParams: {
             access_type: "offline",
             prompt: "consent"
