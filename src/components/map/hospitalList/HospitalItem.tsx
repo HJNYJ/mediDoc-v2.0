@@ -80,7 +80,13 @@ const HospitalItem = ({ hospital }) => {
         </p>
         {/* 평균 별점 & 후기 개수 */}
         <div className="flex">
-          <Image src={star} alt="star" className="w-[18px] h-[18px]" />
+          <Image
+            src={star}
+            alt="star"
+            width={18}
+            height={18}
+            className="w-[18px] h-[18px]"
+          />
           <span className="regular-14 text-gray-800 ml-[4px]">
             {averageRating.toFixed(1)}
           </span>

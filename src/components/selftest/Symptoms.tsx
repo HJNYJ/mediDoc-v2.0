@@ -97,13 +97,6 @@ const Symptoms = () => {
                 >
                   {symptom.symptoms}
                 </label>
-                {/* <input
-        type="checkbox"
-        id={`checkbox-${symptom.symptom_id}`}
-        checked={selectedSymptoms.includes(symptom.symptom_id)}
-        onChange={() => selectSymptomHandler(symptom.symptom_id)}
-        className="opacity-0 w-0 h-0"
-      /> */}
                 <div
                   className="relative"
                   onClick={() => selectSymptomHandler(symptom.symptom_id)}

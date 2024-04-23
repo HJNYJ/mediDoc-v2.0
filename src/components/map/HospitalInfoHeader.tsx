@@ -3,7 +3,7 @@ import Button from "../layout/Buttons";
 import useScrapStore from "@/shared/zustand/scrapStore";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { getUserInfo } from "@/hooks/getUserInfo";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 import { fetchHospitalData } from "@/hooks/getHospitalData";
@@ -178,7 +178,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
                 {hospitalData!.hospital_address}
               </p>
             </div>
-          <button onClick={handleScrapClick}>
+            <button onClick={handleScrapClick}>
               {isScrapped ? <ScrappedIcon /> : <ScrapIcon />}
             </button>
           </div>

@@ -2,7 +2,8 @@
 
 // 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
-import { fetchImages, supabase } from "@/api/supabase";
+import { supabase } from "@/api/supabase";
+import { fetchConsultImages } from "@/hooks/getConsultData";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
@@ -21,7 +22,7 @@ const HomeConsultItem = () => {
 
   useEffect(() => {
     const fetchConsultPhotos = async () => {
-      const consultPhotos = await fetchImages();
+      const consultPhotos = await fetchConsultImages();
       setConsultPhotos(consultPhotos || []);
     };
 
