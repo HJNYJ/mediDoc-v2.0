@@ -1,20 +1,7 @@
 // 방문자 사진 section
 "use client";
-import { supabase } from "@/api/supabase";
+import { fetchHospitalReviewImages } from "@/hooks/getReviewData";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchReviewImages = async (hospitalId: string) => {
-  const { data, error } = await supabase
-    .from("review_photos")
-    .select("*")
-    .eq("hospital_id", hospitalId);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
 
 const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
   const {
@@ -23,7 +10,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
     isError
   } = useQuery({
     queryKey: ["reviewPhoto", hospitalId],
-    queryFn: () => fetchReviewImages(hospitalId)
+    queryFn: () => fetchHospitalReviewImages(hospitalId)
   });
 
   if (isLoading) return <p>Loading...</p>;

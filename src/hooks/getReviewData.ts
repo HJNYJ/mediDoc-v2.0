@@ -1,5 +1,6 @@
 import { supabase } from "@/api/supabase";
 
+// 후기 사진 url string을 DB에 추가하는 함수
 export const uploadReviewPhotosUrl = async (
   url: string,
   review_id: string,
@@ -21,28 +22,7 @@ export const uploadReviewPhotosUrl = async (
   }
 };
 
-export const fetchReviewImages = async () => {
-  const { data, error } = await supabase.from("review_photos").select("*");
-  if (error) {
-    console.error("error", error);
-    return;
-  }
-  return data;
-};
-
-export const fetchHospitalReviewImages = async (hospitalId: string) => {
-  const { data, error } = await supabase
-    .from("review_photos")
-    .select("*")
-    .eq("hospital_id", hospitalId);
-
-  if (error) {
-    throw new Error(error.message);
-    return;
-  }
-  return data;
-};
-
+// 각 병원의 후기를 가져오는 함수
 export const getReviewDetail = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -58,4 +38,28 @@ export const getReviewDetail = async (hospitalId: string) => {
     console.error("error", error);
     return null;
   }
+};
+
+// 모든 후기 사진 가져오는 함수
+export const fetchReviewImages = async () => {
+  const { data, error } = await supabase.from("review_photos").select("*");
+  if (error) {
+    console.error("error", error);
+    return;
+  }
+  return data;
+};
+
+// 각 병원의 후기 사진을 가져오는 함수
+export const fetchHospitalReviewImages = async (hospitalId: string) => {
+  const { data, error } = await supabase
+    .from("review_photos")
+    .select("*")
+    .eq("hospital_id", hospitalId);
+
+  if (error) {
+    throw new Error(error.message);
+    return;
+  }
+  return data;
 };

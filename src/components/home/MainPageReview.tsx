@@ -15,11 +15,11 @@ import { useRouter } from "next/navigation";
 const MainPageReview = () => {
   const router = useRouter();
   const {
-    data: reviewRateTopData,
+    data: reviewRatedTopData,
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["reviewRateTopMain"],
+    queryKey: ["reviewRatedTopMain"],
     queryFn: async () => {
       const response = await supabase
         .from("review_info")
@@ -58,7 +58,7 @@ const MainPageReview = () => {
         mousewheel={true}
       >
         {/* 후기 보러가기 버튼 추가 */}
-        {reviewRateTopData?.map((review) => (
+        {reviewRatedTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
             <div className="flex flex-row mr-[14px]">
               <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">

@@ -1,6 +1,6 @@
 import { supabase } from "@/api/supabase";
 
-// 병원 전체 데이터를 가져오는 함수
+// 지역별 병원 리스트 데이터를 가져오는 함수
 export const fetchHospitalList = async (regionId: string | null) => {
   try {
     let response;
@@ -47,7 +47,7 @@ export const fetchHospitalList = async (regionId: string | null) => {
   }
 };
 
-// 선택한 병원의 데이터를 가져오는 함수
+// 유저가 선택한 병원의 데이터를 가져오는 함수
 // eslint-disable-next-line
 export const fetchHospitalData = async (hospital_id: string): Promise<any> => {
   try {
@@ -74,6 +74,7 @@ export const fetchHospitalData = async (hospital_id: string): Promise<any> => {
   }
 };
 
+// 각 병원의 정보 가져오는 함수
 export const getHospitalInfo = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -92,6 +93,7 @@ export const getHospitalInfo = async (hospitalId: string) => {
   }
 };
 
+// 각 병원의 대표이미지 가져오는 함수
 export const getHospitalImages = async (hospitalId: string) => {
   try {
     const { data, error } = await supabase
@@ -109,15 +111,7 @@ export const getHospitalImages = async (hospitalId: string) => {
   }
 };
 
-export const courseNameSelect = async () => {
-  const response = await supabase
-    .from("course_info")
-    .select("*")
-    .order("course_price", { ascending: true });
-  const { data } = response;
-  return data;
-};
-
+// 모든 병원의 id를 가져오는 함수
 export const getHospitalId = async () => {
   try {
     const { data } = await supabase.from("hospital_info").select("hospital_id");
@@ -128,34 +122,9 @@ export const getHospitalId = async () => {
   }
 };
 
-export const hospitalName = async (hospitalId: string) => {
-  const response = await supabase
-    .from("hospital_info")
-    .select("hospital_name")
-    .eq("hospital_id", hospitalId);
-
-  const { data } = response;
-  return data;
-};
-
-export const hospitalReservation = async () => {
-  const response = await supabase.from("reservation_info").select("*");
-  const { data } = response;
-  return data;
-};
-
-export const hospitalRegion = async () => {
+// 병원의 지역 코드 가져오는 함수
+export const getHospitalRegion = async () => {
   const response = await supabase.from("hospital_region").select("*");
-  const { data } = response;
-  return data;
-};
-
-export const hospitalImage = async (hospitalId: string) => {
-  const response = await supabase
-    .from("hospital_info")
-    .select("hospital_image")
-    .eq("hospital_id", hospitalId);
-
   const { data } = response;
   return data;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { courseNameSelect } from "@/hooks/getHospitalData";
+import { selectCourseName } from "@/hooks/getReservationData";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -18,7 +18,7 @@ const CourseSelect = () => {
     isError
   } = useQuery({
     queryKey: ["course"],
-    queryFn: courseNameSelect
+    queryFn: selectCourseName
   });
 
   const { setSelectedCourseName, setSelectedCourseDetail, setIsCourseClicked } =

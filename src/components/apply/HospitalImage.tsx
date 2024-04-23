@@ -1,12 +1,12 @@
 "use client";
 
-import { hospitalImage } from "@/hooks/getHospitalData";
+import { getHospitalImages } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 
 const HospitalImage = ({ hospitalId }: { hospitalId: string }) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["reservation2", hospitalId],
-    queryFn: () => hospitalImage(hospitalId)
+    queryKey: ["hospitalImage", hospitalId],
+    queryFn: () => getHospitalImages(hospitalId)
   });
 
   if (isLoading) {

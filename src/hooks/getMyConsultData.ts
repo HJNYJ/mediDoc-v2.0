@@ -35,6 +35,8 @@ interface ConsultAnswer {
     user_name: string | null;
   };
 }
+
+// 마이페이지에서 내가 작성한 상담 글 가져오는 함수
 export const getMyConsultData = async () => {
   try {
     const {
@@ -68,6 +70,7 @@ export const getMyConsultData = async () => {
   }
 };
 
+// 마이페이지에서 내가 작성한 상담 글에 달린 답변 가져오는 함수
 export const getMyConsultAnswerData = async (): Promise<ConsultAnswer[]> => {
   try {
     const {

@@ -3,7 +3,7 @@ import { getUserInfo } from "./getUserInfo";
 import { v4 as uuidv4 } from "uuid";
 // import type { ConsultType } from "@/types";
 
-// 실시간 상담 글 추가히기
+// 실시간 상담 글 추가하는 함수
 export const consultAddForm = async (
   newTitle: string,
   newContents: string,
@@ -34,7 +34,7 @@ export const consultAddForm = async (
   }
 };
 
-// 실시간 상담에 추가한 사진 url string을 database에 업로드하기
+// 실시간 상담에 추가한 사진 url string을 DB에 업로드하는 함수
 export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   try {
     const { data, error } = await supabase
@@ -52,7 +52,7 @@ export const uploadPhotosUrl = async (url: string, consult_id: string) => {
   }
 };
 
-// 실시간 상담 사진 불러오기
+// 모든 실시간 상담 사진 불러오는 함수
 export const fetchConsultImages = async () => {
   const { data, error } = await supabase.from("consult_photos").select("*");
   if (error) {
@@ -82,7 +82,7 @@ export const fetchConsultImages = async () => {
 //   return data as ConsultType[] | null;
 // };
 
-// 실시간 상담에서 글 id가 같은 글 가져오기
+// 실시간 상담에서 글 id가 같은 글 가져오는 함수
 export const getConsultDetail = async (consultId: string) => {
   try {
     const { data, error } = await supabase
@@ -113,7 +113,7 @@ export const getConsultDetail = async (consultId: string) => {
   }
 };
 
-// 실시간 상담 답변 중에서 글 id가 같은 것 가져오기
+// 실시간 상담 답변 중에서 글 id가 같은 답변 가져오는 함수
 export const getAnswerDetail = async (consultId: string) => {
   try {
     const { data, error } = await supabase
