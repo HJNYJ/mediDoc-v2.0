@@ -2,9 +2,9 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import useApplyStore from "@/shared/zustand/applyStore";
-import HospitalReservation from "./GetNewData";
 import Button from "../layout/Buttons";
+import HospitalReservation from "./GetNewData";
+import useApplyStore from "@/shared/zustand/applyStore";
 
 const ApplyPageFour = () => {
   const { setName, setIdNumber, setPhoneNumber } = useApplyStore();

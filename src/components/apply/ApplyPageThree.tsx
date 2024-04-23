@@ -29,6 +29,7 @@ const ApplyPageThree = ({
     setPhoneNumber,
     isCourseClicked,
     setSelectedTime,
+    setSelectedDate,
     setIsTimeClicked,
     setIsDateClicked,
     setReservationInfo,
@@ -53,6 +54,7 @@ const ApplyPageThree = ({
     setIdNumber("");
     setPhoneNumber("");
     setSelectedTime("");
+    setSelectedDate(new Date());
     return setPageCount("one");
   };
 

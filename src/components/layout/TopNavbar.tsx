@@ -2,10 +2,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import PageCancel from "./PageCancel";
-import previousIcon from "@/assets/icons/previousIcon.png";
 import { useRouter } from "next/navigation";
+import PagebackBtn from "./PageBackBtn";
 
 interface TopNavbarProps {
   title?: string | null;
@@ -24,11 +23,7 @@ const TopNavbar = ({ title, goToPreviousPage }: TopNavbarProps) => {
         onClick={goTopHomePage}
         className="flex items-center w-[24px] h-[24px]"
       >
-        <Image
-          src={previousIcon}
-          alt="previous button"
-          className="w-[24px] h-[24px]"
-        />
+        <PagebackBtn />
       </button>
       <span className="flex items-center text-center w-[225px] h-[21px] semibold-18 ml-auto">
         {title}
