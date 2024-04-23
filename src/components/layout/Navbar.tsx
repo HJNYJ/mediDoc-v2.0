@@ -13,6 +13,9 @@ import {
   LoginIconBtn,
   LogoutBtnIcon,
   MyPageIcon,
+  OrangeConsultIcon,
+  OrangeHomeIcon,
+  OrangeSelftTestIcon,
   SelfTestIcon
 } from "./CheckIcons";
 
@@ -76,13 +79,21 @@ export const Navbar = () => {
       <nav className="navbar fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
         <div className="flex justify-between items-center max-w-screen-lg mx-auto px-4 py-2">
           <Link href={"/consult"}>
-            <ConsultBtnIcon />
+            {pathname === "/consult" ? (
+              <OrangeConsultIcon />
+            ) : (
+              <ConsultBtnIcon />
+            )}
           </Link>
           <Link href={"/selftest"}>
-            <SelfTestIcon />
+            {pathname === "/selftest" ? (
+              <OrangeSelftTestIcon />
+            ) : (
+              <SelfTestIcon />
+            )}
           </Link>
           <Link href={"/home"}>
-            <HomeBtnIcon />
+            {pathname === "/home" ? <OrangeHomeIcon /> : <HomeBtnIcon />}
           </Link>
           <div onClick={handleMyPageClick} className="cursor-pointer">
             <MyPageIcon />

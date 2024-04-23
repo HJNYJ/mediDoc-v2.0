@@ -55,13 +55,13 @@ const ConsultPage = () => {
       const session = await supabase.auth.getSession();
       console.log("consult session ===> ", session);
 
-      // if (session.data.session === null) {
-      //   // alert("로그인이 필요한 서비스입니다.");
-      //   router.push("/login");
-      // } else {
-      //   console.log("consult session ===> ", session.data.session);
-      //   router.push("/consult/ask");
-      // }
+      if (session.data.session === null) {
+        // alert("로그인이 필요한 서비스입니다.");
+        router.push("/login");
+      } else {
+        console.log("consult session ===> ", session.data.session);
+        router.push("/consult/ask");
+      }
     } catch (error) {
       console.log("error", error);
     }
