@@ -2,9 +2,9 @@
 
 import {
   fetchHospitalReviewImages,
-  getHospitalInfo,
   getReviewDetail
-} from "@/api/supabase";
+} from "@/hooks/getReviewData";
+import { getHospitalInfo } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Button from "@/components/layout/Buttons";
@@ -102,7 +102,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                 <Image
                   src={img?.photos}
                   alt={`사진${index + 1}`}
-                  layout="fill"
+                  width={116.67}
+                  height={116}
+                  // layout="fill"
                   objectFit="cover"
                 />
               </div>
