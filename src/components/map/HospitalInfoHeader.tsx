@@ -178,7 +178,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
                 {hospitalData!.hospital_address}
               </p>
             </div>
-          <button onClick={handleScrapClick}>
+            <button onClick={handleScrapClick}>
               {isScrapped ? <ScrappedIcon /> : <ScrapIcon />}
             </button>
           </div>
