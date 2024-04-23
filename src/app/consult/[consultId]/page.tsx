@@ -61,18 +61,47 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     router.push("/home");
   };
 
-  const deletePost = async (consultId: object) => {
+  const deletePost = async (consultId: string) => {
     try {
-      await Promise.all([
-        supabase.from("consult_photos").delete().eq("consult_id", consultId),
+      const consultInform = await supabase
+        .from("consult_info")
+        .select(
+          `consult_id, 
+          user_name,
+          user_email, 
+          consult_title, 
+          consult_content,
+          bodyparts,
+          consult_answer(*),
+          consult_photos(*)
+          `
+        )
+        .eq("consult_id", consultId)
+        .single();
+      console.log("consultInform ===> ", consultInform?.data?.user_email);
 
-        supabase.from("consult_info").delete().eq("consult_id", consultId),
+      const {
+        data: { session }
+      } = await supabase.auth.getSession();
+      const user = session?.user;
+      const userEmail = user?.email ?? "";
+      console.log("userEmail ===> ", userEmail);
 
-        supabase.from("consult_answer").delete().eq("consult_id", consultId)
-      ]);
+      if (consultInform?.data?.user_email === userEmail) {
+        //
+        await Promise.all([
+          supabase.from("consult_photos").delete().eq("consult_id", consultId),
 
-      console.log("상담이 성공적으로 삭제되었습니다.");
-      router.push("/consults");
+          supabase.from("consult_info").delete().eq("consult_id", consultId),
+
+          supabase.from("consult_answer").delete().eq("consult_id", consultId)
+        ]);
+
+        console.log("상담이 성공적으로 삭제되었습니다.");
+        router.push("/consults");
+      } else {
+        console.log("상담 삭제 권한이 없습니다.");
+      }
     } catch (error) {
       console.error("상담을 삭제하는 중에 오류가 발생했습니다:", error);
     }
@@ -169,7 +198,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           <ConsultNotice />
         </div>
 
-        <button onClick={() => deletePost(params)}>삭제하기</button>
+        <button onClick={() => deletePost(params.consultId)}>삭제하기</button>
       </div>
     </div>
   );
