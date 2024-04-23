@@ -1926,7 +1926,7 @@
 
 "@nextui-org/react@^2.3.5":
   version "2.3.5"
-  resolved "https://registry.npmjs.org/@nextui-org/react/-/react-2.3.5.tgz"
+  resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-2.3.5.tgz#993ecee1e2e736915116cd0feb16c46fdc0c779c"
   integrity sha512-T5mnES8rV7TLxmIiFKhJbztTdGKEdL4+OoYeC3Q1dIyemvExT37KkcWknwwX9wftAegyJJkZ7ghdXlE6LZ57DA==
   dependencies:
     "@nextui-org/accordion" "2.0.31"
@@ -6199,9 +6199,9 @@ react-textarea-autosize@^8.5.3:
     use-composed-ref "^1.3.0"
     use-latest "^1.2.1"
 
-react@^18:
+react@^18.2.0:
   version "18.2.0"
-  resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"
