@@ -98,21 +98,19 @@ const ConsultPage = () => {
                   {consult?.consult_photos && consult?.consult_photos.length ? (
                     consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
-                        <>
-                          <div
-                            key={item?.photo_id}
-                            className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
-                            // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
-                          >
-                            <Image
-                              src={item?.photos || ""}
-                              alt="Uploaded Image"
-                              width={90}
-                              height={90}
-                              layout="fixed"
-                            />
-                          </div>
-                        </>
+                        <div
+                          key={item?.photo_id}
+                          className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
+                          // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                        >
+                          <Image
+                            src={item?.photos || ""}
+                            alt="Uploaded Image"
+                            width={90}
+                            height={90}
+                            layout="fixed"
+                          />
+                        </div>
                       );
                     })
                   ) : (
