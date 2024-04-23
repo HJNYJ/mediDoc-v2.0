@@ -98,6 +98,8 @@ const ReviewRecent = () => {
                           key={photo.photo_id}
                           src={photo.photos}
                           alt="리뷰 이미지"
+                          width={85}
+                          height={85}
                           className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
                         />
                       ))}

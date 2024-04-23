@@ -102,7 +102,9 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                 <Image
                   src={img?.photos}
                   alt={`사진${index + 1}`}
-                  layout="fill"
+                  width={116.67}
+                  height={116}
+                  // layout="fill"
                   objectFit="cover"
                 />
               </div>

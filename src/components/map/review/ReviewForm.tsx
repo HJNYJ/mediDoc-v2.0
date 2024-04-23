@@ -248,16 +248,22 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
                 <Image
                   src={camera}
                   alt="카메라"
+                  width={100}
+                  height={100}
                   className="w-[100px] h-[100px] mr-2"
                 />
                 <Image
                   src={imageBox}
                   alt="사진2"
+                  width={100}
+                  height={100}
                   className="w-[100px] h-[100px] mr-2"
                 />
                 <Image
                   src={imageBox}
                   alt="사진3"
+                  width={100}
+                  height={100}
                   className="w-[100px] h-[100px] mr-2"
                 />
               </label>

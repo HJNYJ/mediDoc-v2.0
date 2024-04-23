@@ -70,6 +70,8 @@ const MainPageReview = () => {
                     <Image
                       src={star}
                       alt="star"
+                      width={20}
+                      height={20}
                       className="w-[20px] h-[20px] ml-[10px]"
                     />
                     <p className="w-[19px] h-[16px] medium-13 text-gray-800 mr-[2px]">
