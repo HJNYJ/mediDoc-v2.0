@@ -10,10 +10,7 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-
 import type { ConsultType } from "@/types";
-
-// import { ConsultType } from "@/types";
 
 export type PostType = {
   bodyparts: string | null;
