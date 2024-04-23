@@ -1,6 +1,6 @@
 import { Card, Skeleton } from "@nextui-org/react";
 
-export default function App() {
+export default function ContainerSkeleton() {
   return (
     <Card className="w-[200px] space-y-5 p-4" radius="lg">
       <Skeleton className="rounded-lg">
