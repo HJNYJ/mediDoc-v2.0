@@ -8,11 +8,11 @@ import AdminMenu from "@/components/mypage/AdminMenu";
 import AccessDenied from "@/components/mypage/AccessDenied";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import TopNavbar from "@/components/layout/TopNavbar";
-
 import type { UserInfo } from "@/types";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { setHospitalName } = useMyPageStore();
 
   useEffect(() => {
@@ -100,25 +100,38 @@ const MyPage = () => {
     return <p>사용자 정보를 불러오는 중입니다...</p>;
   }
 
+  // const handleDeleteMyAccount = () => {
+  //   setShowDeleteModal(true);
+  // };
+
+  // const confirmDeleteMyAccount = async () => {};
+
+  // const cancelDeleteMyAccount = () => {
+  //   setShowDeleteModal(false);
+  // };
+
   return (
-    <section>
+    <>
       <section>
-        <TopNavbar title="마이페이지" />
-        {userInfo.map((user) => (
-          <div key={user.user_id}>
-            <p className="text-[24px] font-bold px-[16px]">
-              {user.user_name}님, <br />
-              안녕하세요!
-            </p>
-          </div>
-        ))}
+        <section>
+          <TopNavbar title="마이페이지" />
+          {userInfo.map((user) => (
+            <div key={user.user_id}>
+              <p className="text-[24px] font-bold px-[16px]">
+                {user.user_name}님, <br />
+                안녕하세요!
+              </p>
+            </div>
+          ))}
+        </section>
+        <section>
+          {userInfo[0].user_type === "general user" && <MyPageTab />}
+          {userInfo[0].user_type === "hospital staff" && <AdminMenu />}
+          {userInfo[0].user_type === "developer" && <AccessDenied />}
+        </section>
       </section>
-      <section>
-        {userInfo[0].user_type === "general user" && <MyPageTab />}
-        {userInfo[0].user_type === "hospital staff" && <AdminMenu />}
-        {userInfo[0].user_type === "developer" && <AccessDenied />}
-      </section>
-    </section>
+      <section></section>
+    </>
   );
 };
 
