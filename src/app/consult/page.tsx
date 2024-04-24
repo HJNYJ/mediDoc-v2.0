@@ -10,19 +10,19 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import SkeletonList from "@/components/skeleton/ContainerSkeleton";
+// import SkeletonList from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
 
 const ConsultPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<ConsultType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const bottomOfPageRef = useRef<HTMLDivElement>(null);
 
   const goToAskForm = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const session = await supabase.auth.getSession();
 
       if (session.data.session === null) {
@@ -33,8 +33,9 @@ const ConsultPage = () => {
       }
     } catch (error) {
       console.log("error", error);
-    } finally {
-      setIsLoading(false);
+      // } finally {
+      //   // setIsLoading(false);
+      // }
     }
   };
 
@@ -48,7 +49,7 @@ const ConsultPage = () => {
 
   return (
     <div className="w-full">
-      {isLoading && <SkeletonList />}
+      {/* {isLoading && <SkeletonList />} */}
       <div className="mt-10 mb-5 flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
