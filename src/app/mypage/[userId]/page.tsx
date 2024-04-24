@@ -12,7 +12,7 @@ import type { UserInfo } from "@/types";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { setHospitalName } = useMyPageStore();
 
   useEffect(() => {
@@ -100,15 +100,15 @@ const MyPage = () => {
     return <p>사용자 정보를 불러오는 중입니다...</p>;
   }
 
-  const handleDeleteMyAccount = () => {
-    setShowDeleteModal(true);
-  };
+  // const handleDeleteMyAccount = () => {
+  //   setShowDeleteModal(true);
+  // };
 
-  const confirmDeleteMyAccount = async () => {};
+  // const confirmDeleteMyAccount = async () => {};
 
-  const cancelDeleteMyAccount = () => {
-    setShowDeleteModal(false);
-  };
+  // const cancelDeleteMyAccount = () => {
+  //   setShowDeleteModal(false);
+  // };
 
   return (
     <>
