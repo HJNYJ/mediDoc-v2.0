@@ -40,7 +40,7 @@ const AskForm = () => {
   const isValidImgSize = (imgList) => {
     let result = true;
     imgList.forEach((item) => {
-      if (item.size > 5000) {
+      if (item.size > 5000000) {
         alert("5MB 이하의 파일만 업로드 가능합니다.");
         result = false;
       }
