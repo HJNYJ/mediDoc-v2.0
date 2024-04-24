@@ -4,7 +4,7 @@ import RoundTabs from "../layout/RoundTabs";
 
 import type { ConsultType, TabsProps } from "@/types";
 
-const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
+const ConsultTabs = ({ setPosts }: TabsProps) => {
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("nose");
 
@@ -36,7 +36,7 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
-    handleCategoryChange(tabName);
+    // handleCategoryChange(tabName);
   };
 
   return (

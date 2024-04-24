@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { supabase } from "@/api/supabase";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
@@ -10,82 +10,52 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import BoardSkeleton from "@/components/skeleton/ContainerSkeleton";
+import SkeletonList from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
 
-export type PostType = {
-  bodyparts: string | null;
-  consult_content: string;
-  consult_id: string;
-  consult_title: string;
-  created_at: string;
-  hashtags: string[] | null;
-  user_email: string | null;
-  user_name: string | null;
-  // consult_photos: { photo_id: string; photos: string }[];
-  // consult_answer: { answer_id: string; answer_content: string }[];
-};
-
-// consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  // const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
   const [posts, setPosts] = useState<ConsultType[]>([]);
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchConsultsData = async () => {
-      setIsLoading(true);
-      setIsLoading(false);
-    };
-
-    fetchConsultsData();
-  }, []);
-
-  if (isLoading) return <p>Loading consults..!!</p>;
-  // if (error) return <p>error : {error}</p>;
-
-  const handleCategoryChange = () => {};
+  const [isLoading, setIsLoading] = useState(false);
+  const bottomOfPageRef = useRef<HTMLDivElement>(null);
 
   const goToAskForm = async () => {
     try {
+      setIsLoading(true);
       const session = await supabase.auth.getSession();
-      console.log("consult session ===> ", session);
 
       if (session.data.session === null) {
         // alert("로그인이 필요한 서비스입니다.");
         router.push("/login");
       } else {
-        console.log("consult session ===> ", session.data.session);
         router.push("/consult/ask");
       }
     } catch (error) {
       console.log("error", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const goToDetailPage = (consultId: string) => {
     router.push(`/consult/${consultId}`);
   };
+
   const onClickHomeHandler = () => {
     router.push("/home");
   };
 
   return (
     <div className="w-full">
-      <BoardSkeleton />
+      {isLoading && <SkeletonList />}
       <div className="mt-10 mb-5 flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs
-        handleCategoryChange={handleCategoryChange}
-        setPosts={setPosts}
-      />
+      <ConsultTabs setPosts={setPosts} />
       <div>
         {posts?.map((consult) => {
           return (
@@ -101,29 +71,25 @@ const ConsultPage = () => {
                       return (
                         <div
                           key={item?.photo_id}
-                          className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
-                          // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                          // className=" bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
+                          className=" bg-bluegray rounded-lg"
                         >
                           <Image
                             src={item?.photos || ""}
                             alt="Uploaded Image"
-                            width={90}
+                            width={89}
                             height={90}
-                            layout="fixed"
                           />
                         </div>
                       );
                     })
                   ) : (
-                    // <div className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0">
-                    <div>
+                    <div className=" bg-bluegray rounded-lg">
                       <Image
                         src={`https://ifh.cc/g/WDVwsQ.png`}
                         alt="Uploaded Image"
                         width={89}
-                        height={80}
-                        layout="fixed"
-                        className=" bg-gray-300 rounded-lg flex-none order-0 flex-grow-0 w-[89px] h-[80px]"
+                        height={90}
                       />
                     </div>
                   )}
@@ -156,11 +122,12 @@ const ConsultPage = () => {
           );
         })}
       </div>
+      <div ref={bottomOfPageRef} />
       <div className="relative">
         <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
           <div className="w-16 h-16 relative bg-orange rounded-full">
-            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-10 rounded-full"></span>
-            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-[90deg] rounded-full"></span>
+            <span className="plus_btn"></span>
+            <span className="minus_btn"></span>
           </div>
         </button>
       </div>
