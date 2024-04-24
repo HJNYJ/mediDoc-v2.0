@@ -31,6 +31,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [hashtags, setHashtags] = useState({});
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchHashtags = async () => {
       try {
@@ -51,8 +52,14 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     };
     fetchHashtags();
   }, []);
+
   const setImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files as FileList);
+    // 3장 초과 못하게
+    if (fileList.length + uploadedImages.length > 3) {
+      alert("이미지는 최대 3장까지만 업로드할 수 있습니다.");
+      return;
+    }
     setImg([...img, ...fileList]);
     fileList.forEach((file) => {
       const reader = new FileReader();
@@ -69,10 +76,12 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
       reader.readAsDataURL(file);
     });
   };
+
   const handleFiles = async (reviewId: string) => {
     const fileList = img;
     if (fileList) {
       const filesArray = Array.from(fileList);
+
       setFiles(filesArray);
       filesArray.forEach((file) => {
         handleAddImages(file, reviewId);

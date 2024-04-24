@@ -51,7 +51,7 @@ const ReviewRecent = () => {
         review_photos(*)`
         )
         .eq("hospital_id", hospitalId)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: true });
 
       return response.data;
     },

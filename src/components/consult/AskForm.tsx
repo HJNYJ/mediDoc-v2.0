@@ -53,6 +53,11 @@ const AskForm = () => {
   const setImgHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files as FileList);
 
+    if (fileList.length + uploadedImages.length > 3) {
+      alert("이미지는 최대 3장까지만 업로드할 수 있습니다.");
+      return;
+    }
+
     /** 이미지 압축 라이브러리 사용 시작*/
     const options = {
       maxSizeMB: 0.2,
