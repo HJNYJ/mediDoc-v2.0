@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import nextIcon from "@/assets/icons/nextIcon.png";
+import nextIcon from "@/assets/upanddown/Next.png";
 import React from "react";
 
 const SelfTestWidget = () => {
@@ -24,6 +24,7 @@ const SelfTestWidget = () => {
           onClick={() => {
             router.push("/selftest");
           }}
+          className="w-8"
         >
           <Image src={nextIcon} alt="버튼" />
         </button>
