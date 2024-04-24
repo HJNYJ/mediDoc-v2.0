@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import Button from "../layout/Buttons";
+import { useRouter } from "next/navigation";
 import HospitalReservation from "./GetNewData";
 import useApplyStore from "@/shared/zustand/applyStore";
 
