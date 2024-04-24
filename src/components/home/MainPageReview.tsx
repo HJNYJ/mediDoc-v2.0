@@ -90,7 +90,7 @@ const MainPageReview = () => {
                   <section className="regular-14 w-full text-ellipsis overflow-hidden">
                     {review.content}
                   </section>
-                  <section className="mt-auto mb-3">
+                  <section className="mt-auto mb-3 flex">
                     {review.review_photos &&
                       review.review_photos.map((photo, index) => (
                         <Image

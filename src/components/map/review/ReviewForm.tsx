@@ -222,19 +222,29 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           </div>
           <div>
             <p className="regular-14 text-gray-800 mb-2">사진 첨부[선택]</p>
-            {uploadedImages.map((image, idx: number) => (
-              <div key={image.dataUrl}>
-                {/**이미지 렌더링 */}
-                <img
-                  src={image.dataUrl}
-                  alt={image.name}
-                  className="w-[100px] h-[100px] flex"
-                />
-                {/* <img src={image.dataUrl} alt={image.name} /> */}
-                <div id={image.dataUrl} onClick={handleImageOrder}></div>
-                <button onClick={() => deleteImgHandle(idx)}>삭제</button>
-              </div>
-            ))}
+            <div className="flex justify-center">
+              {uploadedImages.map((image, idx: number) => (
+                <div key={image.dataUrl}>
+                  {/**이미지 렌더링 */}
+                  <Image
+                    src={image.dataUrl}
+                    alt={image.name}
+                    width={80}
+                    height={80}
+                    className="w-[100px] h-[100px] mr-3 rounded-lg"
+                  />
+                  {/* <img src={image.dataUrl} alt={image.name} /> */}
+                  <div id={image.dataUrl} onClick={handleImageOrder}></div>
+                  <button
+                    onClick={() => deleteImgHandle(idx)}
+                    className="bg-orange text-white rounded-md p-1 regular-12 mt-1"
+                  >
+                    삭제
+                  </button>
+                </div>
+              ))}
+            </div>
+
             {uploadedFileUrl.length >= 3 ? (
               <></>
             ) : (
