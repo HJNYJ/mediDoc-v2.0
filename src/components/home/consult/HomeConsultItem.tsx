@@ -62,20 +62,32 @@ const HomeConsultItem = () => {
     <div>
       {consultRecentData?.map((consult, index) => (
         <div key={index}>
-          <div className="flex justify-between mb-6">
+          <div className="flex justify-between">
             <div className="flex">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.slice(0, 1)
                 ?.map((image, index) => (
-                  <div key={index} className="mr-3">
-                    <Image
-                      src={image.photos}
-                      alt={`상담 이미지 ${index + 1}`}
-                      width={60}
-                      height={60}
-                      className="object-cover"
-                    />
+                  <div key={index} className="mr-3 flex">
+                    {image ? (
+                      <Image
+                        src={image.photos}
+                        alt={`상담 이미지 ${index + 1}`}
+                        width={60}
+                        height={50}
+                        className="rounded-lg"
+                      />
+                    ) : (
+                      <div className=" bg-bluegray rounded-lg">
+                        <Image
+                          src={`https://ifh.cc/g/WDVwsQ.png`}
+                          alt="기본 이미지"
+                          width={60}
+                          height={50}
+                          className="rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               <div>
@@ -96,6 +108,7 @@ const HomeConsultItem = () => {
               )}
             </div>
           </div>
+          <hr className="h-1" />
         </div>
       ))}
     </div>
