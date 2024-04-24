@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import Back from "@/assets/upanddown/Back.png";
 import Next from "@/assets/upanddown/Next.png";
+import { getDate } from "@/utils/changeTimeFormat";
 import uptoggle from "@/assets/upanddown/UpToggle.png";
 import useApplyStore from "@/shared/zustand/applyStore";
 import downtoggle from "@/assets/upanddown/DownToggle.png";
@@ -14,16 +15,14 @@ const Calendar = () => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  const { setSelectedDate, setIsDateClicked } = useApplyStore();
+  const { setSelectedDate, setIsDateClicked, selectedDate } = useApplyStore();
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
-
   const handleDateClick = (date: Date, cellDate: Date) => {
     setSelectedOneDate(cellDate);
-
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-
+  const specifiedDate = getDate(selectedDate);
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -42,12 +41,6 @@ const Calendar = () => {
     "11",
     "12"
   ];
-
-  const todayDate = (date: Date) => {
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-  };
-
-  const toDay = todayDate(new Date());
 
   const generateMatrix = (): CalendarDay[][] => {
     const matrix: CalendarDay[][] = [];
@@ -122,7 +115,7 @@ const Calendar = () => {
             </div>
           </button>
         </div>
-        <div>{toDay}</div>
+        <div className="text-gray-800">{specifiedDate}</div>
       </div>
 
       <div

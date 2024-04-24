@@ -5,8 +5,8 @@ import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import PageCancel from "../layout/PageCancel";
-import detailIcon from "@/assets/icons/nextIcon.png";
 import useMyPageStore from "@/shared/zustand/myPageStore";
+import nextIcon from "@/assets/upanddown/Next.png";
 import {
   CourseInfo,
   SubjectName,
@@ -180,7 +180,7 @@ const ReservationInfoItem = () => {
                   </p>
                   <button onClick={() => handleDetailButtonClick(info)}>
                     <Image
-                      src={detailIcon}
+                      src={nextIcon}
                       alt="상세보기"
                       className="w-[20px] h-[20px]"
                     />
@@ -209,7 +209,7 @@ const ReservationInfoItem = () => {
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="bg-white h-[410px] rounded-[10px] p-4 z-10 relative flex flex-col">
+              <div className="bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
                   className="cursor-pointer ml-auto"
                   onClick={handleModalClose}
@@ -243,7 +243,7 @@ const ReservationInfoItem = () => {
                     <span className="medium-16">
                       {selectedReservation.apply_date
                         ?.toString()
-                        .substring(0, 4)}
+                        .substring(2, 4)}
                       년
                       {selectedReservation.apply_date
                         ?.toString()
@@ -262,7 +262,7 @@ const ReservationInfoItem = () => {
                     <span className="w-[66px] ml-2 mr-10 tracking-[-1px]">
                       검진자명
                     </span>
-                    <span>{selectedReservation.subject_name} 님</span>
+                    <span>{selectedReservation.subject_name}</span>
                   </div>
                   <hr className="border-solid border-gray-200 border-1 mb-3" />
                   <div className="flex flex-row mb-3 items-center">
@@ -280,7 +280,7 @@ const ReservationInfoItem = () => {
                     </span>
                     <span>{selectedReservation.program_name}</span>
                   </div>
-                  <hr className="border-solid border-gray-200 border-1 mb-12" />
+                  <hr className="border-solid border-gray-200 border-1 mb-4" />
                 </section>
                 <section className="flex justify-end">
                   {(selectedReservation.status === "예약 대기" ||
@@ -308,7 +308,7 @@ const ReservationInfoItem = () => {
         {editedData && (
           <div className="fixed inset-0 flex items-center justify-center z-50 ">
             <div className="absolute inset-0 bg-black opacity-30"></div>
-            <div className="bg-white h-[410px] rounded-[10px] p-4 z-10 relative flex flex-col">
+            <div className="bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
               <button
                 onClick={handleModalClose}
                 className="cursor-pointer ml-auto"
