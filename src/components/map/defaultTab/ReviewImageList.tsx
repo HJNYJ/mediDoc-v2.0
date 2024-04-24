@@ -2,6 +2,7 @@
 "use client";
 import { fetchHospitalReviewImages } from "@/hooks/getReviewData";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
   const {
@@ -19,14 +20,21 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
   return (
     <section className="mt-5">
       <h3 className="bold-18 mb-3">방문자 사진</h3>
-      <article className="inline-grid grid-cols-3 gap-2">
+      <article className="inline-grid grid-cols-3 gap-2 ">
         {reviewPhotos?.map((img, index) => (
-          <img
+          <div
             key={img?.photo_id}
-            src={img?.photos}
-            alt={`사진${index + 1}`}
-            className="w-[116.67px] h-[116px] rounded-[10px]"
-          />
+            className="flex w-[100px] h-[100px] rounded-[10px]"
+          >
+            <Image
+              key={img?.photo_id}
+              src={img?.photos}
+              alt={`사진${index + 1}`}
+              width={100}
+              height={100}
+              className="rounded-[10px]"
+            />
+          </div>
         ))}
         {reviewPhotos?.length === 0 && (
           <p className="w-full h-[19px] mx-[110px] mt-[185px] text-[16px] text-gray-400">

@@ -2,7 +2,6 @@ import { supabase } from "@/api/supabase";
 import { getUserInfo } from "./getUserInfo";
 import { v4 as uuidv4 } from "uuid";
 import { ConsultType } from "@/types";
-import { useRouter } from "next/navigation";
 // import type { ConsultType } from "@/types";
 
 // 실시간 상담 글 추가하는 함수
