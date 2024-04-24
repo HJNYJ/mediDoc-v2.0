@@ -134,6 +134,10 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
     const userEmail = userData?.userEmail || null;
 
     try {
+      const confirmed = window.confirm("리뷰를 등록하시겠습니까?");
+      if (!confirmed) {
+        return;
+      }
       const reviewId = uuidv4();
       const data = await supabase.from("review_info").insert([
         {
@@ -162,8 +166,7 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
           await uploadReviewPhotosUrl(imageUrl, reviewId, hospitalId);
         }
       }
-      alert("리뷰가 등록되었습니다.");
-      // 등록 후 hospitalId 페이지로 이동
+
       router.push(`/map/${hospitalId}`);
     } catch (error) {
       console.error("리뷰 데이터 저장 중 오류 발생:", error);

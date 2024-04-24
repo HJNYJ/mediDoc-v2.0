@@ -1,5 +1,3 @@
-import React from "react";
-
 const PagebackBtn = () => {
   return (
     <div className="w-6 h-6 relative">

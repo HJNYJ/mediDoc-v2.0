@@ -114,8 +114,7 @@ const Calendar = () => {
             </div>
           </button>
           <span className="m-2 bold-20">
-            {currentMonth.getFullYear()}
-            {monthsInYear[currentMonth.getMonth()]}
+            {currentMonth.getFullYear()}.{monthsInYear[currentMonth.getMonth()]}
           </span>
           <button className="m-2" onClick={handleNextMonth}>
             <div className="w-5 relative top-[1px]">

@@ -4,7 +4,7 @@ import RoundTabs from "../layout/RoundTabs";
 
 import type { ConsultType, TabsProps } from "@/types";
 
-const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
+const ConsultTabs = ({ setPosts }: TabsProps) => {
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("nose");
 
@@ -26,8 +26,8 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
         consult_photos(*)
         `
       )
-      .eq("bodyparts", currentTab);
-
+      .eq("bodyparts", currentTab)
+      .range(0, 9); //파람 값으로 받아오기 useRef 맨밑에 만나면 true, false, 주기
     if (error) {
       console.error("Error fetching posts:", error);
     }
@@ -36,7 +36,7 @@ const ConsultTabs = ({ handleCategoryChange, setPosts }: TabsProps) => {
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
-    handleCategoryChange(tabName);
+    // handleCategoryChange(tabName);
   };
 
   return (

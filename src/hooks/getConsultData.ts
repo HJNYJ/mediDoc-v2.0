@@ -1,6 +1,7 @@
 import { supabase } from "@/api/supabase";
 import { getUserInfo } from "./getUserInfo";
 import { v4 as uuidv4 } from "uuid";
+import { ConsultType } from "@/types";
 // import type { ConsultType } from "@/types";
 
 // 실시간 상담 글 추가하는 함수
@@ -63,24 +64,19 @@ export const fetchConsultImages = async () => {
 };
 
 // 실시간 상담 글을 최신 순으로 정렬하기
-// export const fetchConsults = async (): Promise<ConsultType[] | null> => {
-//   const { data, error } = await supabase
-//     .from("consult_info")
-//     .select(
-//       `consult_id,
-//         user_name,
-//         consult_title,
-//         consult_content,
-//         bodyparts,
-//         hashtags,
-//         consult_answer(*),
-//         consult_photos(*)
-//         `
-//     )
-//     .order("created_at", { ascending: true });
-//   if (error) console.error("error", error);
-//   return data as ConsultType[] | null;
-// };
+export const fetchConsults = async (): Promise<ConsultType[] | null> => {
+  const { data, error } = await supabase
+    .from("consult_info")
+    .select(
+      `*,
+        consult_answer(*),
+        consult_photos(*)
+        `
+    )
+    .order("created_at", { ascending: true });
+  if (error) console.error("error", error);
+  return data as ConsultType[] | null;
+};
 
 // 실시간 상담에서 글 id가 같은 글 가져오는 함수
 export const getConsultDetail = async (consultId: string) => {
