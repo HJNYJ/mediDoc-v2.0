@@ -1,14 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import TimeSelect from "./TimeSelect";
 import Calendar from "./CalendarDay";
-import useApplyStore from "@/shared/zustand/applyStore";
+import TimeSelect from "./TimeSelect";
 import Button from "../layout/Buttons";
-import YellowBarMg from "../layout/YellowBarMg";
 import GrayBar from "../layout/GrayBar";
+import { useRouter } from "next/navigation";
 import PageCancel from "../layout/PageCancel";
 import PagebackBtn from "../layout/PageBackBtn";
+import YellowBarMg from "../layout/YellowBarMg";
+import useApplyStore from "@/shared/zustand/applyStore";
 
 const ApplyPageTwo = ({
   setPageCount

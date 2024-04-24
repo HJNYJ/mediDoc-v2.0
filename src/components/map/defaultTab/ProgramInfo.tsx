@@ -2,151 +2,100 @@
 "use client";
 
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { selectCourseName } from "@/hooks/getReservationData";
 import {
   CourseCheckedIcon,
-  CourseNotCheckedIcon
+  CourseNotCheckedIcon,
+  TreatmentCourse,
+  TreatmentNotCourse
 } from "@/components/layout/CheckIcons";
 
 const ProgramInfo = () => {
-  const [isBasicToggled, setBasicToggled] = useState(false);
-  const [isStandardToggled, setStandardToggled] = useState(false);
-  const [isVIPToggled, setVIPToggled] = useState(false);
-  const [isVVIPToggled, setVVIPToggled] = useState(false);
-  return (
-    <section>
-      <div>
-        <div className="flex justify-between">
-          <h2 className="medium-16 my-3">베이직</h2>
-          <span
-            className="inline-flex items-center justify-center cursor-pointer w-6"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isBasicToggled) {
-                setBasicToggled(false);
-              } else {
-                setBasicToggled(true);
-                setStandardToggled(false);
-                setVIPToggled(false);
-                setVVIPToggled(false);
+  const [isBasicToggled, setBasicToggled] = useState<boolean>(false);
+  const [checkedCourse, setCheckedCourse] = useState(new Map());
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["courseInfo"],
+    queryFn: selectCourseName
+  });
+
+  const checkCourseHandler = (check, id) => {
+    const map = new Map();
+    map.set(check, id);
+    setCheckedCourse(map);
+  };
+
+  const course = data?.map((card) => {
+    return (
+      <article key={card.course_id}>
+        <div
+          className="mb-2 px-4 py-[14px] border-2 w-full rounded-lg justify-start flex items-center"
+          onClick={() => {
+            setBasicToggled(true);
+            isBasicToggled;
+          }}
+        >
+          <div className="cursor-pointer w-full">
+            <input
+              type="radio"
+              name="card.course_id"
+              id={card.course_name}
+              className="hidden"
+              onChange={(e) =>
+                checkCourseHandler(e.target.checked, e.target.id)
               }
-            }}
-          >
-            {isBasicToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
-          </span>
-        </div>
-        {isBasicToggled && (
-          <div className="regular-14 text-gray-800 my-2">
-            <p className="regular-14 text-gray-800">
-              기본 진료(진찰, 신체/체중, 체성분측정), 시력검사, 청력 검사 혈압
-              측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
-              자궁경부세포(여)
-            </p>
-            <p className="bold-16 text-orange my-3">450,000원</p>
+            />
+            <div>
+              {card.course_name === checkedCourse.get(true) ? (
+                <>
+                  <label htmlFor={card.course_name} className="cursor-pointer ">
+                    <div className="flex justify-between mb-4 bold-14">
+                      <div className="flex">
+                        <TreatmentCourse />
+                        {card.course_name}
+                      </div>
+                      <CourseCheckedIcon />
+                    </div>
+                  </label>
+                  <p className="break-keep regular-14">
+                    {card.course_detail}
+                    <div className=" text-orange m-2">
+                      {card.course_price.toString().substring(0, 3)}.
+                      {card.course_price.toString().substring(3, 7)}원
+                    </div>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <label
+                    htmlFor={card.course_name}
+                    className="cursor-pointer block"
+                  >
+                    <div className="flex justify-between bold-14">
+                      <div className="flex">
+                        <TreatmentNotCourse />
+                        {card.course_name}
+                      </div>
+                      <CourseNotCheckedIcon />
+                    </div>
+                  </label>
+                </>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-      {/* 스탠다드 */}
-      <div>
-        <div className="flex justify-between">
-          <h2 className="medium-16 my-3">스탠다드</h2>
-          <span
-            className="inline-flex items-center justify-center cursor-pointer w-6"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isStandardToggled) {
-                setStandardToggled(false);
-              } else {
-                setBasicToggled(false);
-                setStandardToggled(true);
-                setVIPToggled(false);
-                setVVIPToggled(false);
-              }
-            }}
-          >
-            {isStandardToggled ? (
-              <CourseCheckedIcon />
-            ) : (
-              <CourseNotCheckedIcon />
-            )}
-          </span>
         </div>
-        {isStandardToggled && (
-          <div className="regular-14 text-gray-800 my-2">
-            <p className="regular-14 text-gray-800">
-              기본 진료(진찰, 신체/체중, 체성분측정), 시력검사, 청력 검사 혈압
-              측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
-              자궁경부세포(여)
-            </p>
-            <p className="bold-16 text-orange my-3">550,000원</p>
-          </div>
-        )}
-      </div>
-      {/* VIP */}
-      <div>
-        <div className="flex justify-between">
-          <h2 className="medium-16 my-3">VIP</h2>
-          <span
-            className="inline-flex items-center justify-center cursor-pointer w-6"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isVIPToggled) {
-                setVIPToggled(false);
-              } else {
-                setBasicToggled(false);
-                setStandardToggled(false);
-                setVIPToggled(true);
-                setVVIPToggled(false);
-              }
-            }}
-          >
-            {isVIPToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
-          </span>
-        </div>
-        {isVIPToggled && (
-          <div className="regular-14 text-gray-800 my-2">
-            <p className="regular-14 text-gray-800">
-              기본 진료(진찰, 신체/체중, 체성분측정), 시력검사, 청력 검사 혈압
-              측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
-              자궁경부세포(여)
-            </p>
-            <p className="bold-16 text-orange my-3">680,000원</p>
-          </div>
-        )}
-      </div>
-      {/* VVIP */}
-      <div>
-        <div className="flex justify-between">
-          <h2 className="medium-16 my-3">VVIP</h2>
-          <span
-            className="inline-flex items-center justify-center cursor-pointer w-6"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isVVIPToggled) {
-                setVVIPToggled(false);
-              } else {
-                setBasicToggled(false);
-                setStandardToggled(false);
-                setVIPToggled(false);
-                setVVIPToggled(true);
-              }
-            }}
-          >
-            {isVVIPToggled ? <CourseCheckedIcon /> : <CourseNotCheckedIcon />}
-          </span>
-        </div>
-        {isVVIPToggled && (
-          <div className="regular-14 text-gray-800 my-2">
-            <p className="regular-14 text-gray-800">
-              기본 진료(진찰, 신체/체중, 체성분측정), 시력검사, 청력 검사 혈압
-              측정, 심전도 검사, 흉부 X-Ray 검사, 골밀도 유방촬영술(여),
-              자궁경부세포(여)
-            </p>
-            <p className="bold-16 text-orange my-3">850,000원</p>
-          </div>
-        )}
-      </div>
-    </section>
-  );
+      </article>
+    );
+  });
+
+  if (isLoading) {
+    <div>로딩 중 입니다...</div>;
+  }
+
+  if (isError) {
+    <div>에러 입니다...</div>;
+  }
+  return <section>{course}</section>;
 };
 
 export default ProgramInfo;

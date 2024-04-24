@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import writeReview from "@/assets/icons/review/pencil.png";
 import ReviewRecent from "../review/ReviewRecent";
+import { Review } from "@/components/layout/CheckIcons";
 
 const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
@@ -14,7 +13,10 @@ const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
       <div className="flex gap-4 justify-between">
         <h3 className="bold-18">방문자 리뷰</h3>
         <button onClick={() => goToReviewForm(hospitalId)} className="flex">
-          <Image src={writeReview} alt="리뷰쓰기 버튼" width={20} height={20} />
+          <div className="relative top-[2px]">
+            <Review />
+          </div>
+
           <span className="text-orange">리뷰쓰기</span>
         </button>
       </div>

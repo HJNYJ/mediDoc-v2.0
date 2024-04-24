@@ -1,9 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import ReviewRecent from "./ReviewRecent";
-import writeReview from "@/assets/icons/review/pencil.png";
+import { useRouter } from "next/navigation";
+import { Review } from "@/components/layout/CheckIcons";
 
 const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
   const router = useRouter();
@@ -20,7 +19,10 @@ const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
           onClick={() => goToReviewForm(hospitalId)}
           className="flex items-center mr-8"
         >
-          <Image src={writeReview} alt="리뷰쓰기 버튼" />
+          <div className="relative top-[2px]">
+            <Review />
+          </div>
+
           <span className="text-orange ml-1">리뷰쓰기</span>
         </button>
       </div>
