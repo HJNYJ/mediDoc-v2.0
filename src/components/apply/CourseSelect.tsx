@@ -1,15 +1,16 @@
 "use client";
 
 import { selectCourseName } from "@/hooks/getReservationData";
+import useApplyStore from "@/shared/zustand/applyStore";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+
 import {
   CourseCheckedIcon,
   CourseNotCheckedIcon,
   TreatmentCourse,
   TreatmentNotCourse
 } from "../layout/CheckIcons";
-import useApplyStore from "@/shared/zustand/applyStore";
 
 const CourseSelect = () => {
   const {

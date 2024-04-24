@@ -1,9 +1,9 @@
 "use client";
 
-import { getHospitalName } from "@/hooks/getReservationData";
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import useApplyStore from "@/shared/zustand/applyStore";
+import { getHospitalName } from "@/hooks/getReservationData";
 
 const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   const { setHospitalName } = useApplyStore();
