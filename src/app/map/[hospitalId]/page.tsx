@@ -92,8 +92,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                   alt={`사진${index + 1}`}
                   width={100}
                   height={100}
-                  // layout="fill"
-                  objectFit="cover"
+                  className="rounded-[10px]"
                 />
               </div>
             ))}

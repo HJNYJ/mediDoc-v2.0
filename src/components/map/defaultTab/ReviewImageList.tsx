@@ -20,7 +20,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
   return (
     <section className="mt-5">
       <h3 className="bold-18 mb-3">방문자 사진</h3>
-      <article className="inline-grid grid-cols-3 gap-2 ">
+      <article className="inline-grid grid-cols-3 gap-2">
         {reviewPhotos?.map((img, index) => (
           <div
             key={img?.photo_id}
