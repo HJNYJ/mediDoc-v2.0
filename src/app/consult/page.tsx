@@ -17,12 +17,10 @@ import type { ConsultType } from "@/types";
 const ConsultPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<ConsultType[]>([]);
-  // const [isLoading, setIsLoading] = useState(false);
   const bottomOfPageRef = useRef<HTMLDivElement>(null);
 
   const goToAskForm = async () => {
     try {
-      // setIsLoading(true);
       const session = await supabase.auth.getSession();
 
       if (session.data.session === null) {
@@ -33,9 +31,6 @@ const ConsultPage = () => {
       }
     } catch (error) {
       console.log("error", error);
-      // } finally {
-      //   // setIsLoading(false);
-      // }
     }
   };
 
