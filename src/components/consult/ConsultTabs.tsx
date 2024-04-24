@@ -26,8 +26,8 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
         consult_photos(*)
         `
       )
-      .eq("bodyparts", currentTab);
-
+      .eq("bodyparts", currentTab)
+      .range(0, 9); //파람 값으로 받아오기 useRef 맨밑에 만나면 true, false, 주기
     if (error) {
       console.error("Error fetching posts:", error);
     }
