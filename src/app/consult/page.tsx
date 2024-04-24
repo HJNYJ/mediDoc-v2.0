@@ -24,7 +24,6 @@ const ConsultPage = () => {
       const session = await supabase.auth.getSession();
 
       if (session.data.session === null) {
-        // alert("로그인이 필요한 서비스입니다.");
         router.push("/login");
       } else {
         router.push("/consult/ask");
