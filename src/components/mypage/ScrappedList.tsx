@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import type { ScrappedListItem } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 const ScrappedList: React.FC = () => {
   const [scrappedList, setScrappedList] = useState<ScrappedListItem[]>([]);
@@ -64,16 +65,18 @@ const ScrappedList: React.FC = () => {
       <section className="w-full flex gap-2 flex-wrap">
         {scrappedList.map((item) => (
           <div key={item.scrap_id} className="flex flex-col oneThird mb-4">
-            <Image
-              className="object-cover h-[131px] rounded-[10px] "
-              src={item.hospital_info!.hospital_image}
-              alt={item.hospital_info!.hospital_name}
-              width={114}
-              height={131}
-            />
-            <span className="text-[14px] font-medium h-[24px] mt-[8px]">
-              {item.hospital_info?.hospital_name}
-            </span>
+            <Link href={`/map/${item.hospital_id}`}>
+              <Image
+                className="object-cover h-[131px] rounded-[10px] "
+                src={item.hospital_info!.hospital_image}
+                alt={item.hospital_info!.hospital_name}
+                width={114}
+                height={131}
+              />
+              <span className="text-[14px] font-medium h-[24px] mt-[8px]">
+                {item.hospital_info?.hospital_name}
+              </span>
+            </Link>
           </div>
         ))}
       </section>
