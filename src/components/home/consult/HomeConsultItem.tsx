@@ -77,13 +77,17 @@ const HomeConsultItem = () => {
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.slice(0, 1)
                 ?.map((image, index) => (
-                  <div key={index} className=" flex mr-3 my-2">
+                  <div
+                    key={index}
+                    className="relative my-2 mx-2 w-[50px] h-[50px] border border-gray-100 overflow-hidden flex items-center justify-center"
+                  >
                     {image ? (
                       <Image
                         src={image.photos}
                         alt={`상담 이미지 ${index + 1}`}
                         width={50}
-                        height={50}
+                        height={30}
+                        objectFit="cover"
                         className="rounded-lg"
                       />
                     ) : (
