@@ -61,7 +61,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     refetch();
   }, [params.consultId, refetch]);
 
-  const handleDeleteConsult = async (consultId) => {
+  const handleDeleteConsult = async (consultId: string) => {
     await getConsultCheckUser(consultId);
     router.push(`/consult`);
   };

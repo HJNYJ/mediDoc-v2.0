@@ -8,12 +8,6 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("nose");
 
-  //  무한 스크롤 관련
-  // const { isLoading, hasMore, fetchMorePosts } = useInfiniteScroll(
-  //   currentTab,
-  //   setPosts
-  // );
-
   useEffect(() => {
     fetchPosts();
   }, [currentTab]);
@@ -85,9 +79,6 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
           width={120.3}
         />
       </div>
-      {/* <div ref={fetchMorePosts.ref} />
-      {isLoading && <div>Loading...</div>}
-      {!hasMore && <div>No more data to load.</div>} */}
     </>
   );
 };

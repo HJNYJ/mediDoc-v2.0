@@ -12,9 +12,10 @@ import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HomeConsultItem = () => {
-  // 사진 가져오기위해
+  const router = useRouter();
 
   const [consultPhotos, setConsultPhotos] = useState<
     { consult_id: string; photo_id: string; photos: string }[]
@@ -55,13 +56,21 @@ const HomeConsultItem = () => {
     }
   });
 
+  const onConsultClickHandler = (consultId: string) => {
+    router.push(`/consult/${consultId}`);
+  };
+
   if (isLoadingRecent) return <div>로딩 중...</div>;
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
     <div>
       {consultRecentData?.map((consult, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          onClick={() => onConsultClickHandler(consult.consult_id)}
+          className="hover:bg-bluegray cursor-pointer"
+        >
           <div className="flex justify-between">
             <div className="flex">
               {consultPhotos
