@@ -19,7 +19,7 @@ const ReviewItem = ({ hospitalId }: { hospitalId: string }) => {
           onClick={() => goToReviewForm(hospitalId)}
           className="flex items-center mr-8"
         >
-          <div className="relative top-[2px]">
+          <div className="relative top-[1px]">
             <Review />
           </div>
 

@@ -120,7 +120,7 @@ const ApplyPageOne = ({
       <article className="w-[100%] mt-3 mb-6 h-[168px] rounded-lg overflow-hidden">
         <HospitalImage hospitalId={hospitalId} />
       </article>
-      <form
+      <div
         className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {
           e.preventDefault();
@@ -221,7 +221,7 @@ const ApplyPageOne = ({
             onClick={handleNextClick}
           />
         </div>
-      </form>
+      </div>
     </div>
   );
 };
