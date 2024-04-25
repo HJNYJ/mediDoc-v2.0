@@ -75,40 +75,38 @@ export const Navbar = () => {
     return null;
   }
   return (
-    <div className="pt-20 relative z-10">
-      <nav className="navbar fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
-        <div className="flex justify-between items-center max-w-screen-lg mx-auto px-4 py-2">
-          <Link href={"/consult"}>
-            {pathname === "/consult" || pathname === "/consult/ask" ? (
-              <OrangeConsultIcon />
-            ) : (
-              <ConsultBtnIcon />
-            )}
-          </Link>
-          <Link href={"/selftest"}>
-            {pathname === "/selftest" ? (
-              <OrangeSelftTestIcon />
-            ) : (
-              <SelfTestIcon />
-            )}
-          </Link>
-          <Link href={"/home"}>
-            {pathname === "/home" ? <OrangeHomeIcon /> : <HomeBtnIcon />}
-          </Link>
-          <div onClick={handleMyPageClick} className="cursor-pointer">
-            <MyPageIcon />
-          </div>
-          {isLoggedIn ? (
-            <button onClick={() => logoutHandler()}>
-              <LogoutBtnIcon />
-            </button>
+    <nav className="navbar fixed bottom-0 left-[50%] translate-x-[-50%] bg-white nav_width z-10 border-t-2">
+      <div className="flex justify-between px-2 py-2">
+        <Link href={"/consult"}>
+          {pathname === "/consult" || pathname === "/consult/ask" ? (
+            <OrangeConsultIcon />
           ) : (
-            <Link href={"/login"}>
-              <LoginIconBtn />
-            </Link>
+            <ConsultBtnIcon />
           )}
+        </Link>
+        <Link href={"/selftest"}>
+          {pathname === "/selftest" ? (
+            <OrangeSelftTestIcon />
+          ) : (
+            <SelfTestIcon />
+          )}
+        </Link>
+        <Link href={"/home"}>
+          {pathname === "/home" ? <OrangeHomeIcon /> : <HomeBtnIcon />}
+        </Link>
+        <div onClick={handleMyPageClick} className="cursor-pointer">
+          <MyPageIcon />
         </div>
-      </nav>
-    </div>
+        {isLoggedIn ? (
+          <button onClick={() => logoutHandler()}>
+            <LogoutBtnIcon />
+          </button>
+        ) : (
+          <Link href={"/login"}>
+            <LoginIconBtn />
+          </Link>
+        )}
+      </div>
+    </nav>
   );
 };
