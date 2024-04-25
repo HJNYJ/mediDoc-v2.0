@@ -34,7 +34,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           {/* <div className="max-w-mobile mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"> */}
-          <main className="max-w-[430px] mx-[16px] total_margin">
+          <main className="max-w-[430px] mx-auto total_margin pb-[75px]">
             {children}
             <Navbar />
             {/* <ReactQueryDevtools /> */}
