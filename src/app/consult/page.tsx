@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { supabase } from "@/api/supabase";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
 import PagebackBtn from "@/components/layout/PageBackBtn";
@@ -13,25 +12,12 @@ import AnswerWaiting from "@/components/layout/AnswerWaiting";
 // import SkeletonList from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
+import WriteButton from "@/components/consult/WriteButton";
 
 const ConsultPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<ConsultType[]>([]);
   const bottomOfPageRef = useRef<HTMLDivElement>(null);
-
-  const goToAskForm = async () => {
-    try {
-      const session = await supabase.auth.getSession();
-
-      if (session.data.session === null) {
-        router.push("/login");
-      } else {
-        router.push("/consult/ask");
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
 
   const goToDetailPage = (consultId: string) => {
     router.push(`/consult/${consultId}`);
@@ -44,7 +30,7 @@ const ConsultPage = () => {
   return (
     <div className="w-full">
       {/* {isLoading && <SkeletonList />} */}
-      <div className="mt-10 mb-5 flex justify-center relative">
+      <div className="py-[15px] flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
@@ -121,14 +107,7 @@ const ConsultPage = () => {
         })}
       </div>
       <div ref={bottomOfPageRef} />
-      <div className="relative">
-        <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
-          <div className="w-16 h-16 relative bg-orange rounded-full">
-            <span className="plus_btn"></span>
-            <span className="minus_btn"></span>
-          </div>
-        </button>
-      </div>
+      <WriteButton />
     </div>
   );
 };
