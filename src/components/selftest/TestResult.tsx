@@ -139,6 +139,15 @@ const TestResult = () => {
             * 연관있는 질환을 알려드리며 자세한 사항은 전문의와 상담하세요.
             <hr />
           </p>
+          <div className="my-4">
+            <Button
+              type="button"
+              buttonType="filled"
+              label="실시간 상담하러가기"
+              size="base"
+              onClick={() => router.push("/consult")}
+            />{" "}
+          </div>
           <Button
             type="button"
             buttonType="filled"
