@@ -98,3 +98,8 @@
   transform: translate(-50%, -50%) rotate(90deg);
   border-radius: 50px;
 }
+
+.nav_width {
+max-width: 430px;
+width: 100%;
+}

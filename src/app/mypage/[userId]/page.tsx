@@ -117,7 +117,7 @@ const MyPage = () => {
           <TopNavbar title="마이페이지" />
           {userInfo.map((user) => (
             <div key={user.user_id}>
-              <p className="text-[24px] font-bold px-[16px]">
+              <p className="text-[24px] font-bold px-4">
                 {user.user_name}님, <br />
                 안녕하세요!
               </p>
