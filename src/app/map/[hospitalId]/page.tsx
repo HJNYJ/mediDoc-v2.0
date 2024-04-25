@@ -95,17 +95,19 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
 
           <Notice />
           <h3 className="bold-18 mb-3">방문자 사진</h3>
-          <article className="inline-grid grid-cols-3 gap-2">
+          <article className="inline-grid grid-cols-3 gap-3">
             {reviewPhotos?.slice(0, 6).map((img, index) => (
               <div
                 key={img?.photo_id}
-                className="flex w-[100px] h-[100px] rounded-[10px]"
+                // className="flex w-[90px] h-[90px] rounded-[10px]"
+                className="relative w-full h-[100px] border border-gray-100 overflow-hidden flex items-center justify-center"
               >
                 <Image
                   src={img?.photos}
                   alt={`사진${index + 1}`}
                   width={100}
                   height={100}
+                  objectFit="cover"
                   className="rounded-[10px]"
                 />
               </div>
