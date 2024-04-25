@@ -31,7 +31,7 @@ const ConsultPage = () => {
     <div className="w-full">
       {/* {isLoading && <SkeletonList />} */}
       <div className="py-[15px] flex justify-center relative">
-        <button className="flex absolute left-3" onClick={onClickHomeHandler}>
+        <button className="flex absolute left-1" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
         <p className="flex">실시간 상담</p>

@@ -61,8 +61,29 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     refetch();
   }, [params.consultId, refetch]);
 
-  const handleDeleteConsult = async (consultId) => {
-    await getConsultCheckUser(consultId);
+  const handleDeleteConsult = async (consultId: string) => {
+    if (!confirm("게시물을 삭제하시겠습니까?")) return;
+
+    const userEmail = await getConsultCheckUser(consultId);
+    console.log("userEmail!!!!! ===>", userEmail?.user_email);
+
+    const {
+      data: { session }
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    const currentUserEmail = user?.email ?? "";
+    console.log("currentUserEmail!!!!!!! ===>", currentUserEmail);
+
+    if (userEmail?.user_email === currentUserEmail) {
+      await Promise.all([
+        supabase.from("consult_photos").delete().eq("consult_id", consultId),
+        supabase.from("consult_info").delete().eq("consult_id", consultId),
+        supabase.from("consult_answer").delete().eq("consult_id", consultId)
+      ]);
+      console.log("상담이 성공적으로 삭제되었습니다.");
+    } else {
+      // 삭제하기 버튼 안보이게하기
+    }
     router.push(`/consult`);
   };
 

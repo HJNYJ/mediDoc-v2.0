@@ -101,7 +101,7 @@ export const getConsultDetail = async (consultId: string) => {
       console.error("상담 내역 상세 정보 가져오기 실패..", error);
       throw error;
     }
-    console.log("getConsultDetailData ===>", data);
+    // console.log("getConsultDetailData ===>", data);
     return data;
   } catch (error) {
     console.error("상담 내역 상세 정보 가져오기 실패ㅠㅡㅠ", error);
@@ -109,6 +109,7 @@ export const getConsultDetail = async (consultId: string) => {
   }
 };
 
+// 실시간 상담에서 user email 같으면 삭제 가능한 함수
 export const getConsultCheckUser = async (consultId: string) => {
   try {
     const consultInform = await supabase
@@ -128,29 +129,9 @@ export const getConsultCheckUser = async (consultId: string) => {
       .eq("consult_id", consultId)
       .single();
 
-    console.log("consultInform ===> ", consultInform?.data);
+    console.log("consultInform ===> ", consultInform?.data?.user_email);
 
-    const {
-      data: { session }
-    } = await supabase.auth.getSession();
-    const user = session?.user;
-    const userEmail = user?.email ?? "";
-    console.log("userEmail ===>", userEmail);
-
-    if (consultInform.data?.user_email === userEmail) {
-      //
-      await Promise.all([
-        supabase.from("consult_photos").delete().eq("consult_id", consultId),
-
-        supabase.from("consult_info").delete().eq("consult_id", consultId),
-
-        supabase.from("consult_answer").delete().eq("consult_id", consultId)
-      ]);
-
-      console.log("상담이 성공적으로 삭제되었습니다.");
-    } else {
-      console.log("상담 삭제 권한이 없습니다.");
-    }
+    return consultInform?.data;
   } catch (error) {
     console.error("상담 내역 상세 정보 가져오기 실패ㅠㅡㅠ", error);
     return null;
