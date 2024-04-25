@@ -67,7 +67,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   };
 
   const onClickConsultHandeler = () => {
-    router.push("/home");
+    router.push("/consult");
   };
 
   if (isLoading) return <p>Loading...</p>;
