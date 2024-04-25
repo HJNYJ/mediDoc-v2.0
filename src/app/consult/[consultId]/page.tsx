@@ -1,7 +1,11 @@
 "use client";
 // 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
 import { supabase } from "@/api/supabase";
-import { getConsultDetail, getAnswerDetail } from "@/hooks/getConsultData";
+import {
+  getConsultDetail,
+  getAnswerDetail,
+  getConsultCheckUser
+} from "@/hooks/getConsultData";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -57,6 +61,11 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     refetch();
   }, [params.consultId, refetch]);
 
+  const handleDeleteConsult = async (consultId) => {
+    await getConsultCheckUser(consultId);
+    router.push(`/consult`);
+  };
+
   const onClickConsultHandeler = () => {
     router.push("/home");
   };
@@ -84,19 +93,10 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             {consultDetailData?.user_name &&
               `${consultDetailData.user_name.substring(0, 2)}${"*".repeat(Math.max(0, consultDetailData.user_name.length - 2))}`}
           </p>
-          {/* <div className="flex">
-            {consultDetailData?.consult_photos?.map((photo) => (
-              <img
-                key={photo.photo_id}
-                src={photo.photos}
-                alt="상담 이미지"
-                className="w-[90px] h-[90px] object-cover mb-5"
-              />
-            ))}
-          </div> */}
+
           <div className="flex">
             {consultDetailData?.consult_photos?.map((photo) => (
-              <div key={photo.photo_id} className="w-[90px] h-[90px] mb-5">
+              <div key={photo.photo_id} className="mr-3 flex">
                 <Image
                   src={photo.photos}
                   alt="상담 이미지"
@@ -162,7 +162,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
             </div>
           )}
           <div className="mt-10 bg-gray-200 h-0.5 "></div>
+
           <ConsultNotice />
+          <div className="my-7 bg-gray-200 h-0.5 "></div>
+
+          <button
+            onClick={() => handleDeleteConsult(params.consultId)}
+            className="bg-orange text-white regular-12 rounded-lg p-2"
+          >
+            삭제하기
+          </button>
         </div>
       </div>
     </div>

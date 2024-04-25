@@ -78,34 +78,21 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       {selectedTab === "default" && (
         <>
           <ProgramInfo />
-          {/* <span>--------------</span> */}
+
           <Notice />
           <h3 className="bold-18 mb-3">방문자 사진</h3>
-          {/* <article className="inline-grid grid-cols-3 gap-2">
-            {reviewPhotos
-              ?.slice(0, 6)
-              .map((img, index) => (
-                <img
-                  key={img?.photo_id}
-                  src={img?.photos}
-                  alt={`사진${index + 1}`}
-                  className="w-[116.67px] h-[116px] rounded-[10px]"
-                />
-              ))}
-          </article> */}
           <article className="inline-grid grid-cols-3 gap-2">
             {reviewPhotos?.slice(0, 6).map((img, index) => (
               <div
                 key={img?.photo_id}
-                className="relative w-[116.67px] h-[116px] rounded-[10px]"
+                className="flex w-[100px] h-[100px] rounded-[10px]"
               >
                 <Image
                   src={img?.photos}
                   alt={`사진${index + 1}`}
-                  width={116.67}
-                  height={116}
-                  // layout="fill"
-                  objectFit="cover"
+                  width={100}
+                  height={100}
+                  className="rounded-[10px]"
                 />
               </div>
             ))}

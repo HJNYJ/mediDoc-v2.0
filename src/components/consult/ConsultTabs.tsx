@@ -8,6 +8,12 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("nose");
 
+  //  무한 스크롤 관련
+  // const { isLoading, hasMore, fetchMorePosts } = useInfiniteScroll(
+  //   currentTab,
+  //   setPosts
+  // );
+
   useEffect(() => {
     fetchPosts();
   }, [currentTab]);
@@ -36,48 +42,53 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
-    // handleCategoryChange(tabName);
+    // fetchMorePosts(1);
   };
 
   return (
-    <div className="flex flex-wrap justify-center mb-4">
-      <RoundTabs
-        label="코 통증"
-        onClick={() => onChangeTabHandler("nose")}
-        active={currentTab === "nose"}
-        width={119.3}
-      />
-      <RoundTabs
-        label="목 통증"
-        onClick={() => onChangeTabHandler("neck")}
-        active={currentTab === "neck"}
-        width={119.3}
-      />
-      <RoundTabs
-        label="귀 통증"
-        onClick={() => onChangeTabHandler("ears")}
-        active={currentTab === "ears"}
-        width={119.3}
-      />
-      <RoundTabs
-        label="등/허리 통증"
-        onClick={() => onChangeTabHandler("waist")}
-        active={currentTab === "waist"}
-        width={120.3}
-      />
-      <RoundTabs
-        label="배 통증"
-        onClick={() => onChangeTabHandler("abdomen")}
-        active={currentTab === "abdomen"}
-        width={120.3}
-      />
-      <RoundTabs
-        label="가슴 통증"
-        onClick={() => onChangeTabHandler("chest")}
-        active={currentTab === "chest"}
-        width={120.3}
-      />
-    </div>
+    <>
+      <div className="flex flex-wrap justify-center mb-4">
+        <RoundTabs
+          label="코 통증"
+          onClick={() => onChangeTabHandler("nose")}
+          active={currentTab === "nose"}
+          width={119.3}
+        />
+        <RoundTabs
+          label="목 통증"
+          onClick={() => onChangeTabHandler("neck")}
+          active={currentTab === "neck"}
+          width={119.3}
+        />
+        <RoundTabs
+          label="귀 통증"
+          onClick={() => onChangeTabHandler("ears")}
+          active={currentTab === "ears"}
+          width={119.3}
+        />
+        <RoundTabs
+          label="등/허리 통증"
+          onClick={() => onChangeTabHandler("waist")}
+          active={currentTab === "waist"}
+          width={120.3}
+        />
+        <RoundTabs
+          label="배 통증"
+          onClick={() => onChangeTabHandler("abdomen")}
+          active={currentTab === "abdomen"}
+          width={120.3}
+        />
+        <RoundTabs
+          label="가슴 통증"
+          onClick={() => onChangeTabHandler("chest")}
+          active={currentTab === "chest"}
+          width={120.3}
+        />
+      </div>
+      {/* <div ref={fetchMorePosts.ref} />
+      {isLoading && <div>Loading...</div>}
+      {!hasMore && <div>No more data to load.</div>} */}
+    </>
   );
 };
 

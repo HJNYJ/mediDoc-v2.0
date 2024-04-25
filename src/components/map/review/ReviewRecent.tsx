@@ -91,8 +91,9 @@ const ReviewRecent = () => {
                     <p>익명</p>
                   )}
                   <p className="regular-13 gray-800">⭐{review.rating}.0</p>
+
                   {review.review_photos && (
-                    <div>
+                    <div className="flex">
                       {review.review_photos.map((photo) => (
                         <Image
                           key={photo.photo_id}
@@ -100,11 +101,12 @@ const ReviewRecent = () => {
                           alt="리뷰 이미지"
                           width={85}
                           height={85}
-                          className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
+                          className="mr-2 my-2 w-[85px] h-[85px] bg-bluegray rounded-lg"
                         />
                       ))}
                     </div>
                   )}
+
                   <div className="gray-800 regular-14">{review.content}</div>
                   <div className="flex text-center my-2">
                     {review.hashtags
@@ -128,14 +130,16 @@ const ReviewRecent = () => {
                 ) : (
                   <p>익명</p>
                 )}
-                <p className="regular-13 gray-800">⭐{review.rating}.0</p>
+                <p className="regular-13 gray-800 my-2">⭐{review.rating}.0</p>
                 {review.review_photos && (
-                  <div>
+                  <div className="flex gap-2">
                     {review.review_photos.map((photo) => (
-                      <img
+                      <Image
                         key={photo.photo_id}
                         src={photo.photos}
                         alt="리뷰 이미지"
+                        width={85}
+                        height={85}
                         className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
                       />
                     ))}

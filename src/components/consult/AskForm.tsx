@@ -53,6 +53,11 @@ const AskForm = () => {
   const setImgHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files as FileList);
 
+    if (fileList.length + uploadedImages.length > 3) {
+      alert("이미지는 최대 3장까지만 업로드할 수 있습니다.");
+      return;
+    }
+
     /** 이미지 압축 라이브러리 사용 시작*/
     const options = {
       maxSizeMB: 0.2,
@@ -278,29 +283,33 @@ const AskForm = () => {
           </div>
           <div>
             {/* 이미지 컴포넌트 시작 */}
-            <div>
-              <p className="regular-14 text-gray-800 ml-2 mb-3">
-                사진
-                {/* <span className="text-right">{uploadedFileUrl.length}/3</span> */}
-              </p>
-              <div>
+            <div className="flex-col">
+              <p className="regular-14 text-gray-800 ml-2 mb-3">사진</p>
+              <div className="flex">
                 {uploadedImages.map((image, idx: number) => {
                   return (
                     <div key={idx}>
                       {/**이미지 렌더링 */}
-                      <img
-                        src={String(image.dataUrl)}
-                        alt={image.name}
-                        className="w-[100px] h-[100px]"
-                      />
+                      <button
+                        onClick={() => handleDeleteImage(idx)}
+                        className="ml-3 my-2"
+                      >
+                        ❌
+                        <Image
+                          src={String(image.dataUrl)}
+                          alt={image.name}
+                          width={85}
+                          height={85}
+                          className="w-[85px] h-[85px] mr-2 rounded-lg"
+                        />
+                      </button>
                       {/* <img src={image.dataUrl} alt={image.name} /> */}
                       <div onClick={handleImageOrder}></div>
-                      <button onClick={() => handleDeleteImage(idx)}>
-                        삭제
-                      </button>
                     </div>
                   );
                 })}
+              </div>
+              <div>
                 {uploadedFileUrl.length >= 3 ? (
                   <></>
                 ) : (

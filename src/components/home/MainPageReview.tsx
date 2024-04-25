@@ -60,7 +60,7 @@ const MainPageReview = () => {
         {/* 후기 보러가기 버튼 추가 */}
         {reviewRatedTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
-            <div className="flex flex-row mr-[14px]">
+            <div className="flex flex-row mr-[14px] overflow-hidden">
               <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">
                 <section className="h-[54px] border-b-2 border-b-bluegray">
                   <p className="h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
@@ -90,7 +90,7 @@ const MainPageReview = () => {
                   <section className="regular-14 w-full text-ellipsis overflow-hidden">
                     {review.content}
                   </section>
-                  <section className="mt-auto mb-3">
+                  <section className="mt-auto mb-3 flex">
                     {review.review_photos &&
                       review.review_photos.map((photo, index) => (
                         <Image

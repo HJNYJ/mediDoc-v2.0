@@ -18,8 +18,8 @@ const WriteButton = () => {
   };
 
   return (
-    <div className="relative">
-      <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
+    <div className="relative flex justify-end">
+      <button onClick={goToAskForm} className="fixed bottom-20">
         <div className="w-16 h-16 relative bg-orange rounded-full">
           <span className="plus_btn"></span>
           <span className="minus_btn"></span>

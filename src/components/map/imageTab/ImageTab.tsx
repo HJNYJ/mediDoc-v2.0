@@ -21,13 +21,13 @@ const ImageTab = () => {
     <main>
       {/* DB의 사진들을 map을 사용하여 grid 3 출력 */}
       {/* 아래는 map으로 출력됐다고 가정하고 Image로 각각을 표현 */}
-      <section className="grid grid-cols-3 gap-4">
+      <section className="grid grid-cols-3 gap-4 ">
         {reviewPhotos?.map((img, index) => (
           <Image
             key={img?.photo_id}
             src={img?.photos}
             alt={`사진${index + 1}`}
-            className="w-[116.67px] h-[116px] rounded-[10px]"
+            className="w-[100px] h-[100px] rounded-[10px]"
           />
         ))}
       </section>
