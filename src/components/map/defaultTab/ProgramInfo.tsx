@@ -13,30 +13,22 @@ const ProgramInfo = () => {
 
   const course = data?.map((card) => {
     return (
-      <article key={card.course_id}>
-        <div className="mb-2 px-4 py-[14px] border-2 w-full rounded-lg justify-start flex items-center">
-          <div className="cursor-pointer w-full">
-            <div>
-              <>
-                <Accordion>
-                  <AccordionItem
-                    title={`${card.course_name}`}
-                    className="bold-14"
-                  >
-                    <p className="break-keep regular-14 mt-4">
-                      {card.course_detail}
-                      <div className="flex justify-end text-orange m-[16px_4px_4px_4px]">
-                        {card.course_price.toString().substring(0, 3)}.
-                        {card.course_price.toString().substring(3, 7)}원
-                      </div>
-                    </p>
-                  </AccordionItem>
-                </Accordion>
-              </>
-            </div>
-          </div>
-        </div>
-      </article>
+      <div
+        key={card.course_id}
+        className="mb-2 px-4 py-[14px] border-2 w-full rounded-lg justify-start flex items-center cursor-pointer"
+      >
+        <Accordion>
+          <AccordionItem title={`${card.course_name}`} className="bold-14">
+            <p className="break-keep regular-14 mt-4">
+              {card.course_detail}
+              <div className="flex justify-end text-orange m-[16px_4px_4px_4px]">
+                {card.course_price.toString().substring(0, 3)}.
+                {card.course_price.toString().substring(3, 7)}원
+              </div>
+            </p>
+          </AccordionItem>
+        </Accordion>
+      </div>
     );
   });
 
