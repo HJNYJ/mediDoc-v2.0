@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/api/supabase";
 import RoundTabs from "../layout/RoundTabs";
-
+import { useInView } from "react-intersection-observer";
 import type { ConsultType, TabsProps } from "@/types";
+import { throttle } from "lodash";
 
 const ConsultTabs = ({ setPosts }: TabsProps) => {
+  const { ref: pageEnd, inView } = useInView({
+    threshold: 1
+  });
+
   // 탭 상태 관리
   const [currentTab, setCurrentTab] = useState("nose");
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(0, 9);
   }, [currentTab]);
 
-  const fetchPosts = async () => {
+  useEffect(() => {
+    if (inView) {
+      fetchMorePosts();
+    }
+  }, [inView]);
+
+  const fetchPosts = async (startRange: number, endRange: number) => {
     const { data, error } = await supabase
       .from("consult_info")
       .select(
@@ -27,12 +38,22 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
         `
       )
       .eq("bodyparts", currentTab)
-      .range(0, 9); //파람 값으로 받아오기 useRef 맨밑에 만나면 true, false, 주기
+      .range(startRange, endRange);
+    // .range(0, 9); //파람 값으로 받아오기 useRef 맨밑에 만나면 true, false, 주기
+
     if (error) {
       console.error("Error fetching posts:", error);
     }
     return setPosts(data as ConsultType[]);
   };
+
+  const fetchMorePosts = throttle(async () => {
+    const PAGINATE = 6;
+    const currentPosts = setPosts;
+    const startRange = currentPosts.length;
+    const endRange = startRange + PAGINATE;
+    await fetchPosts(startRange, endRange);
+  }, 1000);
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
@@ -79,6 +100,8 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
           width={120.3}
         />
       </div>
+      {/* 스크롤 이벤트 처리 */}
+      <div ref={pageEnd}>{/* Posts */}</div>
     </>
   );
 };
