@@ -120,7 +120,10 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
           <div className="flex">
             {consultDetailData?.consult_photos?.map((photo) => (
-              <div key={photo.photo_id} className="mr-3 flex">
+              <div
+                key={photo.photo_id}
+                className="relative w-[90px] h-[90px] mr-3 border border-gray-100 overflow-hidden flex items-center justify-center"
+              >
                 <Image
                   src={photo.photos}
                   alt="상담 이미지"

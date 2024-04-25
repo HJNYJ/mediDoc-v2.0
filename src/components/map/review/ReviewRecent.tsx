@@ -132,15 +132,15 @@ const ReviewRecent = () => {
                 )}
                 <p className="regular-13 gray-800 my-2">⭐{review.rating}.0</p>
                 {review.review_photos && (
-                  <div className="flex gap-2">
+                  <div className="relative w-[100px] h-[100px] border border-gray-100 overflow-hidden flex items-center justify-center">
                     {review.review_photos.map((photo) => (
                       <Image
                         key={photo.photo_id}
                         src={photo.photos}
                         alt="리뷰 이미지"
-                        width={85}
-                        height={85}
-                        className="flex w-[85px] h-[85px] bg-bluegray rounded-lg"
+                        width={100}
+                        height={100}
+                        objectFit="cover"
                       />
                     ))}
                   </div>
