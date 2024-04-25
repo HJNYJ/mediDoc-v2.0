@@ -18,6 +18,8 @@ import Image from "next/image";
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchConsultInfo = async () => {
       try {
@@ -26,6 +28,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         } = await supabase.auth.getSession();
         const user = session?.user;
         const email = user?.email ?? "";
+        setCurrentUserEmail(email);
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")
@@ -82,7 +85,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
       ]);
       console.log("상담이 성공적으로 삭제되었습니다.");
     } else {
-      // 삭제하기 버튼 안보이게하기
+      console.log("삭제 권한이 없습니다.");
     }
     router.push(`/consult`);
   };
@@ -188,8 +191,9 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           <div className="my-7 bg-gray-200 h-0.5 "></div>
 
           <button
+            id="deleteButton"
             onClick={() => handleDeleteConsult(params.consultId)}
-            className="bg-orange text-white regular-12 rounded-lg p-2"
+            className={`bg-orange text-white regular-12 rounded-lg p-2 ${currentUserEmail === consultDetailData?.user_email ? "" : "hidden"}`}
           >
             삭제하기
           </button>

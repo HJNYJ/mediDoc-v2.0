@@ -86,6 +86,7 @@ export const getConsultDetail = async (consultId: string) => {
       .select(
         `consult_id, 
         user_name, 
+        user_email,
         consult_title, 
         consult_content,
         bodyparts, 
