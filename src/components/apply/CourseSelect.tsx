@@ -1,6 +1,7 @@
 "use client";
 
 import { selectCourseName } from "@/hooks/getReservationData";
+import useApplyStore from "@/shared/zustand/applyStore";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -9,7 +10,6 @@ import {
   TreatmentCourse,
   TreatmentNotCourse
 } from "../layout/CheckIcons";
-import useApplyStore from "@/shared/zustand/applyStore";
 
 const CourseSelect = () => {
   const {
@@ -63,6 +63,10 @@ const CourseSelect = () => {
                     </div>
                   </label>
                   <p className="break-keep regular-14 ">{card.course_detail}</p>
+                  <div className="flex justify-end text-orange m-2">
+                    {card.course_price.toString().substring(0, 3)}.
+                    {card.course_price.toString().substring(3, 7)}원
+                  </div>
                 </>
               ) : (
                 <>

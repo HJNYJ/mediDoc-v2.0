@@ -6,7 +6,7 @@ export type TabState = {
 export type TabList = Pick<TabState, "selectedTab">;
 
 export interface TabsProps {
-  handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
+  // handleCategoryChange: (bodypart: string) => void; // bodypart 타입으로 변경
   setPosts: React.Dispatch<React.SetStateAction<ConsultType[]>>;
 }
 
@@ -41,6 +41,17 @@ export interface ConsultResponse {
   // consult_photos: string[];
   created_at: string;
 }
+
+export type PostType = {
+  bodyparts: string | null;
+  consult_content: string;
+  consult_id: string;
+  consult_title: string;
+  created_at: string;
+  hashtags: string[] | null;
+  user_email: string | null;
+  user_name: string | null;
+};
 
 export interface answerDetailType {
   answer: string;

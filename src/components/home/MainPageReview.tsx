@@ -33,6 +33,10 @@ const MainPageReview = () => {
     }
   });
 
+  const onReviewClickHandler = (hospitalId: string) => {
+    router.push(`/map/${hospitalId}`);
+  };
+
   const handleViewAll = () => {
     router.push("/map");
   };
@@ -53,15 +57,20 @@ const MainPageReview = () => {
         loop={true}
         spaceBetween={4}
         slidesPerView={1.5}
-        scrollbar={{ draggable: true }}
+        scrollbar={{ draggable: false }}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         mousewheel={true}
       >
         {/* 후기 보러가기 버튼 추가 */}
         {reviewRatedTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
-            <div className="flex flex-row mr-[14px]">
-              <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">
+            <div
+              className="flex flex-row overflow-hidden hover:bg-bluegray cursor-pointer pb-3"
+              onClick={() =>
+                onReviewClickHandler(review?.hospital_info?.hospital_id ?? "")
+              }
+            >
+              <div className=" rounded-[6px] border-2 border-bluegray w-[100%]">
                 <section className="h-[54px] border-b-2 border-b-bluegray">
                   <p className="h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
                     {review.hospital_info?.hospital_name}
@@ -90,17 +99,24 @@ const MainPageReview = () => {
                   <section className="regular-14 w-full text-ellipsis overflow-hidden">
                     {review.content}
                   </section>
-                  <section className="mt-auto mb-3">
+                  <section className="mt-auto mb-3 flex">
                     {review.review_photos &&
                       review.review_photos.map((photo, index) => (
-                        <Image
+                        <div
                           key={index}
-                          src={photo.photos}
-                          alt={`후기 사진 ${index + 1}`}
-                          width={68}
-                          height={62}
-                          className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
-                        />
+                          className="relative my-2 mx-2 w-[68px] h-[62px] border border-gray-100 overflow-hidden flex items-center justify-center"
+                        >
+                          <Image
+                            key={index}
+                            src={photo.photos}
+                            alt={`후기 사진 ${index + 1}`}
+                            width={68}
+                            height={62}
+                            objectFit="cover"
+                            className="rounded-[4px]"
+                            // className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
+                          />
+                        </div>
                       ))}
                   </section>
                 </section>

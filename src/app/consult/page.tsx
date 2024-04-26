@@ -2,88 +2,42 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { supabase } from "@/api/supabase";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
 import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-import BoardSkeleton from "@/components/skeleton/ContainerSkeleton";
+// import SkeletonList from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
+import WriteButton from "@/components/consult/WriteButton";
 
-export type PostType = {
-  bodyparts: string | null;
-  consult_content: string;
-  consult_id: string;
-  consult_title: string;
-  created_at: string;
-  hashtags: string[] | null;
-  user_email: string | null;
-  user_name: string | null;
-  // consult_photos: { photo_id: string; photos: string }[];
-  // consult_answer: { answer_id: string; answer_content: string }[];
-};
-
-// consult_photos: string[]; //다른 테이블로 따로 만들어야. id, url-text로
 const ConsultPage = () => {
   const router = useRouter();
-  // const [consultsData, setConsultsData] = useState<ConsultType[]>([]);
   const [posts, setPosts] = useState<ConsultType[]>([]);
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchConsultsData = async () => {
-      setIsLoading(true);
-      setIsLoading(false);
-    };
-
-    fetchConsultsData();
-  }, []);
-
-  if (isLoading) return <p>Loading consults..!!</p>;
-  // if (error) return <p>error : {error}</p>;
-
-  const handleCategoryChange = () => {};
-
-  const goToAskForm = async () => {
-    try {
-      const session = await supabase.auth.getSession();
-      console.log("consult session ===> ", session);
-
-      if (session.data.session === null) {
-        // alert("로그인이 필요한 서비스입니다.");
-        router.push("/login");
-      } else {
-        console.log("consult session ===> ", session.data.session);
-        router.push("/consult/ask");
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  const bottomOfPageRef = useRef<HTMLDivElement>(null);
 
   const goToDetailPage = (consultId: string) => {
     router.push(`/consult/${consultId}`);
   };
+
   const onClickHomeHandler = () => {
     router.push("/home");
   };
 
   return (
     <div className="w-full">
-      <BoardSkeleton />
-      <div className="mt-10 mb-5 flex justify-center relative">
+      {/* {isLoading && <SkeletonList />} */}
+      <div className="py-[15px] flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
         <p className="flex">실시간 상담</p>
       </div>
       <ConsultTabs
-        handleCategoryChange={handleCategoryChange}
+        // handleCategoryChange={handleCategoryChange}
         setPosts={setPosts}
       />
       <div>
@@ -95,35 +49,33 @@ const ConsultPage = () => {
               onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
             >
               <div className="flex items-center">
-                <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-between over">
                   {consult?.consult_photos && consult?.consult_photos.length ? (
                     consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
                         <div
                           key={item?.photo_id}
-                          className="w-[90px] h-[90px] bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
-                          // className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0"
+                          // className=" bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
+                          className="relative w-[80px] h-[80px] border border-gray-100 overflow-hidden flex items-center justify-center"
                         >
                           <Image
                             src={item?.photos || ""}
                             alt="Uploaded Image"
-                            width={90}
-                            height={90}
-                            layout="fixed"
+                            width={80}
+                            height={80}
+                            objectFit="cover"
+                            className="rounded-lg"
                           />
                         </div>
                       );
                     })
                   ) : (
-                    // <div className="w-[89px] h-[80px] bg-gray-300 rounded-lg flex-none order-0 flex-grow-0">
-                    <div>
+                    <div className="relative w-[90px] h-[90px] border border-gray-100 overflow-hidden flex items-center justify-center">
                       <Image
                         src={`https://ifh.cc/g/WDVwsQ.png`}
                         alt="Uploaded Image"
                         width={89}
-                        height={80}
-                        layout="fixed"
-                        className=" bg-gray-300 rounded-lg flex-none order-0 flex-grow-0 w-[89px] h-[80px]"
+                        height={90}
                       />
                     </div>
                   )}
@@ -135,7 +87,7 @@ const ConsultPage = () => {
                   <p className="text-gray-700 regular-14 mb-2 overflow-hidden whitespace-nowrap text-ellipsis">
                     {consult?.consult_content}
                   </p>
-                  <div className="mb-4 flex">
+                  <div className="mb-4 flex flex-wrap">
                     {consult?.hashtags
                       ?.toString()
                       .split(",")
@@ -156,14 +108,8 @@ const ConsultPage = () => {
           );
         })}
       </div>
-      <div className="relative">
-        <button onClick={goToAskForm} className="fixed bottom-20 right-3 mr-3">
-          <div className="w-16 h-16 relative bg-orange rounded-full">
-            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-10 rounded-full"></span>
-            <span className="h-1 w-10 bg-white absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] rotate-[90deg] rounded-full"></span>
-          </div>
-        </button>
-      </div>
+      <div ref={bottomOfPageRef} />
+      <WriteButton />
     </div>
   );
 };

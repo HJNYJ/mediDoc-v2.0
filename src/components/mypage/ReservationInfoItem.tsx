@@ -5,7 +5,7 @@ import { supabase } from "@/api/supabase";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import PageCancel from "../layout/PageCancel";
-import detailIcon from "@/assets/icons/nextIcon.png";
+import nextPageIcon from "@/assets/upanddown/Next.png";
 import useMyPageStore from "@/shared/zustand/myPageStore";
 import {
   CourseInfo,
@@ -77,19 +77,38 @@ const ReservationInfoItem = () => {
   }, [hospitalName]);
 
   // 상세보기 버튼 눌렀을 때 모달 보여주는 함수
-  const handleDetailButtonClick = (info: ReservationInfo) => {
+  const clickDetailButtonHandler = (info: ReservationInfo) => {
     setSelectedReservation(info);
     setIsModalOpen(true);
   };
 
   // 모달 닫는 함수
-  const handleModalClose = () => {
+  const closeModalHandler = () => {
     setIsModalOpen(false);
     setEditedData(null);
   };
 
-  // input 변화 제어하는 함수
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // input 변화 다루는 함수
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "apply_time") {
+      const selectedHour = Math.floor(parseInt(value.split(":")[0], 10));
+      const selectedTime =
+        selectedHour < 10 ? `0${selectedHour}:00` : `${selectedHour}:00`;
+      if (editedData) {
+        setEditedData({ ...editedData, [name]: selectedTime });
+      }
+    } else {
+      if (editedData) {
+        setEditedData({ ...editedData, [name]: value });
+      }
+    }
+  };
+
+  // select 변화 다루는 함수
+  const changeProgramNameHandler = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     if (editedData) {
       setEditedData({ ...editedData, [name]: value });
@@ -97,12 +116,12 @@ const ReservationInfoItem = () => {
   };
 
   // 수정 버튼 눌렀을 때 폼 나오게 하는 함수
-  const handleEditButtonClick = () => {
+  const clickEditButtonHandler = () => {
     setEditedData(selectedReservation);
   };
 
   // 수정된 내용 DB에 update하는 함수
-  const handleChangedReservationSave = async () => {
+  const saveChangedReservationHandler = async () => {
     try {
       if (editedData) {
         const { data, error } = await supabase
@@ -178,9 +197,9 @@ const ReservationInfoItem = () => {
                   <p className="w-[296px] h-[19px] text-[16px] font-medium">
                     예약번호 : {info.reservation_id.substring(0, 7)}
                   </p>
-                  <button onClick={() => handleDetailButtonClick(info)}>
+                  <button onClick={() => clickDetailButtonHandler(info)}>
                     <Image
-                      src={detailIcon}
+                      src={nextPageIcon}
                       alt="상세보기"
                       className="w-[20px] h-[20px]"
                     />
@@ -209,10 +228,10 @@ const ReservationInfoItem = () => {
           {isModalOpen && selectedReservation && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              <div className="bg-white h-[410px] rounded-[10px] p-4 z-10 relative flex flex-col">
+              <div className="bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
                 <button
                   className="cursor-pointer ml-auto"
-                  onClick={handleModalClose}
+                  onClick={closeModalHandler}
                 >
                   <PageCancel />
                 </button>
@@ -280,21 +299,21 @@ const ReservationInfoItem = () => {
                     </span>
                     <span>{selectedReservation.program_name}</span>
                   </div>
-                  <hr className="border-solid border-gray-200 border-1 mb-12" />
+                  <hr className="border-solid border-gray-200 border-1 mb-4" />
                 </section>
                 <section className="flex justify-end">
                   {(selectedReservation.status === "예약 대기" ||
                     selectedReservation.status === "예약 확정") && (
                     <button
-                      className=" bg-gray-200 rounded-full w-14"
-                      onClick={handleEditButtonClick}
+                      className="bg-gray-200 rounded-full w-14"
+                      onClick={clickEditButtonHandler}
                     >
                       수정
                     </button>
                   )}
                   {selectedReservation.status === "검진 완료" && (
                     <button
-                      className=" bg-gray-200 rounded-full w-14"
+                      className="bg-gray-200 rounded-full w-14"
                       onClick={handleDeleteCompletedList}
                     >
                       삭제
@@ -308,9 +327,9 @@ const ReservationInfoItem = () => {
         {editedData && (
           <div className="fixed inset-0 flex items-center justify-center z-50 ">
             <div className="absolute inset-0 bg-black opacity-30"></div>
-            <div className="bg-white h-[410px] rounded-[10px] p-4 z-10 relative flex flex-col">
+            <div className="bg-white rounded-[10px] p-4 z-10 relative flex flex-col">
               <button
-                onClick={handleModalClose}
+                onClick={closeModalHandler}
                 className="cursor-pointer ml-auto"
               >
                 <PageCancel />
@@ -329,7 +348,7 @@ const ReservationInfoItem = () => {
                   id="subject_name"
                   name="subject_name"
                   value={editedData?.subject_name + " 님" || ""}
-                  onChange={handleInputChange}
+                  onChange={inputChangeHandler}
                   className="text-left"
                 />
               </div>
@@ -345,7 +364,7 @@ const ReservationInfoItem = () => {
                   id="apply_date"
                   name="apply_date"
                   value={editedData?.apply_date.toString() || ""}
-                  onChange={handleInputChange}
+                  onChange={inputChangeHandler}
                 />
               </div>
               <div className="flex flex-row mb-3 items-center">
@@ -359,20 +378,41 @@ const ReservationInfoItem = () => {
                   type="time"
                   id="apply_time"
                   name="apply_time"
+                  min="08:00"
+                  max="17:00"
                   value={editedData?.apply_time || ""}
-                  onChange={handleInputChange}
+                  onChange={inputChangeHandler}
                 />
+              </div>
+              <div className="flex flex-row mb-3 items-center">
+                <label
+                  htmlFor="program_name"
+                  className="w-[66px] mr-[50px] tracking-[-1px]"
+                >
+                  검진코스
+                </label>
+                <select
+                  id="program_name"
+                  name="program_name"
+                  value={editedData?.program_name || ""}
+                  onChange={changeProgramNameHandler}
+                >
+                  <option value="베이직">베이직</option>
+                  <option value="스탠다드">스탠다드</option>
+                  <option value="VIP">VIP</option>
+                  <option value="VVIP">VVIP</option>
+                </select>
               </div>
               <div className="mt-auto flex justify-end">
                 <button
                   className="bg-gray-200 rounded-full w-14 mr-2"
-                  onClick={handleChangedReservationSave}
+                  onClick={saveChangedReservationHandler}
                 >
                   수정
                 </button>
                 <button
                   className="bg-gray-200 rounded-full w-14"
-                  onClick={handleModalClose}
+                  onClick={closeModalHandler}
                 >
                   취소
                 </button>

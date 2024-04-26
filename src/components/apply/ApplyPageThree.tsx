@@ -62,6 +62,8 @@ const ApplyPageThree = ({
     setName("");
     setIdNumber("");
     setPhoneNumber("");
+    setSelectedTime("");
+    setSelectedDate(new Date());
     router.push("/home");
   };
 

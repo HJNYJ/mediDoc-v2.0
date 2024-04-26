@@ -9,7 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Button from "@/components/layout/Buttons";
 import Tab from "@/components/layout/Tabs";
-import TopNavbar from "@/components/layout/TopNavbar";
 import HospitalInfoHeader from "@/components/map/HospitalInfoHeader";
 import Notice from "@/components/map/defaultTab/Notice";
 import ProgramInfo from "@/components/map/defaultTab/ProgramInfo";
@@ -17,8 +16,11 @@ import ReviewImageList from "@/components/map/defaultTab/ReviewImageList";
 import ReviewList from "@/components/map/defaultTab/ReviewList";
 import ReviewItem from "@/components/map/review/ReviewItem";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import PagebackBtn from "@/components/layout/PageBackBtn";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("default");
   const { refetch: refetchReviews } = useQuery({
     queryKey: ["reviewDetailList", params.hospitalId],
@@ -50,12 +52,24 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     queryFn: () => fetchHospitalReviewImages(params.hospitalId)
   });
 
+  const onClickMapHandler = () => {
+    router.push("/map");
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error!</p>;
 
   return (
     <main>
-      <TopNavbar />
+      <div className="flex flex-row h-[50px] items-center justify-between z-50">
+        <button
+          onClick={onClickMapHandler}
+          className="flex items-center w-[24px] h-[24px]"
+        >
+          <PagebackBtn />
+        </button>
+      </div>
+
       <HospitalInfoHeader params={params} />
       <nav className="flex justify-center py-2 mt-[26px] border-t-4">
         <Tab
@@ -78,34 +92,23 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       {selectedTab === "default" && (
         <>
           <ProgramInfo />
-          {/* <span>--------------</span> */}
+
           <Notice />
           <h3 className="bold-18 mb-3">방문자 사진</h3>
-          {/* <article className="inline-grid grid-cols-3 gap-2">
-            {reviewPhotos
-              ?.slice(0, 6)
-              .map((img, index) => (
-                <img
-                  key={img?.photo_id}
-                  src={img?.photos}
-                  alt={`사진${index + 1}`}
-                  className="w-[116.67px] h-[116px] rounded-[10px]"
-                />
-              ))}
-          </article> */}
-          <article className="inline-grid grid-cols-3 gap-2">
+          <article className="inline-grid grid-cols-3 gap-3">
             {reviewPhotos?.slice(0, 6).map((img, index) => (
               <div
                 key={img?.photo_id}
-                className="relative w-[116.67px] h-[116px] rounded-[10px]"
+                // className="flex w-[90px] h-[90px] rounded-[10px]"
+                className="relative w-full h-[100px] border border-gray-100 overflow-hidden flex items-center justify-center"
               >
                 <Image
                   src={img?.photos}
                   alt={`사진${index + 1}`}
-                  width={116.67}
-                  height={116}
-                  // layout="fill"
+                  width={100}
+                  height={100}
                   objectFit="cover"
+                  className="rounded-[10px]"
                 />
               </div>
             ))}

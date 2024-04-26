@@ -12,9 +12,10 @@ import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HomeConsultItem = () => {
-  // 사진 가져오기위해
+  const router = useRouter();
 
   const [consultPhotos, setConsultPhotos] = useState<
     { consult_id: string; photo_id: string; photos: string }[]
@@ -55,34 +56,58 @@ const HomeConsultItem = () => {
     }
   });
 
+  const onConsultClickHandler = (consultId: string) => {
+    router.push(`/consult/${consultId}`);
+  };
+
   if (isLoadingRecent) return <div>로딩 중...</div>;
   if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
 
   return (
     <div>
       {consultRecentData?.map((consult, index) => (
-        <div key={index}>
-          <div className="flex justify-between mb-6">
+        <div
+          key={index}
+          onClick={() => onConsultClickHandler(consult.consult_id)}
+          className="hover:bg-bluegray cursor-pointer"
+        >
+          <div className="flex justify-between">
             <div className="flex">
               {consultPhotos
                 ?.filter((image) => image?.consult_id === consult?.consult_id)
                 ?.slice(0, 1)
                 ?.map((image, index) => (
-                  <div key={index} className="mr-3">
-                    <Image
-                      src={image.photos}
-                      alt={`상담 이미지 ${index + 1}`}
-                      width={60}
-                      height={60}
-                      className="object-cover"
-                    />
+                  <div
+                    key={index}
+                    className="relative my-2 mx-2 w-[50px] h-[50px] border border-gray-100 overflow-hidden flex items-center justify-center"
+                  >
+                    {image ? (
+                      <Image
+                        src={image.photos}
+                        alt={`상담 이미지 ${index + 1}`}
+                        width={50}
+                        height={30}
+                        objectFit="cover"
+                        className="rounded-lg"
+                      />
+                    ) : (
+                      <div className=" bg-bluegray rounded-lg">
+                        <Image
+                          src={`https://ifh.cc/g/WDVwsQ.png`}
+                          alt="기본 이미지"
+                          width={60}
+                          height={50}
+                          className="rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               <div>
-                <div className="semibold-18 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[185px]">
+                <div className="semibold-16 text-gray-800 overflow-hidden whitespace-nowrap text-ellipsis w-[180px]">
                   {consult?.consult_title}
                 </div>
-                <div className="medium-14 text-gray-700 w-[180px] h-[42px] overflow-hidden text-ellipsis">
+                <div className="medium-14 text-gray-700 w-[170px] h-[42px] whitespace-nowrap overflow-hidden text-ellipsis">
                   {consult?.consult_content}
                 </div>
               </div>
@@ -96,6 +121,7 @@ const HomeConsultItem = () => {
               )}
             </div>
           </div>
+          <hr className="h-1" />
         </div>
       ))}
     </div>

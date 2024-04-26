@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import Back from "@/assets/upanddown/Back.png";
 import Next from "@/assets/upanddown/Next.png";
+import { getDate } from "@/utils/changeTimeFormat";
 import uptoggle from "@/assets/upanddown/UpToggle.png";
 import useApplyStore from "@/shared/zustand/applyStore";
 import downtoggle from "@/assets/upanddown/DownToggle.png";
@@ -14,16 +15,14 @@ const Calendar = () => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  const { setSelectedDate, setIsDateClicked } = useApplyStore();
+  const { setSelectedDate, setIsDateClicked, selectedDate } = useApplyStore();
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
-
   const handleDateClick = (date: Date, cellDate: Date) => {
     setSelectedOneDate(cellDate);
-
     setIsDateClicked(true);
     setSelectedDate(date);
   };
-
+  const specifiedDate = getDate(selectedDate);
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -42,12 +41,6 @@ const Calendar = () => {
     "11",
     "12"
   ];
-
-  const todayDate = (date: Date) => {
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-  };
-
-  const toDay = todayDate(new Date());
 
   const generateMatrix = (): CalendarDay[][] => {
     const matrix: CalendarDay[][] = [];
@@ -114,8 +107,7 @@ const Calendar = () => {
             </div>
           </button>
           <span className="m-2 bold-20">
-            {currentMonth.getFullYear()}
-            {monthsInYear[currentMonth.getMonth()]}
+            {currentMonth.getFullYear()}.{monthsInYear[currentMonth.getMonth()]}
           </span>
           <button className="m-2" onClick={handleNextMonth}>
             <div className="w-5 relative top-[1px]">
@@ -123,16 +115,13 @@ const Calendar = () => {
             </div>
           </button>
         </div>
-        <div>{toDay}</div>
+        <div className="text-gray-800">{specifiedDate}</div>
       </div>
 
-      <div
-        className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)]
-       text-center mb-20"
-      >
+      <div className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)] text-center mb-20">
         <table className="mx-auto px-5">
           <thead>
-            <tr className="m-2">
+            <tr>
               {daysInWeek.map((day) => (
                 <th key={day} className="w-[52px]">
                   {day}
@@ -159,7 +148,7 @@ const Calendar = () => {
                           cursor: isPastDate ? "default" : "pointer",
                           color: isPastDate ? "gray" : "black"
                         }}
-                        className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
+                        className={`z-10 text-black m-4 px-2 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
                         {cell.date.getDate()}
                       </td>
@@ -170,11 +159,11 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
-        <button onClick={() => toggleCalendarHandler()}>
+        <button onClick={() => toggleCalendarHandler()} className="w-6">
           {isOpenToggle ? (
-            <Image src={downtoggle} alt="" />
+            <Image src={downtoggle} alt="down" />
           ) : (
-            <Image src={uptoggle} alt="" />
+            <Image src={uptoggle} alt="up" />
           )}
         </button>
       </div>

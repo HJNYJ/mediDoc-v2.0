@@ -77,3 +77,33 @@
   /* z-index: -9999; */
 }
 
+.plus_btn {
+  height: 4px;
+  width: 40px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  border-radius: 50px;
+}
+
+.minus_btn {
+  height: 4px;
+  width: 40px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  border-radius: 50px;
+}
+
+.nav_width {
+max-width: 430px;
+width: 100%;
+}
+
+.swiper-slide.swiper-slide-next {
+  opacity: 0.5;
+}
