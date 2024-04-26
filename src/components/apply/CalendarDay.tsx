@@ -118,13 +118,10 @@ const Calendar = () => {
         <div className="text-gray-800">{specifiedDate}</div>
       </div>
 
-      <div
-        className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)]
-       text-center mb-20"
-      >
+      <div className="bg-white rounded-b-lg shadow-[0_3px_5px_-2px_rgba(0,0,0,0.3)] text-center mb-20">
         <table className="mx-auto px-5">
           <thead>
-            <tr className="m-2">
+            <tr>
               {daysInWeek.map((day) => (
                 <th key={day} className="w-[52px]">
                   {day}
@@ -151,7 +148,7 @@ const Calendar = () => {
                           cursor: isPastDate ? "default" : "pointer",
                           color: isPastDate ? "gray" : "black"
                         }}
-                        className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
+                        className={`z-10 text-black m-4 px-2 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
                         {cell.date.getDate()}
                       </td>
@@ -162,11 +159,11 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
-        <button onClick={() => toggleCalendarHandler()}>
+        <button onClick={() => toggleCalendarHandler()} className="w-6">
           {isOpenToggle ? (
-            <Image src={downtoggle} alt="" />
+            <Image src={downtoggle} alt="down" />
           ) : (
-            <Image src={uptoggle} alt="" />
+            <Image src={uptoggle} alt="up" />
           )}
         </button>
       </div>

@@ -103,3 +103,7 @@
 max-width: 430px;
 width: 100%;
 }
+
+.swiper-slide.swiper-slide-next {
+  opacity: 0.5;
+}

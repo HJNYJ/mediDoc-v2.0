@@ -13,7 +13,7 @@ const ReviewList = ({ hospitalId }: { hospitalId: string }) => {
       <div className="flex gap-4 justify-between">
         <h3 className="bold-18">방문자 리뷰</h3>
         <button onClick={() => goToReviewForm(hospitalId)} className="flex">
-          <div className="relative top-[2px]">
+          <div className="relative top-[1px]">
             <Review />
           </div>
 
