@@ -24,7 +24,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
         {reviewPhotos?.map((img, index) => (
           <div
             key={img?.photo_id}
-            className="flex w-[100px] h-[100px] rounded-[10px]"
+            className="relative w-full h-[80px] border border-gray-100 overflow-hidden flex items-center justify-center"
           >
             <Image
               key={img?.photo_id}
@@ -32,6 +32,7 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
               alt={`사진${index + 1}`}
               width={100}
               height={100}
+              objectFit="cover"
               className="rounded-[10px]"
             />
           </div>

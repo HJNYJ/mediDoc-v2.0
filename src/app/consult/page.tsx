@@ -49,26 +49,28 @@ const ConsultPage = () => {
               onClick={() => goToDetailPage(consult?.consult_id)} // 클릭 이벤트 핸들러 추가
             >
               <div className="flex items-center">
-                <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-between over">
                   {consult?.consult_photos && consult?.consult_photos.length ? (
                     consult?.consult_photos.slice(0, 1).map((item) => {
                       return (
                         <div
                           key={item?.photo_id}
                           // className=" bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
-                          className=" bg-bluegray rounded-lg"
+                          className="relative w-[80px] h-[80px] border border-gray-100 overflow-hidden flex items-center justify-center"
                         >
                           <Image
                             src={item?.photos || ""}
                             alt="Uploaded Image"
-                            width={89}
-                            height={90}
+                            width={80}
+                            height={80}
+                            objectFit="cover"
+                            className="rounded-lg"
                           />
                         </div>
                       );
                     })
                   ) : (
-                    <div className=" bg-bluegray rounded-lg">
+                    <div className="relative w-[90px] h-[90px] border border-gray-100 overflow-hidden flex items-center justify-center">
                       <Image
                         src={`https://ifh.cc/g/WDVwsQ.png`}
                         alt="Uploaded Image"
@@ -85,7 +87,7 @@ const ConsultPage = () => {
                   <p className="text-gray-700 regular-14 mb-2 overflow-hidden whitespace-nowrap text-ellipsis">
                     {consult?.consult_content}
                   </p>
-                  <div className="mb-4 flex">
+                  <div className="mb-4 flex flex-wrap">
                     {consult?.hashtags
                       ?.toString()
                       .split(",")

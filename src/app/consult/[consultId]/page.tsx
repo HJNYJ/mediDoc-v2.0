@@ -18,6 +18,8 @@ import Image from "next/image";
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string | null>(null);
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchConsultInfo = async () => {
       try {
@@ -26,6 +28,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
         } = await supabase.auth.getSession();
         const user = session?.user;
         const email = user?.email ?? "";
+        setCurrentUserEmail(email);
         const { data: userData, error: userDataError } = await supabase
           .from("user_info")
           .select("user_type")
@@ -62,12 +65,33 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   }, [params.consultId, refetch]);
 
   const handleDeleteConsult = async (consultId: string) => {
-    await getConsultCheckUser(consultId);
+    if (!confirm("게시물을 삭제하시겠습니까?")) return;
+
+    const userEmail = await getConsultCheckUser(consultId);
+    console.log("userEmail!!!!! ===>", userEmail?.user_email);
+
+    const {
+      data: { session }
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    const currentUserEmail = user?.email ?? "";
+    console.log("currentUserEmail!!!!!!! ===>", currentUserEmail);
+
+    if (userEmail?.user_email === currentUserEmail) {
+      await Promise.all([
+        supabase.from("consult_photos").delete().eq("consult_id", consultId),
+        supabase.from("consult_info").delete().eq("consult_id", consultId),
+        supabase.from("consult_answer").delete().eq("consult_id", consultId)
+      ]);
+      console.log("상담이 성공적으로 삭제되었습니다.");
+    } else {
+      console.log("삭제 권한이 없습니다.");
+    }
     router.push(`/consult`);
   };
 
   const onClickConsultHandeler = () => {
-    router.push("/home");
+    router.push("/consult");
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -96,7 +120,10 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
           <div className="flex">
             {consultDetailData?.consult_photos?.map((photo) => (
-              <div key={photo.photo_id} className="mr-3 flex">
+              <div
+                key={photo.photo_id}
+                className="relative w-[90px] h-[90px] mr-3 border border-gray-100 overflow-hidden flex items-center justify-center"
+              >
                 <Image
                   src={photo.photos}
                   alt="상담 이미지"
@@ -167,8 +194,9 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
           <div className="my-7 bg-gray-200 h-0.5 "></div>
 
           <button
+            id="deleteButton"
             onClick={() => handleDeleteConsult(params.consultId)}
-            className="bg-orange text-white regular-12 rounded-lg p-2"
+            className={`bg-orange text-white regular-12 rounded-lg p-2 ${currentUserEmail === consultDetailData?.user_email ? "" : "hidden"}`}
           >
             삭제하기
           </button>

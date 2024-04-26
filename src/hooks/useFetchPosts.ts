@@ -28,6 +28,4 @@
 //   if (error) {
 //     console.error("Error fetching posts:", error);
 //   }
-
-//   return { count: count || 0 };
 // };

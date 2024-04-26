@@ -102,14 +102,21 @@ const MainPageReview = () => {
                   <section className="mt-auto mb-3 flex">
                     {review.review_photos &&
                       review.review_photos.map((photo, index) => (
-                        <Image
+                        <div
                           key={index}
-                          src={photo.photos}
-                          alt={`후기 사진 ${index + 1}`}
-                          width={68}
-                          height={62}
-                          className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
-                        />
+                          className="relative my-2 mx-2 w-[68px] h-[62px] border border-gray-100 overflow-hidden flex items-center justify-center"
+                        >
+                          <Image
+                            key={index}
+                            src={photo.photos}
+                            alt={`후기 사진 ${index + 1}`}
+                            width={68}
+                            height={62}
+                            objectFit="cover"
+                            className="rounded-[4px]"
+                            // className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
+                          />
+                        </div>
                       ))}
                   </section>
                 </section>
