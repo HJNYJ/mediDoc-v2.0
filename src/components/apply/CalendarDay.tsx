@@ -148,7 +148,7 @@ const Calendar = () => {
                           cursor: isPastDate ? "default" : "pointer",
                           color: isPastDate ? "gray" : "black"
                         }}
-                        className={`z-10 text-black m-4 px-4 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
+                        className={`z-10 text-black m-4 px-2 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
                         {cell.date.getDate()}
                       </td>
