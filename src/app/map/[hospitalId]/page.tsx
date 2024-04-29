@@ -31,7 +31,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     queryFn: () => getHospitalInfo(params.hospitalId)
   });
 
-  const handleTabClick = (tab: string) => {
+  const onClickTabHandler = (tab: string) => {
     setSelectedTab(tab);
     switch (tab) {
       case "default":
@@ -75,17 +75,17 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
         <Tab
           label="기본정보"
           active={selectedTab === "default"}
-          onClick={() => handleTabClick("default")}
+          onClick={() => onClickTabHandler("default")}
         />
         <Tab
           label="사진"
           active={selectedTab === "image"}
-          onClick={() => handleTabClick("image")}
+          onClick={() => onClickTabHandler("image")}
         />
         <Tab
           label="리뷰"
           active={selectedTab === "review"}
-          onClick={() => handleTabClick("review")}
+          onClick={() => onClickTabHandler("review")}
         />
       </nav>
 
