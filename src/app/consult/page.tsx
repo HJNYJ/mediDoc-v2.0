@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Hashtag from "@/utils/hashtag";
 import PagebackBtn from "@/components/layout/PageBackBtn";
@@ -17,7 +17,6 @@ import WriteButton from "@/components/consult/WriteButton";
 const ConsultPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<ConsultType[]>([]);
-  const bottomOfPageRef = useRef<HTMLDivElement>(null);
 
   const goToDetailPage = (consultId: string) => {
     router.push(`/consult/${consultId}`);
@@ -38,6 +37,7 @@ const ConsultPage = () => {
       </div>
       <ConsultTabs
         // handleCategoryChange={handleCategoryChange}
+        posts={posts}
         setPosts={setPosts}
       />
       <div>
@@ -108,7 +108,7 @@ const ConsultPage = () => {
           );
         })}
       </div>
-      <div ref={bottomOfPageRef} />
+      {/* <div ref={bottomOfPageRef} /> */}
       <WriteButton />
     </div>
   );
