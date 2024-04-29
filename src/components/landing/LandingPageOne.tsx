@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Button from "../layout/Buttons";
 import Page1 from "@/assets/landing/Page1.png";
 import { OnePage } from "../layout/CheckIcons";
 
@@ -18,16 +17,11 @@ const LandingPageOne = () => {
       <div className="mb-20">
         <OnePage />
       </div>
-      <div className="p-4">
+      <div className="p-4 mb-5">
         <Image src={Page1} alt="Page 1" />
       </div>
-      <div>
-        <Button
-          type="submit"
-          buttonType="filled"
-          size="base"
-          label="옆으로 밀어서 시작하기 >>"
-        />
+      <div className="text-orange flex justify-center semibold-24">
+        옆으로 밀어서 시작하기
       </div>
     </div>
   );
