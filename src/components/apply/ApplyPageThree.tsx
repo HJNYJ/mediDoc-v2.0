@@ -39,7 +39,7 @@ const ApplyPageThree = ({
 
   const router = useRouter();
 
-  const handlePrevOrNextClick = (status: string) => {
+  const clickPrevOrNextHandler = (status: string) => {
     if (isCourseClicked === false) {
       alert("코스를 선택해주세요.");
     } else if (isCourseClicked === true && status === "success") {
@@ -47,7 +47,7 @@ const ApplyPageThree = ({
     }
   };
 
-  const backHandlerClick = () => {
+  const onClickBackButtonHandler = () => {
     setIsTimeClicked(false);
     setIsDateClicked(false);
     setName("");
@@ -58,7 +58,7 @@ const ApplyPageThree = ({
     return setPageCount("one");
   };
 
-  const handleBtnClick = () => {
+  const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
@@ -92,21 +92,21 @@ const ApplyPageThree = ({
       if (data !== null) {
         setReservationInfo(data?.[0]);
       }
-      handlePrevOrNextClick("success");
+      clickPrevOrNextHandler("success");
       return data;
     } catch (error) {
       console.log(error);
-      handlePrevOrNextClick("error");
+      clickPrevOrNextHandler("error");
     }
   };
 
   return (
     <div>
       <div className="flex w-full py-[15px]">
-        <button className="mr-auto" onClick={() => backHandlerClick()}>
+        <button className="mr-auto" onClick={() => onClickBackButtonHandler()}>
           <PagebackBtn />
         </button>
-        <button className="ml-auto" onClick={handleBtnClick}>
+        <button className="ml-auto" onClick={onClickButtonHandler}>
           <PageCancel />
         </button>
       </div>
