@@ -64,18 +64,16 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     refetch();
   }, [params.consultId, refetch]);
 
-  const handleDeleteConsult = async (consultId: string) => {
+  const deleteConsultHandler = async (consultId: string) => {
     if (!confirm("게시물을 삭제하시겠습니까?")) return;
 
     const userEmail = await getConsultCheckUser(consultId);
-    console.log("userEmail!!!!! ===>", userEmail?.user_email);
 
     const {
       data: { session }
     } = await supabase.auth.getSession();
     const user = session?.user;
     const currentUserEmail = user?.email ?? "";
-    console.log("currentUserEmail!!!!!!! ===>", currentUserEmail);
 
     if (userEmail?.user_email === currentUserEmail) {
       await Promise.all([
@@ -195,7 +193,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
 
           <button
             id="deleteButton"
-            onClick={() => handleDeleteConsult(params.consultId)}
+            onClick={() => deleteConsultHandler(params.consultId)}
             className={`bg-orange text-white regular-12 rounded-lg p-2 ${currentUserEmail === consultDetailData?.user_email ? "" : "hidden"}`}
           >
             삭제하기

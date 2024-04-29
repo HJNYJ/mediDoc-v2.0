@@ -65,14 +65,14 @@ const ApplyPageOne = ({
     setPhoneValid(value.length === 11);
   };
 
-  const handleNextClick = () => {
+  const onClickNextHandler = () => {
     if (!(nameValid && idNumberValid && phoneValid)) {
       return;
     }
     setPageCount("two");
   };
 
-  const handleBtnClick = () => {
+  const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
@@ -107,7 +107,7 @@ const ApplyPageOne = ({
   return (
     <div>
       <div className="flex w-full py-[15px]">
-        <button className="ml-auto" onClick={handleBtnClick}>
+        <button className="ml-auto" onClick={onClickButtonHandler}>
           <PageCancel />
         </button>
       </div>
@@ -218,7 +218,7 @@ const ApplyPageOne = ({
             buttonType="filled"
             size="base"
             label="다음"
-            onClick={handleNextClick}
+            onClick={onClickNextHandler}
           />
         </div>
       </div>

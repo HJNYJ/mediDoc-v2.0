@@ -102,7 +102,7 @@ export const getConsultDetail = async (consultId: string) => {
       console.error("상담 내역 상세 정보 가져오기 실패..", error);
       throw error;
     }
-    // console.log("getConsultDetailData ===>", data);
+
     return data;
   } catch (error) {
     console.error("상담 내역 상세 정보 가져오기 실패ㅠㅡㅠ", error);
