@@ -2,9 +2,9 @@
 const nextConfig = {
   images: {
     domains: [
-      "zxmfaufazajrwupitcjr.supabase.co",
       "ifh.cc",
-      "search.pstatic.net"
+      "search.pstatic.net",
+      "zxmfaufazajrwupitcjr.supabase.co"
     ]
   }
 };
