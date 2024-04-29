@@ -65,14 +65,14 @@ const ApplyPageOne = ({
     setPhoneValid(value.length === 11);
   };
 
-  const handleNextClick = () => {
+  const onClickNextHandler = () => {
     if (!(nameValid && idNumberValid && phoneValid)) {
       return;
     }
     setPageCount("two");
   };
 
-  const handleBtnClick = () => {
+  const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
@@ -107,7 +107,7 @@ const ApplyPageOne = ({
   return (
     <div>
       <div className="flex w-full py-[15px]">
-        <button className="ml-auto" onClick={handleBtnClick}>
+        <button className="ml-auto" onClick={onClickButtonHandler}>
           <PageCancel />
         </button>
       </div>
@@ -120,7 +120,7 @@ const ApplyPageOne = ({
       <article className="w-[100%] mt-3 mb-6 h-[168px] rounded-lg overflow-hidden">
         <HospitalImage hospitalId={hospitalId} />
       </article>
-      <form
+      <div
         className="flex flex-col min-h-[55vh]"
         onSubmit={(e) => {
           e.preventDefault();
@@ -165,7 +165,7 @@ const ApplyPageOne = ({
               onInput={(e) => checkMaxLength(e.target)}
             />
             <button
-              className="absolute top-[50%] right-4 translate-y-[-50%]"
+              className="absolute top-[50%] right-5 translate-y-[-50%]"
               onClick={() => closeBtnHandler("idNumber")}
             >
               <DeleteBtnIcon />
@@ -176,9 +176,9 @@ const ApplyPageOne = ({
             maxLength={1}
             type="number"
             onInput={(e) => checkMaxLength(e.target)}
-            className="text-black ml-[10px] px-4 py-[14px] w-[45px] h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
+            className="text-black ml-[10px] px-4 py-[14px] w-14 h-10 text-center rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-orange"
           />
-          &nbsp; &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;* &nbsp;*
+          &nbsp; * * * * * *
           {!idNumberValid && (
             <p className="text-[#F95F5F] text-[13px] flex relative pl-4">
               <WarningIcon />
@@ -218,10 +218,10 @@ const ApplyPageOne = ({
             buttonType="filled"
             size="base"
             label="다음"
-            onClick={handleNextClick}
+            onClick={onClickNextHandler}
           />
         </div>
-      </form>
+      </div>
     </div>
   );
 };

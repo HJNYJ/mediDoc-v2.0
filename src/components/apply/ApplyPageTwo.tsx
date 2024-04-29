@@ -20,7 +20,7 @@ const ApplyPageTwo = ({
 
   const router = useRouter();
 
-  const handleNextClick = () => {
+  const onClickNextButtonHandler = () => {
     if (isDateClicked === false && isTimeClicked === false) {
       alert("날짜와 시간 모두 선택해주세요.");
     } else if (isTimeClicked === false) {
@@ -31,14 +31,14 @@ const ApplyPageTwo = ({
       return setPageCount("three");
     }
   };
-  const backHandlerClick = () => {
+  const onClickBackButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
     return setPageCount("one");
   };
 
-  const handleBtnClick = () => {
+  const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
@@ -50,12 +50,12 @@ const ApplyPageTwo = ({
         <button
           className="mr-auto"
           onClick={() => {
-            backHandlerClick();
+            onClickBackButtonHandler();
           }}
         >
           <PagebackBtn />
         </button>
-        <button className="ml-auto" onClick={handleBtnClick}>
+        <button className="ml-auto" onClick={onClickButtonHandler}>
           <PageCancel />
         </button>
       </div>
@@ -72,7 +72,7 @@ const ApplyPageTwo = ({
           buttonType="filled"
           size="base"
           label="다음"
-          onClick={() => handleNextClick()}
+          onClick={() => onClickNextButtonHandler()}
         />
       </div>
     </div>

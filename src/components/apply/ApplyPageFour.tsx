@@ -11,7 +11,7 @@ const ApplyPageFour = () => {
 
   const router = useRouter();
 
-  const handleBtnClick = () => {
+  const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
@@ -29,7 +29,7 @@ const ApplyPageFour = () => {
           buttonType="filled"
           size="base"
           label="확인"
-          onClick={handleBtnClick}
+          onClick={onClickButtonHandler}
         />
       </div>
     </div>

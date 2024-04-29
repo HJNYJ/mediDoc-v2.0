@@ -140,13 +140,13 @@ const AskForm = () => {
         );
 
         if (uploadImgUrl) {
-          console.log("이건 askform이구영 => ", uploadImgUrl);
+          console.log("AskForm의 ImgUrl => ", uploadImgUrl);
         }
       } else {
         console.log("result", result.error.message);
       }
     } catch (error) {
-      console.error("파일 업로드 중 에러 발생 ㅠㅠ", error);
+      console.error("파일 업로드 중 에러 발생", error);
     }
   };
   // 이미지 클릭 -> 순서 맨 앞으로

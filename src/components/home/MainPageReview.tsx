@@ -57,7 +57,7 @@ const MainPageReview = () => {
         loop={true}
         spaceBetween={4}
         slidesPerView={1.5}
-        scrollbar={{ draggable: true }}
+        scrollbar={{ draggable: false }}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         mousewheel={true}
       >
@@ -65,12 +65,12 @@ const MainPageReview = () => {
         {reviewRatedTopData?.map((review) => (
           <SwiperSlide key={review.review_id}>
             <div
-              className="flex flex-row mr-[14px] overflow-hidden hover:bg-bluegray cursor-pointer"
+              className="flex flex-row overflow-hidden hover:bg-bluegray cursor-pointer pb-3"
               onClick={() =>
                 onReviewClickHandler(review?.hospital_info?.hospital_id ?? "")
               }
             >
-              <div className=" rounded-[6px] border-2 border-bluegray  w-[232px]">
+              <div className=" rounded-[6px] border-2 border-bluegray w-[100%]">
                 <section className="h-[54px] border-b-2 border-b-bluegray">
                   <p className="h-[19px] bold-16 ml-[10px] mt-[6.5px] mb-[2px]">
                     {review.hospital_info?.hospital_name}
