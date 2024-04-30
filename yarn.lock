@@ -2081,15 +2081,6 @@
     "@nextui-org/shared-utils" "2.0.5"
     "@nextui-org/system-rsc" "2.1.1"
 
-"@nextui-org/spinner@^2.0.28":
-  version "2.0.28"
-  resolved "https://registry.yarnpkg.com/@nextui-org/spinner/-/spinner-2.0.28.tgz#944b78e6cf425efa7d852bfcd79467d530afb103"
-  integrity sha512-hlixGubd91KFSHIjwE0/vLmkSOtUwl56uFrsHBred2pqq8/1CAVlN7aINwoUotZRc5W0T7lyEQGvf88t0Dd3CA==
-  dependencies:
-    "@nextui-org/react-utils" "2.0.13"
-    "@nextui-org/shared-utils" "2.0.5"
-    "@nextui-org/system-rsc" "2.1.1"
-
 "@nextui-org/switch@2.0.28":
   version "2.0.28"
   resolved "https://registry.npmjs.org/@nextui-org/switch/-/switch-2.0.28.tgz"

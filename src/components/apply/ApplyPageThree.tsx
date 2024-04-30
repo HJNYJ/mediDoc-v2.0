@@ -67,11 +67,13 @@ const ApplyPageThree = ({
     router.push("/home");
   };
 
-  const testObj = {
+  const applyObj = {
     subject_name: name,
     user_name: userNameData,
     apply_time: selectedTime,
-    apply_date: selectedDate,
+    apply_date: new Date(
+      selectedDate.setTime(selectedDate.getTime() + 60 * 60 * 2000)
+    ),
     user_email: userEmailData,
     subject_birth_date: idNumber,
     program_name: selectedCourseName,
@@ -84,7 +86,7 @@ const ApplyPageThree = ({
     try {
       const { data, error } = await supabase
         .from("reservation_info")
-        .insert([testObj])
+        .insert([applyObj])
         .select();
       if (error) {
         console.log("에러입니다.", error);
