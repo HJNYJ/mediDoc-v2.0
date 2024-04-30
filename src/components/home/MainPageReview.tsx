@@ -11,6 +11,7 @@ import Hashtag from "@/utils/hashtag";
 import Image from "next/image";
 import star from "@/assets/icons/star.png";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@nextui-org/react";
 
 const MainPageReview = () => {
   const router = useRouter();
@@ -41,8 +42,8 @@ const MainPageReview = () => {
     router.push("/map");
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러가 발생했습니다.</div>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <>
@@ -114,7 +115,6 @@ const MainPageReview = () => {
                             height={62}
                             objectFit="cover"
                             className="rounded-[4px]"
-                            // className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
                           />
                         </div>
                       ))}

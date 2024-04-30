@@ -4,7 +4,7 @@ import useScrapStore from "@/shared/zustand/scrapStore";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getUserInfo } from "@/hooks/getUserInfo";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, Spinner } from "@nextui-org/react";
 import { supabase } from "@/api/supabase";
 import { fetchHospitalData } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
@@ -70,8 +70,8 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
     fetchScrappedStatus();
   }, [params.hospitalId, setIsScrapped]);
 
-  if (isLoading) return <p>병원 데이터를 가져오는 중입니다.</p>;
-  if (isError) return <p>병원 데이터를 가져오는 동안 에러가 발생했습니다</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   // 시간 출력 타입 변경
   const secondRemovedStartTime = removeTimeSecond(hospitalData!.start_time);
@@ -99,13 +99,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
     }
   };
 
-  // const goToApplyPage = () => {
-  //   if (params?.hospitalId) {
-  //     router.push(`/apply/${params.hospitalId}`);
-  //   } else {
-  //     console.error("병원 ID가 유효하지 않습니다.");
-  //   }
-  // };
   const goToApplyPage = async () => {
     try {
       const session = await supabase.auth.getSession();

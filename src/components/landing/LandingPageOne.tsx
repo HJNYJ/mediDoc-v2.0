@@ -18,7 +18,7 @@ const LandingPageOne = () => {
         <OnePage />
       </div>
       <div className="p-4 mb-5">
-        <Image src={Page1} alt="Page 1" />
+        <Image src={Page1} alt="Page 1" priority />
       </div>
       <div className="text-orange flex justify-center semibold-24">
         옆으로 밀어서 시작하기

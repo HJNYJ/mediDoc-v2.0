@@ -1,9 +1,10 @@
+// 상담 내역 1개
 "use client";
 
-// 상담 내역 1개
 import React from "react";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";
+import { Spinner } from "@nextui-org/react";
 
 const fetchHospitals = async () => {
   const { data: hospitalData, error } = await supabase
@@ -27,7 +28,7 @@ const ConsultItem = () => {
     queryFn: fetchHospitals
   });
 
-  if (isLoading) return <p>consult detail page Loading..!!</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
   if (error) return <p>error : {error.message}</p>;
 
   return (

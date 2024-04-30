@@ -10,6 +10,7 @@ import {
   TreatmentCourse,
   TreatmentNotCourse
 } from "../layout/CheckIcons";
+import { Spinner } from "@nextui-org/react";
 
 const CourseSelect = () => {
   const {
@@ -92,10 +93,10 @@ const CourseSelect = () => {
   });
 
   if (isLoading) {
-    <div>로딩중 입니다...</div>;
+    <Spinner size="lg" color="warning" />;
   }
   if (isError) {
-    <div>에러 입니다...</div>;
+    <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
   }
 
   return <div>{courseName}</div>;

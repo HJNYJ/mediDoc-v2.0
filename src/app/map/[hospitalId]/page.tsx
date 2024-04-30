@@ -18,6 +18,7 @@ import ReviewItem from "@/components/map/review/ReviewItem";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import PagebackBtn from "@/components/layout/PageBackBtn";
+import { Spinner } from "@nextui-org/react";
 
 const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
   const router = useRouter();
@@ -56,8 +57,8 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
     router.push("/map");
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error!</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <main>
@@ -99,7 +100,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
             {reviewPhotos?.slice(0, 6).map((img, index) => (
               <div
                 key={img?.photo_id}
-                // className="flex w-[90px] h-[90px] rounded-[10px]"
                 className="relative w-full h-[100px] border border-gray-100 overflow-hidden flex items-center justify-center"
               >
                 <Image
