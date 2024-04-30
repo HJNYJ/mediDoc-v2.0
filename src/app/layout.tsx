@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <main className="max-w-[430px] mx-auto total_margin pb-[75px]">
+          <main className="max-w-[430px] mx-auto total_margin">
             {children}
             <Navbar />
             {/* <ReactQueryDevtools /> */}
