@@ -6,7 +6,6 @@ export type TabState = {
 export type TabList = Pick<TabState, "selectedTab">;
 
 export interface TabsProps {
-  posts: ConsultType[];
   setPosts: React.Dispatch<React.SetStateAction<ConsultType[]>>;
 }
 
