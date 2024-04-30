@@ -62,10 +62,12 @@ const HospitalItem = ({ hospital }) => {
       className="flex gap-4 cursor-pointer"
       onClick={() => router.push(`/map/${hospital.hospital_id}`)}
     >
-      <figure className="flex flex-col w-[96px] h-[98px] justify-center">
-        <img
+      <figure className="flex flex-col justify-center">
+        <Image
           src={hospital.hospital_image}
           alt="병원 이미지"
+          width={96}
+          height={98}
           className="min-w-full min-h-full object-cover rounded-[10px]"
         />
       </figure>
