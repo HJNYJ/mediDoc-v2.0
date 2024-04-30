@@ -1,4 +1,4 @@
-// 실시간 상담 페이지
+// // 실시간 상담 페이지 [최종적으로 나와야하는 = 부위 카테고리, 모든 게시글 리스트, 카테고리별 리스트, 작성하기 버튼]
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -33,7 +33,7 @@ const ConsultPage = () => {
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs posts={posts} setPosts={setPosts} />
+      <ConsultTabs setPosts={setPosts} />
       <div>
         {posts?.map((consult) => {
           return (
@@ -101,6 +101,7 @@ const ConsultPage = () => {
           );
         })}
       </div>
+
       <WriteButton />
     </div>
   );
