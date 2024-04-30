@@ -13,6 +13,7 @@ import AnswerWaiting from "@/components/layout/AnswerWaiting";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@nextui-org/react";
 
 const HomeConsultItem = () => {
   const router = useRouter();
@@ -60,8 +61,9 @@ const HomeConsultItem = () => {
     router.push(`/consult/${consultId}`);
   };
 
-  if (isLoadingRecent) return <div>로딩 중...</div>;
-  if (isErrorRecent) return <div>에러가 발생했습니다.</div>;
+  if (isLoadingRecent) return <Spinner size="lg" color="warning" />;
+  if (isErrorRecent)
+    return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <div>

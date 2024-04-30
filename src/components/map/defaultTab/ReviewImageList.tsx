@@ -1,6 +1,7 @@
 // 방문자 사진 section
 "use client";
 import { fetchHospitalReviewImages } from "@/hooks/getReviewData";
+import { Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
@@ -14,8 +15,8 @@ const ReviewImageList = ({ hospitalId }: { hospitalId: string }) => {
     queryFn: () => fetchHospitalReviewImages(hospitalId)
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error!</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <section className="mt-5">

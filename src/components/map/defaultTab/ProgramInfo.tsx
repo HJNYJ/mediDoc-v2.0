@@ -3,7 +3,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { selectCourseName } from "@/hooks/getReservationData";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, Spinner } from "@nextui-org/react";
 
 const ProgramInfo = () => {
   const { data, isLoading, isError } = useQuery({
@@ -33,11 +33,11 @@ const ProgramInfo = () => {
   });
 
   if (isLoading) {
-    <div>로딩 중 입니다...</div>;
+    <Spinner size="lg" color="warning" />;
   }
 
   if (isError) {
-    <div>에러 입니다...</div>;
+    <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
   }
   return <section>{course}</section>;
 };

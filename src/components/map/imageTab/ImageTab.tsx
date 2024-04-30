@@ -1,6 +1,7 @@
 // "사진" 탭을 눌렀을 때 나오는 div
 "use client";
 import { fetchReviewImages } from "@/hooks/getReviewData";
+import { Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
@@ -14,9 +15,8 @@ const ImageTab = () => {
     queryFn: fetchReviewImages
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error!</p>;
-
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
   return (
     <main>
       {/* DB의 사진들을 map을 사용하여 grid 3 출력 */}

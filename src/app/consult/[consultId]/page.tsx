@@ -14,6 +14,7 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import Image from "next/image";
+import { Spinner } from "@nextui-org/react";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
@@ -92,7 +93,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     router.push("/consult");
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
