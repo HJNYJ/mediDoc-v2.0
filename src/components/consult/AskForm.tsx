@@ -102,11 +102,15 @@ const AskForm = () => {
     if (fileList.length) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-      filesArray.forEach((file) => {
-        handleAddImages(file, consultId);
+
+      const fileArr = filesArray.map((file) => {
+        return handleAddImages(file, consultId);
       });
+
+      await Promise.all(fileArr);
     }
   };
+  // for문으로 바꾸기, filesArray for문
   // 업로드된 파일이 3개가 초과되면 그 뒤에 들어오는 파일은 없앰
   if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
@@ -207,7 +211,7 @@ const AskForm = () => {
 
     const id: string = data?.consultId || "";
 
-    handleFiles(id);
+    await handleFiles(id);
 
     if (data) {
       alert("글 작성이 완료됐습니다.");
