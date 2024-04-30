@@ -33,7 +33,7 @@ const ConsultPage = () => {
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs posts={posts} setPosts={setPosts} />
+      <ConsultTabs setPosts={setPosts} />
       <div>
         {posts?.map((consult) => {
           return (
