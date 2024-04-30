@@ -4,7 +4,8 @@ const nextConfig = {
     domains: [
       "ifh.cc",
       "search.pstatic.net",
-      "zxmfaufazajrwupitcjr.supabase.co"
+      "zxmfaufazajrwupitcjr.supabase.co",
+      "img1.kakaocdn.net"
     ]
   }
 };

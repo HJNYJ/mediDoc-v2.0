@@ -26,7 +26,7 @@ const SelfTestWidget = () => {
               테스트에서 건강 상태를 확인해보세요.
             </p>
           </section>
-          <section className="place-content-center mr-2">
+          <section className="place-content-center">
             <Image src={nextIcon} alt="버튼" />
           </section>
         </section>
