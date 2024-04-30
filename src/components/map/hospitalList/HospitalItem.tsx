@@ -68,7 +68,7 @@ const HospitalItem = ({ hospital }) => {
           alt="병원 이미지"
           width={96}
           height={98}
-          className="min-w-full min-h-full object-cover rounded-[10px]"
+          className="w-[100px] h-[91px] object-cover rounded-[10px]"
         />
       </figure>
       {/* 오른쪽 - 병원 정보 */}
