@@ -37,7 +37,7 @@ const ConsultPage = () => {
       </div>
       <ConsultTabs
         // handleCategoryChange={handleCategoryChange}
-        posts={posts}
+        // posts={posts}
         setPosts={setPosts}
       />
       <div>
