@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import Hashtag from "@/utils/hashtag";
 import RoundTabs from "@/components/layout/RoundTabs";
 import Image from "next/image";
+import { Spinner } from "@nextui-org/react";
 
 const ReviewRecent = () => {
   const { hospitalId } = useParams();
@@ -58,8 +59,10 @@ const ReviewRecent = () => {
     enabled: selectedTab === "recent" // selectedTab이 'recent'일 때만 쿼리를 실행
   });
 
-  if (isLoadingRatedTop || isLoadingRecent) return <div>로딩 중...</div>;
-  if (isErrorRatedTop || isErrorRecent) return <div>에러가 발생했습니다.</div>;
+  if (isLoadingRatedTop || isLoadingRecent)
+    return <Spinner size="lg" color="warning" />;
+  if (isErrorRatedTop || isErrorRecent)
+    return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <div className="mt-[20px]">

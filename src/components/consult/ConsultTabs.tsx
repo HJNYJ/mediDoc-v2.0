@@ -26,8 +26,6 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
         `
       )
       .eq("bodyparts", currentTab);
-    //range(0, 5)
-    // .range(0, 9); //파람 값으로 받아오기 useRef 맨밑에 만나면 true, false, 주기
 
     if (error) {
       console.error("Error fetching posts:", error);
@@ -37,7 +35,6 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);
-    // fetchMorePosts(1);
   };
 
   return (

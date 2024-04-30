@@ -14,7 +14,6 @@ const useInterSectionObserver = ({
   onIntersect
 }: useIntersectionObserverProps) => {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  // const observer = useRef<IntersectionObserver | null>(null);
 
   //observer 등록
   //target이라는 상태값이 있으면 IntersectionObserver를 생성하여 observer에 담음

@@ -263,7 +263,6 @@ const ReviewForm = ({ hospitalId }: ReviewFormProps) => {
                   id="file"
                   name="file"
                   onChange={setImgHandler}
-                  // onChange={handleFiles}
                   multiple
                   hidden
                 />

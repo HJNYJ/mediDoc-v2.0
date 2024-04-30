@@ -1,5 +1,7 @@
+// 상담내역 상세페이지
+
 "use client";
-// 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
+
 import { supabase } from "@/api/supabase";
 import {
   getConsultDetail,
@@ -14,6 +16,7 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultNotice from "@/components/consult/ConsultNotice";
 import ConsultAnswerForm from "@/components/consult/ConsultAnswerForm";
 import Image from "next/image";
+import { Spinner } from "@nextui-org/react";
 
 const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   const router = useRouter();
@@ -55,7 +58,6 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   });
 
   const { data: answerDetailData, refetch } = useQuery({
-    // Add 'refetch' to destructure the refetch function
     queryKey: ["answerDetail", params.consultId],
     queryFn: () => getAnswerDetail(params.consultId)
   });
@@ -92,7 +94,7 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
     router.push("/consult");
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner size="lg" color="warning" />;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

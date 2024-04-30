@@ -1,5 +1,4 @@
 // 지역별 병원 찾기
-
 "use client";
 
 import { useRouter } from "next/navigation";
