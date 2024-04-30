@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useApplyStore from "@/shared/zustand/applyStore";
 import { getHospitalName } from "@/hooks/getReservationData";
+import { Spinner } from "@nextui-org/react";
 
 const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   const { setHospitalName } = useApplyStore();
@@ -21,11 +22,11 @@ const HospitalName = ({ hospitalId }: { hospitalId: string }) => {
   }, [setHospitalName, hospitalData]);
 
   if (isLoading) {
-    <div>로딩 중 입니다...</div>;
+    <Spinner size="lg" color="warning" />;
   }
 
   if (isError) {
-    <div>에러 입니다...</div>;
+    <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
   }
 
   return (

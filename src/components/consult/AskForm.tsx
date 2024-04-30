@@ -1,9 +1,9 @@
 // 질문&답변 Textarea
+
 "use client";
 import { supabase } from "@/api/supabase";
 import { consultAddForm, uploadPhotosUrl } from "@/hooks/getConsultData";
 import React, { MouseEvent, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { getUserInfo } from "@/hooks/getUserInfo";
 import { useRouter } from "next/navigation";
 import HashTags from "./HashTags";
@@ -33,10 +33,7 @@ const AskForm = () => {
       dataUrl: string | ArrayBuffer | null;
     }[]
   >([]);
-
   /** 이미지 컴포넌트 사용하는 state 및 함수 끝 */
-  const consultId = uuidv4();
-  console.log(consultId);
 
   const isValidImgSize = (imgList) => {
     let result = true;
@@ -65,21 +62,16 @@ const AskForm = () => {
       fileType: "image/webp"
     };
 
-    // const compressionFiles = [];
     const compressFileList = fileList.map((item) => {
       return imageCompression(item, options);
     });
 
-    // const webPBlob: Blob = (await convertImageToWebP(file)) as Blob;
-    // if (!isValidImgSize(fileList)) return;
     if (!isValidImgSize(compressFileList)) return;
 
     const compressedFiles = await Promise.all(compressFileList);
     setImg([...img, ...compressedFiles]);
-
     /** 이미지 압축 라이브러리 사용 끝 */
 
-    // setImg([...img, ...fileList]);
     // 이미지를 선택한 후에 바로 이미지를 미리보기
     compressedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -110,11 +102,15 @@ const AskForm = () => {
     if (fileList.length) {
       const filesArray = Array.from(fileList);
       setFiles(filesArray);
-      filesArray.forEach((file) => {
-        handleAddImages(file, consultId);
+
+      const fileArr = filesArray.map((file) => {
+        return handleAddImages(file, consultId);
       });
+
+      await Promise.all(fileArr);
     }
   };
+  // for문으로 바꾸기, filesArray for문
   // 업로드된 파일이 3개가 초과되면 그 뒤에 들어오는 파일은 없앰
   if (uploadedFileUrl.length > 3 && files.length > 3) {
     uploadedFileUrl.pop() && files.pop();
@@ -122,7 +118,6 @@ const AskForm = () => {
   }
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
-    console.log("consultId >>>>>", consultId);
     try {
       const newFileName = `${Math.random()}`;
       // Supabase Storage에 이미지 업로드
@@ -216,7 +211,7 @@ const AskForm = () => {
 
     const id: string = data?.consultId || "";
 
-    handleFiles(id);
+    await handleFiles(id);
 
     if (data) {
       alert("글 작성이 완료됐습니다.");
@@ -227,7 +222,6 @@ const AskForm = () => {
     <>
       <TopNavbar title="실시간 상담" />
       <div className="mt-5 ">
-        {/* <Image src={searchbar} alt="서치바" className="w-[390px] h-[50px] mb-5" /> */}
         <div className=""></div>
         <form onSubmit={(e) => e.preventDefault()} className="mt-1">
           <div>
@@ -303,7 +297,6 @@ const AskForm = () => {
                           className="w-[85px] h-[85px] mr-2 rounded-lg"
                         />
                       </button>
-                      {/* <img src={image.dataUrl} alt={image.name} /> */}
                       <div onClick={handleImageOrder}></div>
                     </div>
                   );

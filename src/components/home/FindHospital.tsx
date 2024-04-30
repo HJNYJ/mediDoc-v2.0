@@ -3,6 +3,7 @@
 import { getHospitalRegion } from "@/hooks/getHospitalData";
 import { useQuery } from "@tanstack/react-query";
 import FindHospitalRegionBtn from "./search/FindHospitalRegionBtn";
+import { Spinner } from "@nextui-org/react";
 
 const FindHospital = () => {
   const { data, isLoading, isError } = useQuery({
@@ -10,10 +11,10 @@ const FindHospital = () => {
     queryFn: getHospitalRegion
   });
   if (isLoading) {
-    <p>로딩 중...</p>;
+    <Spinner size="lg" color="warning" />;
   }
   if (isError) {
-    <p>오류가 발생했습니다.</p>;
+    <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
   }
 
   return (

@@ -9,6 +9,7 @@ import { getTime, removeTimeSecond } from "@/utils/changeTimeFormat";
 import { checkHospitalOpen } from "@/utils/checkHospitalOpen";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabase";
+import { Spinner } from "@nextui-org/react";
 
 const HospitalItem = ({ hospital }) => {
   const router = useRouter();
@@ -52,6 +53,9 @@ const HospitalItem = ({ hospital }) => {
     secondRemovedStartTime,
     secondRemovedEndTime
   );
+
+  if (isLoading) return <Spinner size="lg" color="warning" />;
+  if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   return (
     <section
