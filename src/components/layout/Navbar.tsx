@@ -76,7 +76,7 @@ export const Navbar = () => {
   }
   return (
     <div className="z-10 relative pt-20">
-      <nav className="navbar fixed bottom-0 left-[50%] translate-x-[-50%] bg-white nav_width border-t-2">
+     <nav className="navbar fixed bottom-0 left-[50%] translate-x-[-50%] bg-white nav_width border-t-2">
         <div className="flex justify-between px-2 py-2">
           <Link href={"/consult"}>
             {pathname === "/consult" || pathname === "/consult/ask" ? (
