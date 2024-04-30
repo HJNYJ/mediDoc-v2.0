@@ -1,4 +1,4 @@
-// // 실시간 상담 페이지 [최종적으로 나와야하는 = 부위 카테고리, 모든 게시글 리스트, 카테고리별 리스트, 작성하기 버튼]
+// 실시간 상담 페이지
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -9,7 +9,6 @@ import PagebackBtn from "@/components/layout/PageBackBtn";
 import ConsultTabs from "@/components/consult/ConsultTabs";
 import AnswerComplete from "@/components/layout/AnswerComplete";
 import AnswerWaiting from "@/components/layout/AnswerWaiting";
-// import SkeletonList from "@/components/skeleton/ContainerSkeleton";
 
 import type { ConsultType } from "@/types";
 import WriteButton from "@/components/consult/WriteButton";
@@ -28,18 +27,13 @@ const ConsultPage = () => {
 
   return (
     <div className="w-full">
-      {/* {isLoading && <SkeletonList />} */}
       <div className="py-[15px] flex justify-center relative">
         <button className="flex absolute left-3" onClick={onClickHomeHandler}>
           <PagebackBtn />
         </button>
         <p className="flex">실시간 상담</p>
       </div>
-      <ConsultTabs
-        // handleCategoryChange={handleCategoryChange}
-        posts={posts}
-        setPosts={setPosts}
-      />
+      <ConsultTabs posts={posts} setPosts={setPosts} />
       <div>
         {posts?.map((consult) => {
           return (
@@ -55,7 +49,6 @@ const ConsultPage = () => {
                       return (
                         <div
                           key={item?.photo_id}
-                          // className=" bg-bluegray rounded-lg flex-none order-0 flex-grow-0"
                           className="relative w-[80px] h-[80px] border border-gray-100 overflow-hidden flex items-center justify-center"
                         >
                           <Image
@@ -108,7 +101,6 @@ const ConsultPage = () => {
           );
         })}
       </div>
-      {/* <div ref={bottomOfPageRef} /> */}
       <WriteButton />
     </div>
   );

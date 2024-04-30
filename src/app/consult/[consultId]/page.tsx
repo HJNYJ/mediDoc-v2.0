@@ -1,5 +1,7 @@
+// 상담내역 상세페이지
+
 "use client";
-// 상담내역 상세페이지[3-2-1. 의사 답변이 달리기 전에 질문자 질문만 있는 세부페이지 ]
+
 import { supabase } from "@/api/supabase";
 import {
   getConsultDetail,
@@ -56,7 +58,6 @@ const ConsultDetailPage = ({ params }: { params: { consultId: string } }) => {
   });
 
   const { data: answerDetailData, refetch } = useQuery({
-    // Add 'refetch' to destructure the refetch function
     queryKey: ["answerDetail", params.consultId],
     queryFn: () => getAnswerDetail(params.consultId)
   });

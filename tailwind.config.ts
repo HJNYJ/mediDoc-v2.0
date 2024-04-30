@@ -16,11 +16,7 @@ const config: Config = {
       xl: "1280px",
       "2xl": "1536px"
     },
-    // screens: {
-    //   mobile: { max: "639px" },
-    //   tablet: { min: "640px", max: "767px" },
-    //   desktop: { min: "768px" }
-    // },
+
     extend: {
       fontFamily: { Pretendard: ["Pretendard"] },
       backgroundImage: {

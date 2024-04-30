@@ -115,7 +115,6 @@ const MainPageReview = () => {
                             height={62}
                             objectFit="cover"
                             className="rounded-[4px]"
-                            // className="w-[68px] h-[62px] rounded-[4px] mr-[4px]"
                           />
                         </div>
                       ))}

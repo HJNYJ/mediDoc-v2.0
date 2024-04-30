@@ -1,6 +1,6 @@
+// 상담 내역 1개 div
 "use client";
 
-// 상담 내역 1개 div
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabase";
 import { fetchConsultImages } from "@/hooks/getConsultData";

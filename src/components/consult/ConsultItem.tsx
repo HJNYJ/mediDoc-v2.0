@@ -1,6 +1,6 @@
+// 상담 내역 1개
 "use client";
 
-// 상담 내역 1개
 import React from "react";
 import { supabase } from "@/api/supabase";
 import { useQuery } from "@tanstack/react-query";

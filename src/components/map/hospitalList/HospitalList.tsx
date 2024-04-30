@@ -1,5 +1,6 @@
 // 제휴 병원 리스트
 "use client";
+
 import React from "react";
 import HospitalItem from "./HospitalItem";
 import { useQuery } from "@tanstack/react-query";

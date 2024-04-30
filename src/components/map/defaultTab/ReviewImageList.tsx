@@ -1,5 +1,6 @@
 // 방문자 사진 section
 "use client";
+
 import { fetchHospitalReviewImages } from "@/hooks/getReviewData";
 import { Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";

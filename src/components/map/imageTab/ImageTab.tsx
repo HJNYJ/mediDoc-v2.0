@@ -1,5 +1,6 @@
 // "사진" 탭을 눌렀을 때 나오는 div
 "use client";
+
 import { fetchReviewImages } from "@/hooks/getReviewData";
 import { Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
@@ -34,7 +35,6 @@ const ImageTab = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          // selectTab("image");
         }}
       >
         전체보기

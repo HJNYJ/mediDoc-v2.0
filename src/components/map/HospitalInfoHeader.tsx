@@ -99,13 +99,6 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
     }
   };
 
-  // const goToApplyPage = () => {
-  //   if (params?.hospitalId) {
-  //     router.push(`/apply/${params.hospitalId}`);
-  //   } else {
-  //     console.error("병원 ID가 유효하지 않습니다.");
-  //   }
-  // };
   const goToApplyPage = async () => {
     try {
       const session = await supabase.auth.getSession();

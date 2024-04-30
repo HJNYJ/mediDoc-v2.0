@@ -1,5 +1,6 @@
-"use client";
 // 상담 섹션 div
+"use client";
+
 import React from "react";
 import HomeConsultItem from "./HomeConsultItem";
 import { useRouter } from "next/navigation";
