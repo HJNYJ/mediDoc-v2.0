@@ -18,7 +18,7 @@ const SelfTestWidget = () => {
         }}
       >
         <section className="h-[76px] mt-[16px] flex justify-between bg-gray-100 rounded-[8px]">
-          <section className="h-[41px] flex flex-col mt-[17.5px]">
+          <section className="h-[41px] pl-2 text-left flex flex-col mt-[17.5px]">
             <p className="h-[19px] bold-16 mb-[6px]">
               내 건강상태 체크 해 보기
             </p>
