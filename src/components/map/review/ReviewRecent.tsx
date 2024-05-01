@@ -11,7 +11,7 @@ import { Spinner } from "@nextui-org/react";
 
 const ReviewRecent = () => {
   const { hospitalId } = useParams();
-  const [selectedTab, setSelectedTab] = useState("ratedTop");
+  const [selectedTab, setSelectedTab] = useState("recent");
   // 별점 높은 순 데이터 가져오기
 
   const {
