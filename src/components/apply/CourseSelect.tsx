@@ -21,15 +21,17 @@ const CourseSelect = () => {
     queryKey: ["course"],
     queryFn: selectCourseName
   });
-
+  // 슈파베이스에서 코스 이름과 내용을 가져오게됩니다.
   const { setSelectedCourseName, setSelectedCourseDetail, setIsCourseClicked } =
     useApplyStore();
+  // 해달 코스를 쥬스탄드에서 관리하려고 사용했습니다.
   const [checkedCourse, setCheckedCourse] = useState(new Map());
   const checkCourseHandler = (check, id) => {
     const map = new Map();
     map.set(check, id);
     setCheckedCourse(map);
   };
+  // 코스를 선택하면 체크표시를 하고 토글을 사용하여 클릭한 코스만 보여지게 만든 로직입니다.
   const courseName = course?.map((card) => {
     return (
       <article key={card.course_id}>

@@ -30,12 +30,13 @@ const ApplyPageOne = ({
     setUserNameData,
     setUserEmailData
   } = useApplyStore();
+  // 주스탄드로 이름 전화번호 생년월일 받습니다.
 
   const [nameValid, setNameValid] = useState<boolean>(false);
   const [idNumberValid, setIdNumberValid] = useState<boolean>(false);
   const [phoneValid, setPhoneValid] = useState<boolean>(false);
   const router = useRouter();
-
+  // 이름 전화번호 생년월일에 유효성검사를 하게 useState를 만들었습니다.
   useEffect(() => {
     const fetchUser = async () => {
       const {
@@ -48,6 +49,7 @@ const ApplyPageOne = ({
     };
     fetchUser();
   }, [setUserEmailData, setUserNameData]);
+  // 예약페이지에 오게되면 해당 병원의 이미지를 보여지게 되는 로직입니다.
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -64,6 +66,7 @@ const ApplyPageOne = ({
     setPhoneNumber(value);
     setPhoneValid(value.length === 11);
   };
+  // 이름 생년월일 전화번호를 입력하고 setState에 값을 담게 됩니다. 또한 유효성검사를 진행합니다.
 
   const onClickNextHandler = () => {
     if (!(nameValid && idNumberValid && phoneValid)) {
@@ -71,20 +74,20 @@ const ApplyPageOne = ({
     }
     setPageCount("two");
   };
-
+  // if문을 사용하여 다음버튼을 누를시 유효성검사가 모두 통과 되면 다음페이지로 이동하는 로직입니다.
   const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
     router.push("/home");
   };
-
+  // X 버튼을 누르게 되면 이름 생년월일 전화번호를 비우고 홈페이지로 이동하게 되는 로직입니다.
   const checkMaxLength = (target) => {
     if (target.value.length > target.maxLength) {
       target.value = target.value.slice(0, target.maxLength);
     }
   };
-
+  // 별도 alert창을 띄우지 않고 제한 자릿수를 넘으면 더이상 입력하지 않게 하는 함수입니다.
   const closeBtnHandler = (target) => {
     switch (target) {
       case "name":
@@ -103,7 +106,7 @@ const ApplyPageOne = ({
         break;
     }
   };
-
+  // input창 안에 X버튼을 두고 switch문을 사용하여 해당 인자로 받아오는 값에서 값을 비워주고 유효성 검사를 리셋 시키는 함수입니다.
   return (
     <div>
       <div className="flex w-full py-[15px]">

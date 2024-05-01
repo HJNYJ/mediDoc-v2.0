@@ -106,7 +106,7 @@ const HospitalInfoHeader: React.FC<HospitalInfoHeaderProps> = ({ params }) => {
       if (session.data.session === null) {
         if (params?.hospitalId) {
           alert("로그인이 필요한 서비스입니다.");
-          router.push("/login");
+          router.push(`/apply/${params.hospitalId}`);
         }
       } else {
         // 세션이 있는 경우
