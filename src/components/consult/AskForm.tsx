@@ -179,19 +179,15 @@ const AskForm = () => {
     }
     // 받아온 데이터를 상태에 저장
     if (data.length > 0) {
-      const tags = data[0]; // 예시에서는 첫 번째 데이터만 사용
-      setHashtags({
-        tag1: tags.tag1,
-        tag2: tags.tag2,
-        tag3: tags.tag3,
-        tag4: tags.tag4,
-        tag5: tags.tag5,
-        tag6: tags.tag6,
-        tag7: tags.tag7,
-        tag8: tags.tag8,
-        tag9: tags.tag9,
-        tag10: tags.tag10
-      });
+      const tags = data[0];
+
+      const newHashtags = {};
+      for (let i = 1; i <= 10; i++) {
+        const tagName = `tag${i}`;
+        newHashtags[tagName] = tags[tagName];
+      }
+
+      setHashtags(newHashtags);
     }
   };
 
@@ -246,7 +242,6 @@ const AskForm = () => {
         title={title}
         contents={contents}
         setContents={setContents}
-        bodyparts={bodyparts}
         setBodyparts={setBodyparts}
         hashtags={hashtags}
         setHashtags={setHashtags}
