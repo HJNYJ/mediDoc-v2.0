@@ -1,5 +1,4 @@
 // 질문&답변 Textarea
-
 "use client";
 import { supabase } from "@/api/supabase";
 import { consultAddForm, uploadPhotosUrl } from "@/hooks/getConsultData";
@@ -118,34 +117,39 @@ const AskForm = () => {
     uploadedFileUrl.pop() && files.pop();
     alert("이미지는 최대 3개까지 업로드 가능합니다.");
   }
+
   // 이미지 업로드 함수
   const handleAddImages = async (file: File, consultId: string) => {
     try {
       const newFileName = `${Math.random()}`;
+      const storagePath = `user_images/${newFileName}`;
+
       // Supabase Storage에 이미지 업로드
-      const result = await supabase.storage
+      const { data, error } = await supabase.storage
         .from("images")
-        .upload(`user_images/${newFileName}`, file);
-      if (result.data) {
-        const url =
-          process.env.NEXT_PUBLIC_SUPABASE_URL +
-          "/storage/v1/object/public/images/" +
-          result.data.path;
-        const uploadImgUrl = await uploadPhotosUrl(
-          url.toString(),
-          consultId.toString()
-        );
+        .upload(storagePath, file);
+
+      if (error) {
+        throw new Error(`파일 업로드 중 에러 발생: ${error.message}`);
+      }
+
+      console.log("data", data);
+
+      if (data) {
+        const imageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
+        const uploadImgUrl = await uploadPhotosUrl(imageUrl, consultId);
 
         if (uploadImgUrl) {
-          console.log("AskForm의 ImgUrl => ", uploadImgUrl);
+          console.log("이미지 업로드 성공: ", uploadImgUrl);
         }
       } else {
-        console.log("result", result.error.message);
+        throw new Error("파일 업로드 중 에러: 데이터가 없습니다.");
       }
     } catch (error) {
-      console.error("파일 업로드 중 에러 발생", error);
+      console.error(error);
     }
   };
+
   // 이미지 클릭 -> 순서 맨 앞으로
   const handleImageOrder = (e: MouseEvent<HTMLElement>) => {
     const url = e.currentTarget.id;
