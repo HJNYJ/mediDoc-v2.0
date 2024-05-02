@@ -4,12 +4,14 @@ import React, { useEffect } from "react";
 
 const HashTags = ({
   hashtags,
+  setHashtags,
   selectedTags,
   setSelectedTags
 }: {
   hashtags: { [key: string]: string };
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setHashtags: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }) => {
   const handleClick = async (tag: string) => {
     const isSelected = selectedTags.includes(tag);
@@ -17,6 +19,12 @@ const HashTags = ({
     if (isSelected) {
       // 이미 포함되어있으니 제거하는 로직
       setSelectedTags(selectedTags.filter((t) => t !== tag));
+      // setHashtags를 사용하여 해당 해시태그를 제거
+      setHashtags((prevHashtags) => {
+        const updatedHashtags = { ...prevHashtags };
+        delete updatedHashtags[tag];
+        return updatedHashtags;
+      });
     } else if (selectedTags.length < 3) {
       // 선택된 것이 7개 미만이어서 추가가 가능함 -> 추가
       setSelectedTags([...selectedTags, tag]);

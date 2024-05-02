@@ -25,7 +25,8 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
         consult_photos(*)
         `
       )
-      .eq("bodyparts", currentTab);
+      .eq("bodyparts", currentTab)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error("Error fetching posts:", error);

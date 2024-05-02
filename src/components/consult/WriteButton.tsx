@@ -8,7 +8,7 @@ const WriteButton = () => {
     try {
       const session = await supabase.auth.getSession();
       if (session.data.session === null) {
-        router.push("/login");
+        // router.push("/login");
       } else {
         router.push("/consult/ask");
       }
