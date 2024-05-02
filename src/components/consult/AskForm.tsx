@@ -6,16 +6,11 @@ import { consultAddForm, uploadPhotosUrl } from "@/hooks/getConsultData";
 import React, { MouseEvent, useState } from "react";
 import { getUserInfo } from "@/hooks/getUserInfo";
 import { useRouter } from "next/navigation";
-import HashTags from "./HashTags";
-import Image from "next/image";
 import camera from "@/assets/icons/consult/camera.png";
 import imageBox from "@/assets/icons/consult/imagebox.png";
-import Button from "../layout/Buttons";
 import TopNavbar from "../layout/TopNavbar";
 import imageCompression from "browser-image-compression";
-import Input from "./Input";
-import CategorySelect from "./CategorySelect";
-import fetchHashtags from "./FetchHashtags";
+import AskFormContent from "./AskFormContent";
 
 const AskForm = () => {
   const router = useRouter();
@@ -173,6 +168,33 @@ const AskForm = () => {
     setImg([]);
   };
 
+  const fetchHashtags = async (selectedCategory: string) => {
+    const { data, error } = await supabase
+      .from("consult_test")
+      .select("tag1, tag2, tag3 ,tag4, tag5, tag6, tag7, tag8, tag9, tag10")
+      .eq("body_section", selectedCategory);
+    if (error) {
+      console.error(error);
+      return;
+    }
+    // 받아온 데이터를 상태에 저장
+    if (data.length > 0) {
+      const tags = data[0]; // 예시에서는 첫 번째 데이터만 사용
+      setHashtags({
+        tag1: tags.tag1,
+        tag2: tags.tag2,
+        tag3: tags.tag3,
+        tag4: tags.tag4,
+        tag5: tags.tag5,
+        tag6: tags.tag6,
+        tag7: tags.tag7,
+        tag8: tags.tag8,
+        tag9: tags.tag9,
+        tag10: tags.tag10
+      });
+    }
+  };
+
   /**
    * 실시간 상담 데이터 및 이미지 저장(supabase, storage )
    */
@@ -220,127 +242,27 @@ const AskForm = () => {
   return (
     <>
       <TopNavbar title="실시간 상담" />
-      <div className="mt-5 ">
-        <div className=""></div>
-        <form onSubmit={(e) => e.preventDefault()} className="mt-1">
-          <div>
-            <Input
-              label="제목"
-              placeholder="제목"
-              value={title}
-              onChange={handleChange}
-              required={true}
-            />
-          </div>
-          <div className="">
-            <p className="regular-16 text-gray-800">질문</p>
-            <textarea
-              placeholder="예) 코가 간지럽고 자꾸 재채기가 나오는데 비염약을 먹어야할까요?"
-              maxLength={500}
-              value={contents}
-              onChange={(e) => setContents(e.target.value)}
-              required
-              className="w-[358px] h-[290px] border rounded-lg mt-3 text-gray-800 resize-none"
-            />
-          </div>
-          <p className="text-gray-500 text-right regular-13 mb-6 mr-5">
-            {contents.length} /500
-          </p>
-          <div className="mb-5">
-            <CategorySelect
-              onSelectCategory={fetchHashtags}
-              bodyparts={bodyparts}
-              setBodyparts={setBodyparts}
-            />
-
-            <p className="regular-14 text-gray-800 ml-2 mb-3">증상</p>
-            <HashTags
-              hashtags={hashtags}
-              setHashtags={setHashtags}
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
-          </div>
-          <div>
-            {/* 이미지 컴포넌트 시작 */}
-            <div className="flex-col">
-              <p className="regular-14 text-gray-800 ml-2 mb-3">사진</p>
-              <div className="flex">
-                {uploadedImages.map((image, idx: number) => {
-                  return (
-                    <div key={idx}>
-                      {/**이미지 렌더링 */}
-                      <button
-                        onClick={() => handleDeleteImage(idx)}
-                        className="ml-3 my-2"
-                      >
-                        ❌
-                        <Image
-                          src={String(image.dataUrl)}
-                          alt={image.name}
-                          width={85}
-                          height={85}
-                          className="w-[85px] h-[85px] mr-2 rounded-lg"
-                        />
-                      </button>
-                      <div onClick={handleImageOrder}></div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div>
-                {uploadedFileUrl.length >= 3 ? (
-                  <></>
-                ) : (
-                  <label htmlFor="file" className="flex">
-                    <input
-                      type="file"
-                      id="file"
-                      name="file"
-                      onChange={setImgHandler}
-                      // onChange={handleFiles}
-                      multiple
-                      hidden
-                    />
-
-                    <Image
-                      src={camera}
-                      alt="카메라"
-                      width={100}
-                      height={100}
-                      className="w-[100px] h-[100px] mr-2"
-                    />
-                    <Image
-                      src={imageBox}
-                      alt="사진2"
-                      width={100}
-                      height={100}
-                      className="w-[100px] h-[100px] mr-2"
-                    />
-                    <Image
-                      src={imageBox}
-                      alt="사진3"
-                      width={100}
-                      height={100}
-                      className="w-[100px] h-[100px] mr-2"
-                    />
-                  </label>
-                )}
-              </div>
-              {/* 이미지 컴포넌트 끝 */}
-            </div>
-          </div>
-          <div className="mt-10">
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              buttonType="filled"
-              size="base"
-              label="물어보기"
-            />
-          </div>
-        </form>
-      </div>
+      <AskFormContent
+        title={title}
+        contents={contents}
+        setContents={setContents}
+        bodyparts={bodyparts}
+        setBodyparts={setBodyparts}
+        hashtags={hashtags}
+        setHashtags={setHashtags}
+        selectedTags={selectedTags}
+        setSelectedTags={setSelectedTags}
+        uploadedImages={uploadedImages}
+        setImgHandler={setImgHandler}
+        handleDeleteImage={handleDeleteImage}
+        handleSubmit={handleSubmit}
+        fetchHashtags={fetchHashtags}
+        handleImageOrder={handleImageOrder}
+        handleChange={handleChange}
+        uploadedFileUrl={uploadedFileUrl}
+        imageBox={imageBox}
+        camera={camera}
+      />
     </>
   );
 };
