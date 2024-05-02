@@ -133,8 +133,6 @@ const AskForm = () => {
         throw new Error(`파일 업로드 중 에러 발생: ${error.message}`);
       }
 
-      console.log("data", data);
-
       if (data) {
         const imageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
         const uploadImgUrl = await uploadPhotosUrl(imageUrl, consultId);
