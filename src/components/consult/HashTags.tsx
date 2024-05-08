@@ -10,6 +10,7 @@ const HashTags = ({
   hashtags: { [key: string]: string };
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setHashtags: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }) => {
   const handleClick = async (tag: string) => {
     const isSelected = selectedTags.includes(tag);
