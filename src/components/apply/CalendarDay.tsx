@@ -16,16 +16,22 @@ const Calendar = () => {
   currentDate.setHours(0, 0, 0, 0);
 
   const { setSelectedDate, setIsDateClicked, selectedDate } = useApplyStore();
+  // 쥬스탄드로 선택하는 날짜를 담아 다음페이지로 이동하게 하였습니다.
   const [selectedOneDate, setSelectedOneDate] = useState<Date>();
   const handleDateClick = (date: Date, cellDate: Date) => {
     setSelectedOneDate(cellDate);
     setIsDateClicked(true);
     setSelectedDate(date);
+    // 주스탄드로 관리하는 setSate와 해당날짜를 비교하기위한 state를 만들었습니다.
   };
   const specifiedDate = getDate(selectedDate);
+  // 선택한 날짜를 보여주기위해 스트링타입으로 변환하여 사용했습니다.
   const [calendarToggle, setCalendarToggle] = useState<number>(1);
+  // 캘린더에 토글버튼을 위해 만들었습니다.
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(true);
+  // 토글버튼을 불린형으로 줄였다 커졌다 하기위한 스테이트입니다.
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  // 이전달 다음달 버튼을 위한 스테이트 입니다.
   const daysInWeek = ["일", "월", "화", "수", "목", "금", "토"];
   const monthsInYear = [
     "01",
@@ -44,15 +50,20 @@ const Calendar = () => {
 
   const generateMatrix = (): CalendarDay[][] => {
     const matrix: CalendarDay[][] = [];
+    // for문을 사용하려고하는데 값을 담아주기 위해 배열을 사용하여 map메소드를 사용하여 캘린더의 각 날짜를 보여주기 위해 사용했습니다.
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
+    // 이전달 다음달 버튼을 위해 선택한 날짜의 년 월을 변경하기 위한 로직입니다.
     const firstDay = new Date(year, month, 1).getDay();
     const numDays = new Date(year, month + 1, 0).getDate();
+    // 달력 마다 각 월 일을 보여주기 위해 사용했습니다.
 
     let date = 1;
     for (let i = 0; i < calendarToggle; i++) {
       matrix[i] = [];
+      // for문을 사용하여 세로의 각 날짜를 보여주는 로직입니다.
       for (let j = 0; j < 7; j++) {
+        // for문을 사용하여 가로의 각 날짜를 보여주는 로직입니다.
         if (i === 0 && j < firstDay) {
           matrix[i][j] = {
             date: new Date(year, month, date - firstDay + j),
@@ -72,7 +83,7 @@ const Calendar = () => {
         }
       }
     }
-
+    // 조건문을 사용하여 해당 일자 까지 (ex) 1월 부터 28일인 달이 있고 31일인 달이 있어서 사용 하였습니다.
     return matrix;
   };
 
@@ -87,6 +98,7 @@ const Calendar = () => {
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
     );
   };
+  // 이전달 다음달 버튼 로직입니다.
   const toggleCalendarHandler = () => {
     if (isOpenToggle === false) {
       setIsOpenToggle(true);
@@ -95,6 +107,7 @@ const Calendar = () => {
     }
     isOpenToggle ? setCalendarToggle(6) : setCalendarToggle(1);
   };
+  // 캘린더의 토글기능을 위해 for문 내부의 사용하였습니다.
   const matrix = generateMatrix();
 
   return (
@@ -125,12 +138,14 @@ const Calendar = () => {
               {daysInWeek.map((day) => (
                 <th key={day} className="w-[52px]">
                   {day}
+                  {/* 요일을 보여주는 로직입니다. */}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className={isOpenToggle ? "h-3" : "h-20"}>
             {matrix.map((row, rowIndex) => {
+              // 각 일자를 나타내는 함수입니다.
               return (
                 <tr key={rowIndex} className="bold-14">
                   {row.map((cell, cellIndex) => {
@@ -150,7 +165,9 @@ const Calendar = () => {
                         }}
                         className={`z-10 text-black m-4 px-2 text-center ${JSON.stringify(selectedOneDate) === JSON.stringify(cellDate) ? "selectDate" : ""}`}
                       >
+                        {/* 삼항연산자를 사용하여 선택한 날짜에 스타일을 주입하기위해 사용하였고  Date타입이기에 스트링 타입으로 바꿔서 비교연산자를 사용했습니다.*/}
                         {cell.date.getDate()}
+                        {/* 스트링 타입으로 바꿔서 모른 일자가 보여지게 됩니다. */}
                       </td>
                     );
                   })}

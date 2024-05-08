@@ -11,6 +11,7 @@ import { Spinner } from "@nextui-org/react";
 const HospitalList = () => {
   const searchParam = useSearchParams();
   const regionId = searchParam.get("region_id");
+
   // 병원 데이터 가져오기
   const {
     isLoading,
@@ -20,12 +21,14 @@ const HospitalList = () => {
     queryKey: ["hospitalInfo"],
     queryFn: () => fetchHospitalList(regionId)
   });
+
   if (isLoading) return <Spinner size="lg" color="warning" />;
   if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
   if (!hospitalListData || hospitalListData.length === 0) {
     return <p>병원 데이터가 없습니다.</p>;
   }
+
   return (
     <main className="flex flex-col gap-10">
       {hospitalListData?.map((hospital) => (
