@@ -24,7 +24,7 @@ const CourseSelect = () => {
   // 슈파베이스에서 코스 이름과 내용을 가져오게됩니다.
   const { setSelectedCourseName, setSelectedCourseDetail, setIsCourseClicked } =
     useApplyStore();
-  // 해달 코스를 쥬스탄드에서 관리하려고 사용했습니다.
+  // 해당 코스를 쥬스탄드에서 관리하려고 사용했습니다.
   const [checkedCourse, setCheckedCourse] = useState(new Map());
   const checkCourseHandler = (check, id) => {
     const map = new Map();
