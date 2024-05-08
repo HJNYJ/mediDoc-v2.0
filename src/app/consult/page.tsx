@@ -101,7 +101,6 @@ const ConsultPage = () => {
           );
         })}
       </div>
-
       <WriteButton />
     </div>
   );

@@ -349,7 +349,7 @@ const AskForm = () => {
               type="button"
               onClick={handleSubmit}
               buttonType="filled"
-              size="base"
+              // size="base"
               label="물어보기"
             />
           </div>

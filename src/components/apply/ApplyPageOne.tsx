@@ -123,12 +123,7 @@ const ApplyPageOne = ({
       <article className="w-[100%] mt-3 mb-6 h-[168px] rounded-lg overflow-hidden">
         <HospitalImage hospitalId={hospitalId} />
       </article>
-      <div
-        className="flex flex-col min-h-[55vh]"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <div className="flex flex-col min-h-[55vh]">
         <p className="mb-7 font-bold text-xl text-black">
           정보를 입력해주세요.
         </p>
