@@ -1,5 +1,5 @@
 # MediDoc v2.0 : 건강검진 중개 플랫폼 서비스
- ![MediDoc 로고]("https://github.com/HJNYJ/mediDoc-v2.0/blob/dev/src/assets/images/architecture.png")
+ ![MediDoc 로고](https://github.com/HJNYJ/mediDoc-v2.0/blob/dev/src/assets/images/banner.png)
 
 ## MediDoc v2.0
 > **내일배움캠프 React 4기 최종 프로젝트**
@@ -21,21 +21,20 @@
 |<https://github.com/hongppa324/>|<https://github.com/jihyun-N>|<https://github.com/developeryeon>|<https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>|
 
 ## 프로젝트 소개
----
 1. 프로젝트 개요
    사용자들이 더 간편하게 합리적인 건강검진을 예약하고 건강 상태를 체크할 수 있는 모바일 어플리케이션
 
 2. 주요 기능
-   (1) 제휴 병원 목록 제공 (전체, 지역별)
-   (2) 병원 위치 제공
-   (3) 건강검진 예약 서비스
-   (4) 유저들의 후기를 통한 병원 비교
-   (5) 병원 관계자와의 의료 상담
-   (6) 유저가 실시하는 건강 테스트
+  (1) 제휴 병원 목록 제공 (전체, 지역별)
+  (2) 병원 위치 제공
+  (3) 건강검진 예약 서비스
+  (4) 유저들의 후기를 통한 병원 비교
+  (5) 병원 관계자와의 의료 상담
+  (6) 유저가 실시하는 건강 테스트
+
 
 
 # 시작 가이드
----
 ## Requirements
 
 For building and runnig the application you need:
@@ -59,4 +58,4 @@ yarn start
 ```
 
 # Service Architecture
-![아키텍처]("/src/assets/images/architecture.png")
+![아키텍처](https://github.com/HJNYJ/mediDoc-v2.0/blob/dev/src/assets/images/architecture.png)
