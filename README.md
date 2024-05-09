@@ -4,8 +4,8 @@
 ## MediDoc v2.0
 > **내일배움캠프 React 4기 최종 프로젝트**   
 > 개발 기간 
-> * MediDoc v1.0 : 2024.03.26 ~ 2024.04.22
-> * MediDov v2.0 : 2024.04.23 ~
+> MediDoc v1.0 : 2024.03.26 ~ 2024.04.22
+> MediDov v2.0 : 2024.04.23 ~
 
 
 ## Service Link
@@ -14,9 +14,9 @@
 
 ## 팀 소개
 |홍승찬|남지현|정보연|서소희|
-|:------:|:------:|:------:|:------:|
+|:----:|:----:|:----:|:----:|
 |팀장, FrontEnd|부팀장, FrontEnd|팀원, FrontEnd|팀원, Designer|
-|소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선|실시간 상담, 병원 리뷰, 퍼블리싱, 성능 개선|건강검진 예약, 퍼블리싱 총괄, 성능 개선|와이어프레임, 디자인 시안 : 모바일, 데스크탑, 랜딩페이지, 로고 및 카드 이미지|
+|소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선|실시간 상담, 병원 리뷰,   퍼블리싱, 성능 개선|건강검진 예약, 퍼블리싱 총괄,   성능 개선|와이어프레임, 디자인 시안, 랜딩페이지|
 |<https://github.com/hongppa324/>|<https://github.com/jihyun-N>|<https://github.com/developeryeon>|<https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>|
 
 
