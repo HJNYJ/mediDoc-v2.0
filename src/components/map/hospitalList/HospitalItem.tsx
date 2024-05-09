@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Image, { ImageLoader } from "next/image";
 import star from "@/assets/icons/star.png";
 import { useRouter } from "next/navigation";
 import { getTime, removeTimeSecond } from "@/utils/changeTimeFormat";
@@ -54,6 +54,10 @@ const HospitalItem = ({ hospital }) => {
     secondRemovedEndTime
   );
 
+  const myLoader: ImageLoader = ({ src, width, quality }) => {
+    return `${src}?w=${width}&q=${quality || 75}`;
+  };
+
   if (isLoading) return <Spinner size="lg" color="warning" />;
   if (isError) return <p>에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>;
 
@@ -64,11 +68,14 @@ const HospitalItem = ({ hospital }) => {
     >
       <figure className="flex flex-col justify-center">
         <Image
+          loader={myLoader}
           src={hospital.hospital_image}
           alt="병원 이미지"
           width={96}
           height={98}
           className="w-[100px] h-[91px] object-cover rounded-[10px]"
+          priority={false}
+          placeholder="blur"
         />
       </figure>
       {/* 오른쪽 - 병원 정보 */}
@@ -97,7 +104,6 @@ const HospitalItem = ({ hospital }) => {
             {averageRating.toFixed(1)}
           </span>
         </div>
-        {/* <p> 5.0 (40개)</p> */}
       </article>
     </section>
   );

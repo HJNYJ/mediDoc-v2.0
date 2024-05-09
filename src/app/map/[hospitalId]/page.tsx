@@ -70,7 +70,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
           <PagebackBtn />
         </button>
       </div>
-
       <HospitalInfoHeader params={params} />
       <nav className="flex justify-center py-2 mt-[26px] border-t-4">
         <Tab
@@ -93,7 +92,6 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
       {selectedTab === "default" && (
         <>
           <ProgramInfo />
-
           <Notice />
           <h3 className="bold-18 mb-3">방문자 사진</h3>
           <article className="inline-grid grid-cols-3 gap-3">
@@ -102,14 +100,16 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
                 key={img?.photo_id}
                 className="relative w-full h-[100px] border border-gray-100 overflow-hidden flex items-center justify-center"
               >
-                <Image
-                  src={img?.photos}
-                  alt={`사진${index + 1}`}
-                  width={100}
-                  height={100}
-                  objectFit="cover"
-                  className="rounded-[10px]"
-                />
+                {img && (
+                  <Image
+                    src={img?.photos}
+                    alt={`사진${index + 1}`}
+                    width={100}
+                    height={100}
+                    objectFit="cover"
+                    className="rounded-[10px]"
+                  />
+                )}
               </div>
             ))}
           </article>
@@ -132,9 +132,7 @@ const HospitalDetailPage = ({ params }: { params: { hospitalId: string } }) => {
         <ReviewImageList hospitalId={params.hospitalId} />
       )}
       {selectedTab === "review" && (
-        <>
-          <ReviewItem hospitalId={params.hospitalId} />
-        </>
+        <ReviewItem hospitalId={params.hospitalId} />
       )}
     </main>
   );
