@@ -2,8 +2,7 @@
  ![MediDoc 로고](https://github.com/HJNYJ/mediDoc-v2.0/blob/dev/src/assets/images/banner.png)
 
 ## MediDoc v2.0
-> **내일배움캠프 React 4기 최종 프로젝트**
-> 개발 기간 
+> **내일배움캠프 React 4기 최종 프로젝트**   개발 기간 
 > MediDoc v1.0 : 2024.03.26 ~ 2024.04.22
 > MediDov v2.0 : 2024.04.23 ~
 
@@ -22,25 +21,30 @@
 사용자들이 더 간편하게 합리적인 건강검진을 예약하고 건강 상태를 체크할 수 있는 모바일 어플리케이션
 
 ### 주요 기능
-(1) 제휴 병원 목록 제공 (전체, 지역별)   (2) 병원 위치 제공   (3) 건강검진 예약 서비스   (4) 유저들의 후기를 통한 병원 비교   (5) 병원 관계자와의 의료 상담   (6) 유저가 실시하는 건강 테스트
+* 제휴 병원 목록 제공 (전체, 지역별) 
+* 병원 위치 제공
+* 건강검진 예약 서비스 
+* 유저들의 후기를 통한 병원 비교  
+* 병원 관계자와의 의료 상담 
+* 유저가 실시하는 건강 테스트
 
 
 # 시작 가이드
-## Requirements
+**Requirements** 
 
 For building and runnig the application you need:
 * Node.js v18.19.1
 * Npm 9.2.0
 * yarn 1.22.21  
   
-## Installation
+**Installation**
 ```
 $ git clone https://github.com/HJNYJ/mediDoc-v2.0.git
 $ cd mediDoc-v2.0
 $ yarn
 ```
 
-## Run
+**Run**
 ```bash
 yarn dev
 # or
@@ -48,5 +52,5 @@ yarn build
 yarn start
 ```
 
-# Service Architecture
+## Service Architecture
 ![아키텍처](https://github.com/HJNYJ/mediDoc-v2.0/blob/dev/src/assets/images/architecture.png)
