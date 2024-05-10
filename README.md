@@ -20,7 +20,7 @@
 
 * 남지현   
   Frontend, 부팀장   
-  맡은 부분 : 예약페이지, 퍼블리싱 총괄, 성능 개선
+  맡은 부분 : 예약페이지, 퍼블리싱 총괄, 성능 개선   
   <https://github.com/jihyun-N>
 
 * 정보연   
@@ -30,7 +30,7 @@
 
 * 서소희   
   Designer, 팀원   
-  맡은 부분 : 와이어프레임, 디자인 시안, 랜딩페이지
+  맡은 부분 : 와이어프레임, 디자인 시안, 랜딩페이지   
   <https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>
 
 
@@ -47,7 +47,7 @@
 * 유저가 실시하는 건강 테스트
 
 ### 프로젝트 브로셔 노션 링크
- <https://peppermint-flag-a3a.notion.site/mediDoc-32889e2e27864a549153729ec3c908b7?pvs=4>
+ <https://peppermint-flag-a3a.notion.site/mediDoc-32889e2e27864a549153729ec3c908b7?pvs=4>   
  **기능, 기술적 의사결정 과정, 트러블 슈팅 등 자세한 내용은 브로셔를 참고해주세요!**
 
 ## 시작 가이드
