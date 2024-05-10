@@ -13,23 +13,23 @@
 
 
 ## 팀 소개
-* 홍승찬
-  Frontend, 팀장
-  맡은 부분 : 소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선
+* 홍승찬   
+  Frontend, 팀장   
+  맡은 부분 : 소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선   
   <https://github.com/hongppa324/>
 
-* 남지현
-  Frontend, 부팀장
+* 남지현   
+  Frontend, 부팀장   
   맡은 부분 : 예약페이지, 퍼블리싱 총괄, 성능 개선
   <https://github.com/jihyun-N>
 
-* 정보연
-  Frontend, 팀원 
-  맡은 부분 : 실시간 상담, 병원 리뷰, 퍼블리싱, 성능 개선
+* 정보연   
+  Frontend, 팀원   
+  맡은 부분 : 실시간 상담, 병원 리뷰, 퍼블리싱, 성능 개선   
   <https://github.com/developeryeon>
 
-* 서소희
-  Designer, 팀원
+* 서소희   
+  Designer, 팀원   
   맡은 부분 : 와이어프레임, 디자인 시안, 랜딩페이지
   <https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>
 
