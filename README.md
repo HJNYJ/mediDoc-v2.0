@@ -13,11 +13,25 @@
 
 
 ## 팀 소개
-|홍승찬|남지현|정보연|서소희|
-|:----:|:----:|:----:|:----:|
-|팀장, Frontend|부팀장, Frontend|팀원, Frontend|팀원, Designer|
-|소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선|실시간 상담, 병원 리뷰, 퍼블리싱, 성능 개선| 예약페이지, 퍼블리싱 총괄, 성능 개선|와이어프레임, 디자인 시안, 랜딩페이지|
-|<https://github.com/hongppa324/>|<https://github.com/jihyun-N>|<https://github.com/developeryeon>|<https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>|
+* 홍승찬
+  Frontend, 팀장
+  맡은 부분 : 소셜 로그인, 마이페이지, 건강테스트, 퍼블리싱, supabase 구축, 성능 개선
+  <https://github.com/hongppa324/>
+
+* 남지현
+  Frontend, 부팀장
+  맡은 부분 : 예약페이지, 퍼블리싱 총괄, 성능 개선
+  <https://github.com/jihyun-N>
+
+* 정보연
+  Frontend, 팀원 
+  맡은 부분 : 실시간 상담, 병원 리뷰, 퍼블리싱, 성능 개선
+  <https://github.com/developeryeon>
+
+* 서소희
+  Designer, 팀원
+  맡은 부분 : 와이어프레임, 디자인 시안, 랜딩페이지
+  <https://drive.google.com/file/d/12AXjNaM1uc_wc93Sm-Ylzxn1sjrycn7p/view?usp=drivesdk>
 
 
 ## 프로젝트 소개
@@ -32,7 +46,9 @@
 * 병원 관계자와의 의료 상담 
 * 유저가 실시하는 건강 테스트
 
-
+### 프로젝트 브로셔 노션 링크
+ <https://peppermint-flag-a3a.notion.site/mediDoc-32889e2e27864a549153729ec3c908b7?pvs=4>
+ **기능, 기술적 의사결정 과정, 트러블 슈팅 등 자세한 내용은 브로셔를 참고해주세요!**
 
 ## 시작 가이드
 **Requirements** 
