@@ -59,7 +59,7 @@ const AskForm = () => {
     /** 이미지 압축 라이브러리 사용 시작*/
     const options = {
       maxSizeMB: 0.2,
-      maxWidthOrHeight: 700,
+      maxWidthOrHeight: 800,
       fileType: "image/webp"
     };
 
@@ -70,7 +70,6 @@ const AskForm = () => {
     if (!isValidImgSize(compressFileList)) return;
 
     const compressedFiles = await Promise.all(compressFileList);
-    console.log("Compressed files::::", compressedFiles);
     setImg([...img, ...compressedFiles]);
     /** 이미지 압축 라이브러리 사용 끝 */
 
@@ -136,11 +135,7 @@ const AskForm = () => {
 
       if (data) {
         const imageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
-        const uploadImgUrl = await uploadPhotosUrl(imageUrl, consultId);
-
-        if (uploadImgUrl) {
-          console.log("이미지 업로드 성공: ", uploadImgUrl);
-        }
+        await uploadPhotosUrl(imageUrl, consultId);
       } else {
         throw new Error("파일 업로드 중 에러: 데이터가 없습니다.");
       }
@@ -218,7 +213,6 @@ const AskForm = () => {
     const id: string = data?.consultId || "";
 
     await handleFiles(id);
-    console.log("Uploaded images==>", img);
     if (data) {
       alert("글 작성이 완료됐습니다.");
       router.push("/consult");
