@@ -60,7 +60,7 @@ const AskForm = () => {
     const options = {
       maxSizeMB: 0.2,
       maxWidthOrHeight: 800,
-      fileType: "image/webp"
+      fileType: "image/avif"
     };
 
     const compressFileList = fileList.map((item) => {
@@ -217,7 +217,6 @@ const AskForm = () => {
     const id: string = data?.consultId || "";
 
     await handleFiles(id);
-
     if (data) {
       alert("글 작성이 완료됐습니다.");
       router.push("/consult");

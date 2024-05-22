@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/api/supabase";
 import RoundTabs from "../layout/RoundTabs";
 import type { ConsultType, TabsProps } from "@/types";
 import { Spinner } from "@nextui-org/react";
+
+const MemoizedRoundTabs = React.memo(RoundTabs);
 
 const ConsultTabs = ({ setPosts }: TabsProps) => {
   // 탭 상태 관리
@@ -42,51 +44,34 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
     setCurrentTab(tabName);
   };
 
+  const tabData = useMemo(
+    () => [
+      { label: "코 통증", name: "nose", width: 119.3 },
+      { label: "목 통증", name: "neck", width: 119.3 },
+      { label: "귀 통증", name: "ears", width: 119.3 },
+      { label: "등/허리 통증", name: "waist", width: 120.3 },
+      { label: "배 통증", name: "abdomen", width: 120.3 },
+      { label: "가슴 통증", name: "chest", width: 120.3 }
+    ],
+    []
+  );
+
   return (
     <>
       {loading && <Spinner label="Loading..." color="warning" size="sm" />}
       {!loading && (
         <div className="flex flex-wrap justify-center mb-4">
-          <RoundTabs
-            label="코 통증"
-            onClick={() => onChangeTabHandler("nose")}
-            active={currentTab === "nose"}
-            width={119.3}
-          />
-          <RoundTabs
-            label="목 통증"
-            onClick={() => onChangeTabHandler("neck")}
-            active={currentTab === "neck"}
-            width={119.3}
-          />
-          <RoundTabs
-            label="귀 통증"
-            onClick={() => onChangeTabHandler("ears")}
-            active={currentTab === "ears"}
-            width={119.3}
-          />
-          <RoundTabs
-            label="등/허리 통증"
-            onClick={() => onChangeTabHandler("waist")}
-            active={currentTab === "waist"}
-            width={120.3}
-          />
-          <RoundTabs
-            label="배 통증"
-            onClick={() => onChangeTabHandler("abdomen")}
-            active={currentTab === "abdomen"}
-            width={120.3}
-          />
-          <RoundTabs
-            label="가슴 통증"
-            onClick={() => onChangeTabHandler("chest")}
-            active={currentTab === "chest"}
-            width={120.3}
-          />
+          {tabData.map((tab) => (
+            <MemoizedRoundTabs
+              key={tab.name}
+              label={tab.label}
+              onClick={() => onChangeTabHandler(tab.name)}
+              active={currentTab === tab.name}
+              width={tab.width}
+            />
+          ))}
         </div>
       )}
-      {/* 스크롤 이벤트 처리 */}
-      {/* <div ref={pageEnd}>Posts</div> */}
     </>
   );
 };

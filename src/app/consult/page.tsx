@@ -58,6 +58,7 @@ const ConsultPage = () => {
                             height={80}
                             objectFit="cover"
                             className="rounded-lg"
+                            loading="lazy"
                           />
                         </div>
                       );
@@ -69,6 +70,7 @@ const ConsultPage = () => {
                         alt="Uploaded Image"
                         width={89}
                         height={90}
+                        loading="lazy"
                       />
                     </div>
                   )}
