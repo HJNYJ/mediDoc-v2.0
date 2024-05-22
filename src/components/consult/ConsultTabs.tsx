@@ -11,34 +11,37 @@ const ConsultTabs = ({ setPosts }: TabsProps) => {
   const [currentTab, setCurrentTab] = useState("nose");
   const [loading, setLoading] = useState(true);
 
+  const memoizedFetchPosts = useMemo(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("consult_info")
+        .select(
+          `consult_id, 
+          user_name, 
+          consult_title, 
+          consult_content,
+          bodyparts, 
+          hashtags,
+          consult_answer(*),
+          consult_photos(*)
+          `
+        )
+        .eq("bodyparts", currentTab)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching posts:", error);
+      }
+      setLoading(false);
+      return setPosts(data as ConsultType[]);
+    };
+    return fetchPosts;
+  }, [currentTab, setPosts]);
+
   useEffect(() => {
-    fetchPosts();
-  }, [currentTab]);
-
-  const fetchPosts = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("consult_info")
-      .select(
-        `consult_id, 
-        user_name, 
-        consult_title, 
-        consult_content,
-        bodyparts, 
-        hashtags,
-        consult_answer(*),
-        consult_photos(*)
-        `
-      )
-      .eq("bodyparts", currentTab)
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching posts:", error);
-    }
-    setLoading(false);
-    return setPosts(data as ConsultType[]);
-  };
+    memoizedFetchPosts();
+  }, [memoizedFetchPosts, currentTab]);
 
   const onChangeTabHandler = (tabName: string) => {
     setCurrentTab(tabName);

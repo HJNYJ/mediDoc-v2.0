@@ -59,8 +59,8 @@ const AskForm = () => {
     /** 이미지 압축 라이브러리 사용 시작*/
     const options = {
       maxSizeMB: 0.2,
-      maxWidthOrHeight: 800,
-      fileType: "image/avif"
+      maxWidthOrHeight: 700,
+      fileType: "image/webp"
     };
 
     const compressFileList = fileList.map((item) => {
@@ -70,6 +70,7 @@ const AskForm = () => {
     if (!isValidImgSize(compressFileList)) return;
 
     const compressedFiles = await Promise.all(compressFileList);
+    console.log("Compressed files::::", compressedFiles);
     setImg([...img, ...compressedFiles]);
     /** 이미지 압축 라이브러리 사용 끝 */
 
@@ -217,6 +218,7 @@ const AskForm = () => {
     const id: string = data?.consultId || "";
 
     await handleFiles(id);
+    console.log("Uploaded images==>", img);
     if (data) {
       alert("글 작성이 완료됐습니다.");
       router.push("/consult");
