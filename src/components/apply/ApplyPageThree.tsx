@@ -48,12 +48,12 @@ const ApplyPageThree = ({
   };
 
   const onClickBackButtonHandler = () => {
-    setIsTimeClicked(false);
-    setIsDateClicked(false);
     setName("");
     setIdNumber("");
     setPhoneNumber("");
     setSelectedTime("");
+    setIsTimeClicked(false);
+    setIsDateClicked(false);
     setSelectedDate(new Date());
     return setPageCount("one");
   };

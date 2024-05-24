@@ -17,7 +17,7 @@ const ApplyPageTwo = ({
 }) => {
   const { isTimeClicked, isDateClicked, setName, setIdNumber, setPhoneNumber } =
     useApplyStore();
-
+  // 쥬스탄드를 사용하여 선택한 날짜와 시간을 담아주게 사용 하였습니다.
   const router = useRouter();
 
   const onClickNextButtonHandler = () => {
@@ -31,19 +31,21 @@ const ApplyPageTwo = ({
       return setPageCount("three");
     }
   };
+  // 날짜와 시간을 모두 선택하면 다음페이지로 이동하게하는 유효성 검사입니다.
   const onClickBackButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
     return setPageCount("one");
   };
-
+  // 뒤로가기버튼을 누르게되면 이전페이지로 이동하되 정보를 리셋시키고 이동하게 됩니다.
   const onClickButtonHandler = () => {
     setName("");
     setIdNumber("");
     setPhoneNumber("");
     router.push("/home");
   };
+  // X 버튼을 누르게 되면 이름 생년월일 전화번호를 비우고 홈페이지로 이동하게 되는 로직입니다.
   return (
     <div className="flex flex-col min-h-[90vh]">
       <div className="flex w-full py-[15px]">

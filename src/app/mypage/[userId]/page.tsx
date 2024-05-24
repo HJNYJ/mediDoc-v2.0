@@ -242,7 +242,6 @@ const MyPage = () => {
           {userInfo[0].user_type === "developer" && <AccessDenied />}
         </section>
       </section>
-      <section></section>
     </>
   );
 };
