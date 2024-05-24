@@ -46,51 +46,54 @@ const AdminQuestionItem = () => {
   }
 
   return (
-    <>
+    <div className="w-[358px] h-[71px] mx-auto">
       {myAnsweredConsults.length === 0 && (
-        <p className="w-full h-[19px] mx-[110.5px] mt-[185px] text-[16px] text-gray-400">
+        <p className="w-full text-center mt-[185px] text-[16px] text-gray-400">
           실시간 상담 내역이 없습니다.
         </p>
       )}
       {myAnsweredConsults.length > 0 && (
-        <div className="mt-4">
+        <div className="mt-4 w-[358px]">
           {myAnsweredConsults.map((consult) => (
             <div
               key={consult.consult_id}
-              className="flex items-center w-96 m-4"
+              className="flex flex-col items-center w-[358px] my-4 border border-gray-200 rounded-lg p-4 shadow-md"
             >
-              <Link href={`/consult/${consult.consult_id}`}>
-                <span className="flex items-center w-full">
-                  <div className="relative w-[60px] h-[60px] mr-4 overflow-hidden">
-                    {consult.photos.map((photo) => (
-                      <Image
-                        key={photo.photo_id}
-                        src={photo.photos}
-                        alt=""
-                        width={60}
-                        height={60}
-                        className="w-[60px] h-[60px] object-fit"
-                      />
-                    ))}
-                  </div>
-                  <div className="flex flex-col justify-between flex-1">
-                    <div>
-                      <h2 className="text-2xl font-bold mb-2">
-                        {consult.questionInfo.consult_title}
-                      </h2>
-                      <p className="text-sm text-gray-500 mb-2">
-                        {consult.questionInfo.consult_content}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">답변 완료</p>
-                </span>
+              <Link
+                href={`/consult/${consult.consult_id}`}
+                className="flex flex-row h-[71px] justify-center items-center"
+              >
+                <div className="w-[60px] h-[60px] overflow-hidden mr-[5.5px]">
+                  {consult.photos.map((photo) => (
+                    <Image
+                      key={photo.photo_id}
+                      src={photo.photos}
+                      alt=""
+                      width={100}
+                      height={100}
+                      className="w-[60px] h-[60px] object-cover rounded-[10px]"
+                    />
+                  ))}
+                </div>
+                <div className="flex flex-col justify-center ml-[5.5px] w-[211px] h-[71px]">
+                  <p className="text-start semibold-18 mb-[8px] line-clamp-1">
+                    {consult.questionInfo.consult_title}
+                  </p>
+                  <p className="text-start medium-14 text-gray-700 line-clamp-2">
+                    {consult.questionInfo.consult_content}
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center ml-[18px] w-[57px] h-[27px]">
+                  <span className="w-[49px] h-[16px] text-center rounded-[4px] medium-13 text-orange bg-amber-100 justify-center">
+                    답변 완료
+                  </span>
+                </div>
               </Link>
             </div>
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
